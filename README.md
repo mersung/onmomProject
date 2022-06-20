@@ -3,5 +3,5 @@
 
 ERD
 ---------------
-![image](https://user-images.githubusercontent.com/86938974/174552117-954e319c-17c4-4679-bb87-229f0ae151c5.png)
+![image](https://user-images.githubusercontent.com/86938974/174556237-ace48b48-4c4a-427a-a940-12b86fbccc59.png)
 
