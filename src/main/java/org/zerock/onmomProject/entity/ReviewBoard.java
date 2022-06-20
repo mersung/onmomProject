@@ -34,4 +34,5 @@ public class ReviewBoard extends BaseEntity{
 
     private String img;
 
+    // 리뷰 게시판 수정
 }
