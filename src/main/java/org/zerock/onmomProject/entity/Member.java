@@ -21,6 +21,5 @@ public class Member extends BaseEntity {
 
     private String pw;
 
-    private MemberRole role;
 
 }
