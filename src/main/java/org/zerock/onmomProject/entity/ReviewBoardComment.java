@@ -20,7 +20,7 @@ public class ReviewBoardComment extends BaseEntity{
     private Member member_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private ReviewBoard board_id;
+    private ReviewBoard review_id;
 
     @Column(nullable = false, length = 1000)
     private String content;
