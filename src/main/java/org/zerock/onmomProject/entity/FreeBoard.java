@@ -4,6 +4,7 @@ package org.zerock.onmomProject.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder
@@ -20,14 +21,27 @@ public class FreeBoard extends BaseEntity{
     @ManyToOne
     private Member member_id;
 
-    @Column(nullable = false)
+    @Column(length = 50, nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(length = 1000, nullable = false)
     private String content;
 
+    @Column(length = 20)
     private Long like_cnt;
 
+    @Column(length = 20)
     private Long hate_cnt;
 
+    private LocalDateTime regDate;
+
+    private LocalDateTime modDate;
+
+    public void changeTitle(String title){
+        this.title = title;
+    }
+
+    public void changeContent(String content){
+        this.content = content;
+    }
 }
