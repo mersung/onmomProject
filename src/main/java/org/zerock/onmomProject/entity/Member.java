@@ -28,4 +28,5 @@ public class Member extends BaseEntity {
     @Column(nullable = false, length = 10)
     private MemberRole role;
 
+
 }
