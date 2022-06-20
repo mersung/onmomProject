@@ -12,6 +12,6 @@ public class OnmomController {
 
     @GetMapping("/index")
     public void index(){
-        log.info("index.............");
+        log.info("************** 온몸 첫 페이지 실행 **************");
     }
 }
