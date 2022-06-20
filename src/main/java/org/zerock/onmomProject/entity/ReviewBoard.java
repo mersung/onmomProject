@@ -16,17 +16,20 @@ public class ReviewBoard extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long review_id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member_id;
 
+    @Column(length = 50, nullable = false)
     private String title;
 
+    @Column(length = 1000, nullable = false)
     private String content;
 
     private Long like_cnt;
 
     private Long hate_cnt;
 
+    @Column(length = 50, nullable = false)
     private String area;
 
     private String img;
