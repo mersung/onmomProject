@@ -20,8 +20,10 @@ public class FreeBoard extends BaseEntity{
     @ManyToOne
     private Member member_id;
 
+    @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
     private String content;
 
     private Long like_cnt;
