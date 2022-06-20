@@ -9,18 +9,23 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = {"member_id","board_id"})
+@ToString
 public class ReviewBoardComment extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long comment_id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member_id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ReviewBoard board_id;
 
+    @Column(nullable = false, length = 1000)
     private String content;
+
+    public void changeContent(String content){
+        this.content = content;
+    }
 }
