@@ -9,7 +9,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = {"member_id", "board_id"})
+@ToString
 public class FreeBoardComment extends BaseEntity{
 
     @Id
@@ -17,11 +17,18 @@ public class FreeBoardComment extends BaseEntity{
     private Long comment;
 
     @ManyToOne
+    @Column(length = 50, nullable = false)
     private Member member_id;
 
     @ManyToOne
+    @Column(length = 20, nullable = false)
     private FreeBoard board_id;
 
+    @Column(length = 1000, nullable = false)
     private String content;
+
+    public void changeContent(String content){
+        this.content = content;
+    }
 
 }
