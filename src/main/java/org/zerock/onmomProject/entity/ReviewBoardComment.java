@@ -16,11 +16,16 @@ public class ReviewBoardComment extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long comment_id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member_id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ReviewBoard board_id;
 
+    @Column(nullable = false, length = 1000)
     private String content;
+
+    public void changeContent(String content){
+        this.content = content;
+    }
 }
