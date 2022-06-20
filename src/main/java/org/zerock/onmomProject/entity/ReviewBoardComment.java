@@ -22,5 +22,6 @@ public class ReviewBoardComment extends BaseEntity{
     @ManyToOne
     private ReviewBoard board_id;
 
+    @Column(nullable = false, length = 1000)
     private String content;
 }
