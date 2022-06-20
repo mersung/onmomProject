@@ -9,7 +9,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = "member_id, board_id")
+@ToString
 public class FreeBoardComment extends BaseEntity{
 
     @Id
