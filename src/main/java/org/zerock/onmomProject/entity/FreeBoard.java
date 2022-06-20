@@ -33,10 +33,6 @@ public class FreeBoard extends BaseEntity{
     @Column(length = 20)
     private Long hate_cnt;
 
-    private LocalDateTime regDate;
-
-    private LocalDateTime modDate;
-
     public void changeTitle(String title){
         this.title = title;
     }
