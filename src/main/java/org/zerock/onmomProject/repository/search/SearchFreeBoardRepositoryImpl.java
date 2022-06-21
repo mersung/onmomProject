@@ -13,19 +13,16 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
-import org.zerock.onmomProject.entity.QMember;
-import org.zerock.onmomProject.entity.QReviewBoard;
-import org.zerock.onmomProject.entity.QReviewBoardComment;
-import org.zerock.onmomProject.entity.ReviewBoard;
+import org.zerock.onmomProject.entity.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Log4j2
 // 쿼리 메서드나 @Query등으로 처리할 수 없는 기능은 별도의 인터페이스로 설계
-public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport implements SearchReviewBoardRepository {
+public class SearchFreeBoardRepositoryImpl extends QuerydslRepositorySupport implements SearchFreeBoardRepository {
 
-    public SearchReviewBoardRepositoryImpl(){
+    public SearchFreeBoardRepositoryImpl(){
         super(ReviewBoard.class);
     }
 
@@ -35,31 +32,25 @@ public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport i
     }
 
     @Override
-    public Page<Object[]> searchPage(String area, String type, String keyword, Pageable pageable) {
+    public Page<Object[]> FreeSearchPage(String type, String keyword, Pageable pageable) {
         // area는 지역, type은 제목/내용/제목+내용, keyword는 단어
         log.info("search1..........");
 
         // Querydsl 라이브러리 내에는 JPQLQuery라는 인터페이스가 있다.
-        QReviewBoard reviewBoard = QReviewBoard.reviewBoard; //엔티티 불러오기
-        QReviewBoardComment reviewBoardComment = QReviewBoardComment.reviewBoardComment; //엔티티 불러오기
+        QFreeBoard freeBoard = QFreeBoard.freeBoard; //엔티티 불러오기
+        QFreeBoardComment freeBoardComment = QFreeBoardComment.freeBoardComment; //엔티티 불러오기
         QMember member = QMember.member;
 
-        JPQLQuery<ReviewBoard> jpqlQuery = from(reviewBoard);
-        jpqlQuery.leftJoin(member).on(reviewBoard.member.eq(member));
-        jpqlQuery.leftJoin(reviewBoardComment).on(reviewBoardComment.reviewBoard.eq(reviewBoard));
+        JPQLQuery<FreeBoard> jpqlQuery = from(freeBoard);
+        jpqlQuery.leftJoin(member).on(freeBoard.member.eq(member));
+        jpqlQuery.leftJoin(freeBoardComment).on(freeBoardComment.board.eq(freeBoard));
 
-        JPQLQuery<Tuple> tuple = jpqlQuery.select(reviewBoard, member.member_id, reviewBoardComment.reviewBoard
-        , reviewBoardComment.content);
+        JPQLQuery<Tuple> tuple = jpqlQuery.select(freeBoard, member.member_id, freeBoardComment.board
+        , freeBoardComment.content);
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        BooleanExpression expression = reviewBoard.review_id.gt(0L);
+        BooleanExpression expression = freeBoard.free_id.gt(0L);
         booleanBuilder.and(expression);
-
-        if(area != null){
-            BooleanBuilder conditionBuilder = new BooleanBuilder();
-            conditionBuilder.or(reviewBoard.area.eq(area));
-            booleanBuilder.and(conditionBuilder);
-        }
 
         if(type != null){
             String[] typeArr = type.split("");
@@ -68,13 +59,13 @@ public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport i
             for(String t:typeArr){
                 switch (t){
                     case "t":
-                        conditionBuilder.or(reviewBoard.title.contains(keyword));
+                        conditionBuilder.or(freeBoard.title.contains(keyword));
                         break;
                     case "w":
                         conditionBuilder.or(member.member_id.contains(keyword));
                         break;
                     case "c":
-                        conditionBuilder.or(reviewBoard.content.contains(keyword));
+                        conditionBuilder.or(freeBoard.content.contains(keyword));
                         break;
                 }
             }
@@ -92,7 +83,7 @@ public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport i
             tuple.orderBy(new OrderSpecifier(direction, orderByExpression.get(prop)));
         });
 
-        tuple.groupBy(reviewBoard);
+        tuple.groupBy(freeBoard);
 
         //page처리
         tuple.offset(pageable.getOffset());
