@@ -28,4 +28,5 @@ public class ReviewBoardCommentDTO {
     private LocalDateTime regDate;
 
     private LocalDateTime modDate;
+
 }
