@@ -31,7 +31,7 @@ public interface ReviewBoardService {
     default ReviewBoard dtoToEntity(ReviewBoardDTO reviewBoardDTO) {
         ReviewBoard reviewBoard = ReviewBoard.builder()
                 .review_id(reviewBoardDTO.getReview_id())
-                .member_id(Member.builder().member_id(reviewBoardDTO.getMember_id()).build())
+                .member(Member.builder().member_id(reviewBoardDTO.getMember_id()).build())
                 .title(reviewBoardDTO.getTitle())
                 .content(reviewBoardDTO.getContent())
                 .like_cnt(reviewBoardDTO.getLike_cnt())
@@ -48,7 +48,7 @@ public interface ReviewBoardService {
 
         ReviewBoardDTO reviewBoardDTO = ReviewBoardDTO.builder()
                 .review_id(reviewBoard.getReview_id())
-                .member_id(reviewBoard.getMember_id().getMember_id())
+                .member_id(reviewBoard.getMember().getMember_id())
                 .title(reviewBoard.getTitle())
                 .content(reviewBoard.getContent())
                 .like_cnt(reviewBoard.getLike_cnt())
