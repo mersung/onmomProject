@@ -64,7 +64,7 @@ public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport i
                         conditionBuilder.or(reviewBoard.title.contains(keyword));
                         break;
                     case "w":
-                        conditionBuilder.or(member.member_id.contains(keyword)));
+                        conditionBuilder.or(member.member_id.contains(keyword));
                         break;
                     case "c":
                         conditionBuilder.or(reviewBoard.content.contains(keyword));
