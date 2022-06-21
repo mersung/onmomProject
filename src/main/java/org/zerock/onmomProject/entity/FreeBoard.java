@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = "member_id")
+@ToString(exclude = "member")
 public class FreeBoard extends BaseEntity{
 
     @Id
@@ -19,7 +19,7 @@ public class FreeBoard extends BaseEntity{
     private Long free_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member_id;
+    private Member member;
 
     @Column(length = 50, nullable = false)
     private String title;
