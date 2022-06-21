@@ -41,6 +41,7 @@ public class SearchFreeBoardRepositoryImpl extends QuerydslRepositorySupport imp
         QFreeBoardComment freeBoardComment = QFreeBoardComment.freeBoardComment; //엔티티 불러오기
         QMember member = QMember.member;
 
+
         JPQLQuery<FreeBoard> jpqlQuery = from(freeBoard);
         jpqlQuery.leftJoin(member).on(freeBoard.member.eq(member));
         jpqlQuery.leftJoin(freeBoardComment).on(freeBoardComment.board.eq(freeBoard));
