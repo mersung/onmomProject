@@ -1,8 +1,11 @@
 package org.zerock.onmomProject.repository.search;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLQuery;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.zerock.onmomProject.entity.QMember;
 import org.zerock.onmomProject.entity.QReviewBoard;
@@ -20,7 +23,13 @@ public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport i
     }
 
     @Override
-    public ReviewBoard search1() {
+    public List<ReviewBoard> search1() {
+        return null;
+    }
+
+    @Override
+    public List<ReviewBoard> search1(String area, String type, String keyword) {
+        // area는 지역, type은 제목/내용/제목+내용, keyword는 단어
         log.info("search1..........");
 
         // Querydsl 라이브러리 내에는 JPQLQuery라는 인터페이스가 있다.
@@ -34,10 +43,42 @@ public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport i
 
         JPQLQuery<Tuple> tuple = jpqlQuery.select(reviewBoard, member.member_id, reviewBoardComment.review_id
         , reviewBoardComment.content);
-        tuple.groupBy(reviewBoard);
 
-        jpqlQuery.select(reviewBoard).where(reviewBoard.review_id.eq(1L));
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        BooleanExpression expression = reviewBoard.review_id.gt(0L);
+        booleanBuilder.and(expression);
+
+        if(area != null){
+            BooleanBuilder conditionBuilder = new BooleanBuilder();
+            conditionBuilder.or(reviewBoard.area.eq(area));
+            booleanBuilder.and(conditionBuilder);
+        }
+
+        if(type != null){
+            String[] typeArr = type.split("");
+            BooleanBuilder conditionBuilder = new BooleanBuilder();
+            
+            for(String t:typeArr){
+                switch (t){
+                    case "t":
+                        conditionBuilder.or(reviewBoard.title.contains(keyword));
+                        break;
+                    case "w":
+                        conditionBuilder.or(member.member_id.contains(keyword)));
+                        break;
+                    case "c":
+                        conditionBuilder.or(reviewBoard.content.contains(keyword));
+                        break;
+                }
+            }
+            booleanBuilder.and(conditionBuilder);
+        }
+        tuple.where(booleanBuilder);
+        Sort sort = Sort.by(Sort.Direction.DESC, "like_cnt");
+        tuple.groupBy(reviewBoard);
         List<Tuple> result = tuple.fetch();
         return null;
     }
+
+
 }
