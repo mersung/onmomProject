@@ -14,9 +14,9 @@ import java.util.List;
 public interface ReviewCommentRepository extends JpaRepository<ReviewBoardComment, Long> {
 
     @EntityGraph(attributePaths = {"member"}, type = EntityGraph.EntityGraphType.FETCH)
-    List<ReviewBoardComment> findByReviewBoard(Long review_id);
+    List<ReviewBoardComment> findByReviewBoard(ReviewBoard reviewBoard);
 
     @Modifying
-    @Query("DELETE FROM ReviewBoardComment rbc WHERE rbc.member_id = :member_id")
-    void deleteByMember(String member_id);
+    @Query("DELETE FROM ReviewBoardComment rbc WHERE rbc.member = :member")
+    void deleteByMember(String member);
 }
