@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.zerock.onmomProject.dto.ReviewBoardCommentDTO;
 import org.zerock.onmomProject.entity.ReviewBoard;
 import org.zerock.onmomProject.entity.ReviewBoardComment;
-import org.zerock.onmomProject.repository.ReviewCommentRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +23,7 @@ public class ReviewCommentServiceImpl implements ReviewCommentService{
     public List<ReviewBoardCommentDTO> getListOfReviewBoard(Long review_id) {
         ReviewBoard reviewBoard = ReviewBoard.builder().review_id(review_id).build();
 
-        List<ReviewBoardComment> result = reviewCommentRepository.findByReviewBoard(reviewBoard);
+        List<ReviewBoardComment> result = reviewCommentRepository.findByReviewBoard(review_id);
 
         return result.stream().map(reviewBoardComment -> entityToDto(reviewBoardComment)).collect(Collectors.toList());
     }
