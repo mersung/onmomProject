@@ -9,7 +9,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@ToString(exclude = {"member_id", "review_id"})
+@ToString(exclude = {"member", "reviewBoard"})
 public class ReviewBoardComment extends BaseEntity{
 
     @Id
@@ -17,10 +17,10 @@ public class ReviewBoardComment extends BaseEntity{
     private Long comment_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member_id;
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private ReviewBoard review_id;
+    private ReviewBoard reviewBoard;
 
     @Column(nullable = false, length = 1000)
     private String content;

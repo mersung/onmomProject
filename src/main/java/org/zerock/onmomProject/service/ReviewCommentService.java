@@ -23,8 +23,8 @@ public interface ReviewCommentService {
     default ReviewBoardComment dtoToEntity(ReviewBoardCommentDTO reviewBoardCommentDTO){
         ReviewBoardComment reviewBoardComment = ReviewBoardComment.builder()
                 .comment_id(reviewBoardCommentDTO.getComment_id())
-                .review_id(ReviewBoard.builder().review_id(reviewBoardCommentDTO.getReview_id()).build())
-                .member_id(Member.builder().member_id(reviewBoardCommentDTO.getMember_id()).build())
+                .reviewBoard(ReviewBoard.builder().review_id(reviewBoardCommentDTO.getReview_id()).build())
+                .member(Member.builder().member_id(reviewBoardCommentDTO.getMember_id()).build())
                 .content(reviewBoardCommentDTO.getContent())
                 .build();
         return reviewBoardComment;
@@ -34,9 +34,9 @@ public interface ReviewCommentService {
 
         ReviewBoardCommentDTO reviewBoardCommentDTO = ReviewBoardCommentDTO.builder()
                 .comment_id(reviewBoardComment.getComment_id())
-                .review_id(reviewBoardComment.getReview_id().getReview_id())
-                .member_id(reviewBoardComment.getMember_id().getMember_id())
-                .nickname(reviewBoardComment.getMember_id().getNickname())
+                .review_id(reviewBoardComment.getReviewBoard().getReview_id())
+                .member_id(reviewBoardComment.getMember().getMember_id())
+                .nickname(reviewBoardComment.getMember().getNickname())
                 .content(reviewBoardComment.getContent())
                 .regDate(reviewBoardComment.getRegDate())
                 .modDate(reviewBoardComment.getModDate())
