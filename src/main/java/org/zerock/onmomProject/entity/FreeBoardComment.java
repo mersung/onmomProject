@@ -14,7 +14,7 @@ public class FreeBoardComment extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long comment;
+    private Long comment_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member_id;
