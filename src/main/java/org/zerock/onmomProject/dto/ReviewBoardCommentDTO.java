@@ -17,13 +17,16 @@ public class ReviewBoardCommentDTO {
 
     private Long comment_id;
 
-    private Member member_id;
+    private String member_id;
 
-    private ReviewBoard review_id;
+    private Long review_id;
 
     private String content;
+
+    private String nickname;
 
     private LocalDateTime regDate;
 
     private LocalDateTime modDate;
+
 }
