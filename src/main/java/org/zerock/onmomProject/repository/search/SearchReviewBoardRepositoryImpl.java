@@ -38,10 +38,10 @@ public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport i
         QMember member = QMember.member;
 
         JPQLQuery<ReviewBoard> jpqlQuery = from(reviewBoard);
-        jpqlQuery.leftJoin(member).on(reviewBoard.member_id.eq(member));
-        jpqlQuery.leftJoin(reviewBoardComment).on(reviewBoardComment.review_id.eq(reviewBoard));
+        jpqlQuery.leftJoin(member).on(reviewBoard.member.eq(member));
+        jpqlQuery.leftJoin(reviewBoardComment).on(reviewBoardComment.reviewBoard.eq(reviewBoard));
 
-        JPQLQuery<Tuple> tuple = jpqlQuery.select(reviewBoard, member.member_id, reviewBoardComment.review_id
+        JPQLQuery<Tuple> tuple = jpqlQuery.select(reviewBoard, member.member_id, reviewBoardComment.reviewBoard
         , reviewBoardComment.content);
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
