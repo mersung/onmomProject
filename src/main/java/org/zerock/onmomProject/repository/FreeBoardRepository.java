@@ -25,4 +25,5 @@ public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long> {
                     countQuery = "select count(fb) from FreeBoard fb")
     Page<Object[]> getFreeBoardWithFreeBoardCommentCount(Pageable pageable);
 
+
 }
