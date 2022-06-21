@@ -14,12 +14,12 @@ public class FreeBoardComment extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long comment;
+    private Long comment_id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member_id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private FreeBoard board_id;
 
     @Column(length = 1000, nullable = false)
