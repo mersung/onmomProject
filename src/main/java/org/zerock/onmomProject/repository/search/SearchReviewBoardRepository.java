@@ -7,5 +7,5 @@ import java.util.List;
 public interface SearchReviewBoardRepository {
     List<ReviewBoard> search1();
 
-    List<ReviewBoard> search1(String area, String type, String keyword);
+    List<Object[]> search1(String area, String type, String keyword);
 }

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.zerock.onmomProject.dto.ReviewBoardCommentDTO;
 import org.zerock.onmomProject.entity.ReviewBoard;
 import org.zerock.onmomProject.entity.ReviewBoardComment;
-import org.zerock.onmomProject.repository.ReviewCommentRepository;
 
 import java.util.List;
 import java.util.Optional;
