@@ -5,7 +5,6 @@ import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLQuery;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.zerock.onmomProject.entity.QMember;
 import org.zerock.onmomProject.entity.QReviewBoard;
@@ -13,6 +12,7 @@ import org.zerock.onmomProject.entity.QReviewBoardComment;
 import org.zerock.onmomProject.entity.ReviewBoard;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Log4j2
 // 쿼리 메서드나 @Query등으로 처리할 수 없는 기능은 별도의 인터페이스로 설계
@@ -28,7 +28,7 @@ public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport i
     }
 
     @Override
-    public List<ReviewBoard> search1(String area, String type, String keyword) {
+    public List<Object[]> search1(String area, String type, String keyword) {
         // area는 지역, type은 제목/내용/제목+내용, keyword는 단어
         log.info("search1..........");
 
@@ -57,7 +57,7 @@ public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport i
         if(type != null){
             String[] typeArr = type.split("");
             BooleanBuilder conditionBuilder = new BooleanBuilder();
-            
+
             for(String t:typeArr){
                 switch (t){
                     case "t":
@@ -74,10 +74,13 @@ public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport i
             booleanBuilder.and(conditionBuilder);
         }
         tuple.where(booleanBuilder);
-        Sort sort = Sort.by(Sort.Direction.DESC, "like_cnt");
+//        Sort sort = Sort.by(Sort.Direction.DESC, "like_cnt");
+        tuple.orderBy(reviewBoard.like_cnt.desc());
         tuple.groupBy(reviewBoard);
         List<Tuple> result = tuple.fetch();
-        return null;
+
+        List<Object[]> result2 = result.stream().map(t -> t.toArray()).collect(Collectors.toList());
+        return result2;
     }
 
 
