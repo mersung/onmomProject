@@ -18,9 +18,9 @@ public class FreeBoardCommentDTO {
 
     private Long comment_id;
 
-    private Member member_id;
+    private String member_id;
 
-    private FreeBoard board_id;
+    private Long board_id;
 
     private String content;
 

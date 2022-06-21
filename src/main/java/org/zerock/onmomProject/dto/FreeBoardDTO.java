@@ -17,7 +17,7 @@ public class FreeBoardDTO {
 
     private Long free_id;
 
-    private Member member_id;
+    private String member_id;
 
     private String title;
 
