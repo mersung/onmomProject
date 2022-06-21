@@ -11,17 +11,19 @@ import java.util.List;
 
 public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long> {
 
-    @Query("select fb, m_id from FreeBoard fb left join fb.member_id m_id where fb.free_id =: free_id")
-    Object getFreeBoardWithMember_id(@Param("free_id") Long free_id);
+    @Query("select fb, m from FreeBoard fb LEFT JOIN fb.member m where fb.free_id =:free_id")
+    Object getFreeBoardWithMember(@Param("free_id") Long free_id);
 
-    @Query("SELECT fb, fbc FROM FreeBoard fb LEFT JOIN FreeBoardComment fbc ON fbc.board_id = fb WHERE fb.free_id = :free_id")
+    @Query("SELECT fb, fbc FROM FreeBoard fb LEFT JOIN FreeBoardComment fbc ON fbc.board = fb WHERE fb.free_id = :free_id")
     List<Object[]> getFreeBoardWithFreeBoardComment(@Param("free_id") Long free_id);
 
-    @Query(value = "select fb,m_id count(fbc) " +
+    @Query(value = "select fb, m_id, count(fbc) " +
                     " from FreeBoard fb" +
-                    " left join fb.member_id m_id" +
-                    " left join FreeBoardComment fbc ON fbc.board_id = fb" +
+                    " left join fb.member m_id" +
+                    " left join FreeBoardComment fbc ON fbc.board = fb " +
                     " group by fb",
                     countQuery = "select count(fb) from FreeBoard fb")
     Page<Object[]> getFreeBoardWithFreeBoardCommentCount(Pageable pageable);
+
+
 }
