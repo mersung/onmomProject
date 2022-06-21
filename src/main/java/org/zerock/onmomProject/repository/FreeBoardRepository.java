@@ -9,7 +9,7 @@ import org.zerock.onmomProject.entity.FreeBoard;
 
 import java.util.List;
 
-public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long> {
+public interface        FreeBoardRepository extends JpaRepository<FreeBoard, Long> {
 
     @Query("select fb, m_id from FreeBoard fb left join fb.member_id m_id where fb.free_id =: free_id")
     Object getFreeBoardWithMember_id(@Param("free_id") Long free_id);
