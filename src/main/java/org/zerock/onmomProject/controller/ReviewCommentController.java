@@ -17,6 +17,7 @@ import java.util.List;
 public class ReviewCommentController {
     private final ReviewCommentService reviewCommentService;
 
+    // 결과 데이터 = ReviewBoardCommentDTO , 해당 ReviewBoard의 모든 ReviewBoardComment 반환
     @GetMapping("/{review_id}/all")
     public ResponseEntity<List<ReviewBoardCommentDTO>> getList(@PathVariable("review_id") Long review_id){
         log.info("======================list======================");
@@ -27,6 +28,7 @@ public class ReviewCommentController {
         return new ResponseEntity<>(reviewBoardCommentDTOList, HttpStatus.OK);
     }
 
+    // 결과 데이터 = 생성된 ReviewBoardComment 번호, 새로운 댓글 등록
     @PostMapping("/{review_id}")
     public ResponseEntity<Long> addComment(@RequestBody ReviewBoardCommentDTO reviewBoardCommentDTO){ // @Requestbody : ajax로 넘어오는 data 받음
         log.info("======================add ReviewComment======================");
@@ -37,6 +39,7 @@ public class ReviewCommentController {
         return new ResponseEntity<>(comment_id, HttpStatus.OK);
     }
 
+    // 결과 데이터 = 댓글의 수정 성공 여부, 댓글 수정
     @PutMapping("/{review_id}/{comment_id}")
     public ResponseEntity<Long> modifyComment(@PathVariable Long comment_id, @RequestBody ReviewBoardCommentDTO reviewBoardCommentDTO){
         log.info("======================modify ReviewComment======================");
@@ -47,6 +50,7 @@ public class ReviewCommentController {
         return new ResponseEntity<>(comment_id, HttpStatus.OK);
     }
 
+    // 결과 데이터 = 댓글 삭제
     @DeleteMapping("/{review_id}/{comment_id}")
     public ResponseEntity<Long> removeComment(@PathVariable Long comment_id){
         log.info("======================delete ReviewComment======================");
