@@ -16,7 +16,7 @@ public class ReviewBoardDTO {
 
     private Long review_id;
 
-    private Member member_id;
+    private String member_id;
 
     private String title;
 
