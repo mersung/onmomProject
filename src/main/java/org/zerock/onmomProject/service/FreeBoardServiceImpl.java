@@ -2,10 +2,18 @@ package org.zerock.onmomProject.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.zerock.onmomProject.dto.FreeBoardDTO;
+import org.zerock.onmomProject.dto.FreePageRequestDTO;
+import org.zerock.onmomProject.dto.FreePageResultDTO;
 import org.zerock.onmomProject.entity.FreeBoard;
+import org.zerock.onmomProject.entity.Member;
+import org.zerock.onmomProject.repository.FreeBoardCommentRepository;
 import org.zerock.onmomProject.repository.FreeBoardRepository;
+
+import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
@@ -13,6 +21,8 @@ import org.zerock.onmomProject.repository.FreeBoardRepository;
 
 public class FreeBoardServiceImpl implements FreeBoardService{
     private final FreeBoardRepository repository;
+
+    private final FreeBoardCommentRepository commentRepository;
     @Override
     public Long register(FreeBoardDTO dto) {
 
@@ -23,4 +33,39 @@ public class FreeBoardServiceImpl implements FreeBoardService{
         return board.getFree_id();
 
     }
+
+    @Override
+    public FreePageResultDTO<FreeBoardDTO, Object[]> getList(FreePageRequestDTO pageRequestDTO) {
+
+        Function<Object[],FreeBoardDTO> fn = (en ->
+                entityToDTO((FreeBoard)en[0],(Member)en[1],(Long)en[2]));
+
+        Page<Object[]> result = repository.searchPage(
+                pageRequestDTO.getType(),
+                pageRequestDTO.getKeyword(),
+                pageRequestDTO.getPageable(Sort.by("free_id").descending()) );
+
+
+       return new FreePageResultDTO<>(result, fn);
+    }
+
+    @Override
+    public FreeBoard get(Long free_id) {
+        Object result = repository.getFreeBoardByFree_id(free_id);
+
+        Object[] arr = (Object[]) result;
+
+        return ;
+    }
+
+    @Override
+    public void removeWithReplies(Long free_id) {
+
+    }
+
+    @Override
+    public void modify(FreeBoardDTO freeBoardDTO) {
+
+    }
+
 }
