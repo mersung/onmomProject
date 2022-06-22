@@ -12,7 +12,7 @@ public interface FreeBoardService {
 
     FreePageResultDTO<FreeBoardDTO, Object[]> getList
             (FreePageRequestDTO pageRequestDTO);
-    FreeBoard get(Long free_id);
+    FreeBoardDTO get(Long free_id);
 
     void removeWithReplies(Long free_id);
 

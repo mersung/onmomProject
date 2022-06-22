@@ -51,13 +51,12 @@ public class FreeBoardServiceImpl implements FreeBoardService{
     }
 
     @Override
-    public FreeBoard get(Long free_id) {
+    public FreeBoardDTO get(Long free_id) {
         Object result = repository.getFreeBoardByFree_id(free_id);
-
-        Object[] arr = (Object[]) result;
-
-        return entityToDTO((FreeBoard) arr[0], (Member)arr[1], (Long)arr[2]);
+        Object[] arr = (Object[])result;
+        return entityToDTO((FreeBoard)arr[0], (Member)arr[1], (Long)arr[2]);
     }
+
 
     @Transactional
     @Override
@@ -72,7 +71,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
     @Override
     public void modify(FreeBoardDTO freeBoardDTO) {
 
-        FreeBoard freeBoard = repository.getOne(FreeBoardDTO.getFree_id());
+        FreeBoard freeBoard = repository.getOne(freeBoardDTO.getFree_id());
 
         if (freeBoard != null){
 
