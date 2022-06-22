@@ -1,6 +1,5 @@
 package org.zerock.onmomProject.service;
 
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.zerock.onmomProject.dto.FreeBoardDTO;
 import org.zerock.onmomProject.dto.FreePageRequestDTO;
 import org.zerock.onmomProject.dto.FreePageResultDTO;
@@ -8,14 +7,18 @@ import org.zerock.onmomProject.entity.FreeBoard;
 import org.zerock.onmomProject.entity.Member;
 
 public interface FreeBoardService {
+    //자유 게시판 추가
     Long register(FreeBoardDTO dto);
-
+    // 목록 처리
     FreePageResultDTO<FreeBoardDTO, Object[]> getList
             (FreePageRequestDTO pageRequestDTO);
-    FreeBoard get(Long free_id);
 
+    FreeBoardDTO get(Long free_id);
+
+    //특정 글 삭제
     void removeWithReplies(Long free_id);
 
+    //특정 글 수정
     void modify(FreeBoardDTO freeBoardDTO);
     default FreeBoard dtoToEntity(FreeBoardDTO dto){
         Member member = Member.builder().member_id(dto.getMember_id()).build();
