@@ -11,6 +11,7 @@ import org.zerock.onmomProject.dto.ReviewPageRequestDTO;
 import org.zerock.onmomProject.dto.ReviewPageResultDTO;
 import org.zerock.onmomProject.entity.Member;
 import org.zerock.onmomProject.entity.ReviewBoard;
+import org.zerock.onmomProject.entity.ReviewBoardComment;
 import org.zerock.onmomProject.repository.ReviewBoardRepository;
 import org.zerock.onmomProject.repository.ReviewCommentRepository;
 
@@ -41,7 +42,7 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
     public ReviewPageResultDTO<ReviewBoardDTO, Object[]> getList(ReviewPageRequestDTO reviewPageRequestDTO) {
         log.info(reviewPageRequestDTO);
 
-        Function<ReviewBoard, ReviewBoardDTO> fn = (en -> entityToDTO((ReviewBoard) en[0],(Member)en[1],(Long)en[2]));
+        Function<Object[], ReviewBoardDTO> fn = (en -> entityToDto((ReviewBoard) en[0],(Member)en[1], (Long)en[2]));
 
         Page<Object[]> result = reviewBoardRepository.searchPage(
                 reviewPageRequestDTO.getArea(),
@@ -58,7 +59,7 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 
         Object[] arr = (Object[])result;
 
-        return entityToDTO((ReviewBoard)arr[0], (Member)arr[1], (Long)arr[2]);
+        return entityToDto((ReviewBoard)arr[0], (Member) arr[1], (Long)arr[2]);
     }
 
 

@@ -44,7 +44,7 @@ public interface ReviewBoardService {
 
 
 
-    default ReviewBoardDTO entityToDto(ReviewBoard reviewBoard){
+    default ReviewBoardDTO entityToDto(ReviewBoard reviewBoard, Member member, Long like_cnt){
 
         ReviewBoardDTO reviewBoardDTO = ReviewBoardDTO.builder()
                 .review_id(reviewBoard.getReview_id())
