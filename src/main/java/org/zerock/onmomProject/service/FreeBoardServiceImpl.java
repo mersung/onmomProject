@@ -13,6 +13,7 @@ import org.zerock.onmomProject.entity.Member;
 import org.zerock.onmomProject.repository.FreeBoardCommentRepository;
 import org.zerock.onmomProject.repository.FreeBoardRepository;
 
+import javax.transaction.Transactional;
 import java.util.function.Function;
 
 @Service
@@ -40,7 +41,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
         Function<Object[],FreeBoardDTO> fn = (en ->
                 entityToDTO((FreeBoard)en[0],(Member)en[1],(Long)en[2]));
 
-        Page<Object[]> result = repository.searchPage(
+        Page<Object[]> result = repository.FreeSearchPage(
                 pageRequestDTO.getType(),
                 pageRequestDTO.getKeyword(),
                 pageRequestDTO.getPageable(Sort.by("free_id").descending()) );
@@ -55,16 +56,31 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
         Object[] arr = (Object[]) result;
 
-        return ;
+        return entityToDTO((FreeBoard) arr[0], (Member)arr[1], (Long)arr[2]);
     }
 
+    @Transactional
     @Override
     public void removeWithReplies(Long free_id) {
 
-    }
+        commentRepository.deleteByFree_id(free_id);
 
+        repository.deleteById(free_id);
+
+    }
+    @Transactional
     @Override
     public void modify(FreeBoardDTO freeBoardDTO) {
+
+        FreeBoard freeBoard = repository.getOne(FreeBoardDTO.getFree_id());
+
+        if (freeBoard != null){
+
+            freeBoard.changeTitle(freeBoardDTO.getTitle());
+            freeBoard.changeContent(freeBoardDTO.getContent());
+
+            repository.save(freeBoard);
+        }
 
     }
 

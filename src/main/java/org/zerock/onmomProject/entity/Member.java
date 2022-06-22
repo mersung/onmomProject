@@ -3,9 +3,8 @@ package org.zerock.onmomProject.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Builder
@@ -25,8 +24,8 @@ public class Member extends BaseEntity {
     @Column(nullable = false, length = 50)
     private String pw;
 
-    @Column(nullable = false, length = 10)
-    private MemberRole role;
+    @ElementCollection(fetch = FetchType.LAZY)
+    private Set<MemberRole> roleSet;
 
 
 }

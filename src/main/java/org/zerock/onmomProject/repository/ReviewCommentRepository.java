@@ -10,7 +10,6 @@ import org.zerock.onmomProject.entity.ReviewBoard;
 import org.zerock.onmomProject.entity.ReviewBoardComment;
 
 import java.util.List;
-//@EnableJpaRepositories
 public interface ReviewCommentRepository extends JpaRepository<ReviewBoardComment, Long> {
 
     @EntityGraph(attributePaths = {"member"}, type = EntityGraph.EntityGraphType.FETCH)

@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.zerock.onmomProject.entity.FreeBoard;
+import org.zerock.onmomProject.repository.search.SearchFreeBoardRepository;
 
 import java.util.List;
 
-public interface        FreeBoardRepository extends JpaRepository<FreeBoard, Long> {
+public interface        FreeBoardRepository extends JpaRepository<FreeBoard, Long>, SearchFreeBoardRepository {
 
     @Query("select fb, m from FreeBoard fb LEFT JOIN fb.member m where fb.free_id =:free_id")
     Object getFreeBoardWithMember(@Param("free_id") Long free_id);
