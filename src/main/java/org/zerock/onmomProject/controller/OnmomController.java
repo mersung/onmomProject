@@ -14,4 +14,5 @@ public class OnmomController {
     public void index(){
         log.info("************** 온몸 첫 페이지 실행 **************");
     }
+
 }
