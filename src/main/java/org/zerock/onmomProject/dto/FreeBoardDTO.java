@@ -23,8 +23,6 @@ public class FreeBoardDTO {
 
     private String content;
 
-    private String writerMember_id; //작성자의 이름
-
     private Long like_cnt;
 
     private Long hate_cnt;

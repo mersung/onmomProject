@@ -4,4 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.zerock.onmomProject.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, String> {
+
 }
