@@ -11,7 +11,7 @@
         </h1>
 
         <form action="/onmom/freeBoardList" method="get" id="searchForm">
-            <div class="inpur-group">
+            <div class="input-group">
                 <input type="hidden" name="page" value="1">
                 <div class="input-group-prepend">
                     <select class="custom-select" name="type">
@@ -31,7 +31,6 @@
             </div>
         </form>
 
-
         <table class="table table-striped">
             <thead>
             <tr>
@@ -42,69 +41,66 @@
             </tr>
             </thead>
             <tbody>
-
-                <tr th:each="dto : ${result.dtoList}">
-                    <th scope="row">
-                        <a th:href="@{/onmom/read(free_id = ${dto.free_id},
-                            page= ${result.page},
-                            type=${"freePageRequestDTO.type},
-                           keyword="${freePageRequestDTO.keyword}}}">
-                            [[${dto.free_id}]]
-                        </a>
-                    </th>
-                    <td>[[${dto.title}]] ----------------  [<b th:text="${dto.replyCount}"></b>]</td>
-                    <td>[[${dto.writerName}]] <small>[[${dto.writerEmail}]]</small> </td>
-                    <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
-                </tr>
-
-
+                            <tr th:each="dto : ${result.dtoList}" >
+                                <th scope="row">
+                                    <a th:href="@{/onmom/read(bno = ${dto.free_id},
+                    page= ${result.page},
+                    type=${freePageRequestDTO.type} ,
+                    keyword = ${freePageRequestDTO.keyword})}">
+                                        [[${dto.free_id}]]
+                                    </a>
+                                </th>
+                                <td>[[${dto.title}]] ----------------  [<b th:text="${dto.replyCount}"></b>]</td>
+                                <td>[[${dto.writerName}]] <small>[[${dto.writerEmail}]]</small> </td>
+                                <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+                            </tr>
 
             </tbody>
         </table>
-            <ul class="pagination h-100" justify-content-center align-items-center>
-                <li class="page-item" th:if="${result.prev}">
-                    <a class="page-link" th:href="@{/onmom/freeBoardList(page= ${result.start -1},
+        <ul class="pagination h-100" justify-content-center align-items-center>
+            <li class="page-item" th:if="${result.prev}">
+                <a class="page-link" th:href="@{/onmom/freeBoardList(page= ${result.start -1},
                         type=${freePageRequestDTO.type}, keyword =${freePageRequestDTO.keyword}}}" tabindex="-1">
-                        Previous</a>
-                </li>
+                    Previous</a>
+            </li>
 
-                <li th:class=" 'page-item' + ${result.page == page? 'active':''" th:each="page: ${result.pageList">
-                    <a class="page-link" th:href="@{/onmom/freeBoardList{page =${page},
+            <li th:class=" 'page-item' + ${result.page == page? 'active':''" th:each="page: ${result.pageList">
+                <a class="page-link" th:href="@{/onmom/freeBoardList{page =${page},
                         type=${pageRequestDTO.type},
                     keyword = ${freePageRequestDTO.keyword} }}">
-                        [[${page}]]
-                    </a>
-                </li>
+                    [[${page}]]
+                </a>
+            </li>
 
-                <li class="page-item" th:if="${result.next">
-                    <a class="page-link" th:href="@{/onmom/freeBoardList(page=${result.end + 1},
+            <li class="page-item" th:if="${result.next">
+                <a class="page-link" th:href="@{/onmom/freeBoardList(page=${result.end + 1},
                                 type=${freePageRequestDTO.type},
                                 keyword = ${freePageRequestDTO.keyword} }}">Next</a>
-                </li>
+            </li>
 
-            </ul>
+        </ul>
 
 
-            <div class="modal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Modal body text goes here</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn bnt-secondary" data-dismiss="modal">Close
-                            </button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
+        <div class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Modal body text goes here</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bnt-secondary" data-dismiss="modal">Close
+                        </button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
+        </div>
 
         <script th:inline="javascript">
                 var msg = [[${msg}]];
@@ -123,5 +119,6 @@
                     searchForm.empty().submit();
                 });
             </script>
+
     </th:block>
 </th:block>

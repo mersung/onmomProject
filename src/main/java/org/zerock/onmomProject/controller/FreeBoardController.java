@@ -18,10 +18,11 @@ public class FreeBoardController {
     private final FreeBoardService freeBoardService;
 
     @GetMapping("/freeBoardList")
-    public void list(FreePageRequestDTO freePageRequestDTO, Model model){
+    public void freeBoardList(FreePageRequestDTO freePageRequestDTO, Model model){
 
-        model.addAttribute( "result",
-        freeBoardService.getList(freePageRequestDTO));
+        log.info("list............." + freePageRequestDTO);
+
+        model.addAttribute( "result", freeBoardService.getList(freePageRequestDTO));
     }
 
 //    @GetMapping("/")

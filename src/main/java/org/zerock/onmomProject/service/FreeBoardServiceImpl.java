@@ -21,7 +21,7 @@ import java.util.function.Function;
 @Log4j2
 
 public class FreeBoardServiceImpl implements FreeBoardService{
-    private final FreeBoardRepository repository;
+    private final FreeBoardRepository freeBoardRepository;
 
     private final FreeBoardCommentRepository commentRepository;
     @Override
@@ -29,22 +29,22 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
         FreeBoard board = dtoToEntity(dto);
 
-        repository.save(board);
+        freeBoardRepository.save(board);
 
         return board.getFree_id();
 
     }
 
     @Override
-    public FreePageResultDTO<FreeBoardDTO, Object[]> getList(FreePageRequestDTO pageRequestDTO) {
+    public FreePageResultDTO<FreeBoardDTO, Object[]> getList(FreePageRequestDTO freePageRequestDTO) {
 
         Function<Object[],FreeBoardDTO> fn = (en ->
                 entityToDTO((FreeBoard)en[0],(Member)en[1],(Long)en[2]));
 
-        Page<Object[]> result = repository.FreeSearchPage(
-                pageRequestDTO.getType(),
-                pageRequestDTO.getKeyword(),
-                pageRequestDTO.getPageable(Sort.by("free_id").descending()) );
+        Page<Object[]> result = freeBoardRepository.FreeSearchPage(
+                freePageRequestDTO.getType(),
+                freePageRequestDTO.getKeyword(),
+                freePageRequestDTO.getPageable(Sort.by("free_id").descending()) );
 
 
        return new FreePageResultDTO<>(result, fn);
@@ -52,7 +52,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
     @Override
     public FreeBoardDTO get(Long free_id) {
-        Object result = repository.getFreeBoardByFree_id(free_id);
+        Object result = freeBoardRepository.getFreeBoardByFree_id(free_id);
         Object[] arr = (Object[])result;
         return entityToDTO((FreeBoard)arr[0], (Member)arr[1], (Long)arr[2]);
     }
@@ -71,14 +71,14 @@ public class FreeBoardServiceImpl implements FreeBoardService{
     @Override
     public void modify(FreeBoardDTO freeBoardDTO) {
 
-        FreeBoard freeBoard = repository.getOne(freeBoardDTO.getFree_id());
+        FreeBoard freeBoard = freeBoardRepository.getOne(freeBoardDTO.getFree_id());
 
         if (freeBoard != null){
 
             freeBoard.changeTitle(freeBoardDTO.getTitle());
             freeBoard.changeContent(freeBoardDTO.getContent());
 
-            repository.save(freeBoard);
+            freeBoardRepository.save(freeBoard);
         }
 
     }
