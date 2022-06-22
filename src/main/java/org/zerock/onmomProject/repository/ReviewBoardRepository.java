@@ -23,5 +23,11 @@ public interface ReviewBoardRepository extends JpaRepository<ReviewBoard, Long>,
             " left join ReviewBoardComment rbc ON rbc.reviewBoard = rb " +
             " group by rb",
             countQuery = "select count(rb) from ReviewBoard rb")
-    Page<Object[]> getReviewBoardWithReviewBoardCommentCount(Pageable pageable);
+    Page<Object[]> getReviewBoardWithReviewBoardCommentCount(Pageable pageable); //목록 화면에 필요한 데이터
+
+    @Query("select rb, w, count(r) " +
+            " from ReviewBoard rb left join rb.member m_id " +
+            " left outer join ReviewBoardComment rbc on rbc.reviewBoard = rb" +
+            " where rb.review_id = :review_id")
+    Object getReviewBoardByReview_id(@Param("review_id")Long review_id);
 }
