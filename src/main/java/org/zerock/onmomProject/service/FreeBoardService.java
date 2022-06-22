@@ -1,21 +1,47 @@
 package org.zerock.onmomProject.service;
 
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.zerock.onmomProject.dto.FreeBoardDTO;
+import org.zerock.onmomProject.dto.FreePageRequestDTO;
+import org.zerock.onmomProject.dto.FreePageResultDTO;
 import org.zerock.onmomProject.entity.FreeBoard;
 import org.zerock.onmomProject.entity.Member;
 
 public interface FreeBoardService {
     Long register(FreeBoardDTO dto);
 
-    default FreeBoard dtoToEntity(FreeBoardDTO dto){
-        Member member = Member.builder().member_id(dto.getWriterMember_id()).build();
+    FreePageResultDTO<FreeBoardDTO, Object[]> getList
+            (FreePageRequestDTO pageRequestDTO);
+    FreeBoard get(Long free_id);
 
-        FreeBoard board = FreeBoard.builder()
+    void removeWithReplies(Long free_id);
+
+    void modify(FreeBoardDTO freeBoardDTO);
+    default FreeBoard dtoToEntity(FreeBoardDTO dto){
+        Member member = Member.builder().member_id(dto.getMember_id()).build();
+
+        FreeBoard freeBoard = FreeBoard.builder()
                 .free_id(dto.getFree_id())
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .member(member)
                 .build();
-        return board;
+        return freeBoard;
+    }
+    default FreeBoardDTO entityToDTO(FreeBoard freeBoard, Member member, Long replyCount) {
+
+        FreeBoardDTO freeBoardDTO = FreeBoardDTO.builder()
+                .free_id(freeBoard.getFree_id())
+                .member_id(member.getMember_id())
+                .title(freeBoard.getTitle())
+                .content(freeBoard.getContent())
+                .like_cnt(freeBoard.getLike_cnt()) //int로 처리하도록
+                .hate_cnt(freeBoard.getHate_cnt())
+                .regDate(freeBoard.getRegDate())
+                .modDate(freeBoard.getModDate())
+                .build();
+
+        return freeBoardDTO;
+
     }
 }

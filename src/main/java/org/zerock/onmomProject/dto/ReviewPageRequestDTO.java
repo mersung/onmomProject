@@ -17,6 +17,7 @@ public class ReviewPageRequestDTO {
     private int size; // page, size 필요 없을수도 있음. 슬릭 슬라이더 사용시 지우면 됨 //
     private String area; // area별로 검색
     private String keyword; // 키워드 별 검색
+    private String type;
 
     public ReviewPageRequestDTO(){
         this.page = 1;
