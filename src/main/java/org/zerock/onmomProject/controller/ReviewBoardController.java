@@ -20,6 +20,7 @@ public class ReviewBoardController {
 
     @GetMapping("/register")
     public void register(){
+
         log.info("등록화면 띄우기");
     }
 
