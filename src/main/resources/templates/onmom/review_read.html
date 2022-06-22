@@ -2,90 +2,149 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/basic :: setContent(~{this.content})}">
     <th:block th:fragment="content">
-    <!-- Page Content-->
-    <section class="py-5">
-        <div class="container px-5 my-5">
-            <div class="row gx-5">
-                <div class="col-lg-3">
-                    <div class="d-flex align-items-center mt-lg-5 mb-4">
-                        <img class="img-fluid rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
-                        <div class="ms-3">
-                            <div class="fw-bold">Valerie Luna</div>
-                            <div class="text-muted">News, Business</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-9">
-                    <!-- Post content-->
-                    <article>
-                        <!-- Post header-->
-                        <header class="mb-4">
-                            <!-- Post title-->
-                            <h1 class="fw-bolder mb-1">Welcome to Blog Post!</h1>
-                            <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">January 1, 2022</div>
-                            <!-- Post categories-->
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
-                        </header>
-                        <!-- Preview image figure-->
-                        <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
-                        <!-- Post content-->
-                        <section class="mb-5">
-                            <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe.</p>
-                            <p class="fs-5 mb-4">The universe is large and old, and the ingredients for life as we know it are everywhere, so there's no reason to think that Earth would be unique in that regard. Whether of not the life became intelligent is a different question, and we'll see if we find that.</p>
-                            <p class="fs-5 mb-4">If you get asteroids about a kilometer in size, those are large enough and carry enough energy into our system to disrupt transportation, communication, the food chains, and that can be a really bad day on Earth.</p>
-                            <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
-                            <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
-                            <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p>
-                        </section>
-                    </article>
-                    <!-- Comments section-->
-                    <section>
-                        <div class="card bg-light">
-                            <div class="card-body">
-                                <!-- Comment form-->
-                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
-                                <!-- Comment with nested comments-->
-                                <div class="d-flex mb-4">
-                                    <!-- Parent comment-->
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                        <!-- Child comment 1-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-                                            </div>
+        <!-- Page Content-->
+        <section class="py-5 post_content">
+            <div class="container px-5 my-5 review_post">
+                <div class="row gx-5">
+                    <div class="container-fluid">
+                        <!-- 게시물 상세-->
+                        <article>
+                            <header class="mb-4">
+                                <!-- 게시판 기본 타이틀 -->
+                                <div class="board_title">
+                                    <div>
+                                        <img src="/img/star.png" alt="별">
+                                    </div>
+                                    <h1>추천 헬스장<span class="fw-light text-muted sub_title">회원 분들의 추천 게시판입니다.</span></h1>
+                                </div>
+                                <div class="post_info">
+                                    <!-- 게시글 제목-->
+                                    <h2 class="fw-bolder post_title">Welcome to Blog Post!</h2>
+                                    <hr />
+                                    <!-- 작성 정보-->
+                                    <div class="text-muted mb-2 post_detail">
+                                        <div class="post_no col-3">
+                                            <p class="mb-0 fw-bold text-dark">번호</p>
+                                            <span>
+                                                105
+                                            </span>
                                         </div>
-                                        <!-- Child comment 2-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                When you put money directly to a problem, it makes a good headline.
-                                            </div>
+                                        <div class="post_area col-3">
+                                            <p class="mb-0 fw-bold text-dark">지역</p>
+                                            <span>
+                                                서울시 영등포구
+                                            </span>
+                                        </div>
+                                        <div class="post_wirte col-3">
+                                            <p class="mb-0 fw-bold text-dark">작성자</p>
+                                            <span>
+                                                test_id
+                                            </span>
+                                        </div>
+                                        <div class="post_date col-3">
+                                            <p class="mb-0 fw-bold text-dark">작성일</p>
+                                            <span>
+                                                2022/06/22
+                                            </span>
                                         </div>
                                     </div>
+                                    <hr />
                                 </div>
-                                <!-- Single comment-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
+                            </header>
+                            <!-- 이미지 영역, div 태그로 작성되어 자동 줄바꿈, img 태그에 dto 코드 기입-->
+                            <div class="mb-4">
+                                <img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+                            </div>
+                            <!-- 글 내용-->
+                            <section class="mb-5">
+                                <!-- 글 내용 관련 thymeleaf 코드는 p 태그 안에 기입 -->
+                                <p class="fs-5 mb-4">
+                                    Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe.
+                                </p>
+                            </section>
+                            <!-- 좋아요 싫어요 -->
+                            <div class="like">
+                                <div class="like_inner">
+                                    <div>
+                                        <img src="img/like.png" alt="좋아요">
+                                        <!-- like_cnt, default 값은 0으로 함 -->
+                                        <span>0</span>
+                                    </div>
+                                    <div>
+                                        <img src="img/dislike.png" alt="싫어요">
+                                        <!-- dislike_cnt, default 값은 0으로 함 -->
+                                        <span>0</span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
+                            <!-- 수정 / 삭제 / 목록 버튼 -->
+                            <div class="btn_wrap">
+                                <button type="button" class="btn btn-dark btn_style">수정</button>
+                                <button type="button" class="btn btn-dark btn_style">삭제</button>
+                                <button type="button" class="btn btn-dark btn_style">목록</button>
+                            </div>
+                        </article>
+                        <hr />
+                        <!-- 댓글 section 영역-->
+                        <section>
+                            <div>
+                                <div class="card-body comment_area">
+                                    <!-- 댓글 예시임 코딩할 때 삭제할 것-->
+                                    <div class="d-flex mb-4">
+                                        <!-- Parent comment-->
+                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                        <div class="ms-3">
+                                            <div class="fw-bold">Commenter Name</div>
+                                            If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
+                                            <!-- Child comment 1-->
+                                            <div class="d-flex mt-4">
+                                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                                <div class="ms-3">
+                                                    <div class="fw-bold">Commenter Name</div>
+                                                    And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
+                                                </div>
+                                            </div>
+                                            <!-- Child comment 2-->
+                                            <div class="d-flex mt-4">
+                                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                                <div class="ms-3">
+                                                    <div class="fw-bold">Commenter Name</div>
+                                                    When you put money directly to a problem, it makes a good headline.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Single comment-->
+                                    <div class="d-flex">
+                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                        <div class="ms-3">
+                                            <div class="fw-bold">Commenter Name</div>
+                                            When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
+                                        </div>
+                                    </div>
+                                    <!-- 댓글 예시 끝 -->
+                                    <!-- 댓글 입력 창 감싸는 div -->
+                                    <div class="comment_write">
+                                        <!-- 댓글 작성자 ID, 임시로 test_id로 넣었음 -->
+                                        <div class="member_id_wrap">
+                                            <b>test_id</b>
+                                        </div>
+                                        <!-- 댓글 입력 창-->
+                                        <form class="mb-4 comment_input">
+                                            <textarea class="col-10" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+                                            <div class="submit_btn_wrap col-2">
+                                                <input type="button" class="btn-dark btn_style_sq" value="등록">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
     </th:block>
 </th:block>
 
