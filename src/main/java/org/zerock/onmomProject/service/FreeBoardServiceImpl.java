@@ -1,89 +1,86 @@
-//package org.zerock.onmomProject.service;
-//
-//import lombok.RequiredArgsConstructor;
-//import lombok.extern.log4j.Log4j2;
-//import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.Sort;
-//import org.springframework.stereotype.Service;
-//import org.zerock.onmomProject.dto.FreeBoardDTO;
-//import org.zerock.onmomProject.dto.FreePageRequestDTO;
-//import org.zerock.onmomProject.dto.FreePageResultDTO;
-//import org.zerock.onmomProject.entity.FreeBoard;
-//import org.zerock.onmomProject.entity.Member;
-//import org.zerock.onmomProject.repository.FreeBoardCommentRepository;
-//import org.zerock.onmomProject.repository.FreeBoardRepository;
-//
-//import javax.transaction.Transactional;
-//import java.util.function.Function;
-//
-//@Service
-//@RequiredArgsConstructor
-//@Log4j2
-//
-//public class FreeBoardServiceImpl implements FreeBoardService{
-//    private final FreeBoardRepository repository;
-//
-//    private final FreeBoardCommentRepository commentRepository;
-//    //댓글 등록
-//    @Override
-//    public Long register(FreeBoardDTO dto) {
-//
-//        FreeBoard board = dtoToEntity(dto);
-//
-//        repository.save(board);
-//
-//        return board.getFree_id();
-//
-//    }
-//
-//    @Override
-//    public FreePageResultDTO<FreeBoardDTO, Object[]> getList(FreePageRequestDTO pageRequestDTO) {
-//
-//        Function<Object[],FreeBoardDTO> fn = (en ->
-//                entityToDTO((FreeBoard)en[0],(Member)en[1],(Long)en[2]));
-//
-//        Page<Object[]> result = repository.FreeSearchPage(
-//                pageRequestDTO.getType(),
-//                pageRequestDTO.getKeyword(),
-//                pageRequestDTO.getPageable(Sort.by("free_id").descending()) );
-//
-//
-//       return new FreePageResultDTO<>(result, fn);
-//    }
-//
-//    @Override
-//    public FreeBoardDTO get(Long free_id) {
-//        Object result = repository.getFreeBoardByFree_id(free_id);
-//
-//        Object[] arr = (Object[]) result;
-//
-//        return entityToDTO((FreeBoard) arr[0], (Member)arr[1], (Long)arr[2]);
-//    }
-//
-//    @Transactional
-//    @Override
-//    public void removeWithReplies(Long free_id) {
-//
-//        //댓글 부터 삭제
-//        commentRepository.deleteByFree_id(free_id);
-//
-//        repository.deleteById(free_id);
-//
-//    }
-//    @Transactional
-//    @Override
-//    public void modify(FreeBoardDTO freeBoardDTO) {
-//
-//        FreeBoard freeBoard = repository.getOne(FreeBoardDTO.getFree_id());
-//
-//        if (freeBoard != null){
-//
-//            freeBoard.changeTitle(freeBoardDTO.getTitle());
-//            freeBoard.changeContent(freeBoardDTO.getContent());
-//
-//            repository.save(freeBoard);
-//        }
-//
-//    }
-//
-//}
+package org.zerock.onmomProject.service;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.zerock.onmomProject.dto.FreeBoardDTO;
+import org.zerock.onmomProject.dto.FreePageRequestDTO;
+import org.zerock.onmomProject.dto.FreePageResultDTO;
+import org.zerock.onmomProject.entity.FreeBoard;
+import org.zerock.onmomProject.entity.Member;
+import org.zerock.onmomProject.repository.FreeBoardCommentRepository;
+import org.zerock.onmomProject.repository.FreeBoardRepository;
+
+import javax.transaction.Transactional;
+import java.util.function.Function;
+
+@Service
+@RequiredArgsConstructor
+@Log4j2
+
+public class FreeBoardServiceImpl implements FreeBoardService{
+    private final FreeBoardRepository repository;
+
+    private final FreeBoardCommentRepository commentRepository;
+    @Override
+    public Long register(FreeBoardDTO dto) {
+
+        FreeBoard board = dtoToEntity(dto);
+
+        repository.save(board);
+
+        return board.getFree_id();
+
+    }
+
+    @Override
+    public FreePageResultDTO<FreeBoardDTO, Object[]> getList(FreePageRequestDTO pageRequestDTO) {
+
+        Function<Object[],FreeBoardDTO> fn = (en ->
+                entityToDTO((FreeBoard)en[0],(Member)en[1],(Long)en[2]));
+
+        Page<Object[]> result = repository.FreeSearchPage(
+                pageRequestDTO.getType(),
+                pageRequestDTO.getKeyword(),
+                pageRequestDTO.getPageable(Sort.by("free_id").descending()) );
+
+
+       return new FreePageResultDTO<>(result, fn);
+    }
+
+    @Override
+    public FreeBoardDTO get(Long free_id) {
+        Object result = repository.getFreeBoardByFree_id(free_id);
+        Object[] arr = (Object[])result;
+        return entityToDTO((FreeBoard)arr[0], (Member)arr[1], (Long)arr[2]);
+    }
+
+
+    @Transactional
+    @Override
+    public void removeWithReplies(Long free_id) {
+
+        commentRepository.deleteByFree_id(free_id);
+
+        repository.deleteById(free_id);
+
+    }
+    @Transactional
+    @Override
+    public void modify(FreeBoardDTO freeBoardDTO) {
+
+        FreeBoard freeBoard = repository.getOne(freeBoardDTO.getFree_id());
+
+        if (freeBoard != null){
+
+            freeBoard.changeTitle(freeBoardDTO.getTitle());
+            freeBoard.changeContent(freeBoardDTO.getContent());
+
+            repository.save(freeBoard);
+        }
+
+    }
+
+}
