@@ -24,7 +24,7 @@ public interface ReviewBoardService {
     void removeWithReplies(Long review_id);
 
     // 특정 글 수정
-    void modify(ReviewBoardCommentDTO reviewBoardCommentDTO);
+    void modify(ReviewBoardDTO reviewBoardDTO);
 
 
 
