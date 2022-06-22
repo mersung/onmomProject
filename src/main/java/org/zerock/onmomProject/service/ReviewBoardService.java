@@ -24,7 +24,7 @@ public interface ReviewBoardService {
     void removeWithReplies(Long review_id);
 
     // 특정 글 수정
-    void modify(ReviewBoardCommentDTO reviewBoardCommentDTO);
+    void modify(ReviewBoardDTO reviewBoardDTO);
 
 
 
@@ -44,14 +44,14 @@ public interface ReviewBoardService {
 
 
 
-    default ReviewBoardDTO entityToDto(ReviewBoard reviewBoard){
+    default ReviewBoardDTO entityToDto(ReviewBoard reviewBoard, Member member, Long like_cnt){
 
         ReviewBoardDTO reviewBoardDTO = ReviewBoardDTO.builder()
                 .review_id(reviewBoard.getReview_id())
-                .member_id(reviewBoard.getMember().getMember_id())
+                .member_id(member.getMember_id())
                 .title(reviewBoard.getTitle())
                 .content(reviewBoard.getContent())
-                .like_cnt(reviewBoard.getLike_cnt())
+                .like_cnt(like_cnt.longValue())
                 .hate_cnt(reviewBoard.getHate_cnt())
                 .area(reviewBoard.getArea())
                 .img(reviewBoard.getImg())
