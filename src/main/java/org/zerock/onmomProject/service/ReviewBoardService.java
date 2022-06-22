@@ -48,10 +48,10 @@ public interface ReviewBoardService {
 
         ReviewBoardDTO reviewBoardDTO = ReviewBoardDTO.builder()
                 .review_id(reviewBoard.getReview_id())
-                .member_id(reviewBoard.getMember().getMember_id())
+                .member_id(member.getMember_id())
                 .title(reviewBoard.getTitle())
                 .content(reviewBoard.getContent())
-                .like_cnt(reviewBoard.getLike_cnt())
+                .like_cnt(like_cnt.longValue())
                 .hate_cnt(reviewBoard.getHate_cnt())
                 .area(reviewBoard.getArea())
                 .img(reviewBoard.getImg())
