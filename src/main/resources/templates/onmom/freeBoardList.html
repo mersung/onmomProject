@@ -1,7 +1,27 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
-<!--<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">-->
-<!--    <th:block th:fragment="content">-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <h1 class="mt-4">Board List Page
+            <span>
+                <a href="@{/board/register}">
+                    <button type="button" class="btn btn-outline-primary">REGISTER</button>
+                </a>
+            </span>
+        </h1>
 
-<!--    </th:block>-->
-<!--</th:block>-->
+        <form action="/onmom/freeBoardList" method="get" id="searchForm">
+            <div class="inpur-group">
+                <input type="hidden" name="page" value="1">
+                <div class="input-group-prepend">
+                    <select class="custom-select" name="type">
+                        <option th:selected="${freePageRequestDTO.type == null}">-------</option>
+                        <option value="t" th:selected="${freePageRequestDTO.type =='t'}"
+                    </select>
+                </div>
+            </div>
+
+        </form>
+
+    </th:block>
+</th:block>
