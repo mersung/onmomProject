@@ -5,28 +5,29 @@
     <!-- Header-->
     <header class="bg-white py-5 back_img">
         <div class="container px-5" >
-            <div class="row gx-5 align-items-center justify-content-center">
+            <div class="row gx-5 align-items-center justify-content-center" style="background-color:rgba(0,0,0,0.5);">
                 <div class="col-lg-8 col-xl-7 col-xxl-6">
                     <div class="my-5 text-center text-xl-start">
                         <p class="lead fw-normal fw-bolder text-info mb-2">고민하고 계신가요?</p>
                         <h1 class="fw-bolder text-white mb-4">온몸 회원들의 생생한 후기에서 최고의 헬스장을 찾아보세요 !</h1>
+                        <hr style="background-color:white; margin:0; opacity:initial;" />
                         <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start" style="margin-top:90px;">
-                            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">추천 헬스장</a>
-                            <a class="btn btn-light btn-lg px-4" href="#!">내 주변 헬스장</a>
+                            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#loc_review">추천 헬스장</a>
+                            <a class="btn btn-light btn-lg px-4" href="#loc_map">서울시 헬스장</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
-<!--                    <img class="img-fluid rounded-3 my-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." />-->
-                </div>
+<!--                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">-->
+<!--&lt;!&ndash;                    <img class="img-fluid rounded-3 my-5" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." />&ndash;&gt;-->
+<!--                </div>-->
             </div>
         </div>
     </header>
 
     <!--  메인 content(추천 헬스장, 카카오맵 ... 등)  -->
     <div class="container-fluid" style="margin-top:80px;">
-        <div class="px-lg-5">
-            <div class="review_title">
+        <div id="loc_review" class="px-lg-5">
+            <div class="content_title">
                 <div>
                     <img src="/img/star.png" alt="별">
                 </div>
@@ -60,6 +61,9 @@
                     <option>송파구</option>
                     <option>강동구</option>
                 </select>
+                <div class="btn_frame">
+                    <a href="/onmom/review_board">MORE</a>
+                </div>
             </div>
             <div class="row">
                 <!-- Gallery item -->
@@ -157,10 +161,13 @@
         </div>
         <!-- Testimonial section-->
         <!-- 카카오맵 ----------------------------------------------->
-            <div class="container-fluid">
-                <h1 class="text-center">서울시 헬스장 위치</h1>
+        <div id="loc_map" class="content_title">
+            <div>
+                <img src="/img/marker.png" alt="마커">
             </div>
-
+            <h1>서울시 헬스장 위치</h1>
+            <p>서울시에 위치한 헬스장입니다!</p>
+        </div>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ee531325af0e4fcf22267b610d54a72b&libraries=services"></script>
         <div id="map" style="width:100%;height:350px;"></div>
         <script type="text/javascript">
