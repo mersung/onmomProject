@@ -25,4 +25,25 @@ public class TestController {
     public void review_read(){
     }
 
+
+    // 자유게시판 목록 페이지 테스트
+    @GetMapping("/freeBoard_list")
+    public void freeBoard_list(){
+    }
+
+    // 자유게시판 등록 페이지 테스트
+    @GetMapping("/freeBoard_register")
+    public void freeBoard_register(){
+    }
+
+    // 자유게시판 수정 페이지 테스트
+    @GetMapping("/freeBoard_modify")
+    public void freeBoard_modify(){
+    }
+
+    // 자유게시판 읽기 페이지 테스트
+    @GetMapping("/freeBoard_read")
+    public void freeBoard_read(){
+    }
+
 }
