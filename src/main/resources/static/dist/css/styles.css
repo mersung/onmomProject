@@ -13,6 +13,7 @@
 
 /* 기본 태그 스타일 초기화 */
 a{text-decoration:none !important;}
+#cke_1_contents{min-height:550px !important;}
 
 /* 자체 수정 6.20 기준 */
 .content_title{position:relative; text-align: center; margin:40px 0;}
