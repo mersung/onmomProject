@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.zerock.onmomProject.entity.Member;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -28,7 +30,8 @@ public class ReviewBoardDTO {
 
     private String area;
 
-    private String img;
+    @Builder.Default
+    private List<ImageDTO> imageDTOList = new ArrayList<>();
 
     private LocalDateTime regDate;
 

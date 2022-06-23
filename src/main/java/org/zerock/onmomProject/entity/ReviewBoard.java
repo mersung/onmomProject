@@ -32,8 +32,6 @@ public class ReviewBoard extends BaseEntity{
     @Column(length = 50, nullable = false)
     private String area;
 
-    private String img;
-
     // 리뷰 게시판 수정
     public void changeTitle(String title){
         this.title = title;
