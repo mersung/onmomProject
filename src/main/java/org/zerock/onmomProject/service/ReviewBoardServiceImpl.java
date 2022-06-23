@@ -3,18 +3,25 @@ package org.zerock.onmomProject.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.onmomProject.dto.ReviewBoardDTO;
 import org.zerock.onmomProject.dto.ReviewPageRequestDTO;
 import org.zerock.onmomProject.dto.ReviewPageResultDTO;
+import org.zerock.onmomProject.entity.Image;
 import org.zerock.onmomProject.entity.Member;
 import org.zerock.onmomProject.entity.ReviewBoard;
 import org.zerock.onmomProject.entity.ReviewBoardComment;
+import org.zerock.onmomProject.repository.ImageRepository;
 import org.zerock.onmomProject.repository.ReviewBoardRepository;
 import org.zerock.onmomProject.repository.ReviewCommentRepository;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 
 @Service
@@ -26,14 +33,21 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 
     private final ReviewCommentRepository reviewCommentRepository;
 
+    private final ImageRepository imageRepository;
+
+    @Transactional
     @Override
     public Long register(ReviewBoardDTO reviewBoardDTO) {
-        log.info(reviewBoardDTO);
 
-        ReviewBoard reviewBoard = dtoToEntity(reviewBoardDTO);
+        Map<String, Object> entityMap = dtoToEntity(reviewBoardDTO);
+        ReviewBoard reviewBoard = (ReviewBoard) entityMap.get("reviewBoard");
+        List<Image> imageList =  (List<Image>) entityMap.get("imgList");
 
         reviewBoardRepository.save(reviewBoard);
 
+        imageList.forEach(image -> {
+            imageRepository.save(image);
+        });
         return reviewBoard.getReview_id();
     }
 
@@ -42,24 +56,39 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
     public ReviewPageResultDTO<ReviewBoardDTO, Object[]> getList(ReviewPageRequestDTO reviewPageRequestDTO) {
         log.info(reviewPageRequestDTO);
 
-        Function<Object[], ReviewBoardDTO> fn = (en -> entityToDto((ReviewBoard) en[0],(Member)en[1], (Long)en[2]));
+        Pageable pageable = reviewPageRequestDTO.getPageable(Sort.by("like_cnt").descending());
+        Page<Object[]> result = reviewBoardRepository.getListPage(pageable);
 
-        Page<Object[]> result = reviewBoardRepository.searchPage(
-                reviewPageRequestDTO.getArea(),
-                reviewPageRequestDTO.getType(),
-                reviewPageRequestDTO.getKeyword(),
-                reviewPageRequestDTO.getPageable(Sort.by("review_id").descending()));
-
+        Function<Object[], ReviewBoardDTO> fn = (arr -> entitiesToDTO(
+                (ReviewBoard) arr[0],
+                (Member)arr[1],
+                (List<Image>)(Arrays.asList((Image)arr[2]))
+                )
+        );
         return new ReviewPageResultDTO<>(result, fn);
+
+//        Page<Object[]> result = reviewBoardRepository.searchPage(
+//                reviewPageRequestDTO.getArea(),
+//                reviewPageRequestDTO.getType(),
+//                reviewPageRequestDTO.getKeyword(),
+//                reviewPageRequestDTO.getPageable(Sort.by("review_id").descending()));
+//
+//        return new ReviewPageResultDTO<>(result, fn);
     }
 
     @Override
     public ReviewBoardDTO get(Long review_id) {
-        Object result = reviewBoardRepository.getReviewBoardByReview_id(review_id);
+        List<Object[]> result = reviewBoardRepository.getReviewBoardWithAll(review_id);
 
-        Object[] arr = (Object[])result;
+        ReviewBoard reviewBoard = (ReviewBoard) result.get(0)[0];
 
-        return entityToDto((ReviewBoard)arr[0], (Member) arr[1], (Long)arr[2]);
+        List<Image> imageList = new ArrayList<>();
+
+        result.forEach(arr -> {
+            Image image = (Image)arr[1];
+            imageList.add(image);
+        });
+        return entitiesToDTO(reviewBoard, reviewBoard.getMember(), imageList);
     }
 
 
