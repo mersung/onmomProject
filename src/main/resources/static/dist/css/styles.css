@@ -13,7 +13,7 @@
 
 
 /* 자체 수정 6.20 기준 */
-.review_title{position:relative; text-align: center; margin-bottom:25px;}
+.review_title{position:relative; text-align: center; margin:40px 0;}
 .review_title h1{margin-top:15px;}
 /* 자체 수정 6.22 기준 */
 
@@ -34,7 +34,7 @@
 .like{height:150px; margin:70px auto; position:relative; box-sizing:border-box;}
 .like_inner{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);}
 .like_inner::after{content:''; display:block; clear:both;}
-.like_inner>div{float:left; padding:10px 30px; cursor: pointer; box-sizing:border-box;}
+.like_inner>div{float:left; margin:10px 30px; cursor: pointer; box-sizing:border-box;}
 
 /* == 수정 / 삭제 / 목록 == */
 .btn_wrap{margin:25px 0; text-align:center;}
@@ -48,6 +48,12 @@
 .comment_input>textarea{float:left; height:85px;}
 .comment_input>.submit_btn_wrap{float:left; }
 .btn_style_sq{width:100%; height:85px; border-radius: 0.25rem;}
+
+/* 22/06/23 기준 */
+li{list-style:none;}
+.board_util{margin:0 auto;}
+.search_wrap{}
+.search_select{height:38px; margin-right:10px;}
 
 :root {
   --bs-blue: #0d6efd;
@@ -682,7 +688,7 @@ progress {
 
 @media (min-width: 576px) {
   /* 6/20 추가, review 파트 select 태그 반응형 */
-  .area_select{position:absolute; left:0; bottom:0;}
+  .area_select{position:absolute; left:0; bottom:0; height:38px;}
   .container-sm, .container {
     max-width: 540px;
   }
@@ -693,7 +699,7 @@ progress {
     padding-right:10px !important;
   }
   .btn_wrap{margin:25px 0; text-align:right;}
-  .like_inner>div{float:left; padding:0 50px; cursor: pointer;}
+  .like_inner>div{float:left; margin:0 50px; cursor: pointer;}
 }
 @media (min-width: 768px) {
 
@@ -9849,6 +9855,12 @@ textarea.form-control-lg {
     width:950px;
     margin:0 auto;
   }
+
+    /* 22/06/23 후기 게시판 갤러리 관련 반응형 추가 */
+    .gallery_frame{
+        width:100%;
+        margin:0 auto;
+    }
 
   .py-lg-0 {
     padding-top: 0 !important;

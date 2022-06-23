@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Log4j2
 public class TestController {
 
+    // 후기게시판 리스트 페이지 테스트
+    @GetMapping("/review_board")
+    public void review_board(){
+    }
+
     // 후기게시판 등록 페이지 테스트
     @GetMapping("/review_register")
     public void review_register(){
