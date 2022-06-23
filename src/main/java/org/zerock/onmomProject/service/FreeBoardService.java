@@ -11,7 +11,7 @@ public interface FreeBoardService {
     Long register(FreeBoardDTO dto);
 
     FreePageResultDTO<FreeBoardDTO, Object[]> getList
-            (FreePageRequestDTO pageRequestDTO);
+            (FreePageRequestDTO freePageRequestDTO);
     FreeBoardDTO get(Long free_id);
 
     void removeWithReplies(Long free_id);

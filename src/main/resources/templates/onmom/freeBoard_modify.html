@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+
+    <th:block th:fragment="content">
+
+        <h1 class="mt-4">Board Modify Page</h1>
+
+        <form action="/board/modify" method="post">
+
+            <!--페이지 번호  -->
+            <input type="hidden" name="page" >
+            <input type="hidden" name="type" >
+            <input type="hidden" name="keyword" >
+
+
+            <div class="form-group">
+                <label >Bno</label>
+                <input type="text" class="form-control" name="bno" readonly >
+            </div>
+
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" name="title" >
+            </div>
+            <div class="form-group">
+                <label >Content</label>
+
+            </div>
+            <div class="form-group">
+                <label >Writer</label>
+                <input type="text" class="form-control" name="writer" >
+            </div>
+            <div class="form-group">
+                <label >RegDate</label>
+                <input type="text" class="form-control" >
+            </div>
+            <div class="form-group">
+                <label >ModDate</label>
+                <input type="text" class="form-control" >
+            </div>
+
+        </form>
+
+        <button type="button" class="btn btn-primary modifyBtn">Modify</button>
+
+        <button type="button" class="btn btn-info listBtn">List</button>
+
+        <button type="button" class="btn btn-danger removeBtn">Remove</button>
+
+
+
+
+    </th:block>
+
+</th:block>
