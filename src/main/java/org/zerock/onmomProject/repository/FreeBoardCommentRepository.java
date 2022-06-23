@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface FreeBoardCommentRepository extends JpaRepository<FreeBoardComment, Long> {
 
-//    @Modifying
-//    @Query("delete from FreeBoardComment fbc where fbc.comment_id = :free_id")
-//    void deleteByFree_id(Long free_id);
+    @Modifying
+    @Query("delete from FreeBoardComment fbc where fbc.comment_id = :free_id")
+    void deleteByFree_id(Long free_id);
 
 //    List<FreeBoardComment> getRepliesByBoardOrderByFree_id(FreeBoard freeBoard);
 }

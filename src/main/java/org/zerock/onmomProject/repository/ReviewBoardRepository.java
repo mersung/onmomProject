@@ -37,7 +37,7 @@ public interface ReviewBoardRepository extends JpaRepository<ReviewBoard, Long>,
     Page<Object[]> getListPage(Pageable pageable);
 
     @Query("select rb, i " +
-            " from ReviewBoard rb left outer join Image i on i.review = rb " +
+            " from ReviewBoard rb left join Image i on i.review = rb " +
             " where rb.review_id = :review_id")
-    List<Object[]> getReviewBoardWithAll(Long review_id);
+    List<Object[]> getReviewBoardWithAll(@Param("review_id") Long review_id);
 }
