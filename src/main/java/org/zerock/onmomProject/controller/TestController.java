@@ -25,4 +25,10 @@ public class TestController {
     public void review_read(){
     }
 
+    // 후기게시판 리스트 페이지 테스트
+    @GetMapping("/review_board")
+    public void review_board(){
+
+    }
+
 }
