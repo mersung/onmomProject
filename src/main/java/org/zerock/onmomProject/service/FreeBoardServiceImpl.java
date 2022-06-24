@@ -24,9 +24,12 @@ public class FreeBoardServiceImpl implements FreeBoardService{
     private final FreeBoardRepository freeBoardRepository;
 
     private final FreeBoardCommentRepository commentRepository;
+
+
     @Override
     public Long register(FreeBoardDTO dto) {
 
+        log.info(dto);
         FreeBoard board = dtoToEntity(dto);
 
         freeBoardRepository.save(board);
@@ -37,6 +40,8 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
     @Override
     public FreePageResultDTO<FreeBoardDTO, Object[]> getList(FreePageRequestDTO freePageRequestDTO) {
+
+        log.info(freePageRequestDTO);
 
         Function<Object[],FreeBoardDTO> fn = (en ->
                 entityToDTO((FreeBoard)en[0],(Member)en[1],(Long)en[2]));

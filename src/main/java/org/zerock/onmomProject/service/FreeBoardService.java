@@ -24,6 +24,8 @@ public interface FreeBoardService {
                 .free_id(dto.getFree_id())
                 .title(dto.getTitle())
                 .content(dto.getContent())
+                .like_cnt(dto.getLike_cnt())
+                .hate_cnt(dto.getHate_cnt())
                 .member(member)
                 .build();
         return freeBoard;
