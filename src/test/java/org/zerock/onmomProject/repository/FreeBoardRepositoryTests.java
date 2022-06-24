@@ -26,10 +26,10 @@ public class FreeBoardRepositoryTests {
                     .build();
 
             FreeBoard freeBoard = FreeBoard.builder()
-                    .content("content....." + i )
+                    .content("content...modify....." + i )
                     .hate_cnt((long)(Math.random()*100)) // 1부터 100사이 난수 발생
                     .like_cnt((long)(Math.random()*100)) // 1부터 100사이 난수 발생
-                    .title("Title..." + i)
+                    .title("Title...modify..." + i)
                     .member(member)
                     .build();
 

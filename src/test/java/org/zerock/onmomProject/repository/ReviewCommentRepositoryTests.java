@@ -19,9 +19,11 @@ public class ReviewCommentRepositoryTests {
     @Test
     public void insertComment() {
 
-        IntStream.rangeClosed(1, 300).forEach(i -> {
+        IntStream.rangeClosed(1, 100).forEach(i -> {
 
-            ReviewBoard reviewBoard = ReviewBoard.builder()
+            long review_id  = (long)(Math.random() * 100) + 1;
+
+            ReviewBoard reviewBoard = ReviewBoard.builder().review_id(review_id)
                     .area("area....." + i)
                     .content("content....." + i)
                     .title("Title..." + i)
