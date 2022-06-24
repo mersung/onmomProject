@@ -24,12 +24,13 @@
 //
 //        FreeBoard freeBoard = FreeBoard.builder().free_id(FreeBoardDTO.builder().build().getFree_id()).build();
 //
-//        Member member1 = Member.builder().member_id(FreeBoardCommentDTO.builder().build().getMember_id()).build();
+//        Member member = Member.builder().member_id(FreeBoardCommentDTO.builder().build().getMember_id()).build();
+//
 //
 //        FreeBoardComment freeBoardComment = FreeBoardComment.builder()
 //                .comment_id(FreeBoardCommentDTO.builder().build().getComment_id())
 //                .board(freeBoard)
-//                .member1(member1)
+//                .member(member)
 //                .content(FreeBoardCommentDTO.builder().build().getContent())
 //                .build();
 //        return freeBoardComment;
