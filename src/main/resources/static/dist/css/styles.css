@@ -13,6 +13,7 @@
 
 /* 기본 태그 스타일 초기화 */
 a{text-decoration:none !important;}
+#cke_1_contents{min-height:550px !important;}
 
 /* 자체 수정 6.20 기준 */
 .content_title{position:relative; text-align: center; margin:40px 0;}
@@ -59,6 +60,44 @@ li{list-style:none;}
 
 .btn_frame{display:none;}
 .btn_frame>a{display:block; color:#fff; width:150px; padding:10px 20px; box-sizing:border-box; background-color:#222;}
+
+/* review_register 이미지 업로드 관련 css */
+.uploadResult ul {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    vertical-align: top;
+    overflow: auto;
+}
+
+.uploadResult ul li {
+    list-style: none;
+    padding: 10px;
+    margin-left: 2em;
+}
+
+.uploadResult ul li img {
+    width: 100px;
+}
+
+.cke_editable>div{
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    vertical-align: top;
+    overflow: auto;
+}
+
+.cke_editable>div>div{
+    padding: 10px;
+    margin-left: 2em;
+}
+
+.cke_editable>div>div>img{
+    width:250px;
+}
 
 :root {
   --bs-blue: #0d6efd;
