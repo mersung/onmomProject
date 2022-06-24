@@ -45,137 +45,173 @@
                                         <option>강동구</option>
                                     </select>
                                 </div>
+                                <!-- 갤러리 전체 wrap -->
                                 <div class="row" style="padding-top:40px;">
                                     <!-- Gallery item -->
-                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
-                                            <div class="p-4">
-                                                <h5> <a href="#" class="text-dark">Red paint cup</a></h5>
-                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                                    <div th:each="dto : ${result.dtoList}" class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                                        <div class="bg-white rounded shadow-sm">
+                                            <!-- 이미지 썸네일 -->
+                                            <img    th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                                                    th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" alt="" class="img-fluid card-img-top">
+                                            <div class="p-4" style="position:relative;">
+                                                <span class="text-muted" style="position:absolute; left:10px; top:10px;">
+                                                    [[${dto.area}]]
+                                                </span>
+                                                <h5 style="padding-left:15px; width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                                    <a th:href="@{/onmom/review_read(review_id = ${dto.review_id}, page = ${result.page})}" class="text-dark">
+                                                        [[${dto.title}]]
+                                                    </a>
+                                                </h5>
+                                                <!-- 글 내용 일부 미리보기 -->
+                                                <p class="small text-muted mb-0" style="width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                                    [[${dto.content}]]
+                                                </p>
                                                 <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                                                    <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>
+                                                    <p class="small mb-0">
+                                                        <!-- like 카운트 -->
+                                                        <span>
+                                                            <img src="/img/like.png" style="width:32px;" alt="좋아요">
+                                                            <span class="font-weight-bold">
+                                                                [[${dto.like_cnt}]]
+                                                            </span>
+                                                        </span>
+                                                        <!-- dislike 카운트 -->
+                                                        <span>
+                                                            <img src="/img/dislike.png" style="width:32px;" alt="싫어요">
+                                                            <span class="font-weight-bold">
+                                                                [[${dto.dislike_cnt}]]
+                                                            </span>
+                                                        </span>
+                                                    </p>
+                                            <!--    <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>-->
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <!-- 게시글 없을 경우 -->
+                                    <div th:if="${dto == null} or ${dto.size() == 0}">
+                                        <p style="font-size:25px;">
+                                            작성된 게시물이 없습니다.
+                                        </p>
                                     </div>
                                     <!-- End -->
 
-                                    <!-- Gallery item -->
-                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" alt="" class="img-fluid card-img-top">
-                                            <div class="p-4">
-                                                <h5> <a href="#" class="text-dark">Blorange</a></h5>
-                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
-                                                    <div class="badge badge-primary px-3 rounded-pill font-weight-normal">Trend</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End -->
+<!--                                    &lt;!&ndash; Gallery item &ndash;&gt;-->
+<!--                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">-->
+<!--                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" alt="" class="img-fluid card-img-top">-->
+<!--                                            <div class="p-4">-->
+<!--                                                <h5> <a href="#" class="text-dark">Blorange</a></h5>-->
+<!--                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>-->
+<!--                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">-->
+<!--                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>-->
+<!--                                                    <div class="badge badge-primary px-3 rounded-pill font-weight-normal">Trend</div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    &lt;!&ndash; End &ndash;&gt;-->
 
-                                    <!-- Gallery item -->
-                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" alt="" class="img-fluid card-img-top">
-                                            <div class="p-4">
-                                                <h5> <a href="#" class="text-dark">And She Realized</a></h5>
-                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                                                    <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End -->
+<!--                                    &lt;!&ndash; Gallery item &ndash;&gt;-->
+<!--                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">-->
+<!--                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" alt="" class="img-fluid card-img-top">-->
+<!--                                            <div class="p-4">-->
+<!--                                                <h5> <a href="#" class="text-dark">And She Realized</a></h5>-->
+<!--                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>-->
+<!--                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">-->
+<!--                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>-->
+<!--                                                    <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    &lt;!&ndash; End &ndash;&gt;-->
 
-                                    <!-- Gallery item -->
-                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" alt="" class="img-fluid card-img-top">
-                                            <div class="p-4">
-                                                <h5> <a href="#" class="text-dark">DOSE Juice</a></h5>
-                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>
-                                                    <div class="badge badge-success px-3 rounded-pill font-weight-normal">Hot</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End -->
+<!--                                    &lt;!&ndash; Gallery item &ndash;&gt;-->
+<!--                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">-->
+<!--                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" alt="" class="img-fluid card-img-top">-->
+<!--                                            <div class="p-4">-->
+<!--                                                <h5> <a href="#" class="text-dark">DOSE Juice</a></h5>-->
+<!--                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>-->
+<!--                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">-->
+<!--                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>-->
+<!--                                                    <div class="badge badge-success px-3 rounded-pill font-weight-normal">Hot</div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    &lt;!&ndash; End &ndash;&gt;-->
 
-                                    <!-- Gallery item -->
-                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-5.jpg" alt="" class="img-fluid card-img-top">
-                                            <div class="p-4">
-                                                <h5> <a href="#" class="text-dark">Pineapple</a></h5>
-                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
-                                                    <div class="badge badge-primary px-3 rounded-pill font-weight-normal">New</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End -->
+<!--                                    &lt;!&ndash; Gallery item &ndash;&gt;-->
+<!--                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">-->
+<!--                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-5.jpg" alt="" class="img-fluid card-img-top">-->
+<!--                                            <div class="p-4">-->
+<!--                                                <h5> <a href="#" class="text-dark">Pineapple</a></h5>-->
+<!--                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>-->
+<!--                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">-->
+<!--                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>-->
+<!--                                                    <div class="badge badge-primary px-3 rounded-pill font-weight-normal">New</div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    &lt;!&ndash; End &ndash;&gt;-->
 
-                                    <!-- Gallery item -->
-                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-6.jpg" alt="" class="img-fluid card-img-top">
-                                            <div class="p-4">
-                                                <h5> <a href="#" class="text-dark">Yellow banana</a></h5>
-                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                                                    <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+<!--                                    &lt;!&ndash; Gallery item &ndash;&gt;-->
+<!--                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">-->
+<!--                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-6.jpg" alt="" class="img-fluid card-img-top">-->
+<!--                                            <div class="p-4">-->
+<!--                                                <h5> <a href="#" class="text-dark">Yellow banana</a></h5>-->
+<!--                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>-->
+<!--                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">-->
+<!--                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>-->
+<!--                                                    <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
 
-                                    <!-- Gallery item -->
-                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-7.jpg" alt="" class="img-fluid card-img-top">
-                                            <div class="p-4">
-                                                <h5> <a href="#" class="text-dark">Yellow banana</a></h5>
-                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                                                    <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+<!--                                    &lt;!&ndash; Gallery item &ndash;&gt;-->
+<!--                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">-->
+<!--                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-7.jpg" alt="" class="img-fluid card-img-top">-->
+<!--                                            <div class="p-4">-->
+<!--                                                <h5> <a href="#" class="text-dark">Yellow banana</a></h5>-->
+<!--                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>-->
+<!--                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">-->
+<!--                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>-->
+<!--                                                    <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
 
-                                    <!-- Gallery item -->
-                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-8.jpg" alt="" class="img-fluid card-img-top">
-                                            <div class="p-4">
-                                                <h5> <a href="#" class="text-dark">Yellow banana</a></h5>
-                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                                                    <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+<!--                                    &lt;!&ndash; Gallery item &ndash;&gt;-->
+<!--                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">-->
+<!--                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-8.jpg" alt="" class="img-fluid card-img-top">-->
+<!--                                            <div class="p-4">-->
+<!--                                                <h5> <a href="#" class="text-dark">Yellow banana</a></h5>-->
+<!--                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>-->
+<!--                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">-->
+<!--                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>-->
+<!--                                                    <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
 
-                                    <!-- Gallery item -->
-                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
-                                            <div class="p-4">
-                                                <h5> <a href="#" class="text-dark">Yellow banana</a></h5>
-                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                                                    <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+<!--                                    &lt;!&ndash; Gallery item &ndash;&gt;-->
+<!--                                    <div class="col-xl-3 col-lg-4 col-md-6 mb-4">-->
+<!--                                        <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">-->
+<!--                                            <div class="p-4">-->
+<!--                                                <h5> <a href="#" class="text-dark">Yellow banana</a></h5>-->
+<!--                                                <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>-->
+<!--                                                <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">-->
+<!--                                                    <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>-->
+<!--                                                    <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                     <!-- End -->
                                 </div>
                             </div>
@@ -216,6 +252,10 @@
                                             <button type="button" class="btn btn-clear">초기화</button>
                                         </span>
                                     </div>
+                                </form>
+                                <!-- 페이지 관련 -->
+                                <form action="/onmom/review_board" method="get" id="searchForm">
+                                    <input type="hidden" name="page" value="1">
                                 </form>
                             </div>
                         </section>
