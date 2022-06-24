@@ -31,9 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
 
-        http.authorizeRequests().antMatchers("/sample/member").hasRole("USER");
+        http.authorizeRequests().antMatchers("/onmom/member").hasRole("USER");
 
-        http.formLogin().loginPage("/sample/login").loginProcessingUrl("/login");
+        http.formLogin().loginPage("/onmom/login").loginProcessingUrl("/login");
 
         http.csrf().disable();
 

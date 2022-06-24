@@ -49,6 +49,7 @@ public class OnmomAuthMemberDTO extends User implements OAuth2User {
         return this.attr;
     }
 
+
     @Override
     public String getName() {
         return null;

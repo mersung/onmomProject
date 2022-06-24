@@ -45,7 +45,6 @@ public class OnmomOAuth2UserDetailsService extends DefaultOAuth2UserService {
             log.info(k + ":" + v);
         });
 
-
         String member_id = null;
 
         if (clientName.equals("Google")) { // 구글 로그인
@@ -68,7 +67,7 @@ public class OnmomOAuth2UserDetailsService extends DefaultOAuth2UserService {
                         .collect(Collectors.toList()),
                 oAuth2User.getAttributes()
         );
-//        onmomAuthMember.
+        onmomAuthMember.setMember_id(member.getMember_id());
 
         return onmomAuthMember;
     }
