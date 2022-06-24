@@ -25,7 +25,13 @@ public class Member extends BaseEntity {
     private String pw;
 
     @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default
     private Set<MemberRole> roleSet;
+
+    // 권한 부여 추가
+    public void addMemberRole(MemberRole memberRole){
+        roleSet.add(memberRole);
+    }
 
 
 }
