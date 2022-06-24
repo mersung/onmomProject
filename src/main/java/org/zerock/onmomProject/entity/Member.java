@@ -4,8 +4,7 @@ package org.zerock.onmomProject.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -20,16 +19,20 @@ public class Member extends BaseEntity {
     @Column(length = 50)
     private String member_id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String nickname;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String pw;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    private Set<MemberRole> roleSet;
+    @Builder.Default
+    private Set<MemberRole> roleSet = new HashSet<>();
 
-    private boolean fromSocial;
+    // 권한 부여 추가
+    public void addMemberRole(MemberRole memberRole){
+        roleSet.add(memberRole);
+    }
 
 
 }
