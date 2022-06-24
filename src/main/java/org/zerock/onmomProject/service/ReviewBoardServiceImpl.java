@@ -56,13 +56,13 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
     public ReviewPageResultDTO<ReviewBoardDTO, Object[]> getList(ReviewPageRequestDTO reviewPageRequestDTO) {
         log.info(reviewPageRequestDTO);
 
-        Pageable pageable = reviewPageRequestDTO.getPageable(Sort.by("review_id").descending());
-        Page<Object[]> result = reviewBoardRepository.getListPage(pageable);
+//        Pageable pageable = reviewPageRequestDTO.getPageable(Sort.by("review_id").descending());
+//        Page<Object[]> result = reviewBoardRepository.getListPage(pageable);
         log.info("====================");
 
-        result.getContent().forEach(arr -> {
-            log.info(Arrays.toString(arr));
-        });
+//        result.getContent().forEach(arr -> {
+//            log.info(Arrays.toString(arr));
+//        });
 
         Function<Object[], ReviewBoardDTO> fn = (arr -> entitiesToDTO(
                 (ReviewBoard) arr[0],
@@ -71,15 +71,15 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
         );
         log.info("fn!~ : " + fn);
 //        log.info("Result~!" + new ReviewPageResultDTO<>(result, fn));
-        return new ReviewPageResultDTO<>(result, fn);
-
-//        Page<Object[]> result = reviewBoardRepository.searchPage(
-//                reviewPageRequestDTO.getArea(),
-//                reviewPageRequestDTO.getType(),
-//                reviewPageRequestDTO.getKeyword(),
-//                reviewPageRequestDTO.getPageable(Sort.by("review_id").descending()));
-//
 //        return new ReviewPageResultDTO<>(result, fn);
+
+        Page<Object[]> result = reviewBoardRepository.searchPage(
+                reviewPageRequestDTO.getArea(),
+                reviewPageRequestDTO.getType(),
+                reviewPageRequestDTO.getKeyword(),
+                reviewPageRequestDTO.getPageable(Sort.by("like_cnt").descending()));
+
+        return new ReviewPageResultDTO<>(result, fn);
     }
 
     @Override
