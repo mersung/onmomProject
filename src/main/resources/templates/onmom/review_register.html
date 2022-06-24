@@ -99,29 +99,29 @@
 
             // ajax가 가져온 결과 데이터를 호출하는 함수 선언
             function showResult(uploadResultArr){
-                // var uploadUL = $(".uploadResult ul");
-                var uploadUL = $("#cke_1_contents iframe #document .cke_editable");
+                var uploadUL = $(".uploadResult ul");
+ //             var ckEditorLoc = $(".cke_editable");
                 var str = "";
 
-//                $(uploadResultArr).each(function(i, obj){
-//                    str += "<li data-name='" + obj.fileName + "' data-path='"+obj.folderPath+"' data-uuid='"+obj.uuid+"'>";
-//                    str += " <div>";
-//                    str += "<button type='button' data-file=\'"+ obj.imageURL + "\' "
-//                    str += "class='btn-warning btn-sm'>X</button><br>";
-//                    str += "<img src='/display?fileName=" + obj.thumbnailURL + "'>";
-//                    str += "</div>";
-//                    str += "</li>";
-//                });
-
-                  $(uploadResultArr).each(function(i, obj){
-                    str += "<div data-name='" + obj.fileName + "' data-path='"+obj.folderPath+"' data-uuid='"+obj.uuid+"'>";
+                $(uploadResultArr).each(function(i, obj){
+                    str += "<li data-name='" + obj.fileName + "' data-path='"+obj.folderPath+"' data-uuid='"+obj.uuid+"'>";
                     str += " <div>";
                     str += "<button type='button' data-file=\'"+ obj.imageURL + "\' "
-                    str += "class='btn-warning btn-sm'>X</button><br>";
+                    str += "class='btn-light btn-sm'>X</button><br>";
                     str += "<img src='/display?fileName=" + obj.thumbnailURL + "'>";
                     str += "</div>";
-                    str += "</div>";
-                  });
+                    str += "</li>";
+                });
+
+//                  $(uploadResultArr).each(function(i, obj){
+//                    str += "<div data-name='" + obj.fileName + "' data-path='"+obj.folderPath+"' data-uuid='"+obj.uuid+"'>";
+//                    str += " <div>";
+//                    str += "<button type='button' data-file=\'"+ obj.imageURL + "\' "
+//                    str += "class='btn-light btn-sm'>X</button><br>";
+//                    str += "<img src='/display?fileName=" + obj.thumbnailURL + "'>";
+//                    str += "</div>";
+//                    str += "</div>";
+//                  });
 
                 // uploadUL을 변수 str에 삽입
                 uploadUL.append(str);
