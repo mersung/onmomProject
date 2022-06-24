@@ -6,33 +6,130 @@
         <script src="/js/ckeditor/ckeditor.js"></script>
         <script>
         /* jQuery, window 먼저 load함 */
-        $(function(){
-            /* CKEditor 구현 */
-            CKEDITOR.replace('text_area',{
-                font_names : "맑은 고딕/Malgun Gothic;굴림/Gulim;돋움/Dotum;바탕/Batang;궁서/Gungsuh;Arial/Arial;Comic Sans MS/Comic Sans MS;Courier New/Courier New;Georgia/Georgia;Lucida Sans Unicode/Lucida Sans Unicode;Tahoma/Tahoma;Times New Roman/Times New Roman;MS Mincho/MS Mincho;Trebuchet MS/Trebuchet MS;Verdana/Verdana",
-                font_defaultLabel : "맑은 고딕/Malgun Gothic",
-                fontSize_defaultLabel : "12",
-                skin : "office2013",
-                language : "ko"
-            });
+<!--        $(function(){-->
+<!--            /* CKEditor 구현 */-->
+<!--            CKEDITOR.replace('text_area',{-->
+<!--                font_names : "맑은 고딕/Malgun Gothic;굴림/Gulim;돋움/Dotum;바탕/Batang;궁서/Gungsuh;Arial/Arial;Comic Sans MS/Comic Sans MS;Courier New/Courier New;Georgia/Georgia;Lucida Sans Unicode/Lucida Sans Unicode;Tahoma/Tahoma;Times New Roman/Times New Roman;MS Mincho/MS Mincho;Trebuchet MS/Trebuchet MS;Verdana/Verdana",-->
+<!--                font_defaultLabel : "맑은 고딕/Malgun Gothic",-->
+<!--                fontSize_defaultLabel : "12",-->
+<!--                skin : "office2013",-->
+<!--                language : "ko"-->
+<!--            });-->
+<!--        });-->
+
+        // 이미지 업로드
+        //// window 부터 load함
+        $(document).ready(function(){
+            // 확장자 필터링하는 정규식, 업로드 제한기능
+            var regex = new RegExp("(.*?)\.(exe|sh|zip|alz|tiff)$");
+            var maxSize = 10485760 // 약 10 MB
+
+            function checkExtension(fileName, fileSize){
+                if(fileSize >= maxSize){
+                    alert("파일 사이즈 초과!");
+                    return false;
+                }
+
+                if(regex.test(fileName)){
+                    alert("해당 종류의 파일은 업로드할 수 없습니다.");
+                    return false;
+                }
+
+                return true;
+            }
+
+            $(".custom-file-input").on("change", function(){
+                var fileName = $(this).val().split("\\").pop();
+
+                // 해당 클래스(custom-file-input)의 형제 태그에 속한 것에 selected 클래스를 삽입 하고 fileName 을 html 상 출력(삽입)함
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+                // form 태그에 대응되는 js 객체
+                var formData = new FormData();
+
+                var inputFile = $(this);
+
+                var files = inputFile[0].files;
+
+                var appended = false;
+
+                for(var i = 0; i < files.length; i++){
+                    if(!checkExtension(files[i].name, files[i].size)){
+                        return false;
+                    }
+
+                    console.log(files[i]);
+
+                    formData.append("uploadFiles", files[i]);
+                    appended = true;
+                }
+
+                // upload를 하지 않음
+                if(!appended){
+                    return;
+                }
+
+                for(var value of formData.values()){
+                    console.log(value);
+                }
+
+                // 실제 업로드 부분
+                // upload ajax
+                $.ajax({
+                    url: '/uploadAjax',
+                    processData: false,
+                    contentType: false,
+                    data: formData,
+                    type: 'POST',
+                    dataType: 'json',
+<!--                    beforeSend: function(jqXHR, setting){ // Security 관련 ajax 전송 옵션-->
+<!--                        var header = $("meta[name='_csrf_header']").attr("content");-->
+<!--                        var token = $("meta[name='_csrf']").attr("content");-->
+<!--                        jqXHR.setRequestHeader(header, token);-->
+<!--                    },-->
+                    success: function(result){
+                        console.log(result);
+                        showResult(result);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        console.log(textStatus);
+                    }
+                }); // ajax 끝
+            }); // change 관련 event 끝
+
+            // ajax가 가져온 결과 데이터를 호출하는 함수 선언
+            function showResult(uploadResultArr){
+                var uploadUL = $(".uploadResult ul");
+ //             var ckEditorLoc = $(".cke_editable");
+                var str = "";
+
+                $(uploadResultArr).each(function(i, obj){
+                    str += "<li data-name='" + obj.fileName + "' data-path='"+obj.folderPath+"' data-uuid='"+obj.uuid+"'>";
+                    str += " <div>";
+                    str += "<button type='button' data-file=\'"+ obj.imageURL + "\' "
+                    str += "class='btn-light btn-sm'>X</button><br>";
+                    str += "<img src='/display?fileName=" + obj.thumbnailURL + "'>";
+                    str += "</div>";
+                    str += "</li>";
+                });
+
+//                  $(uploadResultArr).each(function(i, obj){
+//                    str += "<div data-name='" + obj.fileName + "' data-path='"+obj.folderPath+"' data-uuid='"+obj.uuid+"'>";
+//                    str += " <div>";
+//                    str += "<button type='button' data-file=\'"+ obj.imageURL + "\' "
+//                    str += "class='btn-light btn-sm'>X</button><br>";
+//                    str += "<img src='/display?fileName=" + obj.thumbnailURL + "'>";
+//                    str += "</div>";
+//                    str += "</div>";
+//                  });
+
+                // uploadUL을 변수 str에 삽입
+                uploadUL.append(str);
+            }
+
         });
 
-        /* 관련 function */
-        /* function saveGallery(){
-            if(!confirm("저장하시겠습니까?")){
-                return;
-            }
-            formData.append("deleteFiles", deleteFileList);
-            var formData = new FormData($('form')[0]);
 
-            formData.set("text_area", CKEDITOR.instances.text_area.getData());
-
-            for(var i = 0; i < inputFileList.length; i++){
-                if(!inputFileList[i].is_delete){
-                    formData.append("files", inputFileList[i]);
-                }
-            }
-        } */
     </script>
         <!-- Page Content-->
         <section class="py-5 post_content">
@@ -42,7 +139,7 @@
                         <!-- Post content-->
                         <article>
                             <!-- form 태그 시작 -->
-                            <form id="form" enctype="multipart/form-data" onsubmit="return false">
+                            <form id="form" action="@{/onmom/review_register}" th:method="post" >
                                 <!-- Post header-->
                                 <header class="mb-4">
                                     <!-- 게시판 기본 타이틀 -->
@@ -53,7 +150,7 @@
                                 <div class="post_info mb-4">
                                     <!-- 게시글 제목-->
                                     <label class="fw-bold"><h2>글 제목</h2></label>
-                                    <input type="text" class="fw-bolder post_title" placeholder="글 제목을 입력해 주세요" style="width:100%; margin-top:20px;">
+                                    <input type="text" class="post_title" placeholder="글 제목을 입력해 주세요" style="width:100%; margin-top:20px;">
                                     <hr />
                                     <!-- 작성 정보-->
                                     <div class="text-muted mb-2 post_detail">
@@ -61,7 +158,7 @@
                                             <p class="mb-0 fw-bold text-dark">번호</p>
                                             <span>
                                                         105
-                                                </span>
+                                            </span>
                                         </div>
                                         <div class="post_area col-3">
                                             <p class="mb-0 fw-bold text-dark">지역</p>
@@ -98,34 +195,39 @@
                                         <div class="post_wirte col-3">
                                             <p class="mb-0 fw-bold text-dark">작성자</p>
                                             <span>
-                                                        test_id
-                                                </span>
+                                                    test_id
+                                            </span>
                                         </div>
                                         <div class="post_date col-3">
                                             <p class="mb-0 fw-bold text-dark">작성일</p>
                                             <span>
-                                                        2022/06/22
-                                                    </span>
+                                                2022/06/22
+                                            </span>
                                         </div>
                                     </div>
                                     <hr />
                                 </div>
-                                <!-- 이미지 영역, div 태그로 작성되어 자동 줄바꿈, thumnail 관련 코딩 기입 -->
-                                <div class="mb-4">
-                                    <!-- <img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /> -->
-                                </div>
+
                                 <!-- 글 내용-->
                                 <section class="mb-3">
                                     <!-- 글 작성 textarea -->
                                     <p class="fs-5 mb-4">
-                                        <textarea id="text_area" class="col-12" rows="25" ></textarea>
+                                        <!-- 이미지 영역, div 태그로 작성되어 자동 줄바꿈, thumnail 관련 코딩 기입 -->
+                                        <div class="uploadResult">
+                                            <ul>
+                                                <!-- 이미지  -->
+                                            </ul>
+                                        </div>
+                                        <textarea id="text_area" class="col-12 ckeditor" rows="25" >
+
+                                        </textarea>
                                     </p>
                                 </section>
                                 <div class="form-group fileForm">
                                     <label >이미지 파일</label>
                                     <div class="custom-file">
-                                        <input type="file"  class="custom-file-input" id="fileInput" multiple>
-                                        <label class="custom-file-label" data-browse="Browse"></label>
+                                        <input class="custom-file-input" name="uploadFiles" type="file" id="fileInput" multiple>
+                                        <label class="custom-file-label" data-browse="업로드"></label>
                                     </div>
                                 </div>
                                 <!-- 등록 버튼 -->

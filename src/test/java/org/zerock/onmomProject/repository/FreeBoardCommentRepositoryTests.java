@@ -24,8 +24,8 @@ public class FreeBoardCommentRepositoryTests {
             long free_id  = (long)(Math.random() * 100) + 1;
 
             FreeBoard freeBoard = FreeBoard.builder().free_id(free_id)
-                    .content("content....." + i )
-                    .title("Title..." + i)
+                    .content("content...modify....." + i )
+                    .title("Title...modify..." + i)
                     .build();
 
             Member member = Member.builder()
@@ -39,15 +39,15 @@ public class FreeBoardCommentRepositoryTests {
                     .board(freeBoard)
                     .member(member)
                     .build();
-
             freeBoardCommentRepository.save(freeBoardComment);
         });
     }
+
     @Transactional
     @Test
     public void readReply1(){
 
-        Optional<FreeBoardComment> result = freeBoardCommentRepository.findById(1L);
+        Optional<FreeBoardComment> result = freeBoardCommentRepository.findById(2L);
 
         FreeBoardComment freeBoardComment = result.get();
 
@@ -55,5 +55,6 @@ public class FreeBoardCommentRepositoryTests {
         System.out.println(freeBoardComment);
         System.out.println(freeBoardComment.getComment_id());
     }
+
 
 }

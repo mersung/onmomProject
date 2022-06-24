@@ -36,5 +36,9 @@ CKEDITOR.editorConfig = function( config ) {
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 
+//    // 이미지 업로드
+//    config.filebrowserUploadUrl = '/upload.do?type=Files',
+//    config.filebrowserImageUploadUrl = 'upload.do?type=Images',
+//    config.filebrowserUploadMethod = 'form'
 
 };
