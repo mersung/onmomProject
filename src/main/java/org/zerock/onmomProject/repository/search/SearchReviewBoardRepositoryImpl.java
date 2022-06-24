@@ -88,7 +88,7 @@ public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport i
             Order direction = order.isAscending()? Order.ASC: Order.DESC;
             String prop = order.getProperty();
 
-            PathBuilder orderByExpression = new PathBuilder(ReviewBoard.class, "review_id");
+            PathBuilder orderByExpression = new PathBuilder(ReviewBoard.class, "reviewBoard");
             tuple.orderBy(new OrderSpecifier(direction, orderByExpression.get(prop)));
         });
 

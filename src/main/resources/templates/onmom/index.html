@@ -33,33 +33,33 @@
                 </div>
                 <h1>추천 헬스장</h1>
                 <p>온몸 회원들이 추천하는 헬스장입니다!</p>
-                <select class="area_select">
-                    <option>전체</option>
-                    <option>도봉구</option>
-                    <option>노원구</option>
-                    <option>강북구</option>
-                    <option>성북구</option>
-                    <option>중랑구</option>
-                    <option>동대문구</option>
-                    <option>종로구</option>
-                    <option>서대문구</option>
-                    <option>은평구</option>
-                    <option>마포구</option>
-                    <option>중구</option>
-                    <option>용산구</option>
-                    <option>성동구</option>
-                    <option>광진구</option>
-                    <option>강서구</option>
-                    <option>양천구</option>
-                    <option>구로구</option>
-                    <option>영등포구</option>
-                    <option>금천구</option>
-                    <option>동작구</option>
-                    <option>관악구</option>
-                    <option>서초구</option>
-                    <option>강남구</option>
-                    <option>송파구</option>
-                    <option>강동구</option>
+                <select class="area_select" id="select_value" onchange="ChangeValue()">
+                    <option value="전체">전체</option>
+                    <option value="도봉구">도봉구</option>
+                    <option value="노원구">노원구</option>
+                    <option value="강북구">강북구</option>
+                    <option value="성북구">성북구</option>
+                    <option value="중랑구">중랑구</option>
+                    <option value="동대문구">동대문구</option>
+                    <option value="종로구">종로구</option>
+                    <option value="서대문구">서대문구</option>
+                    <option value="은평구">은평구</option>
+                    <option value="마포구">마포구</option>
+                    <option value="중구">중구</option>
+                    <option value="용산구">용산구</option>
+                    <option value="성동구">성동구</option>
+                    <option value="광진구">광진구</option>
+                    <option value="강서구">강서구</option>
+                    <option value="양천구">양천구</option>
+                    <option value="구로구">구로구</option>
+                    <option value="영등포구">영등포구</option>
+                    <option value="금천구">금천구</option>
+                    <option value="동작구">동작구</option>
+                    <option value="관악구">관악구</option>
+                    <option value="서초구">서초구</option>
+                    <option value="강남구">강남구</option>
+                    <option value="송파구">송파구</option>
+                    <option value="강동구">강동구</option>
                 </select>
                 <div class="btn_frame">
                     <a href="/onmom/review_board">MORE</a>
@@ -67,94 +67,122 @@
             </div>
             <div class="row">
                 <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-1.jpg" alt="" class="img-fluid card-img-top">
-                    <div class="p-4">
-                    <h5> <a href="#" class="text-dark">Red paint cup</a></h5>
-                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                        <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                        <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>
+                <div th:each="dto : ${result.dtoList}" class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                    <div class="bg-white rounded shadow-sm">
+                        <!-- 이미지 썸네일 -->
+                        <img    th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                                th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" alt="" class="img-fluid card-img-top">
+                        <div class="p-4" style="position:relative;">
+                            <span class="text-muted" style="position:absolute; left:10px; top:10px;">
+                                [[${dto.area}]]
+                            </span>
+                            <h5 style="padding-left:15px; width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                <a th:href="@{/onmom/review_read(review_id = ${dto.review_id}, page = ${result.page})}" class="text-dark">
+                                    [[${dto.title}]]
+                                </a>
+                            </h5>
+                            <!-- 글 내용 일부 미리보기 -->
+                            <p class="small text-muted mb-0" style="width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                [[${dto.content}]]
+                            </p>
+                            <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
+                                <p class="small mb-0">
+                                    <!-- like 카운트 -->
+                                    <span>
+                                        <img src="/img/like.png" style="width:32px;" alt="좋아요">
+                                        <span class="font-weight-bold">
+                                            [[${dto.like_cnt}]]
+                                        </span>
+                                    </span>
+                                    <!-- dislike 카운트 -->
+                                    <span>
+                                        <img src="/img/dislike.png" style="width:32px;" alt="싫어요">
+                                        <span class="font-weight-bold">
+                                            [[${dto.dislike_cnt}]]
+                                        </span>
+                                    </span>
+                                </p>
+                                <!--    <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>-->
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                </div>
                 </div>
                 <!-- End -->
 
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" alt="" class="img-fluid card-img-top">
-                    <div class="p-4">
-                    <h5> <a href="#" class="text-dark">Blorange</a></h5>
-                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                        <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
-                        <div class="badge badge-primary px-3 rounded-pill font-weight-normal">Trend</div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <!-- End -->
+<!--                &lt;!&ndash; Gallery item &ndash;&gt;-->
+<!--                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">-->
+<!--                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-2.jpg" alt="" class="img-fluid card-img-top">-->
+<!--                    <div class="p-4">-->
+<!--                    <h5> <a href="#" class="text-dark">Blorange</a></h5>-->
+<!--                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>-->
+<!--                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">-->
+<!--                        <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>-->
+<!--                        <div class="badge badge-primary px-3 rounded-pill font-weight-normal">Trend</div>-->
+<!--                    </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; End &ndash;&gt;-->
 
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" alt="" class="img-fluid card-img-top">
-                    <div class="p-4">
-                    <h5> <a href="#" class="text-dark">And She Realized</a></h5>
-                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                        <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                        <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <!-- End -->
+<!--                &lt;!&ndash; Gallery item &ndash;&gt;-->
+<!--                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">-->
+<!--                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-3.jpg" alt="" class="img-fluid card-img-top">-->
+<!--                    <div class="p-4">-->
+<!--                    <h5> <a href="#" class="text-dark">And She Realized</a></h5>-->
+<!--                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>-->
+<!--                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">-->
+<!--                        <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>-->
+<!--                        <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>-->
+<!--                    </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; End &ndash;&gt;-->
 
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" alt="" class="img-fluid card-img-top">
-                    <div class="p-4">
-                    <h5> <a href="#" class="text-dark">DOSE Juice</a></h5>
-                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                        <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>
-                        <div class="badge badge-success px-3 rounded-pill font-weight-normal">Hot</div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <!-- End -->
+<!--                &lt;!&ndash; Gallery item &ndash;&gt;-->
+<!--                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">-->
+<!--                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-4.jpg" alt="" class="img-fluid card-img-top">-->
+<!--                    <div class="p-4">-->
+<!--                    <h5> <a href="#" class="text-dark">DOSE Juice</a></h5>-->
+<!--                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>-->
+<!--                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">-->
+<!--                        <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPEG</span></p>-->
+<!--                        <div class="badge badge-success px-3 rounded-pill font-weight-normal">Hot</div>-->
+<!--                    </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; End &ndash;&gt;-->
 
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-5.jpg" alt="" class="img-fluid card-img-top">
-                    <div class="p-4">
-                    <h5> <a href="#" class="text-dark">Pineapple</a></h5>
-                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                        <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>
-                        <div class="badge badge-primary px-3 rounded-pill font-weight-normal">New</div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <!-- End -->
+<!--                &lt;!&ndash; Gallery item &ndash;&gt;-->
+<!--                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">-->
+<!--                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-5.jpg" alt="" class="img-fluid card-img-top">-->
+<!--                    <div class="p-4">-->
+<!--                    <h5> <a href="#" class="text-dark">Pineapple</a></h5>-->
+<!--                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>-->
+<!--                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">-->
+<!--                        <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">PNG</span></p>-->
+<!--                        <div class="badge badge-primary px-3 rounded-pill font-weight-normal">New</div>-->
+<!--                    </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; End &ndash;&gt;-->
 
-                <!-- Gallery item -->
-                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-6.jpg" alt="" class="img-fluid card-img-top">
-                    <div class="p-4">
-                    <h5> <a href="#" class="text-dark">Yellow banana</a></h5>
-                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
-                        <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>
-                        <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-                <!-- End -->
+<!--                &lt;!&ndash; Gallery item &ndash;&gt;-->
+<!--                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">-->
+<!--                <div class="bg-white rounded shadow-sm"><img src="https://bootstrapious.com/i/snippets/sn-gallery/img-6.jpg" alt="" class="img-fluid card-img-top">-->
+<!--                    <div class="p-4">-->
+<!--                    <h5> <a href="#" class="text-dark">Yellow banana</a></h5>-->
+<!--                    <p class="small text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>-->
+<!--                    <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">-->
+<!--                        <p class="small mb-0"><i class="fa fa-picture-o mr-2"></i><span class="font-weight-bold">JPG</span></p>-->
+<!--                        <div class="badge badge-warning px-3 rounded-pill font-weight-normal text-white">Featured</div>-->
+<!--                    </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; End &ndash;&gt;-->
 
 
             </div>
@@ -340,6 +368,26 @@ function displayMarker(place) {
             </div>
         </section>
     </div>
+
+        <script>
+
+            $('#select_value').change(function(){
+                var area = document.getElementById('select_value');
+
+                $.ajax({
+                    url: '/onmom/index/'+area,
+                    type:"GET",
+                    contentType: "application/json; charset=utf-8",
+                    dataType:"text",
+                    success: function(result){
+                        console.log("result: " + result);
+                        self.location.reload();
+                    }
+                })
+
+            });
+
+        </script>
 
     </th:block>
 </th:block>

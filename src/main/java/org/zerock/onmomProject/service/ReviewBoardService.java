@@ -83,10 +83,10 @@ public interface ReviewBoardService {
 //    }
 
     // 이미지가 여러개일 경우 이거 사용, 테이블이 하나 더 생겼으므로
-    default ReviewBoardDTO entitiesToDTO(ReviewBoard reviewBoard, Member member, List<Image> images){
+    default ReviewBoardDTO entitiesToDTO(ReviewBoard reviewBoard, List<Image> images){
         ReviewBoardDTO reviewBoardDTO = ReviewBoardDTO.builder()
                 .review_id(reviewBoard.getReview_id())
-                .member_id(member.getMember_id())
+                .member_id(reviewBoard.getMember().toString())
                 .title(reviewBoard.getTitle())
                 .content(reviewBoard.getContent())
                 .like_cnt(reviewBoard.getLike_cnt())
