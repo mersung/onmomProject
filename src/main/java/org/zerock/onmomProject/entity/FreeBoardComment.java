@@ -16,10 +16,10 @@ public class FreeBoardComment extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long comment_id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private FreeBoard board;
 
     @Column(length = 1000, nullable = false)

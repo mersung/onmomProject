@@ -18,18 +18,14 @@ public class FreeBoardCommentRepositoryTests {
 
     @Test
     public void insertReply(){
-        IntStream.rangeClosed(1,300).forEach(i ->{
-
-
-            FreeBoard freeBoard = FreeBoard.builder()
-                    .content("content....." + i )
-                    .title("Title..." + i)
-                    .build();
+        IntStream.rangeClosed(1,100).forEach(i ->{
 
             Member member = Member.builder()
                     .member_id("u"+i)
-                    .nickname("user"+i)
-                    .pw("1111")
+                    .build();
+
+            FreeBoard freeBoard = FreeBoard.builder()
+                    .member(member)
                     .build();
 
             FreeBoardComment freeBoardComment =FreeBoardComment.builder()
