@@ -19,10 +19,10 @@ public class Member extends BaseEntity {
     @Column(length = 50)
     private String member_id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String nickname;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String pw;
 
     @ElementCollection(fetch = FetchType.LAZY)
