@@ -21,18 +21,17 @@ public class FreeBoardCommentRepositoryTests {
     public void insertReply(){
         IntStream.rangeClosed(1,100).forEach(i ->{
 
+            long free_id  = (long)(Math.random() * 100) + 1;
+
+            FreeBoard freeBoard = FreeBoard.builder().free_id(free_id)
+                    .content("content...modify....." + i )
+                    .title("Title...modify..." + i)
+                    .build();
+
             Member member = Member.builder()
                     .member_id("u"+i)
                     .nickname("user"+i)
                     .pw("1111")
-                    .build();
-
-            FreeBoard freeBoard = FreeBoard.builder()
-                    .content("content....." + i )
-                    .hate_cnt((long)i) // 1부터 100사이 난수 발생
-                    .like_cnt((long)i) // 1부터 100사이 난수 발생
-                    .title("Title..." + i)
-                    .member(member)
                     .build();
 
             FreeBoardComment freeBoardComment =FreeBoardComment.builder()
@@ -43,5 +42,19 @@ public class FreeBoardCommentRepositoryTests {
             freeBoardCommentRepository.save(freeBoardComment);
         });
     }
+
+    @Transactional
+    @Test
+    public void readReply1(){
+
+        Optional<FreeBoardComment> result = freeBoardCommentRepository.findById(2L);
+
+        FreeBoardComment freeBoardComment = result.get();
+
+
+        System.out.println(freeBoardComment);
+        System.out.println(freeBoardComment.getComment_id());
+    }
+
 
 }
