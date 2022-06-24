@@ -21,6 +21,8 @@ public class FreeBoardRepositoryTests {
 
             Member member = Member.builder()
                     .member_id("u"+i)
+                    .nickname("user"+i)
+                    .pw("1111")
                     .build();
 
             FreeBoard freeBoard = FreeBoard.builder()

@@ -22,9 +22,13 @@ public class FreeBoardCommentRepositoryTests {
 
             Member member = Member.builder()
                     .member_id("u"+i)
+                    .nickname("user"+i)
+                    .pw("1111")
                     .build();
 
             FreeBoard freeBoard = FreeBoard.builder()
+                    .content("content....." + i )
+                    .title("Title..." + i)
                     .member(member)
                     .build();
 
