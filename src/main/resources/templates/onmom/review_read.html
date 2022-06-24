@@ -88,12 +88,12 @@
                         <section>
                             <div>
                                 <div class="card-body comment_area">
-                                    <!-- 댓글 예시임 코딩할 때 삭제할 것-->
+                                    <!-- 댓글 리스트 -->
                                     <div class="d-flex mb-4">
                                         <!-- Parent comment-->
                                         <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                         <div class="ms-3">
-                                            <div class="fw-bold">Commenter Name</div>
+                                            <div class="fw-bold">[[${dto.comment_id}]]</div>
                                             If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
                                             <!-- Child comment 1-->
                                             <div class="d-flex mt-4">
@@ -130,7 +130,7 @@
                                         </div>
                                         <!-- 댓글 입력 창-->
                                         <form class="mb-4 comment_input">
-                                            <textarea class="col-10" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+                                            <textarea name="content" class="col-10" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
                                             <div class="submit_btn_wrap col-2">
                                                 <input type="button" class="btn-dark btn_style_sq" value="등록">
                                             </div>
