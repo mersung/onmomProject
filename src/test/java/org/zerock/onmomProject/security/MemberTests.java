@@ -8,6 +8,7 @@ import org.zerock.onmomProject.entity.Member;
 import org.zerock.onmomProject.entity.MemberRole;
 import org.zerock.onmomProject.repository.MemberRepository;
 
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -40,5 +41,15 @@ public class MemberTests {
 
             repository.save(member);
         });
+    }
+
+    @Test
+    public void testRead(){
+
+        Optional<Member> result = repository.findByEmail("user20@onmom.com");
+
+        Member member = result.get();
+
+        System.out.println(member);
     }
 }

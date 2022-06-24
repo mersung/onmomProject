@@ -42,6 +42,7 @@ public class OnmomAuthMemberDTO extends User implements OAuth2User {
         this.member_id = username;
         this.pw = password;
         this.nickname = nickname;
+
     }
 
     @Override
