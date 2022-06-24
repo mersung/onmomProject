@@ -27,7 +27,7 @@ public class FreeBoardRepositoryTests {
 
         IntStream.rangeClosed(1,100).forEach(i -> {
 
-            Member member = Member.builder()
+            Member member= Member.builder()
                     .member_id("u"+i)
                     .nickname("user"+i)
                     .pw("1111")
