@@ -29,5 +29,7 @@ public class Member extends BaseEntity {
     @ElementCollection(fetch = FetchType.LAZY)
     private Set<MemberRole> roleSet;
 
+    private boolean fromSocial;
+
 
 }
