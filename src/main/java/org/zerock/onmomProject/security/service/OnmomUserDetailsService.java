@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.zerock.onmomProject.entity.Member;
 import org.zerock.onmomProject.repository.MemberRepository;
@@ -19,7 +20,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OnmomUserDetailsService implements UserDetailsService {
 
+    // 등록
     private final MemberRepository memberRepository;
+    // 암호화
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
