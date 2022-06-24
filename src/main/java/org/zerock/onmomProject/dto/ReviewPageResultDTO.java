@@ -1,6 +1,6 @@
 package org.zerock.onmomProject.dto;
 
-import lombok.extern.log4j.Log4j2;
+import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -9,7 +9,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@Log4j2
+@Data // ReviewBoardServiceTests.java 에서 dtoList 의 데이터를 받아올 때 필요함
 public class ReviewPageResultDTO<DTO, EN> {
     //리뷰 게시판 페이지는 슬라이더이므로 한 번에 불러온다. size와 페이지를 정해주지 않음
 
@@ -36,12 +36,9 @@ public class ReviewPageResultDTO<DTO, EN> {
 
     // entity형태로 받아 List형태로 정리, Function을 통해 DTO로 만들어서 결과 반환
     public ReviewPageResultDTO(Page<EN> result, Function<EN, DTO> fn){
-
         dtoList = result.stream().map(fn).collect(Collectors.toList());
-        log.info("result, fn : "+result, fn, dtoList);
         totalPage = result.getTotalPages();
         makePageList(result.getPageable());
-        log.info("dtoList!~" + dtoList);
     }
 
     private void makePageList(Pageable pageable){
