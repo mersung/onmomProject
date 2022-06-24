@@ -19,7 +19,7 @@ public class FreeBoardComment extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private FreeBoard board;
 
     @Column(length = 1000, nullable = false)

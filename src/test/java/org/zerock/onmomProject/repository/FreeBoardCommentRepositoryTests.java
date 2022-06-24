@@ -19,10 +19,11 @@ public class FreeBoardCommentRepositoryTests {
 
     @Test
     public void insertReply(){
-        IntStream.rangeClosed(1,300).forEach(i ->{
+        IntStream.rangeClosed(1,100).forEach(i ->{
 
+            long free_id  = (long)(Math.random() * 100) + 1;
 
-            FreeBoard freeBoard = FreeBoard.builder()
+            FreeBoard freeBoard = FreeBoard.builder().free_id(free_id)
                     .content("content....." + i )
                     .title("Title..." + i)
                     .build();
@@ -38,6 +39,7 @@ public class FreeBoardCommentRepositoryTests {
                     .board(freeBoard)
                     .member(member)
                     .build();
+
             freeBoardCommentRepository.save(freeBoardComment);
         });
     }

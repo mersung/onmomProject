@@ -62,9 +62,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
     @Override
     public void removeWithReplies(Long free_id) {
 
-//        commentRepository.deleteByFree_id(free_id);
-//
-//        repository.deleteById(free_id);
+        commentRepository.deleteByFree_id(free_id);
+
+        freeBoardRepository.deleteById(free_id);
 
     }
     @Transactional
