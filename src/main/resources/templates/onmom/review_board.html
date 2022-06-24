@@ -70,14 +70,14 @@
                                                     <p class="small mb-0">
                                                         <!-- like 카운트 -->
                                                         <span>
-                                                            <img src="/img/like.png" alt="좋아요">
+                                                            <img src="/img/like.png" style="width:32px;" alt="좋아요">
                                                             <span class="font-weight-bold">
                                                                 [[${dto.like_cnt}]]
                                                             </span>
                                                         </span>
                                                         <!-- dislike 카운트 -->
                                                         <span>
-                                                            <img src="/img/dislike.png" alt="싫어요">
+                                                            <img src="/img/dislike.png" style="width:32px;" alt="싫어요">
                                                             <span class="font-weight-bold">
                                                                 [[${dto.dislike_cnt}]]
                                                             </span>
@@ -87,6 +87,13 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <!-- 게시글 없을 경우 -->
+                                    <div th:if="${dto == null} or ${dto.size() == 0}">
+                                        <p style="font-size:25px;">
+                                            작성된 게시물이 없습니다.
+                                        </p>
                                     </div>
                                     <!-- End -->
 

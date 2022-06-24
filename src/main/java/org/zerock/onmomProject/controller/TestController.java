@@ -1,18 +1,28 @@
 package org.zerock.onmomProject.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.zerock.onmomProject.dto.ReviewPageRequestDTO;
+import org.zerock.onmomProject.service.ReviewBoardService;
 
 @Controller
 @RequestMapping("/onmom")
 @Log4j2
+@RequiredArgsConstructor
 public class TestController {
+
+    private final ReviewBoardService reviewBoardService;
 
     // 후기게시판 리스트 페이지 테스트
     @GetMapping("/review_board")
-    public void review_board(){
+    public void index(ReviewPageRequestDTO pageRequestDTO, Model model){
+        // result 출력을 9로 함
+        pageRequestDTO.setSize(9);
+        model.addAttribute("result", reviewBoardService.getList(pageRequestDTO));
     }
 
     // 후기게시판 등록 페이지 테스트
