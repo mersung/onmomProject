@@ -30,18 +30,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-//        http.authorizeRequests()
-//                .antMatchers("/sample/all").permitAll()
-//                .antMatchers("/sample/member").hasRole("USER");
-//        http.formLogin();
+
+        http.authorizeRequests().antMatchers("/sample/member").hasRole("USER");
 
         http.formLogin().loginPage("/sample/login").loginProcessingUrl("/login");
-//        http.csrf().disable();
+
+        http.csrf().disable();
 
 //        http.oauth2Login().successHandler(successHandler());
 //        http.rememberMe().tokenValiditySeconds(60 * 60 * 7).userDetailsService(userDetailsService);  //7days
-//        http.logout()
-//                .logoutSuccessUrl("/login");
+        http.logout().logoutSuccessUrl("/login");
+
+        http.oauth2Login();
 //    }
 
 //    @Bean

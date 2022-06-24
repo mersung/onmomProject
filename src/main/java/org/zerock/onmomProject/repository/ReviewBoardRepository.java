@@ -17,7 +17,7 @@ public interface ReviewBoardRepository extends JpaRepository<ReviewBoard, Long>,
     @Query("SELECT rb, rbc FROM ReviewBoard rb LEFT JOIN ReviewBoardComment rbc ON rbc.reviewBoard = rb WHERE rb.review_id = :review_id")
     List<Object[]> getReviewBoardWithReviewBoardComment(@Param("review_id") Long review_id);
 
-    @Query(value = "select rb, m_id, count(fbc) " +
+    @Query(value = "select rb, m_id, count(rbc) " +
             " from ReviewBoard rb" +
             " left join rb.member m_id" +
             " left join ReviewBoardComment rbc ON rbc.reviewBoard = rb " +
