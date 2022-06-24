@@ -6,16 +6,16 @@
         <script src="/js/ckeditor/ckeditor.js"></script>
         <script>
         /* jQuery, window 먼저 load함 */
-        $(function(){
-            /* CKEditor 구현 */
-            CKEDITOR.replace('text_area',{
-                font_names : "맑은 고딕/Malgun Gothic;굴림/Gulim;돋움/Dotum;바탕/Batang;궁서/Gungsuh;Arial/Arial;Comic Sans MS/Comic Sans MS;Courier New/Courier New;Georgia/Georgia;Lucida Sans Unicode/Lucida Sans Unicode;Tahoma/Tahoma;Times New Roman/Times New Roman;MS Mincho/MS Mincho;Trebuchet MS/Trebuchet MS;Verdana/Verdana",
-                font_defaultLabel : "맑은 고딕/Malgun Gothic",
-                fontSize_defaultLabel : "12",
-                skin : "office2013",
-                language : "ko"
-            });
-        });
+<!--        $(function(){-->
+<!--            /* CKEditor 구현 */-->
+<!--            CKEDITOR.replace('text_area',{-->
+<!--                font_names : "맑은 고딕/Malgun Gothic;굴림/Gulim;돋움/Dotum;바탕/Batang;궁서/Gungsuh;Arial/Arial;Comic Sans MS/Comic Sans MS;Courier New/Courier New;Georgia/Georgia;Lucida Sans Unicode/Lucida Sans Unicode;Tahoma/Tahoma;Times New Roman/Times New Roman;MS Mincho/MS Mincho;Trebuchet MS/Trebuchet MS;Verdana/Verdana",-->
+<!--                font_defaultLabel : "맑은 고딕/Malgun Gothic",-->
+<!--                fontSize_defaultLabel : "12",-->
+<!--                skin : "office2013",-->
+<!--                language : "ko"-->
+<!--            });-->
+<!--        });-->
 
         // 이미지 업로드
         //// window 부터 load함
@@ -82,11 +82,11 @@
                     data: formData,
                     type: 'POST',
                     dataType: 'json',
-                    beforeSend: function(jqXHR, setting){ // Security 관련 ajax 전송 옵션
-                        var header = $("meta[name='_csrf_header']").attr("content");
-                        var token = $("meta[name='_csrf']").attr("content");
-                        jqXHR.setRequestHeader(header, token);
-                    },
+<!--                    beforeSend: function(jqXHR, setting){ // Security 관련 ajax 전송 옵션-->
+<!--                        var header = $("meta[name='_csrf_header']").attr("content");-->
+<!--                        var token = $("meta[name='_csrf']").attr("content");-->
+<!--                        jqXHR.setRequestHeader(header, token);-->
+<!--                    },-->
                     success: function(result){
                         console.log(result);
                         showResult(result);
@@ -218,7 +218,7 @@
                                                 <!-- 이미지  -->
                                             </ul>
                                         </div>
-                                        <textarea id="text_area" class="col-12" rows="25" >
+                                        <textarea id="text_area" class="col-12 ckeditor" rows="25" >
 
                                         </textarea>
                                     </p>
