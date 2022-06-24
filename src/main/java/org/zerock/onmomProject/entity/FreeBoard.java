@@ -18,7 +18,7 @@ public class FreeBoard extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long free_id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
     @Column(length = 50, nullable = false)
