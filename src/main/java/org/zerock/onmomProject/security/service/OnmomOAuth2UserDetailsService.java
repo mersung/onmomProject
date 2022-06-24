@@ -48,7 +48,7 @@ public class OnmomOAuth2UserDetailsService extends DefaultOAuth2UserService {
         String member_id = null;
 
         if (clientName.equals("Google")) { // 구글 로그인
-            member_id = oAuth2User.getAttribute("member_id");
+            member_id = oAuth2User.getAttribute("email");
         }
 
         log.info("MEMBER_ID: " + member_id);

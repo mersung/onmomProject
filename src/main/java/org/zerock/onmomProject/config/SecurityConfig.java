@@ -12,10 +12,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.zerock.onmomProject.security.handler.OnmomLoginSuccessHandler;
 
 @Configuration
 @Log4j2
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //    @Autowired
@@ -37,19 +37,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
+        http.oauth2Login().successHandler(successHandler());
+
 //        http.oauth2Login().successHandler(successHandler());
 //        http.rememberMe().tokenValiditySeconds(60 * 60 * 7).userDetailsService(userDetailsService);  //7days
         http.logout().logoutSuccessUrl("/login");
 
         http.oauth2Login();
+
+
 //    }
-
-//    @Bean
-//    public ClubLoginSuccessHandler successHandler() {
-//        return new ClubLoginSuccessHandler(passwordEncoder());
-//    }
-
-
     }
+    @Bean
+    public OnmomLoginSuccessHandler successHandler() {
+        return new OnmomLoginSuccessHandler(passwordEncoder());
+    }
+
 }
 

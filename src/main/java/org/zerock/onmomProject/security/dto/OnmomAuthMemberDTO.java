@@ -17,20 +17,23 @@ import java.util.Map;
 @ToString
 public class OnmomAuthMemberDTO extends User implements OAuth2User {
 
+    private User user;
     private String member_id;
-    private String pw;
+
     private String nickname;
+    private String pw;
 
     private Map<String, Object> attr;
 
-    // 이메일 정보 출력
     public OnmomAuthMemberDTO(String username,
                               String password,
                               String nickname,
                               Collection<? extends GrantedAuthority> authorities,
                               Map<String, Object> attr){
+
         this(username, password, nickname, authorities);
         this.attr = attr;
+
     }
 
     public OnmomAuthMemberDTO(String username,
@@ -41,18 +44,22 @@ public class OnmomAuthMemberDTO extends User implements OAuth2User {
         super(username, password, authorities);
         this.member_id = username;
         this.pw = password;
-        this.nickname = nickname;
 
     }
-
-    @Override
-    public Map<String, Object> getAttributes(){
-        return this.attr;
-    }
-
 
     @Override
     public String getName() {
+        return user.getUsername();
+    }
+
+    @Override
+    public Map<String, Object> getAttributes() {
         return null;
     }
+
+
+//    @Override
+//    public String getName() {
+//        return null;
+//    }
 }
