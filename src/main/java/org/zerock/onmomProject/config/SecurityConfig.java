@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //        http.oauth2Login().successHandler(successHandler());
 //        http.rememberMe().tokenValiditySeconds(60 * 60 * 7).userDetailsService(userDetailsService);  //7days
-        http.logout().logoutSuccessUrl("/login");
+        http.logout().logoutSuccessUrl("/onmom/index");
 
         http.oauth2Login();
 
