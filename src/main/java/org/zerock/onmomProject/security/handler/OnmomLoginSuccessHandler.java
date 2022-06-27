@@ -31,6 +31,6 @@ public class OnmomLoginSuccessHandler implements AuthenticationSuccessHandler {
         log.info("-------------------------------");
         log.info("onAuthenticationSuccess");
 
-        redirectStrategy.sendRedirect(request, response, "/onmom/member");
+        redirectStrategy.sendRedirect(request, response, "/onmom/index");
     }
 }

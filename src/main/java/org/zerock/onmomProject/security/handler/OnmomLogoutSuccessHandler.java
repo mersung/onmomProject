@@ -21,6 +21,9 @@ public class OnmomLogoutSuccessHandler implements AuthenticationSuccessHandler {
                                         HttpServletResponse response,
                                         Authentication authentication)
             throws IOException, ServletException {
+        log.info("-------------------------------");
+        log.info("onAuthenticationSuccess");
 
+        redirectStrategy.sendRedirect(request, response, "/onmom/index");
     }
 }
