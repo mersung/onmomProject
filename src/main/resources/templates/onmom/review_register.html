@@ -192,7 +192,7 @@
             //태그들이 추가된 것을 확인한 후에 comment를 제거
             $(".box").html(str);
 
-            $("form").submit();
+           $("form").submit();
 
         });
 
@@ -264,8 +264,9 @@
                                         </div>
                                         <div class="post_write col-3">
                                             <p class="mb-0 fw-bold text-dark">작성자</p>
+                                            <input type="hidden" th:value="${#authentication.name}" name="member_id">
                                             <span sec:authentication="name">
-                                                <input type="hidden" th:value="${principal.username}" name="member_id">
+
                                             </span>
                                         </div>
                                         <div class="post_date col-3">
@@ -305,7 +306,7 @@
                                 </div>
                                 <!-- 등록 버튼 -->
                                 <div class="btn_wrap">
-                                    <button type="submit" class="btn btn-primary">등록</button>
+                                    <button type="submit" class="btn btn-dark btn_style registerBtn">등록</button>
                                     <button type="button" class="btn btn-light btn_style">취소</button>
                                 </div>
                             </form>

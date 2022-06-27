@@ -39,6 +39,7 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
     @Override
     public Long register(ReviewBoardDTO reviewBoardDTO) {
 
+        log.info("Review : "+reviewBoardDTO);
         Map<String, Object> entityMap = dtoToEntity(reviewBoardDTO);
         ReviewBoard reviewBoard = (ReviewBoard) entityMap.get("reviewBoard");
         List<Image> imageList =  (List<Image>) entityMap.get("imgList");

@@ -40,9 +40,9 @@ public class ReviewBoardController {
 
     // 게시글 삽입
     @PostMapping("/register")
-    public String register(ReviewBoardDTO reviewBoardDTO, RedirectAttributes redirectAttributes, @AuthenticationPrincipal PrincipalDetail principal){
+    public String register(ReviewBoardDTO reviewBoardDTO, RedirectAttributes redirectAttributes){
         log.info(reviewBoardDTO);
-        reviewBoardDTO.setMember_id(principal.getUsername());
+
         Long review_id = service.register(reviewBoardDTO);
         redirectAttributes.addFlashAttribute("msg", review_id);
 
