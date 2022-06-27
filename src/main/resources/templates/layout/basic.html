@@ -10,6 +10,10 @@
         <!-- Security 사용 시, ajax post 통신용 crsf 토큰값 -->
 <!--        <meta name="_csrf" th:content="${_csrf.token}">-->
 <!--        <meta name="_csrf_header" th:content="${_csrf.headerName}">-->
+        <th:sec:authorize access="isAuthenticated()">
+            <!-- principal = current user object에게 direct access를 허용 -->
+            <th:sec:authentication property="principal" var="principal" />
+        </th:sec:authorize>
 
         <title>온몸 - 서울 헬스장 리뷰</title>
         <!-- Favicon-->

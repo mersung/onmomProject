@@ -46,7 +46,7 @@ public class ReviewBoardController {
         Long review_id = service.register(reviewBoardDTO);
         redirectAttributes.addFlashAttribute("msg", review_id);
 
-        return "redirect:/onmom/index";
+        return "redirect:/onmom/review_board";
 
     }
 
