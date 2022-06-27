@@ -8,11 +8,22 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.zerock.onmomProject.security.handler.OnmomLoginSuccessHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 @Configuration
 @Log4j2
@@ -20,6 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //    @Autowired
 //    private OnmomUserDetailsService userDetailsService;
+
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -38,21 +51,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.oauth2Login().successHandler(successHandler());
-
-//        http.oauth2Login().successHandler(successHandler());
 //        http.rememberMe().tokenValiditySeconds(60 * 60 * 7).userDetailsService(userDetailsService);  //7days
-        http.logout().logoutSuccessUrl("/onmom/index")
-                .invalidateHttpSession(true);
 
-        http.oauth2Login();
-
-
+        http.logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/onmom/index")
+                .deleteCookies("JSESSIONID") // 쿠키 삭제
+                .addLogoutHandler(new LogoutHandler() { // 로그아웃 핸들러/ 세션 무효화
+                    @Override
+                    public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+                        HttpSession session = request.getSession();
+                        session.invalidate();
+                    }
+                }).logoutSuccessHandler(new LogoutSuccessHandler() { // 로그아웃 성공 후 핸들러 (index 페이지로 이동)
+                    @Override
+                    public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+                        response.sendRedirect("/onmom/index");
+                    }
+                });
 //    }
     }
     @Bean
     public OnmomLoginSuccessHandler successHandler() {
         return new OnmomLoginSuccessHandler(passwordEncoder());
     }
+
+    
+    
 
 }
 
