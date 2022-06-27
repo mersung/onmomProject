@@ -101,7 +101,6 @@
             // ajax가 가져온 결과 데이터를 호출하는 함수 선언
             function showResult(uploadResultArr){
                 var uploadUL = $(".uploadResult ul");
- //             var ckEditorLoc = $(".cke_editable");
                 var str = "";
 
                 $(uploadResultArr).each(function(i, obj){
@@ -114,15 +113,6 @@
                     str += "</li>";
                 });
 
-//                  $(uploadResultArr).each(function(i, obj){
-//                    str += "<div data-name='" + obj.fileName + "' data-path='"+obj.folderPath+"' data-uuid='"+obj.uuid+"'>";
-//                    str += " <div>";
-//                    str += "<button type='button' data-file=\'"+ obj.imageURL + "\' "
-//                    str += "class='btn-light btn-sm'>X</button><br>";
-//                    str += "<img src='/display?fileName=" + obj.thumbnailURL + "'>";
-//                    str += "</div>";
-//                    str += "</div>";
-//                  });
 
                 // uploadUL을 변수 str에 삽입
                 uploadUL.append(str);
@@ -146,30 +136,6 @@
                     }
                 }); //$.ajax 끝(이미지 삭제 관련)
             });
-
-            //prevent submit
-                $(".btn-primary").on("click", function(e) {
-                    e.preventDefault();
-
-                    var str = "";
-
-                    $(".uploadResult li").each(function(i,obj){
-                        var target = $(obj);
-
-                        str += "<input type='hidden' name='imageDTOList["+i+"].imgName' value='"+target.data('name') +"'>";
-
-                        str += "<input type='hidden' name='imageDTOList["+i+"].path' value='"+target.data('path')+"'>";
-
-                        str += "<input type='hidden' name='imageDTOList["+i+"].uuid' value='"+target.data('uuid')+"'>";
-
-                    });
-
-                    //태그들이 추가된 것을 확인한 후에 comment를 제거
-                    $(".box").html(str);
-
-                    $("form").submit();
-
-                });
 
 
             // 전송

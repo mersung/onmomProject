@@ -82,7 +82,7 @@
                                 </a>
                             </h5>
                             <!-- 글 내용 일부 미리보기 -->
-                            <p class="small text-muted mb-0" style="width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                            <p id="content_view" class="small text-muted mb-0" style="width:250px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                                 [[${dto.content}]]
                             </p>
                             <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
@@ -98,7 +98,7 @@
                                     <span>
                                         <img src="/img/dislike.png" style="width:32px;" alt="싫어요">
                                         <span class="font-weight-bold">
-                                            [[${dto.dislike_cnt}]]
+                                            [[${dto.hate_cnt}]]
                                         </span>
                                     </span>
                                 </p>
@@ -308,6 +308,13 @@ function displayMarker(place) {
                 })
 
             });
+
+            // 글 내용 관련 태그들 지정 제거
+            var contentTag = new Array("<p>", "</p>", "<strong>", "</strong>", "<ol>", "</ol>", "<ul>", "</ul>", "<li>", "</li>",
+                                        "<s>", "</s>", "<em>", "</em>"); // 배열 선언
+
+            var content_view = $('#content_view').text();
+            // 텍스트 변경 jQuery
 
         </script>
 
