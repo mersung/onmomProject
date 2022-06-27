@@ -30,7 +30,7 @@ public interface FreeBoardService {
                 .build();
         return freeBoard;
     }
-    default FreeBoardDTO entityToDTO(FreeBoard freeBoard, Member member, Long replyCount) {
+    default FreeBoardDTO entityToDTO(FreeBoard freeBoard, Member member,Long like_cnt) {
 
         FreeBoardDTO freeBoardDTO = FreeBoardDTO.builder()
                 .free_id(freeBoard.getFree_id())

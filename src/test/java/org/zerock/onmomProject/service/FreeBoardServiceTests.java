@@ -1,13 +1,12 @@
-package org.zerock.onmomProject.Service;
+package org.zerock.onmomProject.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.onmomProject.dto.FreeBoardDTO;
 import org.zerock.onmomProject.dto.FreePageRequestDTO;
 import org.zerock.onmomProject.dto.FreePageResultDTO;
-import org.zerock.onmomProject.entity.Member;
-import org.zerock.onmomProject.service.FreeBoardService;
 
 @SpringBootTest
 public class FreeBoardServiceTests {
@@ -30,8 +29,6 @@ public class FreeBoardServiceTests {
             Long free_id = freeBoardService.register(dto);
 
         }
-
-
     @Test
     public void testList() {
 
