@@ -31,6 +31,7 @@ public class OnmomUserDetailsService implements UserDetailsService {
         log.info("OnmomUserDetailsService loadUserByUsername " + username);
 
         Optional<Member> result= memberRepository.findByEmail(username);
+//        Optional<Member> result= memberRepository.findById(username);
 
         Member member = result.get();
 
