@@ -44,7 +44,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
         log.info(freePageRequestDTO);
 
         Function<Object[],FreeBoardDTO> fn = (en ->
-                entityToDTO((FreeBoard)en[0],(Member)en[1],(Long)en[2]));
+                entityToDTO((FreeBoard)en[0],(Member)en[1],(Long) en[2]));
 
         Page<Object[]> result = freeBoardRepository.FreeSearchPage(
                 freePageRequestDTO.getType(),
