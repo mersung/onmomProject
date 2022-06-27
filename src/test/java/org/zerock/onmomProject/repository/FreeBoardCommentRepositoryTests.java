@@ -42,18 +42,7 @@ public class FreeBoardCommentRepositoryTests {
             freeBoardCommentRepository.save(freeBoardComment);
         });
     }
-    @Transactional
-    @Test
-    public void readReply1(){
 
-        Optional<FreeBoardComment> result = freeBoardCommentRepository.findById(1L);
-
-        FreeBoardComment freeBoardComment = result.get();
-
-
-        System.out.println(freeBoardComment);
-        System.out.println(freeBoardComment.getComment_id());
-    }
 
     @Transactional
     @Test
