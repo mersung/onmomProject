@@ -41,6 +41,13 @@ public class ReviewBoardController {
     // 게시글 삽입
     @PostMapping("/register")
     public String register(ReviewBoardDTO reviewBoardDTO, RedirectAttributes redirectAttributes){
+
+        String str = "";
+        int startIdx = reviewBoardDTO.getContent().indexOf(">")+1;
+        int lastIdx = reviewBoardDTO.getContent().lastIndexOf("<");
+        str += reviewBoardDTO.getContent().substring(startIdx, lastIdx);
+        reviewBoardDTO.setContent(str);
+
         log.info(reviewBoardDTO);
 
         Long review_id = service.register(reviewBoardDTO);
