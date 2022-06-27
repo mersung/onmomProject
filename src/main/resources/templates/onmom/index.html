@@ -137,7 +137,24 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var ps = new kakao.maps.services.Places();
 
 // 키워드로 장소를 검색합니다
+ps.keywordSearch('서울시 gym', placesSearchCB);
+ps.keywordSearch('서울시 짐', placesSearchCB);
+ps.keywordSearch('서울시 헬스장', placesSearchCB);
+ps.keywordSearch('서울시 헬스', placesSearchCB);
+ps.keywordSearch('서울시 fitness', placesSearchCB);
+ps.keywordSearch('서울시 피트니스', placesSearchCB);
+ps.keywordSearch('서울시 휘트니스', placesSearchCB);
+ps.keywordSearch('서울시 PT', placesSearchCB);
+ps.keywordSearch('서울시 PT샵', placesSearchCB);
+ps.keywordSearch('서울 gym', placesSearchCB);
+ps.keywordSearch('서울 짐', placesSearchCB);
 ps.keywordSearch('서울 헬스장', placesSearchCB);
+ps.keywordSearch('서울 헬스', placesSearchCB);
+ps.keywordSearch('서울 fitness', placesSearchCB);
+ps.keywordSearch('서울 피트니스', placesSearchCB);
+ps.keywordSearch('서울 휘트니스', placesSearchCB);
+ps.keywordSearch('서울 PT', placesSearchCB);
+ps.keywordSearch('서울 PT샵', placesSearchCB);
 
 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
 function placesSearchCB (data, status, pagination) {
