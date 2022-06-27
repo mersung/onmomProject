@@ -27,7 +27,7 @@ public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long>, Sea
     Page<Object[]> getFreeBoardWithFreeBoardCommentCount(Pageable pageable);
 
     @Query("select b, m, count(fbc)" +
-            "from FreeBoard b left join Member m on m.member_id = b" +
+            "from FreeBoard b left join b.member m" +
             " left outer join FreeBoardComment fbc on fbc.board = b"+
             " where b.free_id = :free_id")
     Object getFreeBoardByFree_id(@Param("free_id")Long free_id);

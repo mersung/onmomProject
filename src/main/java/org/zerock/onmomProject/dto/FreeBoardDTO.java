@@ -19,6 +19,8 @@ public class FreeBoardDTO {
 
     private String member_id;
 
+    private String nickname;
+
     private String title;
 
     private String content;

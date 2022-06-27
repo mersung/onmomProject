@@ -52,4 +52,25 @@ public class FreeBoardServiceTests {
 
         System.out.println(freeBoardDTO);
     }
+
+    @Test
+    public void testRemove() {
+
+        Long free_id = 29L;
+
+        freeBoardService.removeWithReplies(free_id);
+
+    }
+    @Test
+    public void testModify() {
+
+        FreeBoardDTO boardDTO = FreeBoardDTO.builder()
+                .free_id(2L)
+                .title("제목 변경합니다.2")
+                .content("내용 변경합니다.2")
+                .build();
+
+        freeBoardService.modify(boardDTO);
+
+    }
 }

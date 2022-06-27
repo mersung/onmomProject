@@ -23,11 +23,33 @@ import java.util.stream.Collectors;
 public class SearchFreeBoardRepositoryImpl extends QuerydslRepositorySupport implements SearchFreeBoardRepository {
 
     public SearchFreeBoardRepositoryImpl(){
-        super(ReviewBoard.class);
+        super(FreeBoard.class);
     }
 
     @Override
-    public List<ReviewBoard> search1() {
+    public FreeBoard search1() {
+
+        log.info("search1........................");
+
+        QFreeBoard freeBoard = QFreeBoard.freeBoard;
+        QFreeBoardComment freeBoardComment = QFreeBoardComment.freeBoardComment;
+        QMember member = QMember.member;
+
+        JPQLQuery<FreeBoard> jpqlQuery = from(freeBoard);
+        jpqlQuery.leftJoin(member).on(freeBoard.member.eq(member));
+        jpqlQuery.leftJoin(freeBoardComment).on(freeBoardComment.board.eq(freeBoard));
+
+        JPQLQuery<Tuple> tuple = jpqlQuery.select(freeBoard, member.member_id, freeBoardComment.count());
+        tuple.groupBy(freeBoard);
+
+        log.info("---------------------------");
+        log.info(tuple);
+        log.info("---------------------------");
+
+        List<Tuple> result = tuple.fetch();
+
+        log.info(result);
+
         return null;
     }
 
@@ -46,7 +68,7 @@ public class SearchFreeBoardRepositoryImpl extends QuerydslRepositorySupport imp
         jpqlQuery.leftJoin(member).on(freeBoard.member.eq(member));
         jpqlQuery.leftJoin(freeBoardComment).on(freeBoardComment.board.eq(freeBoard));
 
-        JPQLQuery<Tuple> tuple = jpqlQuery.select(freeBoard, member.member_id, freeBoardComment.board
+        JPQLQuery<Tuple> tuple = jpqlQuery.select(freeBoard, member, freeBoardComment.board
         , freeBoardComment.content);
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();

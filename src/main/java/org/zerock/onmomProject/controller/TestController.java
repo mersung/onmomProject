@@ -42,14 +42,14 @@ public class TestController {
 
 
     // 자유게시판 목록 페이지 테스트
-    @GetMapping("/freeBoard_list")
-    public void freeBoard_list(){
-    }
+//    @GetMapping("/freeBoard_list")
+//    public void freeBoard_list(){
+//    }
 
     // 자유게시판 등록 페이지 테스트
-    @GetMapping("/freeBoard_register")
-    public void freeBoard_register(){
-    }
+//    @GetMapping("/freeBoard_register")
+//    public void freeBoard_register(){
+//    }
 
     // 자유게시판 수정 페이지 테스트
     @GetMapping("/freeBoard_modify")

@@ -60,7 +60,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
     public FreeBoardDTO get(Long free_id) {
         Object result = freeBoardRepository.getFreeBoardByFree_id(free_id);
         Object[] arr = (Object[])result;
-        return entityToDTO((FreeBoard)arr[0], (Member)arr[1], (Long)arr[2]);
+        return entityToDTO((FreeBoard)arr[0], (Member) arr[1], (Long)arr[2]);
     }
 
 
