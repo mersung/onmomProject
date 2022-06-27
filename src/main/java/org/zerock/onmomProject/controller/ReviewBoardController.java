@@ -31,10 +31,11 @@ public class ReviewBoardController {
     }
 
     // 게시글 수정화면, 하나 불러오기
-    @GetMapping({"/modify","read"})
-    public void read(long rno, @ModelAttribute("reviewPageRequestDTO")ReviewPageRequestDTO requestDTO, Model model){
+    @GetMapping({"/modify","/read"})
+    public void read(long review_id, @ModelAttribute("reviewPageRequestDTO")ReviewPageRequestDTO requestDTO, Model model){
 
-        ReviewBoardDTO reviewBoardDTO = service.get(rno);
+        ReviewBoardDTO reviewBoardDTO = service.get(review_id);
+        log.info("reviewBoardDTO: "+reviewBoardDTO);
         model.addAttribute("dto", reviewBoardDTO);
     }
 
