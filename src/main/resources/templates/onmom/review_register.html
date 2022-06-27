@@ -53,6 +53,10 @@
 
                 var appended = false;
 
+                var select_value = document.getElementById('select_value');
+                var reviewNum = $(".reviewNum")
+                formData.append("area", select_value);
+
                 for(var i = 0; i < files.length; i++){
                     if(!checkExtension(files[i].name, files[i].size)){
                         return false;
@@ -73,6 +77,8 @@
                     console.log(value);
                 }
 
+
+
                 // 실제 업로드 부분
                 // upload ajax
                 $.ajax({
@@ -82,11 +88,6 @@
                     data: formData,
                     type: 'POST',
                     dataType: 'json',
-<!--                    beforeSend: function(jqXHR, setting){ // Security 관련 ajax 전송 옵션-->
-<!--                        var header = $("meta[name='_csrf_header']").attr("content");-->
-<!--                        var token = $("meta[name='_csrf']").attr("content");-->
-<!--                        jqXHR.setRequestHeader(header, token);-->
-<!--                    },-->
                     success: function(result){
                         console.log(result);
                         showResult(result);
@@ -146,6 +147,54 @@
                 }); //$.ajax 끝(이미지 삭제 관련)
             });
 
+            //prevent submit
+                $(".btn-primary").on("click", function(e) {
+                    e.preventDefault();
+
+                    var str = "";
+
+                    $(".uploadResult li").each(function(i,obj){
+                        var target = $(obj);
+
+                        str += "<input type='hidden' name='imageDTOList["+i+"].imgName' value='"+target.data('name') +"'>";
+
+                        str += "<input type='hidden' name='imageDTOList["+i+"].path' value='"+target.data('path')+"'>";
+
+                        str += "<input type='hidden' name='imageDTOList["+i+"].uuid' value='"+target.data('uuid')+"'>";
+
+                    });
+
+                    //태그들이 추가된 것을 확인한 후에 comment를 제거
+                    $(".box").html(str);
+
+                    $("form").submit();
+
+                });
+
+
+            // 전송
+            $(".registerBtn").on("click", function(e) {
+            e.preventDefault();
+
+            var str = "";
+
+            $(".uploadResult li").each(function(i,obj){
+                var target = $(obj);
+
+                str += "<input type='hidden' name='imageDTOList["+i+"].imgName' value='"+target.data('name') +"'>";
+
+                str += "<input type='hidden' name='imageDTOList["+i+"].path' value='"+target.data('path')+"'>";
+
+                str += "<input type='hidden' name='imageDTOList["+i+"].uuid' value='"+target.data('uuid')+"'>";
+
+            });
+
+            //태그들이 추가된 것을 확인한 후에 comment를 제거
+            $(".box").html(str);
+
+           $("form").submit();
+
+        });
 
         });
 
@@ -215,7 +264,8 @@
                                         </div>
                                         <div class="post_write col-3">
                                             <p class="mb-0 fw-bold text-dark">작성자</p>
-                                            <span name="member_id" sec:authentication="name">
+                                            <input type="hidden" th:value="${#authentication.name}" name="member_id">
+                                            <span sec:authentication="name">
 
                                             </span>
                                         </div>
@@ -228,6 +278,9 @@
                                     </div>
                                     <hr />
                                 </div>
+
+                                <!-- input hidden 타입이 삽입 -->
+                                <div class="box"></div>
 
                                 <!-- 글 내용-->
                                 <section class="mb-3">
