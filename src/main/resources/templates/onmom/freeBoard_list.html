@@ -2,69 +2,90 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
-        <h1 class="mt-4">Board List Page
-            <span>
-                <a href="@{/board/register}">
-                    <button type="button" class="btn btn-outline-primary">REGISTER</button>
-                </a>
-            </span>
-        </h1>
+        <!-- 자유게시판 전체 wrap -->
+        <div class="container px-5 my-5 review_post">
+            <!-- 자유게시판 타이틀 -->
+            <h1 class="mt-4">
+                <div class="board_title">
+                    <h1>자유 게시판<span class="fw-light text-muted sub_title">회원 분들의 자유 게시판입니다.</span></h1>
+                </div>
+                <span>
+                    <a href="/onmom/freeBoard_register">
+                        <button type="button" class="btn btn-outline-primary">글쓰기</button>
+                    </a>
+                </span>
+            </h1>
 
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Write</th>
-                <th scope="col">Regdate</th>
-            </tr>
-            </thead>
-            <tbody>
+            <form action="/onmom/freeBoard_list" method="get" id="searchForm">
+                <div class="input-group">
+                    <input type="hidden" name="page" value="1">
+                    <div class="input-group-prepend">
+                        <select class="custom-select" name="type">
 
-
-            </tbody>
-        </table>
-        <ul class="pagination h-100" justify-content-center align-items-center>
-            <li class="page-item" >
-                <a class="page-link"  tabindex="-1">
-                    Previous</a>
-            </li>
-
-            <li >
-                <a class="page-link">
-
-                </a>
-            </li>
-
-            <li class="page-item" >
-                <a class="page-link" >Next</a>
-            </li>
-
-        </ul>
-
-
-        <div class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        </select>
                     </div>
-                    <div class="modal-body">
-                        <p>Modal body text goes here</p>
+                    <input class="form-control" name="keyword" >
+                    <div class="input-group-append" id="button-addon4">
+                        <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
+                        <button class="btn btn-outline-secondary btn-clear" type="button">끌리어</button>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn bnt-secondary" data-dismiss="modal">Close
-                        </button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">조회수</th>
+                    <th scope="col">작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                </tbody>
+            </table>
+            <ul class="pagination h-100" justify-content-center align-items-center>
+                <li class="page-item" >
+                    <a class="page-link"  tabindex="-1">
+                        Previous</a>
+                </li>
+
+                <li >
+                    <a class="page-link">
+
+                    </a>
+                </li>
+
+                <li class="page-item" >
+                    <a class="page-link" >Next</a>
+                </li>
+
+            </ul>
+
+
+            <div class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Modal body text goes here</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bnt-secondary" data-dismiss="modal">Close
+                            </button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-
     </th:block>
 </th:block>
