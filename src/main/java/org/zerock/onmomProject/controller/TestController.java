@@ -2,6 +2,7 @@ package org.zerock.onmomProject.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,6 +48,7 @@ public class TestController {
     }
 
     // 자유게시판 등록 페이지 테스트
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/freeBoard_register")
     public void freeBoard_register(){
     }
