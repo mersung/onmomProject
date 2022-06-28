@@ -43,6 +43,7 @@ public class FreeBoardCommentRepositoryTests {
         });
     }
 
+
     @Transactional
     @Test
     public void readReply1(){

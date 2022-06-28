@@ -31,22 +31,30 @@ public class ReviewBoardController {
     }
 
     // 게시글 수정화면, 하나 불러오기
-    @GetMapping({"/modify","read"})
-    public void read(long rno, @ModelAttribute("reviewPageRequestDTO")ReviewPageRequestDTO requestDTO, Model model){
+    @GetMapping({"/modify","/read"})
+    public void read(long review_id, @ModelAttribute("reviewPageRequestDTO")ReviewPageRequestDTO requestDTO, Model model){
 
-        ReviewBoardDTO reviewBoardDTO = service.get(rno);
+        ReviewBoardDTO reviewBoardDTO = service.get(review_id);
+        log.info("reviewBoardDTO: "+reviewBoardDTO);
         model.addAttribute("dto", reviewBoardDTO);
     }
 
     // 게시글 삽입
     @PostMapping("/register")
-    public String register(ReviewBoardDTO reviewBoardDTO, RedirectAttributes redirectAttributes, @AuthenticationPrincipal PrincipalDetail principal){
+    public String register(ReviewBoardDTO reviewBoardDTO, RedirectAttributes redirectAttributes){
+
+        String str = "";
+        int startIdx = reviewBoardDTO.getContent().indexOf(">")+1;
+        int lastIdx = reviewBoardDTO.getContent().lastIndexOf("<");
+        str += reviewBoardDTO.getContent().substring(startIdx, lastIdx);
+        reviewBoardDTO.setContent(str);
+
         log.info(reviewBoardDTO);
-        reviewBoardDTO.setMember_id(principal.getUsername());
+
         Long review_id = service.register(reviewBoardDTO);
         redirectAttributes.addFlashAttribute("msg", review_id);
 
-        return "redirect:/onmom/index";
+        return "redirect:/onmom/review_board";
 
     }
 

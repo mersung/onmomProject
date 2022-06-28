@@ -86,12 +86,14 @@ public interface ReviewBoardService {
     default ReviewBoardDTO entitiesToDTO(ReviewBoard reviewBoard, List<Image> images){
         ReviewBoardDTO reviewBoardDTO = ReviewBoardDTO.builder()
                 .review_id(reviewBoard.getReview_id())
-                .member_id(reviewBoard.getMember().toString())
+                .member_id(reviewBoard.getMember().getNickname())
                 .title(reviewBoard.getTitle())
                 .content(reviewBoard.getContent())
                 .like_cnt(reviewBoard.getLike_cnt())
                 .hate_cnt(reviewBoard.getHate_cnt())
                 .area(reviewBoard.getArea())
+                .regDate(reviewBoard.getRegDate())
+                .modDate(reviewBoard.getModDate())
                 .build();
 
         List<ImageDTO> imageDTOList = images.stream().map(image -> {
