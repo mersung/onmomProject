@@ -13,7 +13,7 @@
                             <h1>자유 게시판<span class="fw-light text-muted sub_title">회원 분들의 자유 게시판입니다.</span></h1>
                         </div>
                         <span>
-                            <a href="/onmom/freeBoard_register">
+                            <a href="/onmom/freeBoard/freeBoardRegister">
                                 <button type="button" class="btn btn-outline-primary">글쓰기</button>
                             </a>
                         </span>
@@ -29,15 +29,15 @@
                     </h1>
                 </th:block>
 
-                <form action="/onmom/freeBoard_list" method="get" id="searchForm">
+                <form action="/onmom/freeBoard/freeBoardList" method="get" id="searchForm">
                     <div class="input-group">
                         <input type="hidden" name="page" value="1">
                         <div class="input-group-prepend">
                             <select class="custom-select" name="type">
                                 <option th:selected="${freePageRequestDTO.type == null}">-------</option>
                                 <option value="t" th:selected="${freePageRequestDTO.type =='t'}" >제목</option>
-                                <option value="t" th:selected="${freePageRequestDTO.type =='c'}"  >내용</option>
-                                <option value="t"  th:selected="${freePageRequestDTO.type =='w'}" >작성자</option>
+                                <option value="c" th:selected="${freePageRequestDTO.type =='c'}"  >내용</option>
+                                <option value="w"  th:selected="${freePageRequestDTO.type =='w'}" >작성자</option>
                                 <option value="tc"  th:selected="${freePageRequestDTO.type =='tc'}" >제목 + 내용</option>
                                 <option value="tcw"  th:selected="${freePageRequestDTO.type =='tcw'}" >제목 + 내용 + 작성자</option>
                             </select>
@@ -63,7 +63,7 @@
 
                     <tr th:each="dto : ${result.dtoList}" >
                         <th scope="row">
-                            <a th:href="@{/onmom/freeBoard_read(free_id = ${dto.free_id},
+                            <a th:href="@{/onmom/freeBoard/freeBoardRead(free_id = ${dto.free_id},
                                 page= ${result.page},
                                 type=${freePageRequestDTO.type} ,
                                 keyword = ${freePageRequestDTO.keyword})}">
@@ -83,13 +83,13 @@
             <ul class="pagination h-100 justify-content-center align-items-center">
 
                 <li class="page-item " th:if="${result.prev}">
-                    <a class="page-link" th:href="@{/onmom/freeBoard_list(page= ${result.start -1},
+                    <a class="page-link" th:href="@{/onmom/freeBoard/freeBoardList(page= ${result.start -1},
                     type=${freePageRequestDTO.type} ,
                     keyword = ${freePageRequestDTO.keyword} ) }" tabindex="-1">Previous</a>
                 </li>
 
                 <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
-                    <a class="page-link" th:href="@{/onmom/freeBoard_list(page = ${page} ,
+                    <a class="page-link" th:href="@{/onmom/freeBoard/freeBoardList(page = ${page} ,
                    type=${freePageRequestDTO.type} ,
                    keyword = ${freePageRequestDTO.keyword}  )}">
                         [[${page}]]
@@ -97,7 +97,7 @@
                 </li>
 
                 <li class="page-item" th:if="${result.next}">
-                    <a class="page-link" th:href="@{/onmom/freeBoard_list(page= ${result.end + 1} ,
+                    <a class="page-link" th:href="@{/onmom/freeBoard/freeBoardList(page= ${result.end + 1} ,
                     type=${freePageRequestDTO.type} ,
                     keyword = ${freePageRequestDTO.keyword} )}">Next</a>
                 </li>

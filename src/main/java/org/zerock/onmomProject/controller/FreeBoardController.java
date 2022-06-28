@@ -14,14 +14,14 @@ import org.zerock.onmomProject.dto.FreePageRequestDTO;
 import org.zerock.onmomProject.service.FreeBoardService;
 
 @Controller
-@RequestMapping("/onmom/")
+@RequestMapping("/onmom/freeBoard")
 @Log4j2
 @RequiredArgsConstructor
 public class FreeBoardController {
 
     private final FreeBoardService freeBoardService;
 
-    @GetMapping("/freeBoard_list")
+    @GetMapping("/freeBoardList")
     public void freeBoard_list(FreePageRequestDTO freePageRequestDTO, Model model){
 
         log.info("list............." + freePageRequestDTO);
@@ -29,13 +29,13 @@ public class FreeBoardController {
         model.addAttribute( "result", freeBoardService.getList(freePageRequestDTO));
     }
 
-    @GetMapping("/freeBoard_register")
-    public void freeBoard_register(){
+    @GetMapping("/freeBoardRegister")
+    public void freeBoardRegister(){
         log.info("regiser get...");
     }
 
-    @PostMapping("/freeBoard_register")
-    public String freeBoard_registerPost(FreeBoardDTO dto, RedirectAttributes redirectAttributes){
+    @PostMapping("/freeBoardRegister")
+    public String freeBoardRegisterPost(FreeBoardDTO dto, RedirectAttributes redirectAttributes){
 
         log.info("dto..." + dto);
         //새로 추가된 엔티티의 번호
@@ -45,11 +45,11 @@ public class FreeBoardController {
 
         redirectAttributes.addFlashAttribute("msg", free_id);
 
-        return "redirect:/onmom/freeBoard_list";
+        return "redirect:/onmom/freeBoard/freeBoardList";
     }
 
-    @GetMapping({"/freeBoard_read", "/freeBoard_modify" })
-    public void freeBoard_read(@ModelAttribute("requestDTO") FreePageRequestDTO freePageRequestDTO, Long free_id, Model model){
+    @GetMapping({"/freeBoardRead", "/freeBoardModify" })
+    public void freeBoardRead(@ModelAttribute("requestDTO") FreePageRequestDTO freePageRequestDTO, Long free_id, Model model){
 
         log.info("bno: " + free_id);
 
@@ -62,8 +62,8 @@ public class FreeBoardController {
     }
 
 
-    @PostMapping("/freeBoard_remove")
-    public String freeBoard_remove(long free_id, RedirectAttributes redirectAttributes){
+    @PostMapping("/freeBoardRemove")
+    public String freeBoardRemove(long free_id, RedirectAttributes redirectAttributes){
 
 
         log.info("bno: " + free_id);
@@ -72,12 +72,12 @@ public class FreeBoardController {
 
         redirectAttributes.addFlashAttribute("msg", free_id);
 
-        return "redirect:/onmom/freeBoard_list";
+        return "redirect:/onmom/freeBoard/freeBoardList";
 
     }
 
-    @PostMapping("/freeBoard_modify")
-    public String modify(FreeBoardDTO dto,
+    @PostMapping("/freeBoardModify")
+    public String freeBoardModify(FreeBoardDTO dto,
                          @ModelAttribute("requestDTO") FreePageRequestDTO freePageRequestDTO,
                          RedirectAttributes redirectAttributes){
 
@@ -93,7 +93,7 @@ public class FreeBoardController {
 
         redirectAttributes.addAttribute("free_id",dto.getFree_id());
 
-        return "redirect:/onmom/freeBoard_read";
+        return "redirect:/onmom/freeBoard/freeBoardRead";
 
     }
 
