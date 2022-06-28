@@ -17,7 +17,7 @@ import org.zerock.onmomProject.service.ReviewBoardService;
 
 @Controller
 @Log4j2
-@RequestMapping("onmom/review")
+@RequestMapping("/onmom/review")
 @RequiredArgsConstructor
 public class ReviewBoardController {
 
@@ -25,10 +25,17 @@ public class ReviewBoardController {
 
     // 후기게시판 리스트 페이지 테스트
     @GetMapping("/list")
-    public void index(ReviewPageRequestDTO pageRequestDTO, Model model){
+    public void index(String area, ReviewPageRequestDTO pageRequestDTO, Model model){
+        pageRequestDTO.setArea(area);
+
+        if (area == null) {
+            pageRequestDTO.setArea("area");
+        }
+
         // result 출력을 9로 함
         pageRequestDTO.setSize(9);
         model.addAttribute("result", service.getList(pageRequestDTO));
+        model.addAttribute("area", pageRequestDTO.getArea());
     }
 
     // 게시글 등록화면 띄우기
