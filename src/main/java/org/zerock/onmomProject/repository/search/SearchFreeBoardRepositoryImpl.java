@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
+import org.zerock.onmomProject.dto.FreeBoardDTO;
 import org.zerock.onmomProject.entity.*;
 
 import java.util.List;
@@ -68,8 +69,7 @@ public class SearchFreeBoardRepositoryImpl extends QuerydslRepositorySupport imp
         jpqlQuery.leftJoin(member).on(freeBoard.member.eq(member));
         jpqlQuery.leftJoin(freeBoardComment).on(freeBoardComment.board.eq(freeBoard));
 
-        JPQLQuery<Tuple> tuple = jpqlQuery.select(freeBoard, member, freeBoardComment.board
-        , freeBoardComment.content);
+        JPQLQuery<Tuple> tuple = jpqlQuery.select(freeBoard, member, freeBoard.like_cnt);
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         BooleanExpression expression = freeBoard.free_id.gt(0L);
@@ -102,7 +102,7 @@ public class SearchFreeBoardRepositoryImpl extends QuerydslRepositorySupport imp
             Order direction = order.isAscending()? Order.ASC: Order.DESC;
             String prop = order.getProperty();
 
-            PathBuilder orderByExpression = new PathBuilder(ReviewBoard.class, "freeBoard");
+            PathBuilder orderByExpression = new PathBuilder(FreeBoard.class, "freeBoard");
             tuple.orderBy(new OrderSpecifier(direction, orderByExpression.get(prop)));
         });
 

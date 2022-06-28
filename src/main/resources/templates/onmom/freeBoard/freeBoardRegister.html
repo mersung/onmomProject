@@ -7,7 +7,7 @@
 
         <h1 class="mt-4">FreeBoard Register Page</h1>
 
-        <form th:action="@{/onmom/freeBoard_register}" th:method="post">
+        <form th:action="@{/onmom/freeBoard/freeBoardRegister}" th:method="post">
             <div class="form-group">
                 <label >Title</label>
                 <input type="text" class="form-control" name="title" placeholder="Enter Title">
@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label >Writer Email</label>
-                <input type="email" class="form-control" name="member_id" placeholder="Writer Email ">
+                <input type="email" class="form-control" name="member_id" th:value="${#authentication.name}" placeholder="Writer Email ">
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
