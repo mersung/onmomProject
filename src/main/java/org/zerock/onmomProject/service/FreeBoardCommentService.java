@@ -1,6 +1,7 @@
 //package org.zerock.onmomProject.service;
 //
 //import org.zerock.onmomProject.dto.FreeBoardCommentDTO;
+//import org.zerock.onmomProject.dto.FreeBoardDTO;
 //import org.zerock.onmomProject.dto.MemberDTO;
 //import org.zerock.onmomProject.entity.FreeBoard;
 //import org.zerock.onmomProject.entity.FreeBoardComment;
@@ -21,16 +22,16 @@
 //
 //    default FreeBoardComment dtoToEntity(FreeBoardCommentDTO freeBoardCommentDTO){
 //
-//        FreeBoard freeBoard = FreeBoard.builder().free_id(FreeBoardCommentDTO.getFree_id()).
-//                build();
+//        FreeBoard freeBoard = FreeBoard.builder().free_id(FreeBoardDTO.builder().build().getFree_id()).build();
 //
-//        Member member = Member.builder().member_id(MemberDTO.getMember_id()).build();
+//        Member member = Member.builder().member_id(FreeBoardCommentDTO.builder().build().getMember_id()).build();
+//
 //
 //        FreeBoardComment freeBoardComment = FreeBoardComment.builder()
-//                .comment_id(FreeBoardCommentDTO.getComment_id())
-//                .member(Member)
+//                .comment_id(FreeBoardCommentDTO.builder().build().getComment_id())
 //                .board(freeBoard)
-//                .content(FreeBoardCommentDTO.getContent())
+//                .member(member)
+//                .content(FreeBoardCommentDTO.builder().build().getContent())
 //                .build();
 //        return freeBoardComment;
 //    }

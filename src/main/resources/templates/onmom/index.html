@@ -77,13 +77,13 @@
                                 [[${dto.area}]]
                             </span>
                             <h5 style="padding-left:15px; width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                                <a th:href="@{/onmom/review_read(review_id = ${dto.review_id}, page = ${result.page})}" class="text-dark">
+                                <a th:href="@{/review/read(review_id = ${dto.review_id}, page = ${result.page})}" class="text-dark">
                                     [[${dto.title}]]
                                 </a>
                             </h5>
                             <!-- 글 내용 일부 미리보기 -->
-                            <p class="small text-muted mb-0" style="width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                                [[${dto.content}]]
+                            <p id="content_view" class="small text-muted mb-0" style="width:250px; height:30px; font-size:12px;  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                <span class="tag_delete">[[${dto.content}]]</span>
                             </p>
                             <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
                                 <p class="small mb-0">
@@ -137,7 +137,24 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var ps = new kakao.maps.services.Places();
 
 // 키워드로 장소를 검색합니다
+ps.keywordSearch('서울시 gym', placesSearchCB);
+ps.keywordSearch('서울시 짐', placesSearchCB);
+ps.keywordSearch('서울시 헬스장', placesSearchCB);
+ps.keywordSearch('서울시 헬스', placesSearchCB);
+ps.keywordSearch('서울시 fitness', placesSearchCB);
+ps.keywordSearch('서울시 피트니스', placesSearchCB);
+ps.keywordSearch('서울시 휘트니스', placesSearchCB);
+ps.keywordSearch('서울시 PT', placesSearchCB);
+ps.keywordSearch('서울시 PT샵', placesSearchCB);
+ps.keywordSearch('서울 gym', placesSearchCB);
+ps.keywordSearch('서울 짐', placesSearchCB);
 ps.keywordSearch('서울 헬스장', placesSearchCB);
+ps.keywordSearch('서울 헬스', placesSearchCB);
+ps.keywordSearch('서울 fitness', placesSearchCB);
+ps.keywordSearch('서울 피트니스', placesSearchCB);
+ps.keywordSearch('서울 휘트니스', placesSearchCB);
+ps.keywordSearch('서울 PT', placesSearchCB);
+ps.keywordSearch('서울 PT샵', placesSearchCB);
 
 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
 function placesSearchCB (data, status, pagination) {
@@ -209,7 +226,7 @@ function displayMarker(place) {
                 <div class="row gx-5">
                     <div class="col-lg-4 mb-5">
                         <div class="card h-100 shadow border-0">
-                            <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
+                            <img class="card-img-top" src="/img/frame.jpg" alt="..." />
                             <div class="card-body p-4">
                                 <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
                                 <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">Blog post title</h5></a>
@@ -218,7 +235,7 @@ function displayMarker(place) {
                             <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
+                                        <img class="rounded-circle me-3" src="https://youtu.be/QfCUN-MdvYc" alt="..." />
                                         <div class="small">
                                             <div class="fw-bold">Kelly Rowan</div>
                                             <div class="text-muted">March 12, 2022 &middot; 6 min read</div>
@@ -230,7 +247,7 @@ function displayMarker(place) {
                     </div>
                     <div class="col-lg-4 mb-5">
                         <div class="card h-100 shadow border-0">
-                            <img class="card-img-top" src="https://dummyimage.com/600x350/adb5bd/495057" alt="..." />
+                            <img class="card-img-top" src="/img/muscle.jpg" alt="..." />
                             <div class="card-body p-4">
                                 <div class="badge bg-primary bg-gradient rounded-pill mb-2">Media</div>
                                 <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">Another blog post title</h5></a>
@@ -239,7 +256,7 @@ function displayMarker(place) {
                             <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
+                                        <img class="rounded-circle me-3" src="https://youtu.be/qeipIPodSWw" alt="..." />
                                         <div class="small">
                                             <div class="fw-bold">Josiah Barclay</div>
                                             <div class="text-muted">March 23, 2022 &middot; 4 min read</div>
@@ -251,7 +268,7 @@ function displayMarker(place) {
                     </div>
                     <div class="col-lg-4 mb-5">
                         <div class="card h-100 shadow border-0">
-                            <img class="card-img-top" src="https://dummyimage.com/600x350/6c757d/343a40" alt="..." />
+                            <img class="card-img-top" src="/img/sweat.jpg" alt="sweat_jpg" />
                             <div class="card-body p-4">
                                 <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
                                 <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">The last blog post title is a little bit longer than the others</h5></a>
@@ -260,7 +277,7 @@ function displayMarker(place) {
                             <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
+                                        <img class="rounded-circle me-3" src="https://youtu.be/3m0mgvgX1G8" alt="sweat_youtube" />
                                         <div class="small">
                                             <div class="fw-bold">Evelyn Martinez</div>
                                             <div class="text-muted">April 2, 2022 &middot; 10 min read</div>
@@ -308,6 +325,20 @@ function displayMarker(place) {
                 })
 
             });
+
+            // 글 미리보기 내에 태그 노출 제거
+            var contentTag = new Array("<p>", "</p>", "<strong>", "</strong>", "<ol>", "</ol>", "<ul>", "</ul>", "<li>", "</li>",
+                                        "<s>", "</s>", "<em>", "</em>"); // 배열 선언
+
+            var spanText = $('.tag_delete').text();
+            for(var i = 0; i < contentTag.length; i++){
+                spanText.replaceAll(contentTag[i], '');
+                $('.tag_delete').html(spanText);
+            }
+
+
+
+
 
         </script>
 

@@ -17,7 +17,9 @@
                             </header>
                             <div class="post_info mb-4">
                                 <!-- 게시글 제목-->
-                                <h2 class="fw-bolder post_title">[[${dto.title}]]</h2>
+                                <h2 class="fw-bolder post_title">
+<!--                                    [[${dto.title}]]-->
+                                </h2>
                                 <hr />
                                 <!-- 작성 정보-->
                                 <div class="text-muted mb-2 post_detail">
@@ -36,7 +38,7 @@
                                     <div class="post_wirte col-3">
                                         <p class="mb-0 fw-bold text-dark">작성자</p>
                                         <span>
-                                                test_id
+                                                [[${dto.member_id}]]
                                         </span>
                                     </div>
                                     <div class="post_date col-3">
@@ -72,7 +74,7 @@
                                     <div>
                                         <img src="/img/dislike.png" alt="싫어요">
                                         <!-- dislike_cnt, default 값은 0으로 함 -->
-                                        <span>[[${dto.dislike_cnt}]]</span>
+                                        <span>[[${dto.hate_cnt}]]</span>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +95,7 @@
                                         <!-- Parent comment-->
                                         <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                         <div class="ms-3">
-                                            <div class="fw-bold">[[${dto.comment_id}]]</div>
+                                            <div class="fw-bold"></div>
                                             If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
                                             <!-- Child comment 1-->
                                             <div class="d-flex mt-4">
