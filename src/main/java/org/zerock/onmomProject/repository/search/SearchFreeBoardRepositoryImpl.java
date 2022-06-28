@@ -80,7 +80,7 @@ public class SearchFreeBoardRepositoryImpl extends QuerydslRepositorySupport imp
             Order direction = order.isAscending()? Order.ASC: Order.DESC;
             String prop = order.getProperty();
 
-            PathBuilder orderByExpression = new PathBuilder(ReviewBoard.class, "review_id");
+            PathBuilder orderByExpression = new PathBuilder(ReviewBoard.class, "freeBoard");
             tuple.orderBy(new OrderSpecifier(direction, orderByExpression.get(prop)));
         });
 

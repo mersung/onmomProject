@@ -24,11 +24,13 @@ public interface FreeBoardService {
                 .free_id(dto.getFree_id())
                 .title(dto.getTitle())
                 .content(dto.getContent())
+                .like_cnt(dto.getLike_cnt())
+                .hate_cnt(dto.getHate_cnt())
                 .member(member)
                 .build();
         return freeBoard;
     }
-    default FreeBoardDTO entityToDTO(FreeBoard freeBoard, Member member, Long replyCount) {
+    default FreeBoardDTO entityToDTO(FreeBoard freeBoard, Member member,Long like_cnt) {
 
         FreeBoardDTO freeBoardDTO = FreeBoardDTO.builder()
                 .free_id(freeBoard.getFree_id())

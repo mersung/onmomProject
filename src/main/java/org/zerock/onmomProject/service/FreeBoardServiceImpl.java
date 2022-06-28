@@ -24,9 +24,12 @@ public class FreeBoardServiceImpl implements FreeBoardService{
     private final FreeBoardRepository freeBoardRepository;
 
     private final FreeBoardCommentRepository commentRepository;
+
+
     @Override
     public Long register(FreeBoardDTO dto) {
 
+        log.info(dto);
         FreeBoard board = dtoToEntity(dto);
 
         freeBoardRepository.save(board);
@@ -35,11 +38,14 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
     }
 
+    @Transactional
     @Override
     public FreePageResultDTO<FreeBoardDTO, Object[]> getList(FreePageRequestDTO freePageRequestDTO) {
 
+        log.info(freePageRequestDTO);
+
         Function<Object[],FreeBoardDTO> fn = (en ->
-                entityToDTO((FreeBoard)en[0],(Member)en[1],(Long)en[2]));
+                entityToDTO((FreeBoard)en[0],(Member)en[1],(Long) en[2]));
 
         Page<Object[]> result = freeBoardRepository.FreeSearchPage(
                 freePageRequestDTO.getType(),
@@ -62,9 +68,9 @@ public class FreeBoardServiceImpl implements FreeBoardService{
     @Override
     public void removeWithReplies(Long free_id) {
 
-//        commentRepository.deleteByFree_id(free_id);
-//
-//        repository.deleteById(free_id);
+        commentRepository.deleteByFree_id(free_id);
+
+        freeBoardRepository.deleteById(free_id);
 
     }
     @Transactional
