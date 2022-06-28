@@ -80,7 +80,11 @@
                             </div>
                             <!-- 수정 / 삭제 / 목록 버튼 -->
                             <div class="btn_wrap">
-                                <button type="button" class="btn btn-dark btn_style">수정</button>
+                                <button type="button" class="btn btn-dark btn_style">
+                                    <a th:href="@{/review/modify(review_id = ${dto.review_id})}">
+                                        수정
+                                    </a>
+                                    </button>
                                 <button type="button" class="btn btn-dark btn_style">삭제</button>
                                 <button type="button" class="btn btn-dark btn_style">목록</button>
                             </div>
