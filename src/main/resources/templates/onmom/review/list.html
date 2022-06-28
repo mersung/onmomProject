@@ -16,33 +16,34 @@
                         <section id="gallery">
                             <div class="gallery_frame">
                                 <div class="content_title">
-                                    <select id="select_value" name="area">
-                                        <option value="전체">전체</option>
-                                        <option value="도봉구">도봉구</option>
-                                        <option value="노원구">노원구</option>
-                                        <option value="강북구">강북구</option>
-                                        <option value="성북구">성북구</option>
-                                        <option value="중랑구">중랑구</option>
-                                        <option value="동대문구">동대문구</option>
-                                        <option value="종로구">종로구</option>
-                                        <option value="서대문구">서대문구</option>
-                                        <option value="은평구">은평구</option>
-                                        <option value="마포구">마포구</option>
-                                        <option value="중구">중구</option>
-                                        <option value="용산구">용산구</option>
-                                        <option value="성동구">성동구</option>
-                                        <option value="광진구">광진구</option>
-                                        <option value="강서구">강서구</option>
-                                        <option value="양천구">양천구</option>
-                                        <option value="구로구">구로구</option>
-                                        <option value="영등포구">영등포구</option>
-                                        <option value="금천구">금천구</option>
-                                        <option value="동작구">동작구</option>
-                                        <option value="관악구">관악구</option>
-                                        <option value="서초구">서초구</option>
-                                        <option value="강남구">강남구</option>
-                                        <option value="송파구">송파구</option>
-                                        <option value="강동구">강동구</option>
+                                    <select class="area_select" id="select_value" onchange="ChangeValue(this.value)" name = "selectbox">
+                                        <option value="area" th:selected="${area}=='전체'">전체</option>
+                                        <option value="도봉구" th:selected="${area}=='도봉구'">도봉구</option>
+                                        <option value="노원구" th:selected="${area}=='노원구'">노원구</option>
+                                        <option value="강북구" th:selected="${area}=='강북구'">강북구</option>
+                                        <option value="성북구" th:selected="${area}=='성북구'">성북구</option>
+                                        <option value="중랑구" th:selected="${area}=='중랑구'">중랑구</option>
+                                        <option value="동대문구" th:selected="${area}=='동대문구'">동대문구</option>
+                                        <option value="종로구" th:selected="${area}=='종로구'">종로구</option>
+                                        <option value="서대문구" th:selected="${area}=='서대문구'">서대문구</option>
+                                        <option value="은평구" th:selected="${area}=='은평구'">은평구</option>
+                                        <option value="은평구" th:selected="${area}=='은평구'">은평구</option>
+                                        <option value="마포구" th:selected="${area}=='마포구'">마포구</option>
+                                        <option value="중구" th:selected="${area}=='중구'">중구</option>
+                                        <option value="용산구" th:selected="${area}=='용산구'">용산구</option>
+                                        <option value="성동구" th:selected="${area}=='성동구'">성동구</option>
+                                        <option value="광진구" th:selected="${area}=='광진구'">광진구</option>
+                                        <option value="강서구" th:selected="${area}=='강서구'">강서구</option>
+                                        <option value="양천구" th:selected="${area}=='양천구'">양천구</option>
+                                        <option value="구로구" th:selected="${area}=='구로구'">구로구</option>
+                                        <option value="영등포구" th:selected="${area}=='영등포구'">영등포구</option>
+                                        <option value="금천구" th:selected="${area}=='금천구'">금천구</option>
+                                        <option value="동작구" th:selected="${area}=='동작구'">동작구</option>
+                                        <option value="관악구" th:selected="${area}=='관악구'">관악구</option>
+                                        <option value="서초구" th:selected="${area}=='서초구'">서초구</option>
+                                        <option value="강남구" th:selected="${area}=='강남구'">강남구</option>
+                                        <option value="송파구" th:selected="${area}=='송파구'">송파구</option>
+                                        <option value="강동구" th:selected="${area}=='강동구'">강동구</option>
                                     </select>
                                 </div>
                                 <!-- 갤러리 전체 wrap -->
@@ -264,5 +265,17 @@
                 </div>
             </div>
         </section>
+        <script>
+            function ChangeValue(value){
+                console.log("value: " + value);
+<!--                var area = document.getElementById("selectbox");-->
+                var area = value;
+                console.log("area : " + area);
+
+                location.href = '/onmom/list?area='+area;
+
+            }
+
+        </script>
     </th:block>
 </th:block>
