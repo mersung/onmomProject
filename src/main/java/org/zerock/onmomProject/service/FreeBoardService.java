@@ -10,14 +10,15 @@ import org.zerock.onmomProject.entity.Member;
 public interface FreeBoardService {
     Long register(FreeBoardDTO dto);
 
-    FreePageResultDTO<FreeBoardDTO, Object[]> getList
-            (FreePageRequestDTO freePageRequestDTO);
+    FreePageResultDTO<FreeBoardDTO, Object[]> getList (FreePageRequestDTO freePageRequestDTO);
+
     FreeBoardDTO get(Long free_id);
 
     void removeWithReplies(Long free_id);
 
     void modify(FreeBoardDTO freeBoardDTO);
     default FreeBoard dtoToEntity(FreeBoardDTO dto){
+
         Member member = Member.builder().member_id(dto.getMember_id()).build();
 
         FreeBoard freeBoard = FreeBoard.builder()

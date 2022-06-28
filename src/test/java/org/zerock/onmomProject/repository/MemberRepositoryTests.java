@@ -21,7 +21,7 @@ public class MemberRepositoryTests {
         IntStream.rangeClosed(1,100).forEach(i -> {
 
             Member member = Member.builder()
-                    .member_id("u"+i)
+                    .member_id("u@dfsafdsf"+i)
                     .nickname("user"+i)
                     .pw("1111")
                     .build();

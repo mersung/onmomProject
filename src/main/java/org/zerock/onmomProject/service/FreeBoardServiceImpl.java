@@ -38,7 +38,6 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
     }
 
-    @Transactional
     @Override
     public FreePageResultDTO<FreeBoardDTO, Object[]> getList(FreePageRequestDTO freePageRequestDTO) {
 
