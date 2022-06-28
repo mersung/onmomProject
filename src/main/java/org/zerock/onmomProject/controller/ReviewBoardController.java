@@ -17,7 +17,7 @@ import org.zerock.onmomProject.service.ReviewBoardService;
 
 @Controller
 @Log4j2
-@RequestMapping("onmom/review")
+@RequestMapping("/onmom/review")
 @RequiredArgsConstructor
 public class ReviewBoardController {
 
