@@ -19,10 +19,8 @@ public class OnmomAuthMemberDTO extends User implements OAuth2User {
 
     private User user;
     private String member_id;
-
     private String nickname;
     private String pw;
-
     private Map<String, Object> attr;
 
     public OnmomAuthMemberDTO(String username,
@@ -33,6 +31,7 @@ public class OnmomAuthMemberDTO extends User implements OAuth2User {
 
         this(username, password, nickname, authorities);
         this.attr = attr;
+        this.nickname = username;
 
     }
 
