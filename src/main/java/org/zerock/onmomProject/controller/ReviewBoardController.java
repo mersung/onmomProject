@@ -17,11 +17,19 @@ import org.zerock.onmomProject.service.ReviewBoardService;
 
 @Controller
 @Log4j2
-@RequestMapping("/review")
+@RequestMapping("onmom/review")
 @RequiredArgsConstructor
 public class ReviewBoardController {
 
     private final ReviewBoardService service;
+
+    // 후기게시판 리스트 페이지 테스트
+    @GetMapping("/list")
+    public void index(ReviewPageRequestDTO pageRequestDTO, Model model){
+        // result 출력을 9로 함
+        pageRequestDTO.setSize(9);
+        model.addAttribute("result", service.getList(pageRequestDTO));
+    }
 
     // 게시글 등록화면 띄우기
     @GetMapping("/register")
@@ -54,7 +62,7 @@ public class ReviewBoardController {
         Long review_id = service.register(reviewBoardDTO);
         redirectAttributes.addFlashAttribute("msg", review_id);
 
-        return "redirect:/onmom/review_board";
+        return "redirect:/onmom/review/list";
 
     }
 
