@@ -18,15 +18,24 @@
             <!-- <div sec:authorize="isAuthenticated()">
                 Only Authenticated user can see this Text
             </div> -->
-            <br>
-            회원 이메일
-            <div sec:authentication="name"></div>
-            <br>
-            닉네임
 
-            <br>
-            <button type="button" class="btn btn-primary" href="/onmom/index">홈</button>
-            <button type="button" class="btn btn-primary" href="/logout">회원정보 변경</button>
+            <div class="form-floating" style="width: 30%; padding-bottom: 3px">
+                <input type="email" th:value="${#authentication.principal.username}" class="form-control" id="email"
+                       required readonly>
+                <label for="email">이메일</label>
+            </div>
+            <div class="form-floating" style="width: 30%; padding-bottom: 3px">
+                <input type="text" th:value="${#authentication.principal.nickname}" class="form-control" id="nickname"
+                       required readonly>
+                <label for="nickname">닉네임</label>
+            </div>
+            <button class="btn btn-primary" href="onmom/member/modify">닉네임 변경</button>
+
+
+            </th:value>
+
+
+
 
         <div class="container px-5 my-5 review_post">
             <h3>내가 쓴 글</h3>
