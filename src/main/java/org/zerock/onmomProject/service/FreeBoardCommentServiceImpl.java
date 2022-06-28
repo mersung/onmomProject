@@ -14,7 +14,7 @@
 //@Log4j2
 //@RequiredArgsConstructor
 //@Service
-//public class FreeBoardCommentSeviceImpl implements FreeBoardCommentService{
+//public class FreeBoardCommentServiceImpl implements FreeBoardCommentService{
 //
 //    private final FreeBoardCommentRepository freeBoardCommentRepository;
 //

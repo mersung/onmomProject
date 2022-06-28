@@ -30,6 +30,7 @@ a{text-decoration:none !important;}
 .board_title>h1{margin-bottom:80px; font-weight:700;}
 .sub_title{font-size:16px; margin-left:15px;}
 .post_title{margin-bottom:30px;}
+.post_detail{padding-left:15px;}
 .post_detail::after{content:''; display:block; clear:both;}
 .post_detail>div{float:left;}
 
@@ -98,6 +99,11 @@ li{list-style:none;}
 .cke_editable>div>div>img{
     width:250px;
 }
+
+
+/* 썸네일 이미지 sizing */
+.img_sizing{width:inherit; height:inherit;}
+.galBox_sizing{height:inherit;}
 
 :root {
   --bs-blue: #0d6efd;
@@ -1286,6 +1292,7 @@ progress {
     width: 50%;
   }
 
+
   .col-md-7 {
     flex: 0 0 auto;
     width: 58.33333333%;
@@ -1483,6 +1490,10 @@ progress {
     flex: 0 0 auto;
     width: 25%;
   }
+
+  /* 썸네일 이미지 sizing */
+  .img_sizing{width:300px; height:200px;}
+  .galBox_sizing{height:380px;}
 
   .col-lg-4 {
     flex: 0 0 auto;

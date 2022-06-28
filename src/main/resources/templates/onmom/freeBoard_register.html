@@ -5,7 +5,7 @@
 
     <th:block th:fragment="content">
 
-        <h1 class="mt-4">Board Register Page</h1>
+        <h1 class="mt-4">FreeBoard Register Page</h1>
 
         <form th:action="@{/onmom/freeBoard_register}" th:method="post">
             <div class="form-group">
@@ -18,11 +18,12 @@
             </div>
             <div class="form-group">
                 <label >Writer Email</label>
-                <input type="email" class="form-control" name="writerEmail" placeholder="Writer Email ">
+                <input type="email" class="form-control" name="member_id" placeholder="Writer Email ">
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+
 
     </th:block>
 
