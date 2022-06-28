@@ -62,7 +62,7 @@
                     <option value="강동구">강동구</option>
                 </select>
                 <div class="btn_frame">
-                    <a href="/onmom/review_board">MORE</a>
+                    <a href="/onmom/review/list">MORE</a>
                 </div>
             </div>
             <div class="row">
@@ -77,7 +77,7 @@
                                 [[${dto.area}]]
                             </span>
                             <h5 style="padding-left:25px; width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                                <a th:href="@{/review/read(review_id = ${dto.review_id}, page = ${result.page})}" class="text-dark">
+                                <a th:href="@{/onmom/review/read(review_id = ${dto.review_id}, page = ${result.page})}" class="text-dark">
                                     [[${dto.title}]]
                                 </a>
                             </h5>

@@ -174,7 +174,7 @@
                         <!-- Post content-->
                         <article>
                             <!-- form 태그 시작 -->
-                            <form id="form" th:action="@{/review/register}" th:method="post" >
+                            <form id="form" th:action="@{/onmom/review/register}" th:method="post" >
                                 <!-- Post header-->
                                 <header class="mb-4">
                                     <!-- 게시판 기본 타이틀 -->
@@ -273,7 +273,7 @@
                                 <!-- 등록 버튼 -->
                                 <div class="btn_wrap">
                                     <button type="submit" class="btn btn-dark btn_style registerBtn">등록</button>
-                                    <button type="button" class="btn btn-light btn_style">취소</button>
+                                    <a href="/onmom/review/list"><button type="button" class="btn btn-light btn_style">취소</button></a>
                                 </div>
                             </form>
                             <!-- form 태그 끝 -->
