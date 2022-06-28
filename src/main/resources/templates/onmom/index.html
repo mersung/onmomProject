@@ -82,8 +82,8 @@
                                 </a>
                             </h5>
                             <!-- 글 내용 일부 미리보기 -->
-                            <p id="content_view" class="small text-muted mb-0" style="width:250px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                                [[${dto.content}]]
+                            <p id="content_view" class="small text-muted mb-0" style="width:250px; height:30px; font-size:12px;  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                <span class="tag_delete">[[${dto.content}]]</span>
                             </p>
                             <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
                                 <p class="small mb-0">
@@ -309,12 +309,19 @@ function displayMarker(place) {
 
             });
 
-            // 글 내용 관련 태그들 지정 제거
+            // 글 미리보기 내에 태그 노출 제거
             var contentTag = new Array("<p>", "</p>", "<strong>", "</strong>", "<ol>", "</ol>", "<ul>", "</ul>", "<li>", "</li>",
                                         "<s>", "</s>", "<em>", "</em>"); // 배열 선언
 
-            var content_view = $('#content_view').text();
-            // 텍스트 변경 jQuery
+            var spanText = $('.tag_delete').text();
+            for(var i = 0; i < contentTag.length; i++){
+                spanText.replaceAll(contentTag[i], '');
+                $('.tag_delete').html(spanText);
+            }
+
+
+
+
 
         </script>
 
