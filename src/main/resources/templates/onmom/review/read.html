@@ -96,30 +96,30 @@
                             <div>
                                 <div class="card-body comment_area">
                                     <!-- 댓글 리스트 -->
-                                    <div class="d-flex mb-4">
-                                        <!-- Parent comment-->
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold"></div>
-                                            If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                            <!-- Child comment 1-->
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                                <div class="ms-3">
-                                                    <div class="fw-bold">Commenter Name</div>
-                                                    And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-                                                </div>
-                                            </div>
-                                            <!-- Child comment 2-->
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                                <div class="ms-3">
-                                                    <div class="fw-bold">Commenter Name</div>
-                                                    When you put money directly to a problem, it makes a good headline.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+<!--                                    <div class="d-flex mb-4">-->
+<!--                                        &lt;!&ndash; Parent comment&ndash;&gt;-->
+<!--                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>-->
+<!--                                        <div class="ms-3">-->
+<!--                                            <div class="fw-bold"></div>-->
+<!--                                            If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.-->
+<!--                                            &lt;!&ndash; Child comment 1&ndash;&gt;-->
+<!--                                            <div class="d-flex mt-4">-->
+<!--                                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>-->
+<!--                                                <div class="ms-3">-->
+<!--                                                    <div class="fw-bold">Commenter Name</div>-->
+<!--                                                    And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            &lt;!&ndash; Child comment 2&ndash;&gt;-->
+<!--                                            <div class="d-flex mt-4">-->
+<!--                                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>-->
+<!--                                                <div class="ms-3">-->
+<!--                                                    <div class="fw-bold">Commenter Name</div>-->
+<!--                                                    When you put money directly to a problem, it makes a good headline.-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                     <!-- Single comment-->
                                     <div class="d-flex">
                                         <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
@@ -128,25 +128,26 @@
                                             When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
                                         </div>
                                     </div>
-                                    <!-- 댓글 예시 끝 -->
-                                    <!-- 댓글 입력 창 감싸는 div -->
-                                    <div class="comment_write">
-                                        <!-- 댓글 작성자 ID, 임시로 test_id로 넣었음 -->
-                                        <div class="member_id_wrap">
-                                            <b>
-                                                <span name="member_id" sec:authentication="name">
+                                </div>
+                                <!-- 댓글 예시 끝 -->
+                                <!-- 댓글 입력 창 감싸는 div -->
+                                <div class="comment_write">
+                                    <!-- 댓글 작성자 ID -->
+                                    <div class="member_id_wrap">
+                                        <b>
+                                            <input type="hidden" name="member_id" th:value="${#authentication.name}" />
+                                            <span class="checkId" name="member_id" sec:authentication="name">
 
-                                                </span>
-                                            </b>
-                                        </div>
-                                        <!-- 댓글 입력 창-->
-                                        <form class="mb-4 comment_input">
-                                            <textarea name="content" class="col-10" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
-                                            <div class="submit_btn_wrap col-2">
-                                                <input type="button" class="btn-dark btn_style_sq" value="등록">
-                                            </div>
-                                        </form>
+                                            </span>
+                                        </b>
                                     </div>
+                                    <!-- 댓글 입력 창-->
+                                    <form class="mb-4 comment_input">
+                                        <textarea name="content" class="col-10 replyText" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+                                        <div class="submit_btn_wrap col-2">
+                                            <button type="button" class="btn-dark btn_style_sq replyBtn">등록</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </section>
@@ -154,6 +155,76 @@
                 </div>
             </div>
         </section>
+        <script >
+            $(function(){
+                // 게시글 번호를 변수로 선언
+                var review_id = [[${dto.review_id}]];
+                var replyer = $('input[name="member_id"]').val();
+
+
+                // 댓글 등록
+                $(".replyBtn").click(function(){
+                    var reply = {
+                        review_id : review_id,
+                        content : $(".replyText").val(),
+                        replyer : replyer
+                    }
+                    console.log(reply);
+
+                    $.ajax({
+                        url :'/reviews/'+review_id,
+                        type : "POST",
+                        data : JSON.stringify(reply),
+                        contentType : "application/json; charset = utf-8",
+                        dataType : "text",
+                        success : function(result){
+                            console.log("결과 : "+result);
+                            self.location.reload();
+                        }
+                        ,
+                        error:function(request,status,error){
+                            console.log("CODE: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+                        }
+                    })
+                }); // 댓글 등록 끝
+
+                // 페이지가 열리면 바로 review 데이터를 가져와 사용
+                function getReviewReplies(){
+                    // 시간 checking
+                    function formatTime(str){
+                        var date =new Date(str);
+
+                        return date.getFullYear() +'/'+
+                        (date.getMonth() + 1) +'/'+
+                        date.getDate() +' '+
+                        date.getHours() +':'+
+                        date.getMinutes();
+                    }
+
+                    $.getJSON("/reviews/"+ review_id +"/all", function(arr){
+                        var str = "";
+
+                        // reply 관련 태그 삽입
+                        $.each(arr, function(idx, reply){
+                         console.log(reply);
+
+                         str += '<div class="d-flex">';
+                         str += '<div class="ms-3">';
+                         str += '<div class="fw-bold">'+review_id+'</div>';
+                         str += content+'</div>';
+                         str += '</div>';
+                        });
+
+                        $('.comment_area').html(str);
+
+                    });
+                }
+                getReviewReplies();
+
+
+            }) // window 선 업로드 끝
+        </script>
+
     </th:block>
 </th:block>
 
