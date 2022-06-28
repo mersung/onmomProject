@@ -18,7 +18,7 @@
                             <div class="post_info mb-4">
                                 <!-- 게시글 제목-->
                                 <h2 class="fw-bolder post_title">
-<!--                                    [[${dto.title}]]-->
+                                    [[${dto.title}]]
                                 </h2>
                                 <hr />
                                 <!-- 작성 정보-->
@@ -80,7 +80,11 @@
                             </div>
                             <!-- 수정 / 삭제 / 목록 버튼 -->
                             <div class="btn_wrap">
-                                <button type="button" class="btn btn-dark btn_style">수정</button>
+                                <button type="button" class="btn btn-dark btn_style">
+                                    <a th:href="@{/review/modify(review_id = ${dto.review_id})}">
+                                        수정
+                                    </a>
+                                    </button>
                                 <button type="button" class="btn btn-dark btn_style">삭제</button>
                                 <button type="button" class="btn btn-dark btn_style">목록</button>
                             </div>
@@ -155,4 +159,4 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+        <script src="/js/scripts.js"></script>

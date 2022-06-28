@@ -110,16 +110,16 @@
             </div>
             <div class="row">
                 <!-- Gallery item -->
-                <div th:each="dto : ${result.dtoList}" class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded shadow-sm">
+                <div th:each="dto : ${result.dtoList}" class="col-xl-3 col-lg-4 col-md-6 mb-4 ">
+                    <div class="bg-white rounded shadow-sm galBox_sizing">
                         <!-- 이미지 썸네일 -->
                         <img    th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
-                                th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" alt="" class="img-fluid card-img-top">
+                                th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" alt="" class="img-fluid card-img-top img_sizing">
                         <div class="p-4" style="position:relative;">
-                            <span class="text-muted" style="position:absolute; left:10px; top:10px;">
+                            <span class="text-muted" style="position:absolute; left:10px; top:10px; font-size:12px;">
                                 [[${dto.area}]]
                             </span>
-                            <h5 style="padding-left:15px; width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                            <h5 style="padding-left:25px; width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                                 <a th:href="@{/review/read(review_id = ${dto.review_id}, page = ${result.page})}" class="text-dark">
                                     [[${dto.title}]]
                                 </a>
@@ -167,75 +167,75 @@
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ee531325af0e4fcf22267b610d54a72b&libraries=services"></script>
         <div id="map" style="width:100%;height:350px;"></div>
         <script type="text/javascript">
-// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
-var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+            // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+            var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-    mapOption = {
-        center: new kakao.maps.LatLng(37.525229261856055, 126.89135012208651), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                mapOption = {
+                    center: new kakao.maps.LatLng(37.525229261856055, 126.89135012208651), // 지도의 중심좌표
+                    level: 3 // 지도의 확대 레벨
+                };
 
-// 지도를 생성합니다
-var map = new kakao.maps.Map(mapContainer, mapOption);
+            // 지도를 생성합니다
+            var map = new kakao.maps.Map(mapContainer, mapOption);
 
-// 장소 검색 객체를 생성합니다
-var ps = new kakao.maps.services.Places();
+            // 장소 검색 객체를 생성합니다
+            var ps = new kakao.maps.services.Places();
 
-// 키워드로 장소를 검색합니다
-ps.keywordSearch('서울시 gym', placesSearchCB);
-ps.keywordSearch('서울시 짐', placesSearchCB);
-ps.keywordSearch('서울시 헬스장', placesSearchCB);
-ps.keywordSearch('서울시 헬스', placesSearchCB);
-ps.keywordSearch('서울시 fitness', placesSearchCB);
-ps.keywordSearch('서울시 피트니스', placesSearchCB);
-ps.keywordSearch('서울시 휘트니스', placesSearchCB);
-ps.keywordSearch('서울시 PT', placesSearchCB);
-ps.keywordSearch('서울시 PT샵', placesSearchCB);
-ps.keywordSearch('서울 gym', placesSearchCB);
-ps.keywordSearch('서울 짐', placesSearchCB);
-ps.keywordSearch('서울 헬스장', placesSearchCB);
-ps.keywordSearch('서울 헬스', placesSearchCB);
-ps.keywordSearch('서울 fitness', placesSearchCB);
-ps.keywordSearch('서울 피트니스', placesSearchCB);
-ps.keywordSearch('서울 휘트니스', placesSearchCB);
-ps.keywordSearch('서울 PT', placesSearchCB);
-ps.keywordSearch('서울 PT샵', placesSearchCB);
+            // 키워드로 장소를 검색합니다
+            ps.keywordSearch('서울시 gym', placesSearchCB);
+            ps.keywordSearch('서울시 짐', placesSearchCB);
+            ps.keywordSearch('서울시 헬스장', placesSearchCB);
+            ps.keywordSearch('서울시 헬스', placesSearchCB);
+            ps.keywordSearch('서울시 fitness', placesSearchCB);
+            ps.keywordSearch('서울시 피트니스', placesSearchCB);
+            ps.keywordSearch('서울시 휘트니스', placesSearchCB);
+            ps.keywordSearch('서울시 PT', placesSearchCB);
+            ps.keywordSearch('서울시 PT샵', placesSearchCB);
+            ps.keywordSearch('서울 gym', placesSearchCB);
+            ps.keywordSearch('서울 짐', placesSearchCB);
+            ps.keywordSearch('서울 헬스장', placesSearchCB);
+            ps.keywordSearch('서울 헬스', placesSearchCB);
+            ps.keywordSearch('서울 fitness', placesSearchCB);
+            ps.keywordSearch('서울 피트니스', placesSearchCB);
+            ps.keywordSearch('서울 휘트니스', placesSearchCB);
+            ps.keywordSearch('서울 PT', placesSearchCB);
+            ps.keywordSearch('서울 PT샵', placesSearchCB);
 
-// 키워드 검색 완료 시 호출되는 콜백함수 입니다
-function placesSearchCB (data, status, pagination) {
-    if (status === kakao.maps.services.Status.OK) {
+            // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+            function placesSearchCB (data, status, pagination) {
+                if (status === kakao.maps.services.Status.OK) {
 
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-        // LatLngBounds 객체에 좌표를 추가합니다
-        var bounds = new kakao.maps.LatLngBounds();
+                    // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+                    // LatLngBounds 객체에 좌표를 추가합니다
+                    var bounds = new kakao.maps.LatLngBounds();
 
-        for (var i=0; i<data.length; i++) {
-            displayMarker(data[i]);
-            bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-        }
+                    for (var i=0; i<data.length; i++) {
+                        displayMarker(data[i]);
+                        bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+                    }
 
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-        map.setBounds(bounds);
-    }
-}
+                    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+                    map.setBounds(bounds);
+                }
+            }
 
-// 지도에 마커를 표시하는 함수입니다
-function displayMarker(place) {
+            // 지도에 마커를 표시하는 함수입니다
+            function displayMarker(place) {
 
-    // 마커를 생성하고 지도에 표시합니다
-    var marker = new kakao.maps.Marker({
-        map: map,
-        position: new kakao.maps.LatLng(place.y, place.x)
-    });
+                // 마커를 생성하고 지도에 표시합니다
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: new kakao.maps.LatLng(place.y, place.x)
+                });
 
-    // 마커에 클릭이벤트를 등록합니다
-    kakao.maps.event.addListener(marker, 'click', function() {
-        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
-        infowindow.open(map, marker);
-    });
-}
+                // 마커에 클릭이벤트를 등록합니다
+                kakao.maps.event.addListener(marker, 'click', function() {
+                    // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                    infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                    infowindow.open(map, marker);
+                });
+            }
 </script>
         <!-- 카카오맵.끝.-->
 
@@ -387,19 +387,27 @@ function displayMarker(place) {
 
             });
 
-            // 글 미리보기 내에 태그 노출 제거
+            //// 글 미리보기 내에 태그 노출 제거
+            // 제거할 태그들을 배열 선언
             var contentTag = new Array("<p>", "</p>", "<strong>", "</strong>", "<ol>", "</ol>", "<ul>", "</ul>", "<li>", "</li>",
-                                        "<s>", "</s>", "<em>", "</em>"); // 배열 선언
+                                        "<s>", "</s>", "<em>", "</em>");
 
-            var spanText = $('.tag_delete').text();
-            for(var i = 0; i < contentTag.length; i++){
-                spanText.replaceAll(contentTag[i], '');
-                $('.tag_delete').html(spanText);
+            // html 문서 내의 tag_delete 클래스 소유 태그 갯수를 Counting
+            var spanCount = $('.tag_delete').length;
+            console.log("span Counting = "+spanCount);
+
+            // 텍스트 내용 저장하는 배열 변수 선언
+            var spanText = new Array();
+
+            // 이중 for문, 첫 for문은 각각의 tag_delete 소유 span의 text를 index 순으로 배열로서 받음
+            for(var i = 0; i < spanCount; i++){
+                spanText[i] = $('.tag_delete').eq(i).text();
+                // 두번째 for문, contentTag 길이만큼 반복 동작하여 태그 텍스트 선택하여 제거한 뒤에 각각의 index 순의 span에 이를 삽입
+                for(var j = 0; j < contentTag.length; j++){
+                    spanText[i].replaceAll(contentTag[j], '');
+                    $('.tag_delete').eq(i).html(spanText[i]);
+                }
             }
-
-
-
-
 
         </script>
 

@@ -27,17 +27,17 @@ public class TestController {
     }
 
     // 후기게시판 등록 페이지 테스트
-    @GetMapping("/review_register")
+    @GetMapping("/review/register")
     public void review_register(){
     }
 
     // 후기게시판 수정 페이지 테스트
-    @GetMapping("/review_modify")
+    @GetMapping("/review/modify")
     public void review_modify(){
     }
 
     // 후기게시판 읽기 페이지 테스트
-    @GetMapping("/review_read")
+    @GetMapping("/review/read")
     public void review_read(){
     }
 
