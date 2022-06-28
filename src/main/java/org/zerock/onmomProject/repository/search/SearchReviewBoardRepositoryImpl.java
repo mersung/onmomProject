@@ -13,10 +13,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
-import org.zerock.onmomProject.entity.QMember;
-import org.zerock.onmomProject.entity.QReviewBoard;
-import org.zerock.onmomProject.entity.QReviewBoardComment;
-import org.zerock.onmomProject.entity.ReviewBoard;
+import org.zerock.onmomProject.entity.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,21 +38,33 @@ public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport i
 
         // Querydsl 라이브러리 내에는 JPQLQuery라는 인터페이스가 있다.
         QReviewBoard reviewBoard = QReviewBoard.reviewBoard; //엔티티 불러오기
-        QReviewBoardComment reviewBoardComment = QReviewBoardComment.reviewBoardComment; //엔티티 불러오기
+        QImage image = QImage.image;
+//        QReviewBoardComment reviewBoardComment = QReviewBoardComment.reviewBoardComment; //엔티티 불러오기
         QMember member = QMember.member;
 
         JPQLQuery<ReviewBoard> jpqlQuery = from(reviewBoard);
-        jpqlQuery.leftJoin(member).on(reviewBoard.member.eq(member));
-        jpqlQuery.leftJoin(reviewBoardComment).on(reviewBoardComment.reviewBoard.eq(reviewBoard));
+        jpqlQuery.leftJoin(image).on(image.review.eq(reviewBoard));
+//        jpqlQuery.leftJoin(member).on(reviewBoard.member.eq(member));
+//        jpqlQuery.leftJoin(reviewBoardComment).on(reviewBoardComment.reviewBoard.eq(reviewBoard));
 
-        JPQLQuery<Tuple> tuple = jpqlQuery.select(reviewBoard, member.member_id, reviewBoardComment.reviewBoard
-        , reviewBoardComment.content);
+//        JPQLQuery<Tuple> tuple = jpqlQuery.select(reviewBoard, member.member_id, reviewBoardComment.reviewBoard
+//        , reviewBoardComment.content, image);
+        JPQLQuery<Tuple> tuple = jpqlQuery.select(reviewBoard, image);
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        BooleanExpression expression = reviewBoard.review_id.gt(0L);
-        booleanBuilder.and(expression);
 
-        if(area != null){
+
+        BooleanExpression expression = reviewBoard.review_id.gt(0L);
+        booleanBuilder.or(expression);
+
+        if (area.equals("area")){
+            log.info("CorrectALL!");
+            BooleanBuilder conditionBuilder = new BooleanBuilder();
+            conditionBuilder.or(reviewBoard.review_id.gt(0L));
+            booleanBuilder.and(conditionBuilder);
+        }
+
+        if(area != null && area.equals("area") == false){
             BooleanBuilder conditionBuilder = new BooleanBuilder();
             conditionBuilder.or(reviewBoard.area.eq(area));
             booleanBuilder.and(conditionBuilder);
@@ -101,6 +110,7 @@ public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport i
         List<Tuple> result = tuple.fetch();
 
         long count = tuple.fetchCount();
+
 
         return new PageImpl<Object[]>(
                 result.stream().map(t -> t.toArray()).collect(Collectors.toList()),
