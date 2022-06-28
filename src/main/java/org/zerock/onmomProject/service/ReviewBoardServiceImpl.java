@@ -57,8 +57,8 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
     public ReviewPageResultDTO<ReviewBoardDTO, Object[]> getList(ReviewPageRequestDTO reviewPageRequestDTO) {
         log.info(reviewPageRequestDTO);
 
-        Pageable pageable = reviewPageRequestDTO.getPageable(Sort.by("review_id").descending());
-        Page<Object[]> result = reviewBoardRepository.getListPage(pageable);
+        Pageable pageable = reviewPageRequestDTO.getPageable(Sort.by("like_cnt").descending());
+//        Page<Object[]> result = reviewBoardRepository.getListPage(pageable);
         log.info("====================");
 
 //        result.getContent().forEach(arr -> {
@@ -70,15 +70,15 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
                 (List<Image>)(Arrays.asList((Image)arr[1]))
                 )
         );
-        log.info("fn!~ : " + fn);
+
 //        log.info("Result~!" + new ReviewPageResultDTO<>(result, fn));
 //        return new ReviewPageResultDTO<>(result, fn);
 
-//        Page<Object[]> result = reviewBoardRepository.searchPage(
-//                reviewPageRequestDTO.getArea(),
-//                reviewPageRequestDTO.getType(),
-//                reviewPageRequestDTO.getKeyword(),
-//                reviewPageRequestDTO.getPageable(Sort.by("like_cnt").descending()));
+        Page<Object[]> result = reviewBoardRepository.searchPage(
+                reviewPageRequestDTO.getArea(),
+                reviewPageRequestDTO.getType(),
+                reviewPageRequestDTO.getKeyword(),
+                reviewPageRequestDTO.getPageable(Sort.by("like_cnt").descending()));
 
         return new ReviewPageResultDTO<>(result, fn);
     }
