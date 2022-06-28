@@ -11,8 +11,9 @@
                 </div>
 
             </h1>
+
             <span>
-                <div sec:authorize="hasRole('USER')"><h3>내 프로필</h3></div>
+                <h3>내 프로필</h3>
             </span>
             <!-- <div sec:authorize="isAuthenticated()">
                 Only Authenticated user can see this Text
@@ -22,16 +23,17 @@
             <div sec:authentication="name"></div>
             <br>
             닉네임
+
             <br>
-            회원 등급
-            <div sec:authentication="principal.authorities">
-            </div>
-            <br>
-            <a href="/onmom/index">홈</a>
-            <a href="/logout">로그아웃</a>
+            <button type="button" class="btn btn-primary" href="/onmom/index">홈</button>
+            <button type="button" class="btn btn-primary" href="/logout">회원정보 변경</button>
+
+        <div class="container px-5 my-5 review_post">
+            <h3>내가 쓴 글</h3>
         </div>
 
 
+        </div>
     </th:block>
 </th:block>
 
