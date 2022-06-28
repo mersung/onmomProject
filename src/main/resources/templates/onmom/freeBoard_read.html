@@ -34,11 +34,11 @@
             <input type="text" class="form-control" name="modDate"  th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
         </div>
 
-        <a th:href="@{/onmom/freeBoard_modify(free_id = ${dto.free_id}, page=${freePageRequestDTO.page}, type=${freePageRequestDTO.type}, keyword =${freePageRequestDTO.keyword})}">
+        <a th:href="@{/onmom/freeBoard_modify(free_id = ${dto.free_id}, page=${requestDTO.page}, type=${requestDTO.type}, keyword =${requestDTO.keyword})}">
             <button type="button" class="btn btn-primary">Modify</button>
         </a>
 
-        <a th:href="@{/onmom/freeBoard_list(page=${requestDTO.page} , type=${freePageRequestDTO.type}, keyword =${freePageRequestDTO.keyword})}">
+        <a th:href="@{/onmom/freeBoard_list(page=${requestDTO.page} , type=${requestDTO.type}, keyword =${requestDTO.keyword})}">
             <button type="button" class="btn btn-info">List</button>
         </a>
         <div >
@@ -50,7 +50,6 @@
 
             </div>
         </div>
-
 
 
         <div class="modal" tabindex="-1" role="dialog">

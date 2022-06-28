@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label >Writer Email</label>
-                <input type="email" class="form-control" name="member_id" placeholder="Writer Email ">
+                <input type="email" class="form-control" name="member_id" th:value="${#authentication.name}" placeholder="Writer Email ">
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>

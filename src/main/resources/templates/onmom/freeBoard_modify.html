@@ -10,9 +10,9 @@
         <form action="/onmom/freeBoard_modify" method="post">
 
             <!--페이지 번호  -->
-            <input type="hidden" name="page" th:value="${freePageRequestDTO.page}">
-            <input type="hidden" name="type" th:value="${freePageRequestDTO.type}" >
-            <input type="hidden" name="keyword" th:value="${freePageRequestDTO.keyword}" >
+            <input type="hidden" name="page" th:value="${requestDTO.page}">
+            <input type="hidden" name="type" th:value="${requestDTO.type}" >
+            <input type="hidden" name="keyword" th:value="${requestDTO.keyword}" >
 
             <div class="form-group">
                 <label >free_id</label>

@@ -91,7 +91,7 @@ public class FreeBoardController {
         redirectAttributes.addAttribute("type",freePageRequestDTO.getType());
         redirectAttributes.addAttribute("keyword",freePageRequestDTO.getKeyword());
 
-        redirectAttributes.addAttribute("bno",dto.getFree_id());
+        redirectAttributes.addAttribute("free_id",dto.getFree_id());
 
         return "redirect:/onmom/freeBoard_read";
 
