@@ -3,6 +3,16 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
     <!-- Header-->
+        <!-- Bootstrap Modal-->
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        </head>
+
     <header class="bg-white py-5 back_img">
         <div class="container px-5" >
             <div class="row gx-5 align-items-center justify-content-center" style="background-color:rgba(0,0,0,0.5);">
@@ -12,9 +22,42 @@
                         <h1 class="fw-bolder text-white mb-4">온몸 회원들의 생생한 후기에서 최고의 헬스장을 찾아보세요 !</h1>
                         <hr style="background-color:white; margin:0; opacity:initial;" />
                         <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start" style="margin-top:90px;">
+                            <!-- Button to Open the Modal -->
+                            <a class="btn btn-danger btn-lg px-4 me-sm-3" data-toggle="modal" data-target="#myModal">
+                                공지 사항
+                           </a>
+                            <!-- The Modal -->
+                            <div class="modal" id="myModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">온몸 회원님, 안녕하세요!</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            각 게시판에 해당하는 내용을 올려주시기를 부탁드립니다.</br></br>
+                                            [헬스장 후기 관련]</br>
+                                            '후기게시판'은 헬스장 후기 관련 정보 한정으로</br>
+                                            등록 가능합니다.</br></br>
+                                            그 외 다른 내용들은 '자유게시판'을 이용해주세요.
+                                        </div>
+
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
                             <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#loc_review">추천 헬스장</a>
                             <a class="btn btn-light btn-lg px-4" href="#loc_map">서울시 헬스장</a>
                         </div>
+
                     </div>
                 </div>
 <!--                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">-->
@@ -118,6 +161,9 @@
             <h1>서울시 헬스장 위치</h1>
             <p>서울시에 위치한 헬스장입니다!</p>
         </div>
+
+
+
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ee531325af0e4fcf22267b610d54a72b&libraries=services"></script>
         <div id="map" style="width:100%;height:350px;"></div>
         <script type="text/javascript">
