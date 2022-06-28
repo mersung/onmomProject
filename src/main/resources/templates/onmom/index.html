@@ -3,6 +3,16 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
     <!-- Header-->
+        <!-- Bootstrap Modal-->
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+            <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        </head>
+
     <header class="bg-white py-5 back_img">
         <div class="container px-5" >
             <div class="row gx-5 align-items-center justify-content-center" style="background-color:rgba(0,0,0,0.5);">
@@ -12,9 +22,42 @@
                         <h1 class="fw-bolder text-white mb-4">온몸 회원들의 생생한 후기에서 최고의 헬스장을 찾아보세요 !</h1>
                         <hr style="background-color:white; margin:0; opacity:initial;" />
                         <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start" style="margin-top:90px;">
+                            <!-- Button to Open the Modal -->
+                            <a class="btn btn-danger btn-lg px-4 me-sm-3" data-toggle="modal" data-target="#myModal">
+                                공지 사항
+                           </a>
+                            <!-- The Modal -->
+                            <div class="modal" id="myModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">온몸 회원님, 안녕하세요!</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            각 게시판에 해당하는 내용을 올려주시기를 부탁드립니다.</br></br>
+                                            [헬스장 후기 관련]</br>
+                                            '후기게시판'은 헬스장 후기 관련 정보 한정으로</br>
+                                            등록 가능합니다.</br></br>
+                                            그 외 다른 내용들은 '자유게시판'을 이용해주세요.
+                                        </div>
+
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
                             <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#loc_review">추천 헬스장</a>
                             <a class="btn btn-light btn-lg px-4" href="#loc_map">서울시 헬스장</a>
                         </div>
+
                     </div>
                 </div>
 <!--                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">-->
@@ -62,22 +105,22 @@
                     <option value="강동구">강동구</option>
                 </select>
                 <div class="btn_frame">
-                    <a href="/onmom/review_board">MORE</a>
+                    <a href="/onmom/review/list">MORE</a>
                 </div>
             </div>
             <div class="row">
                 <!-- Gallery item -->
-                <div th:each="dto : ${result.dtoList}" class="col-xl-3 col-lg-4 col-md-6 mb-4">
-                    <div class="bg-white rounded shadow-sm">
+                <div th:each="dto : ${result.dtoList}" class="col-xl-3 col-lg-4 col-md-6 mb-4 ">
+                    <div class="bg-white rounded shadow-sm galBox_sizing">
                         <!-- 이미지 썸네일 -->
                         <img    th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
-                                th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" alt="" class="img-fluid card-img-top">
+                                th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" alt="" class="img-fluid card-img-top img_sizing">
                         <div class="p-4" style="position:relative;">
-                            <span class="text-muted" style="position:absolute; left:10px; top:10px;">
+                            <span class="text-muted" style="position:absolute; left:10px; top:10px; font-size:12px;">
                                 [[${dto.area}]]
                             </span>
-                            <h5 style="padding-left:15px; width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                                <a th:href="@{/review/read(review_id = ${dto.review_id}, page = ${result.page})}" class="text-dark">
+                            <h5 style="padding-left:25px; width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                <a th:href="@{/onmom/review/read(review_id = ${dto.review_id}, page = ${result.page})}" class="text-dark">
                                     [[${dto.title}]]
                                 </a>
                             </h5>
@@ -118,78 +161,81 @@
             <h1>서울시 헬스장 위치</h1>
             <p>서울시에 위치한 헬스장입니다!</p>
         </div>
+
+
+
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ee531325af0e4fcf22267b610d54a72b&libraries=services"></script>
         <div id="map" style="width:100%;height:350px;"></div>
         <script type="text/javascript">
-// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
-var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+            // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+            var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-    mapOption = {
-        center: new kakao.maps.LatLng(37.525229261856055, 126.89135012208651), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                mapOption = {
+                    center: new kakao.maps.LatLng(37.525229261856055, 126.89135012208651), // 지도의 중심좌표
+                    level: 3 // 지도의 확대 레벨
+                };
 
-// 지도를 생성합니다
-var map = new kakao.maps.Map(mapContainer, mapOption);
+            // 지도를 생성합니다
+            var map = new kakao.maps.Map(mapContainer, mapOption);
 
-// 장소 검색 객체를 생성합니다
-var ps = new kakao.maps.services.Places();
+            // 장소 검색 객체를 생성합니다
+            var ps = new kakao.maps.services.Places();
 
-// 키워드로 장소를 검색합니다
-ps.keywordSearch('서울시 gym', placesSearchCB);
-ps.keywordSearch('서울시 짐', placesSearchCB);
-ps.keywordSearch('서울시 헬스장', placesSearchCB);
-ps.keywordSearch('서울시 헬스', placesSearchCB);
-ps.keywordSearch('서울시 fitness', placesSearchCB);
-ps.keywordSearch('서울시 피트니스', placesSearchCB);
-ps.keywordSearch('서울시 휘트니스', placesSearchCB);
-ps.keywordSearch('서울시 PT', placesSearchCB);
-ps.keywordSearch('서울시 PT샵', placesSearchCB);
-ps.keywordSearch('서울 gym', placesSearchCB);
-ps.keywordSearch('서울 짐', placesSearchCB);
-ps.keywordSearch('서울 헬스장', placesSearchCB);
-ps.keywordSearch('서울 헬스', placesSearchCB);
-ps.keywordSearch('서울 fitness', placesSearchCB);
-ps.keywordSearch('서울 피트니스', placesSearchCB);
-ps.keywordSearch('서울 휘트니스', placesSearchCB);
-ps.keywordSearch('서울 PT', placesSearchCB);
-ps.keywordSearch('서울 PT샵', placesSearchCB);
+            // 키워드로 장소를 검색합니다
+            ps.keywordSearch('서울시 gym', placesSearchCB);
+            ps.keywordSearch('서울시 짐', placesSearchCB);
+            ps.keywordSearch('서울시 헬스장', placesSearchCB);
+            ps.keywordSearch('서울시 헬스', placesSearchCB);
+            ps.keywordSearch('서울시 fitness', placesSearchCB);
+            ps.keywordSearch('서울시 피트니스', placesSearchCB);
+            ps.keywordSearch('서울시 휘트니스', placesSearchCB);
+            ps.keywordSearch('서울시 PT', placesSearchCB);
+            ps.keywordSearch('서울시 PT샵', placesSearchCB);
+            ps.keywordSearch('서울 gym', placesSearchCB);
+            ps.keywordSearch('서울 짐', placesSearchCB);
+            ps.keywordSearch('서울 헬스장', placesSearchCB);
+            ps.keywordSearch('서울 헬스', placesSearchCB);
+            ps.keywordSearch('서울 fitness', placesSearchCB);
+            ps.keywordSearch('서울 피트니스', placesSearchCB);
+            ps.keywordSearch('서울 휘트니스', placesSearchCB);
+            ps.keywordSearch('서울 PT', placesSearchCB);
+            ps.keywordSearch('서울 PT샵', placesSearchCB);
 
-// 키워드 검색 완료 시 호출되는 콜백함수 입니다
-function placesSearchCB (data, status, pagination) {
-    if (status === kakao.maps.services.Status.OK) {
+            // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+            function placesSearchCB (data, status, pagination) {
+                if (status === kakao.maps.services.Status.OK) {
 
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-        // LatLngBounds 객체에 좌표를 추가합니다
-        var bounds = new kakao.maps.LatLngBounds();
+                    // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+                    // LatLngBounds 객체에 좌표를 추가합니다
+                    var bounds = new kakao.maps.LatLngBounds();
 
-        for (var i=0; i<data.length; i++) {
-            displayMarker(data[i]);
-            bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-        }
+                    for (var i=0; i<data.length; i++) {
+                        displayMarker(data[i]);
+                        bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+                    }
 
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-        map.setBounds(bounds);
-    }
-}
+                    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+                    map.setBounds(bounds);
+                }
+            }
 
-// 지도에 마커를 표시하는 함수입니다
-function displayMarker(place) {
+            // 지도에 마커를 표시하는 함수입니다
+            function displayMarker(place) {
 
-    // 마커를 생성하고 지도에 표시합니다
-    var marker = new kakao.maps.Marker({
-        map: map,
-        position: new kakao.maps.LatLng(place.y, place.x)
-    });
+                // 마커를 생성하고 지도에 표시합니다
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: new kakao.maps.LatLng(place.y, place.x)
+                });
 
-    // 마커에 클릭이벤트를 등록합니다
-    kakao.maps.event.addListener(marker, 'click', function() {
-        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-        infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
-        infowindow.open(map, marker);
-    });
-}
+                // 마커에 클릭이벤트를 등록합니다
+                kakao.maps.event.addListener(marker, 'click', function() {
+                    // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                    infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                    infowindow.open(map, marker);
+                });
+            }
 </script>
         <!-- 카카오맵.끝.-->
 
@@ -218,8 +264,8 @@ function displayMarker(place) {
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-8 col-xl-6">
                         <div class="text-center">
-                            <h2 class="fw-bolder">From our blog</h2>
-                            <p class="lead fw-normal text-muted mb-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque fugit ratione dicta mollitia. Officiis ad.</p>
+                            <h2 class="fw-bolder">운동 상식</h2>
+                            <p class="lead fw-normal text-muted mb-5">알아두면 쓸모있는 운동 상식!</p>
                         </div>
                     </div>
                 </div>
@@ -228,17 +274,21 @@ function displayMarker(place) {
                         <div class="card h-100 shadow border-0">
                             <img class="card-img-top" src="/img/frame.jpg" alt="..." />
                             <div class="card-body p-4">
-                                <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                                <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">Blog post title</h5></a>
-                                <p class="card-text mb-0">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <div class="badge bg-primary bg-gradient rounded-pill mb-2">Youtube</div>
+                                <a class="text-decoration-none link-dark stretched-link" href="https://youtu.be/QfCUN-MdvYc" target="_blank">
+                                    <h5 class="card-title mb-3">일반인이 프레임과 등근육을 넓히는 가장 빠른 방법?!</h5>
+                                </a>
+                                <p class="card-text mb-0">
+                                    앞에서 바라봤을 때 가장 측면에 위치한 측면 삼각근을 키우는 것도 중요하지만 그보다 우선시되어야 하는 것이 있습니다.
+                                </p>
                             </div>
                             <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle me-3" src="https://youtu.be/QfCUN-MdvYc" alt="..." />
+                                        <img class="rounded-circle me-3" src="/img/icon_health.jpg" alt="..." />
                                         <div class="small">
-                                            <div class="fw-bold">Kelly Rowan</div>
-                                            <div class="text-muted">March 12, 2022 &middot; 6 min read</div>
+                                            <div class="fw-bold">보통사람을 위한 운동채널</div>
+                                            <div class="text-muted">May 30, 2021</div>
                                         </div>
                                     </div>
                                 </div>
@@ -249,17 +299,22 @@ function displayMarker(place) {
                         <div class="card h-100 shadow border-0">
                             <img class="card-img-top" src="/img/muscle.jpg" alt="..." />
                             <div class="card-body p-4">
-                                <div class="badge bg-primary bg-gradient rounded-pill mb-2">Media</div>
-                                <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">Another blog post title</h5></a>
-                                <p class="card-text mb-0">This text is a bit longer to illustrate the adaptive height of each card. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <div class="badge bg-primary bg-gradient rounded-pill mb-2">Youtube</div>
+                                <a class="text-decoration-none link-dark stretched-link" href="https://youtu.be/qeipIPodSWw" target="_blank">
+                                    <h5 class="card-title mb-3">근육이 빠르게 크지 않는 원인의 90%는 바로 '이것'입니다</h5>
+                                </a>
+                                <p class="card-text mb-0">
+                                    헬스를 하면 누구나 정체기를 겪게 되지만, 대부분의 헬서들은 뾰족한 대안 없이
+                                    운동 강도 부족인가 싶어 정신력으로 밀어붙이거나 무작정 중량을 높이다가 불필요한 부상만 떠안는 경우가 부지기수입니다.
+                                </p>
                             </div>
                             <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle me-3" src="https://youtu.be/qeipIPodSWw" alt="..." />
+                                        <img class="rounded-circle me-3" src="/img/icon_health.jpg" alt="..." />
                                         <div class="small">
-                                            <div class="fw-bold">Josiah Barclay</div>
-                                            <div class="text-muted">March 23, 2022 &middot; 4 min read</div>
+                                            <div class="fw-bold">보통사람을 위한 운동채널</div>
+                                            <div class="text-muted">September 14, 2021</div>
                                         </div>
                                     </div>
                                 </div>
@@ -270,17 +325,23 @@ function displayMarker(place) {
                         <div class="card h-100 shadow border-0">
                             <img class="card-img-top" src="/img/sweat.jpg" alt="sweat_jpg" />
                             <div class="card-body p-4">
-                                <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                                <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">The last blog post title is a little bit longer than the others</h5></a>
-                                <p class="card-text mb-0">Some more quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <div class="badge bg-primary bg-gradient rounded-pill mb-2">Youtube</div>
+                                <a class="text-decoration-none link-dark stretched-link" href="https://youtu.be/3m0mgvgX1G8" target="_blank">
+                                    <h5 class="card-title mb-3">
+                                    땀과 운동의 충격적인 사실
+                                    </h5>
+                                </a>
+                                <p class="card-text mb-0">
+                                    땀을 '과하게' 흘리는 것은 운동에 굉장히 안 좋아요.
+                                </p>
                             </div>
                             <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                 <div class="d-flex align-items-end justify-content-between">
                                     <div class="d-flex align-items-center">
-                                        <img class="rounded-circle me-3" src="https://youtu.be/3m0mgvgX1G8" alt="sweat_youtube" />
+                                        <img class="rounded-circle me-3" src="/img/icon_physical.jpg" alt="..." />
                                         <div class="small">
-                                            <div class="fw-bold">Evelyn Martinez</div>
-                                            <div class="text-muted">April 2, 2022 &middot; 10 min read</div>
+                                            <div class="fw-bold">피지컬갤러리</div>
+                                            <div class="text-muted">April 16, 2020</div>
                                         </div>
                                     </div>
                                 </div>
@@ -326,19 +387,27 @@ function displayMarker(place) {
 
             });
 
-            // 글 미리보기 내에 태그 노출 제거
+            //// 글 미리보기 내에 태그 노출 제거
+            // 제거할 태그들을 배열 선언
             var contentTag = new Array("<p>", "</p>", "<strong>", "</strong>", "<ol>", "</ol>", "<ul>", "</ul>", "<li>", "</li>",
-                                        "<s>", "</s>", "<em>", "</em>"); // 배열 선언
+                                        "<s>", "</s>", "<em>", "</em>");
 
-            var spanText = $('.tag_delete').text();
-            for(var i = 0; i < contentTag.length; i++){
-                spanText.replaceAll(contentTag[i], '');
-                $('.tag_delete').html(spanText);
+            // html 문서 내의 tag_delete 클래스 소유 태그 갯수를 Counting
+            var spanCount = $('.tag_delete').length;
+            console.log("span Counting = "+spanCount);
+
+            // 텍스트 내용 저장하는 배열 변수 선언
+            var spanText = new Array();
+
+            // 이중 for문, 첫 for문은 각각의 tag_delete 소유 span의 text를 index 순으로 배열로서 받음
+            for(var i = 0; i < spanCount; i++){
+                spanText[i] = $('.tag_delete').eq(i).text();
+                // 두번째 for문, contentTag 길이만큼 반복 동작하여 태그 텍스트 선택하여 제거한 뒤에 각각의 index 순의 span에 이를 삽입
+                for(var j = 0; j < contentTag.length; j++){
+                    spanText[i].replaceAll(contentTag[j], '');
+                    $('.tag_delete').eq(i).html(spanText[i]);
+                }
             }
-
-
-
-
 
         </script>
 
