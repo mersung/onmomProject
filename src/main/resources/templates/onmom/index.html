@@ -7,14 +7,16 @@
         <head>
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
+            <!--
             <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+            -->
             <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         </head>
 
     <header class="bg-white py-5 back_img">
-        <div class="container px-5" >
+        <div class="container px-5">
             <div class="row gx-5 align-items-center justify-content-center" style="background-color:rgba(0,0,0,0.5);">
                 <div class="col-lg-8 col-xl-7 col-xxl-6">
                     <div class="my-5 text-center text-xl-start">
@@ -353,16 +355,38 @@
                 <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
                     <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
                         <div class="mb-4 mb-xl-0">
-                            <div class="fs-3 fw-bold text-white">온몸 회원들과 이야기 해보세요</div>
+                            <div class="fs-3 fw-bold text-white">온몸 회원들과 이야기 해보세요.</div>
                         </div>
                         <div class="ms-xl-4">
                             <div class="input-group mb-2">
-                                <iframe src="https://service.dongledongle.com/Onmom" frameborder="0" width="500" height="500"></iframe>
+                                <button class="btn btn-outline-light" type="button" data-toggle="collapse" data-target="#chatting" id="button1">채팅방 참여하기</button>
+
+                                <!-- '채팅방 참여하기' 클릭 시 '채팅방 닫기'로 변경-->
+                                <script src="//code.jquery.com/jquery.min.js"></script>
+                                <script>
+                                $(function() {
+                                $('#button1').click( function() {
+                                if( $(this).html() == '채팅방 참여하기' ) {
+                                $(this).html('채팅방 닫기');
+                                }
+                                else {
+                                $(this).html('채팅방 참여하기');
+                                }
+                                });
+                                });
+                                </script>
+
                             </div>
                             <div class="small text-white-50">We care about privacy, and will never share your data.</div>
                         </div>
                     </div>
                 </aside>
+
+                <!-- chatting-->
+                <div id="chatting" class="collapse">
+                    <iframe src="https://service.dongledongle.com/Onmom" width="100%" height="500"></iframe>
+                </div>
+
             </div>
         </section>
     </div>
