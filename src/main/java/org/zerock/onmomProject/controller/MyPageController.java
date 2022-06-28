@@ -32,11 +32,11 @@ public class MyPageController {
     @GetMapping("member/info")
 
     public String memberInfo(Model model, Principal principal){
-        String member_id = principal.getName();
-
-        MemberDTO detail = memberService.selectMember(member_id);
-
-        model.addAttribute("detail", detail);
+//        String member_id = principal.getName();
+//
+//        MemberDTO detail = memberService.selectMember(member_id);
+//
+//        model.addAttribute("detail", detail);
 
         return "onmom/member/info";
 
