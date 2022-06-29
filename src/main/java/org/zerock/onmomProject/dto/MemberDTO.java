@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -25,5 +26,7 @@ public class MemberDTO {
     private MemberRole role;
 
     private LocalDateTime regDate;
+
+
 
 }
