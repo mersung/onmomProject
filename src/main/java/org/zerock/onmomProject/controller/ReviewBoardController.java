@@ -25,7 +25,7 @@ public class ReviewBoardController {
 
     private final ReviewBoardService service;
 
-    // 후기게시판 리스트 페이지 테스트
+    // 후기게시판 리스트 페이지
     @GetMapping("/list")
     public void list(String area, ReviewPageRequestDTO pageRequestDTO, Model model){
         // 지역(area) 설정
