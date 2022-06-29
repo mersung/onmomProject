@@ -34,13 +34,59 @@
 
             </th:value>
 
-
-
+        <!-- 내가쓴글 수정중 ------------------------------------------------------------->
+            <select id="getInfo" resultMap="memberInfo">
+                select member_id,
+                        nickname,
+                        f.free_id,
+                        f.title,
+                        f.content,
+                        f.like_cnt,
+                        f.hate_cnt,
+                        f.regDate,
+                        f.modDate,
+                from member m
+                left outer join freeBoard f
+                on m.member_id = f.member
+                where m.member_id = #{member_id}
+            </select>
 
         <div class="container px-5 my-5 review_post">
             <h3>내가 쓴 글</h3>
-        </div>
+            <resultMap type="MemberDTO" id="memberInfo">
+                <result property="member_id" column="MEMBER_ID"/>
+                <result property="nickname" column="NICKNAME"/>
+                <collection property="memberFreeBoardList" resultMape="freeBoardList"/>
+            </resultMap>
 
+            <resultMap type="FreeBoardDTO" id="freeBoardList">
+                <result property="free_id" column="FREE_ID"/>
+                <result property="title" column="TITLE"/>
+                <result property="content" column="CONTENT"/>
+                <result property="like_cnt" column="LIKE_CNT"/>
+                <result property="hate_cnt" column="HATE_CNT"/>
+                <result property="regDate" column="REGDATE" />
+                <result property="modDate" column="MODDATE" />
+            </resultMap>
+
+            <tr>
+                <td class="m-title">*ID</td>
+                <td><input class="form-control input-sm" value="${memberInfo.member_id}" readonly></td>
+            </tr>
+
+            <c:forEach var="dto" items="${memberInfo.memberFreeBoardList}">
+                <tr>
+                    <td>${dto.free_id}</td>
+                    <td>${dto.title}</td>
+                    <td>${dto.content}</td>
+                    <td>${dto.like_cnt}</td>
+                    <td>${dto.hate_cnt}</td>
+                    <td>${dto.regDate}</td>
+                    <td>${dto.modDate}</td>
+                </tr>
+            </c:forEach>
+        </div>
+            <!-- 내가쓴글 수정중 ------------------------------------------------------------->
 
         </div>
     </th:block>
