@@ -24,6 +24,11 @@
         <link th:href="@{/dist/css/styles.css}" rel="stylesheet" />
         <!--    jQuery CDN    -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!-- SIGN IN CSS -->
+        <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+        <style>
+            body{padding-bottom:0 !important;}
+        </style>
 
     </head>
     <body class="d-flex flex-column h-100">
@@ -38,7 +43,7 @@
 <!--                            스프링 시큐리티 사용시, 인증이 됐을 경우 보이는 것-->
                             <th:block sec:authorize="isAuthenticated()">
                                 <li class="nav-item"><a class="nav-link" href="/onmom/index">홈</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/onmom/member">마이페이지</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/onmom/member/info">마이페이지</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/onmom/review/list">추천게시판</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/onmom/freeBoard/freeBoardList">자유게시판</a></li>
