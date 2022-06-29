@@ -4,17 +4,13 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.zerock.onmomProject.security.dto.OnmomAuthMemberDTO;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/onmom")
 @Log4j2
-public class LoginController {
+public class MemberController {
 
     @GetMapping("/login")
     public void login(){}
