@@ -2,6 +2,8 @@ package org.zerock.onmomProject.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +27,8 @@ public class ReviewBoardController {
 
     // 후기게시판 리스트 페이지 테스트
     @GetMapping("/list")
-    public void index(String area, ReviewPageRequestDTO pageRequestDTO, Model model){
+    public void list(String area, ReviewPageRequestDTO pageRequestDTO, Model model){
+        // 지역(area) 설정
         pageRequestDTO.setArea(area);
 
         if (area == null) {
@@ -34,7 +37,8 @@ public class ReviewBoardController {
 
         // result 출력을 9로 함
         pageRequestDTO.setSize(9);
-        model.addAttribute("result", service.getList(pageRequestDTO));
+        // getListReview 사용해 index 페이지와는 sort 처리를 달리함
+        model.addAttribute("result", service.getListReview(pageRequestDTO));
         model.addAttribute("area", pageRequestDTO.getArea());
     }
 
