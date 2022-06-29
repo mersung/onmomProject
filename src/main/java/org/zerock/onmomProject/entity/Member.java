@@ -34,5 +34,8 @@ public class Member extends BaseEntity {
         roleSet.add(memberRole);
     }
 
-
+    // 닉네임 변경
+    public void modify(String nickname){
+        this.nickname = nickname;
+    }
 }

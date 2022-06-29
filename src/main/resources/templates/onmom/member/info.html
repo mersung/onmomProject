@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <!-- 마이페이지 전체 wrap -->
+        <div class="container px-5 my-5 review_post">
+            <!-- 마이페이지 타이틀 -->
+            <h1 class="mt-4">
+                <div class="board_title">
+                    <h1>마이 페이지</h1>
+                </div>
+
+            </h1>
+
+            <span>
+                <h3>내 프로필</h3>
+            </span>
+            <!-- <div sec:authorize="isAuthenticated()">
+                Only Authenticated user can see this Text
+            </div> -->
+
+            <div class="form-floating" style="width: 30%; padding-bottom: 3px">
+                <input type="email" th:value="${#authentication.principal.username}" class="form-control" id="email"
+                       required readonly>
+                <label for="email">이메일</label>
+            </div>
+            <div class="form-floating" style="width: 30%; padding-bottom: 3px">
+                <input type="text" th:value="${#authentication.principal.nickname}" class="form-control" id="nickname"
+                       required readonly>
+                <label for="nickname">닉네임</label>
+            </div>
+            <button class="btn btn-primary">닉네임 변경</button>
+
+
+            </th:value>
+
+
+
+
+        <div class="container px-5 my-5 review_post">
+            <h3>내가 쓴 글</h3>
+        </div>
+
+
+        </div>
+    </th:block>
+</th:block>
+
+</html>

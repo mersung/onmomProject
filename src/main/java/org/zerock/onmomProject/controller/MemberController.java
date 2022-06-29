@@ -17,9 +17,9 @@ public class MemberController {
 
 
     // 로그인된 사용자 정보 출력
-    @GetMapping("/member")
-    public void Member(@AuthenticationPrincipal OnmomAuthMemberDTO onmomAuthMember){
-        log.info("**************** Member *****************");
-        log.info(onmomAuthMember);
-    }
+//    @GetMapping("/member")
+//    public void Member(@AuthenticationPrincipal OnmomAuthMemberDTO onmomAuthMember){
+//        log.info("**************** Member *****************");
+//        log.info(onmomAuthMember);
+//    }
 }
