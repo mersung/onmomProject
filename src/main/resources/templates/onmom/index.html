@@ -157,15 +157,16 @@
         </div>
         <!-- Testimonial section-->
         <!-- 카카오맵 ----------------------------------------------->
-        <div id="loc_map" class="content_title">
+        <div id="loc_map" class="content_title px-lg-5">
             <div>
                 <img src="/img/marker.png" alt="마커">
             </div>
             <h1>서울시 헬스장 위치</h1>
             <p>서울시에 위치한 헬스장입니다!</p>
+            <div class="btn_frame">
+                <a href="/onmom/map">지도에서 찾기</a>
+            </div>
         </div>
-
-
 
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ee531325af0e4fcf22267b610d54a72b&libraries=services"></script>
         <div id="map" style="width:100%;height:350px;"></div>
@@ -176,11 +177,17 @@
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                 mapOption = {
                     center: new kakao.maps.LatLng(37.525229261856055, 126.89135012208651), // 지도의 중심좌표
-                    level: 3 // 지도의 확대 레벨
+                    level: 1 // 지도의 확대 레벨
                 };
 
             // 지도를 생성합니다
             var map = new kakao.maps.Map(mapContainer, mapOption);
+
+            // 지도 드래그 비활성화
+            //map.setDraggable(false);
+
+            // 지도 확대(축소) 비활성화
+            map.setZoomable(false);
 
             // 장소 검색 객체를 생성합니다
             var ps = new kakao.maps.services.Places();
@@ -360,7 +367,7 @@
                         </div>
                         <div class="ms-xl-4">
                             <div class="input-group mb-2">
-                                <button class="btn btn-outline-light" type="button" data-toggle="collapse" data-target="#chatting" id="button1">채팅방 참여하기</button>
+                                <button class="btn btn-outline-light text-white" type="button" data-toggle="collapse" data-target="#chatting" id="button1">채팅방 참여하기</button>
 
                                 <!-- '채팅방 참여하기' 클릭 시 '채팅방 닫기'로 변경-->
                                 <script src="//code.jquery.com/jquery.min.js"></script>
