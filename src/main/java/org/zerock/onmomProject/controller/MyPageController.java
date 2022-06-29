@@ -16,6 +16,7 @@ import org.zerock.onmomProject.entity.Member;
 import org.zerock.onmomProject.security.dto.OnmomAuthMemberDTO;
 import org.zerock.onmomProject.service.MemberService;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.List;
 
@@ -30,11 +31,22 @@ public class MyPageController {
 
 
     @GetMapping("/info")
-    public String memberInfo(Model model, Principal principal){
-        String member_id = principal.getName();
-        MemberDTO dto = memberService.selectMember(member_id);
+    public String memberInfo(Model model, Principal principal, HttpSession session){
+//기존        String member_id = principal.getName();
+//        MemberDTO dto = memberSrvice.selectMember(member_id);
+//
+//        model.addAttribute("dto", dto);
 
-        model.addAttribute("dto", dto);
+        /////////////////////////////////////////////////////내가 쓴 글 수정중
+        //MemberDTO dto = (MemberDTO)session.getAttribute("memberDTO");
+        //String member_id = dto.getMember_id();
+        //위에 두 줄 코드를 변경해야함. 지금은 그냥 이메일값 직접 대입해봄.
+        String member_id = principal.getName();
+
+        MemberDTO memberInfo = memberService.selectMember(member_id);
+        model.addAttribute("memberInfo", memberInfo);
+        ///////////////////////////////////////////////////////내가 쓴 글 수정중
+
 
         return "onmom/member/info";
 
