@@ -28,10 +28,10 @@ public interface FreeBoardCommentService {
 
 
         FreeBoardComment freeBoardComment = FreeBoardComment.builder()
-                .comment_id(FreeBoardCommentDTO.builder().build().getComment_id())
+                .comment_id(freeBoardCommentDTO.getComment_id())
                 .board(freeBoard)
                 .member(member)
-                .content(FreeBoardCommentDTO.builder().build().getContent())
+                .content(freeBoardCommentDTO.getContent())
                 .build();
         return freeBoardComment;
     }

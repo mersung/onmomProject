@@ -19,22 +19,22 @@ import java.util.List;
 public class FreeBoardCommentController {
     private final FreeBoardCommentService freeBoardCommentService;
 
-    @GetMapping(value = "/onmom/freeBoard/{free_id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/freeBoard/{free_id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FreeBoardCommentDTO>> getListByFreeBoard(@PathVariable("free_id")Long free_id){
         log.info("free_id: " + free_id);
 
         return new ResponseEntity<>(freeBoardCommentService.getList(free_id), HttpStatus.OK);
     }
-//
-//    @PostMapping("")
-//    public ResponseEntity<Long> register(@RequestBody FreeBoardCommentDTO freeBoardCommentDTO){
-//
-//        log.info(freeBoardCommentDTO);
-//
-//        Long comment_id = freeBoardCommentService.register(freeBoardCommentDTO);
-//
-//        return new ResponseEntity<>(comment_id,HttpStatus.OK);
-//    }
+
+    @PostMapping("/freeBoard/{free_id}")
+    public ResponseEntity<Long> register(@RequestBody FreeBoardCommentDTO freeBoardCommentDTO){
+
+        log.info(freeBoardCommentDTO);
+
+        Long comment_id = freeBoardCommentService.register(freeBoardCommentDTO);
+
+        return new ResponseEntity<>(comment_id,HttpStatus.OK);
+    }
 //
 //    @DeleteMapping("/{comment_id}")
 //    public ResponseEntity<String> remove(@PathVariable ("comment_id") Long comment_id){
