@@ -32,6 +32,7 @@ public interface ReviewBoardService {
 
 
 
+
     default Map<String, Object> dtoToEntity(ReviewBoardDTO reviewBoardDTO) {
 
         Map<String, Object> entityMap = new HashMap<>();

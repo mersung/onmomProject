@@ -18,6 +18,6 @@ public interface FreeBoardCommentRepository extends JpaRepository<FreeBoardComme
     @Query("delete from FreeBoardComment fbc where fbc.board.free_id = :free_id")
     void deleteByFree_id(Long free_id);
 
+//    List<FreeBoardComment> getRepliesByFreeBoardOrderByComment_id(FreeBoard board);
 
-//    List<FreeBoardComment> getRepliesByBoardOrderByfree_id(FreeBoard board);
 }

@@ -7,12 +7,12 @@
 
         <h1 class="mt-4">Board Modify Page</h1>
 
-        <form action="/onmom/freeBoard_modify" method="post">
+        <form action="/onmom/freeBoard/freeBoardModify" method="post">
 
             <!--페이지 번호  -->
-            <input type="hidden" name="page" th:value="${freePageRequestDTO.page}">
-            <input type="hidden" name="type" th:value="${freePageRequestDTO.type}" >
-            <input type="hidden" name="keyword" th:value="${freePageRequestDTO.keyword}" >
+            <input type="hidden" name="page" th:value="${requestDTO.page}">
+            <input type="hidden" name="type" th:value="${requestDTO.type}" >
+            <input type="hidden" name="keyword" th:value="${requestDTO.keyword}" >
 
             <div class="form-group">
                 <label >free_id</label>
@@ -56,7 +56,7 @@
             $(".removeBtn").click(function(){
 
                 actionForm
-                    .attr("action", "/onmom/freeBoard_remove")
+                    .attr("action", "/onmom/freeBoard/freeBoardRemove")
                     .attr("method","post");
 
                 actionForm.submit();
@@ -70,7 +70,7 @@
                 }
 
                 actionForm
-                    .attr("action", "/onmom/freeBoard_modify")
+                    .attr("action", "/onmom/freeBoard/freeBoardModify")
                     .attr("method","post")
                     .submit();
             });
@@ -90,7 +90,7 @@
 
 
                 actionForm
-                    .attr("action", "/onmom/freeBoard_list")
+                    .attr("action", "/onmom/freeBoard/freeBoardList")
                     .attr("method","get");
 
                 actionForm.submit();

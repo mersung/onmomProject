@@ -11,7 +11,6 @@
 //import java.util.List;
 //import java.util.stream.Collectors;
 //
-//@Log4j2
 //@RequiredArgsConstructor
 //@Service
 //public class FreeBoardCommentServiceImpl implements FreeBoardCommentService{
@@ -31,7 +30,7 @@
 //    public List<FreeBoardCommentDTO> getList(Long free_id) {
 //
 //        List<FreeBoardComment> result = freeBoardCommentRepository
-//                .getRepliesByBoardOrderByFree_io(FreeBoard.builder().free_id(free_id).build());
+//                .getRepliesByFreeBoardOrderByComment_id(FreeBoard.builder().free_id(free_id).build());
 //
 //        return result.stream().map(freeBoardComment -> entityToDTO(freeBoardComment))
 //                .collect(Collectors.toList());
