@@ -16,8 +16,11 @@ public interface ReviewBoardService {
     // 후기 게시판 글추가
     Long register(ReviewBoardDTO reviewBoardDTO);
 
-    // 목록 처리
+    // index 목록 처리
     ReviewPageResultDTO<ReviewBoardDTO, Object[]> getList(ReviewPageRequestDTO reviewPageRequestDTO);
+
+    // 후기게시판 목록 처리
+    ReviewPageResultDTO<ReviewBoardDTO, Object[]> getListReview(ReviewPageRequestDTO reviewPageRequestDTO);
 
     ReviewBoardDTO get(Long review_id);
 

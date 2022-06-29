@@ -52,7 +52,7 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
         return reviewBoard.getReview_id();
     }
 
-    // 페이징처리
+    // index 페이지 후기 게시판 미리보기에 대한 페이징처리
     @Override
     public ReviewPageResultDTO<ReviewBoardDTO, Object[]> getList(ReviewPageRequestDTO reviewPageRequestDTO) {
         log.info(reviewPageRequestDTO);
@@ -79,6 +79,29 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
                 reviewPageRequestDTO.getType(),
                 reviewPageRequestDTO.getKeyword(),
                 reviewPageRequestDTO.getPageable(Sort.by("like_cnt").descending()));
+
+        return new ReviewPageResultDTO<>(result, fn);
+    }
+
+    // review/list 페이지에 대한 페이징 처리
+    @Override
+    public ReviewPageResultDTO<ReviewBoardDTO, Object[]> getListReview(ReviewPageRequestDTO reviewPageRequestDTO){
+        log.info(reviewPageRequestDTO);
+
+        Pageable pageable = reviewPageRequestDTO.getPageable(Sort.by("review_id").descending());
+        log.info("============");
+
+        Function<Object[], ReviewBoardDTO> fn = (arr -> entitiesToDTO(
+                (ReviewBoard) arr[0],
+                (List<Image>) (Arrays.asList((Image)arr[1]))
+                )
+        );
+
+        Page<Object[]> result = reviewBoardRepository.searchPage(
+                reviewPageRequestDTO.getArea(),
+                reviewPageRequestDTO.getType(),
+                reviewPageRequestDTO.getKeyword(),
+                reviewPageRequestDTO.getPageable(Sort.by("review_id").descending()));
 
         return new ReviewPageResultDTO<>(result, fn);
     }
