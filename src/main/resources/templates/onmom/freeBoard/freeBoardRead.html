@@ -82,23 +82,25 @@
             </div>
         </div>
 
-<!--        <script th:inline="javascript">-->
-<!--            $(document).ready(function(){-->
+        <script th:inline="javascript">
+            $(document).ready(function(){
 
-<!--                var free_id = [[${dto.free_id}]];-->
+                var free_id = [[${dto.free_id}]];
 
-<!--                var listGroup = $(".replyList);-->
+                var listGroup = $(".replyList);
 
-<!--                $(".likeCount").click(function(){-->
+                $(".likeCount").click(function(){
 
-<!--                    $.getJSON('/replies/onmom/'+bno, function(arr){-->
+                    $.getJSON('/freeBoardComments/onmom/'+bno, function(arr){
 
-<!--                        console.log(arr);-->
+                        console.log(arr);
 
-<!--                    })//end getJSON-->
+                    })//end getJSON
 
-<!--                })//end click-->
-<!--            }-->
+                })//end click
+            });
+        </script>
+
 
 <!--            //댓글이 추가될 영역-->
 <!--            var listGroup  = $(".replyList");-->
@@ -122,6 +124,7 @@
 
 <!--                        var str ="";-->
 
+<!--                        $('.likeCount').html(" like Count  " + arr.length);-->
 <!--                        $('.likeCount').html(" like Count  " + arr.length);-->
 
 <!--                         $.each(arr, function(idx, freeBoardComment){-->
