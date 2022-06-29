@@ -13,13 +13,15 @@ import org.zerock.onmomProject.security.dto.OnmomAuthMemberDTO;
 public class MemberController {
 
     @GetMapping("/login")
-    public void login(){}
+    public void login() {
+    }
 
 
     // 로그인된 사용자 정보 출력
-//    @GetMapping("/member")
-//    public void Member(@AuthenticationPrincipal OnmomAuthMemberDTO onmomAuthMember){
-//        log.info("**************** Member *****************");
-//        log.info(onmomAuthMember);
-//    }
+    // 마이페이지 구현
+    @GetMapping("/member")
+    public void Member(@AuthenticationPrincipal OnmomAuthMemberDTO onmomAuthMember) {
+        log.info("**************** Member *****************");
+        log.info(onmomAuthMember);
+    }
 }

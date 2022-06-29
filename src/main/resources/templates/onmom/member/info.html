@@ -29,11 +29,17 @@
                        required readonly>
                 <label for="nickname">닉네임</label>
             </div>
-            <button class="btn btn-primary">닉네임 변경</button>
-
-
+            <div>
+            이메일
+            [[${dto.member_id}]]
+            <br>
+            닉네임
+            [[${dto.nickname}]]  <button class="btn btn-primary">닉네임 변경</button>
+            <br>
+            가입 날짜
+            [[${dto.regDate}]]
             </th:value>
-
+            </div>
 
 
 
