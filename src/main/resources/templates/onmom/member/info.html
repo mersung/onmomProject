@@ -19,32 +19,43 @@
                 Only Authenticated user can see this Text
             </div> -->
 
-            <!-- div class="form-floating" style="width: 30%; padding-bottom: 3px">
+             <div class="form-floating" style="width: 30%; padding-bottom: 3px">
                 <input type="email" th:value="${#authentication.principal.username}" class="form-control" id="email"
                        required readonly>
                 <label for="email">이메일</label>
             </div>
-            <div class="form-floating" style="width: 30%; padding-bottom: 3px">
+
+            <div class="form-floating" style="width: 30%; padding-bottom: 3px;">
                 <input type="text" th:value="${#authentication.principal.nickname}" class="form-control" id="nickname"
                        required readonly>
                 <label for="nickname">닉네임</label>
-            </div> -->
-            <div>
-            이메일:
-            [[${dto.member_id}]]
-            <br>
-            닉네임:
-            [[${dto.nickname}]]  <button class="btn btn-primary">닉네임 변경</button>
-            <br>
-            가입 날짜:
-                <td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd')}"></td>
-            </th:value>
+            <button type="button" class="btn btn-primary">닉네임 변경</button>
+            </div>
+
+            <div class="form-floating" style="width: 30%; padding-bottom: 3px">
+                <input type="text" th:value="${#temporals.format(dto.regDate, 'yyyy-MM-dd')}" class="form-control" id="regDate"
+                       required readonly>
+                <label for="nickname">가입 날짜</label>
             </div>
 
 
-            <br>
+<!--            <div>-->
+<!--            이메일:-->
+<!--            [[${dto.member_id}]]-->
+<!--            <br>-->
+<!--            닉네임:-->
+<!--            [[${dto.nickname}]]  <button class="btn btn-primary">닉네임 변경</button>-->
+<!--            <br>-->
+<!--            가입 날짜:-->
+<!--                <td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd')}"></td>-->
+<!--            </th:value>-->
+<!--            </div>-->
+
+
+
+
             <span>
-                <h3>내가 쓴 글</h3>
+                <h3 class="mt-4">내가 쓴 글</h3>
             </span>
 
         </div>
