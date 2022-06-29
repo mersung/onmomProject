@@ -23,7 +23,7 @@ import java.util.function.Function;
 public class FreeBoardServiceImpl implements FreeBoardService{
     private final FreeBoardRepository freeBoardRepository;
 
-    private final FreeBoardCommentRepository commentRepository;
+    private final FreeBoardCommentRepository freeBoardCommentRepository;
 
 
     @Override
@@ -67,7 +67,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
     @Override
     public void removeWithReplies(Long free_id) {
 
-        commentRepository.deleteByFree_id(free_id);
+        freeBoardCommentRepository.deleteByFree_id(free_id);
 
         freeBoardRepository.deleteById(free_id);
 
