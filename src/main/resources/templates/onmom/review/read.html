@@ -83,13 +83,11 @@
                             </div>
                             <!-- 수정 / 삭제 / 목록 버튼 -->
                             <div class="btn_wrap">
-                                <button type="button" class="btn btn-dark btn_style">
-                                    <a th:href="@{/review/modify(review_id = ${dto.review_id})}">
-                                        수정
-                                    </a>
-                                    </button>
-                                <button type="button" class="btn btn-dark btn_style">삭제</button>
-                                <a href="/onmom/review/list"><button type="button" class="btn btn-dark btn_style">목록</button></a>
+                                <a class="btn btn-dark btn_style" th:href="@{/onmom/review/modify(review_id = ${dto.review_id})}">
+                                    수정
+                                </a>
+                                <a class="btn btn-dark btn_style" th:href="@{/onmom/review/}">삭제</a>
+                                <a class="btn btn-dark btn_style" th:href=@{"/onmom/review/list"}>목록</a>
                             </div>
                         </article>
                         <hr />
@@ -147,7 +145,7 @@
                                     <!-- 스프링 시큐리티 인증이 됐을 경우 댓글 작성 가능 -->
                                     <th:block sec:authorize="isAuthenticated()">
                                         <form class="mb-4 comment_input">
-                                            <textarea name="content" class="col-10 replyText" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+                                            <textarea name="content" class="col-10 replyText" rows="3" placeholder="댓글을 입력해 주세요."></textarea>
                                             <div class="submit_btn_wrap col-2">
                                                 <button type="button" class="btn-dark btn_style_sq replyBtn">등록</button>
                                             </div>
@@ -155,7 +153,7 @@
                                     </th:block>
                                     <th:block sec:authorize="isAnonymous()">
                                         <form class="mb-4 comment_input replyCant">
-                                            <textarea name="content" class="col-10 replyText" rows="3" placeholder="Join the discussion and leave a comment!" readonly></textarea>
+                                            <textarea name="content" class="col-10 replyText" rows="3" placeholder="로그인이 필요한 서비스입니다!" readonly></textarea>
                                             <div class="submit_btn_wrap col-2">
                                                 <button type="button" class="btn-dark btn_style_sq">등록</button>
                                             </div>

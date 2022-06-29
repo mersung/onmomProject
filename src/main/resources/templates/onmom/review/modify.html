@@ -4,18 +4,7 @@
     <th:block th:fragment="content">
         <!-- CKEditor 관련 jQuery  -->
         <script src="/js/ckeditor/ckeditor.js"></script>
-        <script>
-        /* jQuery, window 먼저 load함 */
-<!--        $(function(){-->
-<!--            /* CKEditor 구현 */-->
-<!--            CKEDITOR.replace('text_area',{-->
-<!--                font_names : "맑은 고딕/Malgun Gothic;굴림/Gulim;돋움/Dotum;바탕/Batang;궁서/Gungsuh;Arial/Arial;Comic Sans MS/Comic Sans MS;Courier New/Courier New;Georgia/Georgia;Lucida Sans Unicode/Lucida Sans Unicode;Tahoma/Tahoma;Times New Roman/Times New Roman;MS Mincho/MS Mincho;Trebuchet MS/Trebuchet MS;Verdana/Verdana",-->
-<!--                font_defaultLabel : "맑은 고딕/Malgun Gothic",-->
-<!--                fontSize_defaultLabel : "12",-->
-<!--                skin : "office2013",-->
-<!--                language : "ko"-->
-<!--            });-->
-<!--        });-->
+        <script th:inline="javascript">
 
         // 이미지 업로드
         //// window 부터 load함
@@ -174,12 +163,17 @@
                         <!-- Post content-->
                         <article>
                             <!-- form 태그 시작 -->
-                            <form id="form" th:action="@{/review/register}" th:method="put" >
+                            <form id="form" th:action="@{/review/modify}" th:method="post" >
+                                <!-- 페이지 번호 -->
+                                <input type="hidden" name="page" th:value="${reviewPageRequestDTO.page}">
+                                <input type="hidden" name="type" th:value="${reviewPageRequestDTO.type}">
+                                <input type="hidden" name="keyword" th:value="${reviewPageRequestDTO.keyword}">
+
                                 <!-- Post header-->
                                 <header class="mb-4">
                                     <!-- 게시판 기본 타이틀 -->
                                     <div class="board_title">
-                                        <h1>추천 헬스장<span class="fw-light text-muted sub_title">글 작성</span></h1>
+                                        <h1>추천 헬스장<span class="fw-light text-muted sub_title">글 수정</span></h1>
                                     </div>
                                 </header>
                                 <div class="post_info mb-4">
@@ -192,7 +186,7 @@
                                         <div class="post_no col-3">
                                             <p class="mb-0 fw-bold text-dark reviewNum">번호</p>
                                             <span>
-                                                [[${dto.review_id}]]
+                                                -
                                             </span>
                                         </div>
                                         <div class="post_area col-3">
@@ -237,7 +231,7 @@
                                         </div>
                                         <div class="post_date col-3">
                                             <p class="mb-0 fw-bold text-dark">수정일</p>
-                                            <span th:text="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}">
+                                            <span th:text="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}">
 
                                             </span>
                                         </div>
@@ -282,27 +276,5 @@
                 </div>
             </div>
         </section>
-
-        <!--        <script>-->
-        <!--            $(".registerBtn).on("click", function(){-->
-        <!--                var select_value = document.getElementById('select_value');-->
-        <!--                var reviewNum = $(".reviewNum")-->
-        <!--                var formData = new FormData(this);-->
-        <!--                formData.append("area", select_value);-->
-
-        <!--                $.ajax({-->
-        <!--                    url: '/api/review/'+reviewNum,-->
-        <!--                    data: formData,-->
-        <!--                    type: 'POST',-->
-        <!--                    contentType: "application/json; charset=utf-8",-->
-        <!--                    dataType: 'json',-->
-        <!--                    success: function(result){-->
-        <!--                        alert(result);-->
-        <!--                    }-->
-        <!--                    });-->
-
-        <!--                });-->
-        <!--            }-->
-        <!--        </script>-->
     </th:block>
 </th:block>
