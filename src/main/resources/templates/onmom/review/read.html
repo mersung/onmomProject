@@ -56,9 +56,11 @@
                                 <!-- 글 내용 관련 thymeleaf 코드는 p 태그 안에 기입 -->
                                 <p class="fs-5 mb-4">
                                     <!-- 이미지 영역, div 태그로 작성되어 자동 줄바꿈, thumnail 관련 코딩 기입 -->
-                                    <div class="uploadResult">
+                                    <div>
                                         <ul>
-                                            <!-- 이미지  -->
+                                            <li th:each="image: ${dto.imageDTOList}" th:data-file="${image.getThumbnailURL()}">
+                                                <img th:if="${image.path != null}" th:src="|/display?fileName=${image.getThumbnailURL()}|">
+                                            </li>
                                         </ul>
                                     </div>
                                     [[${dto.content}]]
@@ -121,13 +123,13 @@
 <!--                                        </div>-->
 <!--                                    </div>-->
                                     <!-- Single comment-->
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">Commenter Name</div>
-                                            When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
-                                        </div>
-                                    </div>
+<!--                                    <div class="d-flex">-->
+<!--                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>-->
+<!--                                        <div class="ms-3">-->
+<!--                                            <div class="fw-bold">Commenter Name</div>-->
+<!--                                            When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                 </div>
                                 <!-- 댓글 예시 끝 -->
                                 <!-- 댓글 입력 창 감싸는 div -->
@@ -142,12 +144,23 @@
                                         </b>
                                     </div>
                                     <!-- 댓글 입력 창-->
-                                    <form class="mb-4 comment_input">
-                                        <textarea name="content" class="col-10 replyText" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
-                                        <div class="submit_btn_wrap col-2">
-                                            <button type="button" class="btn-dark btn_style_sq replyBtn">등록</button>
-                                        </div>
-                                    </form>
+                                    <!-- 스프링 시큐리티 인증이 됐을 경우 댓글 작성 가능 -->
+                                    <th:block sec:authorize="isAuthenticated()">
+                                        <form class="mb-4 comment_input">
+                                            <textarea name="content" class="col-10 replyText" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+                                            <div class="submit_btn_wrap col-2">
+                                                <button type="button" class="btn-dark btn_style_sq replyBtn">등록</button>
+                                            </div>
+                                        </form>
+                                    </th:block>
+                                    <th:block sec:authorize="isAnonymous()">
+                                        <form class="mb-4 comment_input replyCant">
+                                            <textarea name="content" class="col-10 replyText" rows="3" placeholder="Join the discussion and leave a comment!" readonly></textarea>
+                                            <div class="submit_btn_wrap col-2">
+                                                <button type="button" class="btn-dark btn_style_sq">등록</button>
+                                            </div>
+                                        </form>
+                                    </th:block>
                                 </div>
                             </div>
                         </section>
@@ -155,37 +168,61 @@
                 </div>
             </div>
         </section>
-        <script >
+        <!-- 스프링 시큐리티 인증 됐을 경우, 댓글 작성 불가 관련 form 태그는 출력되지 않게 처리함 -->
+        <th:block sec:authorize="isAuthenticated()">
+            <style>
+                .replyCant{display:none;}
+            </style>
+        </th:block>
+        <script>
             $(function(){
+
                 // 게시글 번호를 변수로 선언
                 var review_id = [[${dto.review_id}]];
-                var replyer = $('input[name="member_id"]').val();
+                var member_id = $('input[name="member_id"]').val();
 
+                // 댓글 권한 알림창
+                $(".replyCant").click(function(){
+                    alert("로그인이 필요한 서비스입니다!");
+                    location.href="/onmom/login";
+                });
 
                 // 댓글 등록
                 $(".replyBtn").click(function(){
-                    var reply = {
-                        review_id : review_id,
-                        content : $(".replyText").val(),
-                        replyer : replyer
-                    }
-                    console.log(reply);
+                    // 댓글 빈칸 checking
+                    var checkContent = $(".replyText").val();
 
-                    $.ajax({
-                        url :'/reviews/'+review_id,
-                        type : "POST",
-                        data : JSON.stringify(reply),
-                        contentType : "application/json; charset = utf-8",
-                        dataType : "text",
-                        success : function(result){
-                            console.log("결과 : "+result);
-                            self.location.reload();
+                    if(checkContent == ""){
+                        alert("댓글 내용을 입력해 주세요!");
+                        $(".replyText").focus();
+                        return false;
+                    }else{ // 댓글 내용 존재할 때 DB로 ajax 통해 전송
+                        var reply = {
+                            review_id : review_id,
+                            content : $(".replyText").val(),
+                            member_id : member_id
+                        }
+
+                        console.log(reply);
+
+                        $.ajax({
+                            url :'/reviews/'+review_id,
+                            type : "POST",
+                            data : JSON.stringify(reply),
+                            contentType : "application/json; charset = utf-8",
+                            dataType : "text",
+                            success : function(result){
+                                console.log("결과 : "+result);
+                                self.location.reload();
                         }
                         ,
                         error:function(request,status,error){
                             console.log("CODE: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
                         }
                     })
+                    }
+
+
                 }); // 댓글 등록 끝
 
                 // 페이지가 열리면 바로 review 데이터를 가져와 사용
@@ -208,10 +245,10 @@
                         $.each(arr, function(idx, reply){
                          console.log(reply);
 
-                         str += '<div class="d-flex">';
+                         str += '<div class="d-flex mb-3">';
                          str += '<div class="ms-3">';
-                         str += '<div class="fw-bold">'+review_id+'</div>';
-                         str += content+'</div>';
+                         str += '<div class="fw-bold">'+reply.member_id+'</div>';
+                         str += reply.content+'</div>';
                          str += '</div>';
                         });
 
