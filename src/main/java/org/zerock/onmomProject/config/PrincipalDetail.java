@@ -77,4 +77,10 @@ public class PrincipalDetail implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+//    @Override
+//    //사용자 닉네임
+//    public String getNickname() {
+//        return user.getNickname();
+//    }
 }
