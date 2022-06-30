@@ -126,7 +126,10 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
     @Override
     public void removeWithReplies(Long review_id) { //삭제 기능 구현, 트렌젝션 추가
         //댓글부터 삭제
-        reviewCommentRepository.deleteById(review_id);
+        if(reviewCommentRepository != null){
+            reviewCommentRepository.deleteById(review_id);
+        }
+
 
         reviewBoardRepository.deleteById(review_id);
     }

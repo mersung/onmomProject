@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
+    <th:block th:fragment="content">
+        <div th:if = "${#authentication.name.equals(dto.member_id)}">
+            <form th:action="@{/onmom/review/remove}" th:method="post" class="py-5">
+                <div class="container px-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8 col-xxl-6">
+                            <div class="text-center my-5">
+                                <input type="hidden" name="review_id" th:value="${dto.review_id}">
+                                <h1 class="fw-bolder mb-3" style="font-size:30px;">해당 게시물을 정말 삭제하시겠습니까?</h1>
+                                <p class="lead fw-normal text-muted mb-4">삭제하신 페이지는 복구할 수 없습니다.</p>
+                                <div class="container-fluid">
+                                    <button type="submit" class="btn btn-dark" style="width:25%; padding-top:14.5px; padding-bottom:14.5px; vertical-align:initial; box-sizing: initial;">
+                                        예
+                                    </button>
+                                    <a class="btn btn-dark" style="width:25%; padding-top:14.5px; padding-bottom:14.5px; vertical-align:initial; box-sizing: initial;"
+                                            th:href="@{/onmom/review/read(review_id = ${dto.review_id})}">
+                                        아니오
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- 작성자 != 현재 로그인 유저 판단 시, 왔던 페이지로 되돌려보내기 -->
+        <script th:if = ${!#authentication.name.equals(dto.member_id)}>
+            alert("권한이 없습니다!");
+            history.back();
+        </script>
+    </th:block>
+</th:block>
