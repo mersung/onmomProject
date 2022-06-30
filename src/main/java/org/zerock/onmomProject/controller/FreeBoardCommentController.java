@@ -26,7 +26,7 @@ public class FreeBoardCommentController {
         return new ResponseEntity<>(freeBoardCommentService.getList(free_id), HttpStatus.OK);
     }
 
-    @PostMapping("/freeBoard/{free_id}")
+    @PostMapping("")
     public ResponseEntity<Long> register(@RequestBody FreeBoardCommentDTO freeBoardCommentDTO){
 
         log.info(freeBoardCommentDTO);
@@ -35,25 +35,6 @@ public class FreeBoardCommentController {
 
         return new ResponseEntity<>(comment_id,HttpStatus.OK);
     }
-//
-//    @DeleteMapping("/{comment_id}")
-//    public ResponseEntity<String> remove(@PathVariable ("comment_id") Long comment_id){
-//
-//        log.info("Comment_id: " + comment_id);
-//
-//        freeBoardCommentService.remove(comment_id);
-//
-//        return new ResponseEntity<>("success", HttpStatus.OK);
-//    }
-//
-//    @PutMapping("/{comment_id}")
-//    public ResponseEntity<String> modify(@RequestBody FreeBoardCommentDTO freeBoardCommentDTO){
-//
-//        log.info(freeBoardCommentDTO);
-//
-//        freeBoardCommentService.modify(freeBoardCommentDTO);
-//
-//        return new ResponseEntity<>("success",HttpStatus.OK);
-//    }
+
 }
 
