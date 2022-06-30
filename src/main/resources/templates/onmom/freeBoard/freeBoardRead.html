@@ -4,55 +4,93 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
     <th:block th:fragment="content">
-
-        <h1 class="mt-4">Board Read Page</h1>
-
-        <div class="form-group">
-            <label >Bno</label>
-            <input type="text" class="form-control" name="free_id"  th:value="${dto.free_id}"readonly >
-        </div>
-
-        <div class="form-group">
-            <label >Title</label>
-            <input type="text" class="form-control" name="title" th:value="${dto.title}" readonly >
-        </div>
-        <div class="form-group">
-            <label >Content</label>
-            <textarea class="form-control" rows="5" name="content" readonly>
-                [[${dto.content}]]</textarea>
-        </div>
-        <div class="form-group">
-            <label >Writer</label>
-            <input type="text" class="form-control" name="nickname" th:value="${dto.nickname}" readonly>
-        </div>
-        <div class="form-group">
-            <label >RegDate</label>
-            <input type="text" class="form-control" name="regDate" th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-        </div>
-        <div class="form-group">
-            <label >ModDate</label>
-            <input type="text" class="form-control" name="modDate"  th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-        </div>
-
-        <a th:href="@{/onmom/freeBoard/freeBoardModify(free_id = ${dto.free_id}, page=${requestDTO.page}, type=${requestDTO.type}, keyword =${requestDTO.keyword})}">
-            <button type="button" class="btn btn-primary">Modify</button>
-        </a>
-
-        <a th:href="@{/onmom/freeBoard/freeBoardList(page=${requestDTO.page} , type=${requestDTO.type}, keyword =${requestDTO.keyword})}">
-            <button type="button" class="btn btn-info">List</button>
-        </a>
-
-        <div >
-            <div class="mt-4">
-                <h5 ><span class="btn btn-info addReply">Add Reply</span> </h5>
-                <h5 ><span class="btn btn-danger likeCount"> Like Count  [[${dto.like_cnt}]]
-                </span> </h5>
+        <article>
+            <header class="mb-4">
+                <!-- 게시판 기본 타이틀 -->
+                <div class="board_title">
+                    <h1>추천 헬스장<span class="fw-light text-muted sub_title">회원 분들의 추천 게시판입니다.</span></h1>
+                </div>
+            </header>
+            <div class="post_info mb-4">
+                <!-- 게시글 제목-->
+                <h2 class="fw-bolder post_title">
+                    [[${dto.title}]]
+                </h2>
+                <hr />
+                <!-- 작성 정보-->
+                <div class="text-muted mb-2 post_detail">
+                    <div class="post_no col-3">
+                        <p class="mb-0 fw-bold text-dark">번호</p>
+                        <span name="free_id">
+                                            [[${dto.free_id}]]
+                                        </span>
+                    </div>
+                    <div class="post_write col-3">
+                        <p class="mb-0 fw-bold text-dark">작성자</p>
+                        <span>
+                                                [[${dto.member_id}]]
+                                        </span>
+                    </div>
+                    <div class="post_date col-3">
+                        <p class="mb-0 fw-bold text-dark">작성일</p>
+                        <span>
+                            [[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]
+                                        </span>
+                    </div>
+                    <div class="post_date col-3">
+                        <p class="mb-0 fw-bold text-dark">수정일</p>
+                        <span>
+                            [[${#temporals.format(dto.modDate, 'yyyy/MM/dd')}]]
+                                        </span>
+                    </div>
+                </div>
+                <hr />
             </div>
-            <div class="list-group replyList">
 
+            <!-- 글 내용-->
+            <section class="mb-5">
+                <!-- 글 내용 관련 thymeleaf 코드는 p 태그 안에 기입 -->
+                <p class="fs-5 mb-4">
+                [[${dto.content}]]
+                </p>
+            </section>
+            <!-- 좋아요 싫어요 -->
+            <div class="like">
+                <div class="like_inner">
+                    <div>
+                        <img src="/img/like.png" alt="좋아요">
+                        <!-- like_cnt, default 값은 0으로 함 -->
+                        <span>[[${dto.like_cnt}]]</span>
+                    </div>
+                    <div>
+                        <img src="/img/dislike.png" alt="싫어요">
+                        <!-- dislike_cnt, default 값은 0으로 함 -->
+                        <span>[[${dto.hate_cnt}]]</span>
+                    </div>
+                </div>
             </div>
-        </div>
+            <!-- 수정 / 삭제 / 목록 버튼 -->
+            <div class="btn_wrap">
+                <!-- 로그인을 해야 수정/삭제 버튼 보이게 처리 -->
+                <th:block sec:authorize="isAuthenticated()">
+                    <a class="btn btn-dark btn_style" th:href="@{/onmom/freeBoard/freeBoardModify(free_id = ${dto.free_id})}">
+                        수정
+                    </a>
+                    <a class="btn btn-dark btn_style" th:href="@{/onmom/freeBoard/freeBoardList}">삭제</a>
+                </th:block>
+                <a class="btn btn-dark btn_style" th:href="@{/onmom/freeBoard/freeBoardList}">목록</a>
+            </div>
 
+            <div>
+                <div class="mt-4">
+                    <h5 ><span class="btn btn-dark btn_style addReply">댓글 추가</span> </h5>
+                    <h5 ><span class="btn btn-dark btn_style replyCount"></span> </h5>
+                </div>
+                <div class="list-group replyList">
+
+                </div>
+            </div>
+        </article>
 
 
         <div class="modal" tabindex="-1" role="dialog">
