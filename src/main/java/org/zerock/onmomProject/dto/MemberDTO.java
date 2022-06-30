@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -25,10 +26,14 @@ public class MemberDTO {
 
     private MemberRole role;
 
+    private LocalDateTime regDate;
+
     /////////////////////////////////////////////////////내가 쓴 글 수정중
     // N관계의 테이블을 list 형태로 선언
     private List<FreeBoardDTO> memberFreeBoardList;
     private List<ReviewBoardDTO> memberReviewBoardList;
     /////////////////////////////////////////////////////내가 쓴 글 수정중
+
+
 
 }
