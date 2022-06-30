@@ -22,10 +22,9 @@ public interface FreeBoardCommentService {
 
     default FreeBoardComment dtoToEntity(FreeBoardCommentDTO freeBoardCommentDTO){
 
-        FreeBoard freeBoard = FreeBoard.builder().free_id(FreeBoardDTO.builder().build().getFree_id()).build();
+        FreeBoard freeBoard = FreeBoard.builder().free_id(freeBoardCommentDTO.getFree_id()).build();
 
-        Member member = Member.builder().member_id(FreeBoardCommentDTO.builder().build().getMember_id()).build();
-
+        Member member = Member.builder().member_id(freeBoardCommentDTO.getMember_id()).build();
 
         FreeBoardComment freeBoardComment = FreeBoardComment.builder()
                 .comment_id(freeBoardCommentDTO.getComment_id())
@@ -41,8 +40,9 @@ public interface FreeBoardCommentService {
 
         FreeBoardCommentDTO dto = FreeBoardCommentDTO.builder()
                 .comment_id(freeBoardComment.getComment_id())
-                .content(freeBoardComment.getContent())
+                .free_id(freeBoardComment.getBoard().getFree_id())
                 .member_id(freeBoardComment.getMember().getMember_id())
+                .content(freeBoardComment.getContent())
                 .regDate(freeBoardComment.getRegDate())
                 .modDate(freeBoardComment.getModDate())
                 .build();

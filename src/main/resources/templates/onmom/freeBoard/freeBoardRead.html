@@ -111,88 +111,156 @@
                 var listGroup  = $(".replyList");
 
 
-//날짜 처리를 위한 함수
-                function formatTime(str){
-                    var date = new Date(str);
+                    //날짜 처리를 위한 함수
+                    function formatTime(str){
+                        var date = new Date(str);
 
-                    return date.getFullYear() + '/' +
-                        (date.getMonth() + 1) + '/' +
-                        date.getDate() + ' ' +
-                        date.getHours() + ':' +
-                        date.getMinutes();
-                }
+                        return date.getFullYear() + '/' +
+                            (date.getMonth() + 1) + '/' +
+                            date.getDate() + ' ' +
+                            date.getHours() + ':' +
+                            date.getMinutes();
+                    }
 
 
-//특정한 게시글의 댓글을 처리하는 함수
-                function loadJSONData() {
-                    $.getJSON('/replies/freeBoard/'+free_id, function(arr){
+                    //특정한 게시글의 댓글을 처리하는 함수
+                    function loadJSONData() {
+                        $.getJSON('/replies/freeBoard/'+free_id, function(arr){
 
-                        console.log(arr);
+                            console.log(arr);
 
-                        var str ="";
+                            var str ="";
 
-                        $('.replyCount').html(" Reply Count  " + arr.length);
+                            $('.replyCount').html(" Reply Count  " + arr.length);
 
-                        $.each(arr, function(idx, reply){
-                            console.log(reply);
-                            str += '    <div class="card-body" data-comment_id="'+freeBoardComment.comment_id+'"><b>'+freeBoardComment.comment_id +'</b>';
-                            str += '    <h5 class="card-title">'+freeBoardComment.content+'</h5>';
-                            str += '    <h6 class="card-subtitle mb-2 text-muted">'+freeBoardComment.member_id+'</h6>';
-                            str += '    <p class="card-text">'+ formatTime(freeBoardComment.regDate) +'</p>';
-                            str += '    </div>';
-                        })
+                            $.each(arr, function(idx, reply){
+                                console.log(reply);
+                                str += '    <div class="card-body"data-comment_id="'+reply.comment_id+'">';
+                                str += '    <h5 class="card-title">'+reply.content+'</h5>';
+                                str += '    <h6 class="card-subtitle mb-2 text-muted">'+reply.member_id+'</h6>';
+                                str += '    <p class="card-text">'+ formatTime(reply.regDate) +'</p>';
+                                str += '    </div>';
+                            })
 
-                        listGroup.html(str);
+                            listGroup.html(str);
+
+                        });
+                    }
+
+                    $(".replyCount").click(function(){
+
+                        loadJSONData();
+                    })//end click
+
+                    //모달 창
+                    var modal = $('.modal');
+
+                    $(".addReply").click(function () {
+
+                        modal.modal('show');
+
+                        //댓글 입력하는 부분 초기화 시키기
+                        $('input[name="replyText"]').val('');
+                        $('input[name="member_id"]').val('');
+
+
+                        $(".modal-footer .btn").hide(); //모달 내의 모든 버튼을 안 보이도록
+                        $(".replySave, .replyClose").show(); //필요한 버튼들만 보이도록
 
                     });
-                }
 
-                $(".replyCount").click(function(){
-
-                    loadJSONData();
-                })//end click
-    //모달 창
-                var modal = $('.modal');
-
-                $(".addReply").click(function () {
-
-                    modal.modal('show');
-
-                    //댓글 입력하는 부분 초기화 시키기
-                    $('input[name="replyText"]').val('');
-                    $('input[name="member_id"]').val('');
-
-
-                    $(".modal-footer .btn").hide(); //모달 내의 모든 버튼을 안 보이도록
-                    $(".replySave, .replyClose").show(); //필요한 버튼들만 보이도록
-
-                });
                     $(".replySave").click(function() {
 
-                    var reply = {
-                        free_id: free_id,
-                        content: $('input[name="content"]').val(),
-                        member_id: member_id
-                    }
-                    console.log(reply);
-                    $.ajax({
-                        url: '/replies/',
-                        method: 'post',
-                        data:  JSON.stringify(reply),
-                        contentType: 'application/json; charset=utf-8',
-                        dataType: 'json',
-                        success: function(data){
-                            console.log(data);
+                        var reply = {
+                            free_id: free_id,
+                            content: $('input[name="content"]').val(),
+                            member_id: member_id
+                        }
+                        console.log(reply);
+                        $.ajax({
+                            url: '/replies/',
+                            type: 'post',
+                            data:  JSON.stringify(reply),
+                            contentType: 'application/json; charset=utf-8',
+                            dataType: 'json',
+                            success: function(data){
+                                console.log(data);
 
-                            var newComment_id = parseInt(data);
+                                var newComment_id = parseInt(data);
 
-                            alert(newComment_id +"번 댓글이 등록되었습니다.")
-                            modal.modal('hide');
-                            loadJSONData();
+                                alert("새로운 댓글이 등록되었습니다.")
+                                modal.modal('hide');
+                                loadJSONData();
                         }
                     })
                 });
-            });
+
+                   $('.replyList').on("click", ".card-body", function(){
+
+                    var comment_id = $(this).data("comment_id");
+
+                    $("input[name='content']").val( $(this).find('.card-title').html());
+                    $("input[name='member_id']").val( $(this).find('.card-subtitle').html());
+                    $("input[name='comment_id']").val(comment_id);
+
+                    $(".modal-footer .btn").hide();
+                    $(".replyRemove, .replyModify, .replyClose").show();
+
+                    modal.modal('show');
+
+                });
+
+                $(".replyRemove").on("click", function(){
+
+                    var comment_id = $("input[name='comment_id']").val(); //모달 창에 보이는 댓글 번호 hidden처리되어 있음
+
+                    $.ajax({
+                        url: '/replies/' + comment_id,
+                        method: 'delete',
+
+                        success: function(result){
+                            console.log("result: " + result);
+                            if(result ==='success'){
+                                alert("댓글이 삭제되었습니다");
+                                modal.modal('hide');
+                                loadJSONData();
+                            }
+                        }
+                    })
+                });
+
+                  $(".replyModify").click(function() {
+
+                    var comment_id = $("input[name='comment_id']").val();
+
+                    var reply = {
+                        comment_id: comment_id,
+                        free_id: free_id,
+                        content: $('input[name="content"]').val(),
+                        member_id: $('input[name="member_id"]').val()
+                    }
+
+                    console.log(reply);
+                    $.ajax({
+                        url: '/replies/' + comment_id,
+                        method: 'put',
+                        data:  JSON.stringify(reply),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function(result){
+
+                            console.log("RESULT: " + result);
+
+                            if(result ==='success'){
+                                alert("댓글이 수정되었습니다");
+                                modal.modal('hide');
+                                loadJSONData();
+                            }
+                        }
+                    });
+                });
+
+
+             });
         </script>
 
     </th:block>

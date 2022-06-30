@@ -28,12 +28,33 @@ public class FreeBoardCommentController {
 
     @PostMapping("")
     public ResponseEntity<Long> register(@RequestBody FreeBoardCommentDTO freeBoardCommentDTO){
-
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         log.info(freeBoardCommentDTO);
 
         Long comment_id = freeBoardCommentService.register(freeBoardCommentDTO);
 
         return new ResponseEntity<>(comment_id,HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{comment_id}")
+    public ResponseEntity<String> remove(@PathVariable("comment_id")Long comment_id){
+        log.info("RNO:" + comment_id);
+        log.info("+=+=++++===++++=++=+==+++====++====+==++++==+=+++==+=++");
+        freeBoardCommentService.remove(comment_id);
+
+        return new ResponseEntity<>("success",HttpStatus.OK);
+    }
+
+
+    @PutMapping("/{comment_id}")
+    public ResponseEntity<String> modify(@RequestBody FreeBoardCommentDTO freeBoardCommentDTO) {
+
+        log.info(freeBoardCommentDTO);
+
+        freeBoardCommentService.modify(freeBoardCommentDTO);
+
+        return new ResponseEntity<>("success", HttpStatus.OK);
+
     }
 
 }

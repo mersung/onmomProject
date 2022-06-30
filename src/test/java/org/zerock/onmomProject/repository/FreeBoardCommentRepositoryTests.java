@@ -23,21 +23,17 @@ public class FreeBoardCommentRepositoryTests {
 
             long free_id  = (long)(Math.random() * 100) + 1;
 
-            FreeBoard freeBoard = FreeBoard.builder().free_id(free_id)
-                    .content("content...modify....." + i )
-                    .title("Title...modify..." + i)
-                    .build();
-
-            Member member = Member.builder()
-                    .member_id("u@dfsafdsf"+i)
-                    .nickname("user"+i)
-                    .pw("1111")
-                    .build();
-
             FreeBoardComment freeBoardComment =FreeBoardComment.builder()
                     .content("Reply......." +i)
-                    .freeboard(freeBoard)
-                    .member(member)
+                    .board(FreeBoard.builder().free_id(free_id)
+                            .content("content...modify....." + i )
+                            .title("Title...modify..." + i)
+                            .build())
+                    .member(Member.builder()
+                            .member_id("u@dfsafdsf"+i)
+                            .nickname("user"+i)
+                            .pw("1111")
+                            .build())
                     .build();
             freeBoardCommentRepository.save(freeBoardComment);
         });
