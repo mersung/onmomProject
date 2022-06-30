@@ -77,5 +77,23 @@ public class ReviewBoardController {
 
     }
 
+    // 게시글 수정
+    @PostMapping("/modify")
+    public String modify(ReviewBoardDTO reviewBoardDTO, @ModelAttribute("reviewPageRequestDTO")ReviewPageRequestDTO reviewPageRequestDTO,
+            RedirectAttributes redirectAttributes){
+        log.info("post modify..................................");
+        log.info("dto : "+reviewBoardDTO);
+
+        service.modify(reviewBoardDTO);
+
+        redirectAttributes.addAttribute("page", reviewPageRequestDTO.getPage());
+        redirectAttributes.addAttribute("type", reviewPageRequestDTO.getType());
+        redirectAttributes.addAttribute("keyword",reviewPageRequestDTO.getKeyword());
+
+        redirectAttributes.addAttribute("review_id",reviewBoardDTO.getReview_id());
+
+        return "redirect:/onmom/review/read";
+    }
+
 
 }
