@@ -36,7 +36,7 @@ public class FreeBoardCommentRepositoryTests {
 
             FreeBoardComment freeBoardComment =FreeBoardComment.builder()
                     .content("Reply......." +i)
-                    .board(freeBoard)
+                    .freeboard(freeBoard)
                     .member(member)
                     .build();
             freeBoardCommentRepository.save(freeBoardComment);
