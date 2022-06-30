@@ -82,18 +82,33 @@
                 <td><input class="form-control input-sm" th:value="${memberInfo.member_id}" readonly></td>
             </tr>
 
-            <th:each var="dto" th:value="${memberInfo.memberFreeBoardList}">
+            <!-- 테이블 선언 실시 -->
+            <table>
+
+                <thead>
                 <tr>
-                    <td>${dto.free_id}</td>
-                    <td>${dto.title}</td>
-                    <td>${dto.content}</td>
-                    <td>${dto.like_cnt}</td>
-                    <td>${dto.hate_cnt}</td>
-                    <td>${dto.regDate}</td>
-                    <td>${dto.modDate}</td>
+                    <th>아이디</th>
+                    <th>제목</th>
+                    <th>추천</th>
+                    <th>비추천</th>
+                    <th>등록 날짜</th>
                 </tr>
-            </th:each>>
-            -->
+                </thead>
+
+            <tbody>
+
+            <tr th:each="list : ${memberFreeBoardList}">
+                <td><span th:text="${memberFreeBoardList.free_id}"></span></td>
+                <td><span th:text="${memberFreeBoardList.title}"></span></td>
+                <td><span th:text="${memberFreeBoardList.like_cnt}"></span></td>
+                <td><span th:text="${memberFreeBoardList.hate_cnt}"></span></td>
+                <td><span th:text="${memberFreeBoardList.regDate}"></span></td>
+            </tr>
+            </tbody>
+
+            </table>
+        </div>
+
 
         </div>
     </th:block>
