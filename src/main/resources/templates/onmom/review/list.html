@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <section class="py-5 post_content">
@@ -45,6 +45,10 @@
                                         <option value="송파구" th:selected="${area}=='송파구'">송파구</option>
                                         <option value="강동구" th:selected="${area}=='강동구'">강동구</option>
                                     </select>
+                                    <!-- 글쓰기 버튼은 로그인 시에만 보이게 설정 -->
+                                    <th:block sec:authorize="isAuthenticated()">
+                                        <a th:href="@{/onmom/review/register}" class="btn btn-dark register_loc">글쓰기</a>
+                                    </th:block>
                                 </div>
                                 <!-- 갤러리 전체 wrap -->
                                 <div class="row" style="padding-top:40px;">
@@ -84,7 +88,6 @@
                                                             </span>
                                                         </span>
                                                     </p>
-                                            <!--    <div class="badge badge-danger px-3 rounded-pill font-weight-normal">New</div>-->
                                                 </div>
                                             </div>
                                         </div>
