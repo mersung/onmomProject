@@ -62,6 +62,8 @@ li{list-style:none;}
 .btn_frame{display:none;}
 .btn_frame>a{display:block; color:#fff; width:150px; padding:10px 20px; box-sizing:border-box; background-color:#222;}
 
+.register_loc{position:absolute; right:0;}
+
 /* review_register 이미지 업로드 관련 css */
 .uploadResult ul {
     display: flex;
