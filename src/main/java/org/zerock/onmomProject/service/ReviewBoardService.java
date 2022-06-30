@@ -24,7 +24,7 @@ public interface ReviewBoardService {
 
     ReviewBoardDTO get(Long review_id);
 
-    // 특정 글 삭제
+    // 특정 글 삭제(with 소속 댓글까지)
     void removeWithReplies(Long review_id);
 
     // 특정 글 수정

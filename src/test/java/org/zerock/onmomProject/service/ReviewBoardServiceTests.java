@@ -43,4 +43,11 @@ public class ReviewBoardServiceTests {
             System.out.println(reviewBoardDTO);
         }
     }
+
+    // 게시물 삭제 처리 테스트
+    @Test
+    public void testRemove(){
+        Long review_id = 10L;
+        reviewBoardService.removeWithReplies(review_id);
+    }
 }
