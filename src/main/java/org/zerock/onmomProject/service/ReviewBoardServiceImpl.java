@@ -135,11 +135,12 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
     @Override
     public void modify(ReviewBoardDTO reviewBoardDTO) {
         ReviewBoard reviewBoard = reviewBoardRepository.getOne(reviewBoardDTO.getReview_id());
+        log.info(reviewBoardDTO);
 
-            reviewBoard.changeTitle(reviewBoardDTO.getTitle());
-            reviewBoard.changeContent(reviewBoardDTO.getContent());
+        reviewBoard.changeTitle(reviewBoardDTO.getTitle());
+        reviewBoard.changeContent(reviewBoardDTO.getContent());
 
-            reviewBoardRepository.save(reviewBoard);
+        reviewBoardRepository.save(reviewBoard);
 
     }
 }
