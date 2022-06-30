@@ -15,7 +15,8 @@ public interface ReviewCommentRepository extends JpaRepository<ReviewBoardCommen
     @EntityGraph(attributePaths = {"member"}, type = EntityGraph.EntityGraphType.FETCH)
     List<ReviewBoardComment> findByReviewBoard(ReviewBoard reviewBoard);
 
+    // 댓글 삭제 관련 Query, ReviewBoardServiceImpl 에서 사용 된다
     @Modifying
-    @Query("DELETE FROM ReviewBoardComment rbc WHERE rbc.member = :member")
-    void deleteByMember(String member);
+    @Query("DELETE FROM ReviewBoardComment rbc WHERE rbc.reviewBoard.review_id = :review_id")
+    void deleteByReviewId(Long review_id);
 }

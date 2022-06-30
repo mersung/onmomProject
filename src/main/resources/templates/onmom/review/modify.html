@@ -2,6 +2,129 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
+        <!-- Page Content-->
+        <section class="py-5 post_content" th:if="${#authentication.name.equals(dto.member_id)}">
+            <div class="container px-5 my-5 review_post">
+                <div class="row gx-5">
+                    <div class="container-fluid">
+                        <!-- Post content-->
+                        <article>
+                            <!-- form 태그 시작 -->
+                            <form id="form" th:action="@{/onmom/review/modify}" th:method="post" >
+                                <!-- 페이지 번호 -->
+                                <input type="hidden" name="page" th:value="${reviewPageRequestDTO.page}">
+                                <input type="hidden" name="type" th:value="${reviewPageRequestDTO.type}">
+                                <input type="hidden" name="keyword" th:value="${reviewPageRequestDTO.keyword}">
+
+                                <!-- Post header-->
+                                <header class="mb-4">
+                                    <!-- 게시판 기본 타이틀 -->
+                                    <div class="board_title">
+                                        <h1>추천 헬스장<span class="fw-light text-muted sub_title">글 수정</span></h1>
+                                    </div>
+                                </header>
+                                <div class="post_info mb-4">
+                                    <!-- 게시글 제목-->
+                                    <label class="fw-bold"><h2>글 제목</h2></label>
+                                    <input type="text" name="title" class="post_title" th:placeholder="${dto.title}" style="width:100%; margin-top:20px;">
+                                    <hr />
+                                    <!-- 작성 정보-->
+                                    <div class="text-muted mb-2 post_detail">
+                                        <div class="post_no col-3">
+                                            <p class="mb-0 fw-bold text-dark reviewNum">번호</p>
+                                            <input type="hidden" name="review_id" th:value="${dto.review_id}">
+                                            <span>
+                                                [[${dto.review_id}]]
+                                            </span>
+                                        </div>
+                                        <div class="post_area col-3">
+                                            <p class="mb-0 fw-bold text-dark">지역</p>
+                                            <span>
+                                                <select id="select_value" name="area">
+                                                    <option value="전체" th:selected="${dto.area}=='전체'">전체</option>
+                                                    <option value="도봉구" th:selected="${dto.area}=='도봉구'">도봉구</option>
+                                                    <option value="노원구" th:selected="${dto.area}=='노원구'">노원구</option>
+                                                    <option value="강북구" th:selected="${dto.area}=='강북구'">강북구</option>
+                                                    <option value="성북구" th:selected="${dto.area}=='성북구'">성북구</option>
+                                                    <option value="중랑구" th:selected="${dto.area}=='중랑구'">중랑구</option>
+                                                    <option value="동대문구" th:selected="${dto.area}=='동대문구'">동대문구</option>
+                                                    <option value="종로구" th:selected="${dto.area}=='종로구'">종로구</option>
+                                                    <option value="서대문구" th:selected="${dto.area}=='서대문구'">서대문구</option>
+                                                    <option value="은평구" th:selected="${dto.area}=='은평구'">은평구</option>
+                                                    <option value="마포구" th:selected="${dto.area}=='마포구'">마포구</option>
+                                                    <option value="중구" th:selected="${dto.area}=='중구'">중구</option>
+                                                    <option value="용산구" th:selected="${dto.area}=='용산구'">용산구</option>
+                                                    <option value="성동구" th:selected="${dto.area}=='성동구'">성동구</option>
+                                                    <option value="광진구" th:selected="${dto.area}=='광진구'">광진구</option>
+                                                    <option value="강서구" th:selected="${dto.area}=='강서구'">강서구</option>
+                                                    <option value="양천구" th:selected="${dto.area}=='양천구'">양천구</option>
+                                                    <option value="구로구" th:selected="${dto.area}=='구로구'">구로구</option>
+                                                    <option value="영등포구" th:selected="${dto.area}=='영등포구'">영등포구</option>
+                                                    <option value="금천구" th:selected="${dto.area}=='금천구'">금천구</option>
+                                                    <option value="동작구" th:selected="${dto.area}=='동작구'">동작구</option>
+                                                    <option value="관악구" th:selected="${dto.area}=='관악구'">관악구</option>
+                                                    <option value="서초구" th:selected="${dto.area}=='서초구'">서초구</option>
+                                                    <option value="강남구" th:selected="${dto.area}=='강남구'">강남구</option>
+                                                    <option value="송파구" th:selected="${dto.area}=='송파구'">송파구</option>
+                                                    <option value="강동구" th:selected="${dto.area}=='강동구'">강동구</option>
+                                                </select>
+                                            </span>
+                                        </div>
+                                        <div class="post_write col-3">
+                                            <p class="mb-0 fw-bold text-dark">작성자</p>
+                                            <input type="hidden" th:value="${dto.member_id}" name="member_id">
+                                            <span>
+                                                [[${dto.member_id}]]
+                                            </span>
+                                        </div>
+                                        <div class="post_date col-3">
+                                            <p class="mb-0 fw-bold text-dark">수정일</p>
+                                            <span th:text="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}">
+
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                </div>
+
+                                <!-- input hidden 타입이 삽입 -->
+                                <div class="box"></div>
+
+                                <!-- 글 내용-->
+                                <section class="mb-3">
+                                    <!-- 글 작성 textarea -->
+                                    <p class="fs-5 mb-4">
+                                        <!-- 이미지 영역, div 태그로 작성되어 자동 줄바꿈, thumnail 관련 코딩 기입 -->
+                                    <div class="uploadResult">
+                                        <ul>
+                                            <!-- 이미지  -->
+                                        </ul>
+                                    </div>
+                                    <textarea id="text_area" class="col-12 ckeditor" rows="25" name="content" >
+                                            [[${dto.content}]]
+                                        </textarea>
+                                    </p>
+                                </section>
+                                <div class="form-group fileForm">
+                                    <label >이미지 파일</label>
+                                    <div class="custom-file">
+                                        <input class="custom-file-input" name="uploadFiles" type="file" id="fileInput" multiple>
+                                        <label class="custom-file-label" data-browse="업로드"></label>
+                                    </div>
+                                </div>
+                                <!-- 등록 버튼 -->
+                                <div class="btn_wrap">
+                                    <button type="submit" class="btn btn-dark btn_style registerBtn">등록</button>
+                                    <a type="button" class="btn btn-light btn_style">취소</a>
+                                </div>
+                            </form>
+                            <!-- form 태그 끝 -->
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- CKEditor 관련 jQuery  -->
         <script src="/js/ckeditor/ckeditor.js"></script>
         <script th:inline="javascript">
@@ -155,127 +278,10 @@
 
 
     </script>
-        <!-- Page Content-->
-        <section class="py-5 post_content">
-            <div class="container px-5 my-5 review_post">
-                <div class="row gx-5">
-                    <div class="container-fluid">
-                        <!-- Post content-->
-                        <article>
-                            <!-- form 태그 시작 -->
-                            <form id="form" th:action="@{/onmom/review/modify}" th:method="post" >
-                                <!-- 페이지 번호 -->
-                                <input type="hidden" name="page" th:value="${reviewPageRequestDTO.page}">
-                                <input type="hidden" name="type" th:value="${reviewPageRequestDTO.type}">
-                                <input type="hidden" name="keyword" th:value="${reviewPageRequestDTO.keyword}">
 
-                                <!-- Post header-->
-                                <header class="mb-4">
-                                    <!-- 게시판 기본 타이틀 -->
-                                    <div class="board_title">
-                                        <h1>추천 헬스장<span class="fw-light text-muted sub_title">글 수정</span></h1>
-                                    </div>
-                                </header>
-                                <div class="post_info mb-4">
-                                    <!-- 게시글 제목-->
-                                    <label class="fw-bold"><h2>글 제목</h2></label>
-                                    <input type="text" name="title" class="post_title" th:placeholder="${dto.title}" style="width:100%; margin-top:20px;">
-                                    <hr />
-                                    <!-- 작성 정보-->
-                                    <div class="text-muted mb-2 post_detail">
-                                        <div class="post_no col-3">
-                                            <p class="mb-0 fw-bold text-dark reviewNum">번호</p>
-                                            <input type="hidden" name="review_id" th:value="${dto.review_id}">
-                                            <span>
-                                                [[${dto.review_id}]]
-                                            </span>
-                                        </div>
-                                        <div class="post_area col-3">
-                                            <p class="mb-0 fw-bold text-dark">지역</p>
-                                            <span>
-                                                <select id="select_value" name="area">
-                                                    <option value="전체" th:selected="${dto.area}=='전체'">전체</option>
-                                                    <option value="도봉구" th:selected="${dto.area}=='도봉구'">도봉구</option>
-                                                    <option value="노원구" th:selected="${dto.area}=='노원구'">노원구</option>
-                                                    <option value="강북구" th:selected="${dto.area}=='강북구'">강북구</option>
-                                                    <option value="성북구" th:selected="${dto.area}=='성북구'">성북구</option>
-                                                    <option value="중랑구" th:selected="${dto.area}=='중랑구'">중랑구</option>
-                                                    <option value="동대문구" th:selected="${dto.area}=='동대문구'">동대문구</option>
-                                                    <option value="종로구" th:selected="${dto.area}=='종로구'">종로구</option>
-                                                    <option value="서대문구" th:selected="${dto.area}=='서대문구'">서대문구</option>
-                                                    <option value="은평구" th:selected="${dto.area}=='은평구'">은평구</option>
-                                                    <option value="마포구" th:selected="${dto.area}=='마포구'">마포구</option>
-                                                    <option value="중구" th:selected="${dto.area}=='중구'">중구</option>
-                                                    <option value="용산구" th:selected="${dto.area}=='용산구'">용산구</option>
-                                                    <option value="성동구" th:selected="${dto.area}=='성동구'">성동구</option>
-                                                    <option value="광진구" th:selected="${dto.area}=='광진구'">광진구</option>
-                                                    <option value="강서구" th:selected="${dto.area}=='강서구'">강서구</option>
-                                                    <option value="양천구" th:selected="${dto.area}=='양천구'">양천구</option>
-                                                    <option value="구로구" th:selected="${dto.area}=='구로구'">구로구</option>
-                                                    <option value="영등포구" th:selected="${dto.area}=='영등포구'">영등포구</option>
-                                                    <option value="금천구" th:selected="${dto.area}=='금천구'">금천구</option>
-                                                    <option value="동작구" th:selected="${dto.area}=='동작구'">동작구</option>
-                                                    <option value="관악구" th:selected="${dto.area}=='관악구'">관악구</option>
-                                                    <option value="서초구" th:selected="${dto.area}=='서초구'">서초구</option>
-                                                    <option value="강남구" th:selected="${dto.area}=='강남구'">강남구</option>
-                                                    <option value="송파구" th:selected="${dto.area}=='송파구'">송파구</option>
-                                                    <option value="강동구" th:selected="${dto.area}=='강동구'">강동구</option>
-                                                </select>
-                                            </span>
-                                        </div>
-                                        <div class="post_write col-3">
-                                            <p class="mb-0 fw-bold text-dark">작성자</p>
-                                            <input type="hidden" th:value="${dto.member_id}" name="member_id">
-                                            <span>
-                                                [[${dto.member_id}]]
-                                            </span>
-                                        </div>
-                                        <div class="post_date col-3">
-                                            <p class="mb-0 fw-bold text-dark">수정일</p>
-                                            <span th:text="${#temporals.format(dto.modDate, 'yyyy-MM-dd HH:mm:ss')}">
-
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <hr />
-                                </div>
-
-                                <!-- input hidden 타입이 삽입 -->
-                                <div class="box"></div>
-
-                                <!-- 글 내용-->
-                                <section class="mb-3">
-                                    <!-- 글 작성 textarea -->
-                                    <p class="fs-5 mb-4">
-                                        <!-- 이미지 영역, div 태그로 작성되어 자동 줄바꿈, thumnail 관련 코딩 기입 -->
-                                    <div class="uploadResult">
-                                        <ul>
-                                            <!-- 이미지  -->
-                                        </ul>
-                                    </div>
-                                    <textarea id="text_area" class="col-12 ckeditor" rows="25" name="content" >
-                                            [[${dto.content}]]
-                                        </textarea>
-                                    </p>
-                                </section>
-                                <div class="form-group fileForm">
-                                    <label >이미지 파일</label>
-                                    <div class="custom-file">
-                                        <input class="custom-file-input" name="uploadFiles" type="file" id="fileInput" multiple>
-                                        <label class="custom-file-label" data-browse="업로드"></label>
-                                    </div>
-                                </div>
-                                <!-- 등록 버튼 -->
-                                <div class="btn_wrap">
-                                    <button type="submit" class="btn btn-dark btn_style registerBtn">등록</button>
-                                    <a type="button" class="btn btn-light btn_style">취소</a>
-                                </div>
-                            </form>
-                            <!-- form 태그 끝 -->
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <script th:if="${!#authentication.name.equals(dto.member_id)}">
+            alert("권한이 없습니다!");
+            history.back();
+        </script>
     </th:block>
 </th:block>

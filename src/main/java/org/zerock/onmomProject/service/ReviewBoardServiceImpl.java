@@ -31,7 +31,7 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 
     private final ReviewBoardRepository reviewBoardRepository; //자동 주입 final
 
-    private final ReviewCommentRepository reviewCommentRepository;
+    private final ReviewCommentRepository reviewCommentRepository; // 댓글 관련 repository, 게시글 삭제 기능 추가할 때 추가됨
 
     private final ImageRepository imageRepository;
 
@@ -125,9 +125,11 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
     @Transactional
     @Override
     public void removeWithReplies(Long review_id) { //삭제 기능 구현, 트렌젝션 추가
-        //댓글부터 삭제
-        reviewCommentRepository.deleteById(review_id);
-
+        // 댓글부터 삭제, review_id 값을 호출하여 이에 해당하는 모든 reviewComment 들을 삭제 처리해 준다
+        reviewCommentRepository.deleteByReviewId(review_id);
+        // 이미지부터 삭제, 위와 같은 원리
+        imageRepository.delImgByReviewId(review_id);
+        // 최종적으로 게시글을 삭제함
         reviewBoardRepository.deleteById(review_id);
     }
 

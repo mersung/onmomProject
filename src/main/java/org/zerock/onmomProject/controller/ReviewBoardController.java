@@ -50,7 +50,7 @@ public class ReviewBoardController {
     }
 
     // 게시글 수정화면, 하나 불러오기
-    @GetMapping({"/modify","/read"})
+    @GetMapping({"/modify","/read","/remove"})
     public void read(long review_id, @ModelAttribute("reviewPageRequestDTO")ReviewPageRequestDTO requestDTO, Model model){
 
         ReviewBoardDTO reviewBoardDTO = service.get(review_id);
@@ -75,6 +75,18 @@ public class ReviewBoardController {
 
         return "redirect:/onmom/review/list";
 
+    }
+
+    // 게시글 삭제
+    @PostMapping("/remove")
+    public String remove(long review_id, RedirectAttributes redirectAttributes){
+
+        log.info("review_id : "+review_id);
+        service.removeWithReplies(review_id);
+
+        redirectAttributes.addFlashAttribute("msg", review_id);
+
+        return "redirect:/onmom/review/list";
     }
 
     // 게시글 수정

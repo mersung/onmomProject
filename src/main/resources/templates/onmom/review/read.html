@@ -38,7 +38,7 @@
                                     <div class="post_write col-3">
                                         <p class="mb-0 fw-bold text-dark">작성자</p>
                                         <span>
-                                                [[${dto.member_id}]]
+                                                [[${dto.nickname}]]
                                         </span>
                                     </div>
                                     <div class="post_date col-3">
@@ -88,7 +88,7 @@
                                     <a class="btn btn-dark btn_style" th:href="@{/onmom/review/modify(review_id = ${dto.review_id})}">
                                         수정
                                     </a>
-                                    <a class="btn btn-dark btn_style" th:href="@{/onmom/review/}">삭제</a>
+                                    <a class="btn btn-dark btn_style" th:href="@{/onmom/review/remove(review_id = ${dto.review_id})}">삭제</a>
                                 </th:block>
                                 <a class="btn btn-dark btn_style" th:href="@{/onmom/review/list}">목록</a>
                             </div>
