@@ -44,14 +44,15 @@
 
         <div >
             <div class="mt-4">
-                <h5 ><span class="btn btn-info  addReply">Add Reply</span> </h5>
-                <h5 ><span class="btn btn-warning likeCount"> Like Count  [[${dto.like_cnt}]]
+                <h5 ><span class="btn btn-info addReply">Add Reply</span> </h5>
+                <h5 ><span class="btn btn-danger likeCount"> Like Count  [[${dto.like_cnt}]]
                 </span> </h5>
             </div>
             <div class="list-group replyList">
 
             </div>
         </div>
+
 
 
         <div class="modal" tabindex="-1" role="dialog">
@@ -66,7 +67,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <input class="form-control"  type="text" name="replyText" placeholder="Reply Text...">
+                            <input class="form-control"  type="text" name="content" placeholder="Reply Text...">
                         </div>
                         <div class="form-group">
                             <input type="hidden" name="member_id" th:value="${#authentication.name}" />
@@ -78,11 +79,12 @@
                         <button type="button" class="btn btn-danger replyRemove">Remove</button>
                         <button type="button" class="btn btn-warning replyModify">Modify</button>
                         <button type="button" class="btn btn-primary replySave">Save</button>
-                        <button type="button" class="btn btn-outline-secondary replyClose" data-dismiss="modal">Close</button>
+                        <button type="button" data-dismiss="modal" class="btn btn-outline-secondary replyClose" >Close</button>
                     </div>
                 </div>
             </div>
         </div>
+
 
 
         <script>
@@ -169,12 +171,12 @@
 
                     var reply = {
                         free_id: free_id,
-                        content: $('input[name="replyText"]').val(),
+                        content: $('input[name="content"]').val(),
                         member_id: member_id
                     }
                     console.log(reply);
                     $.ajax({
-                        url: '/replies/freeBoard/'+free_id,
+                        url: '/replies/',
                         method: 'post',
                         data:  JSON.stringify(reply),
                         contentType: 'application/json; charset=utf-8',
@@ -182,9 +184,9 @@
                         success: function(data){
                             console.log(data);
 
-                            var newFree_id = parseInt(data);
+                            var newComment_id = parseInt(data);
 
-                            alert(newFree_id +"번 댓글이 등록되었습니다.")
+                            alert(newComment_id +"번 댓글이 등록되었습니다.")
                             modal.modal('hide');
                             loadJSONData();
                         }
