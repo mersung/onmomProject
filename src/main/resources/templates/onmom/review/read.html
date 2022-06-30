@@ -35,7 +35,7 @@
                                                 [[${dto.area}]]
                                         </span>
                                     </div>
-                                    <div class="post_wirte col-3">
+                                    <div class="post_write col-3">
                                         <p class="mb-0 fw-bold text-dark">작성자</p>
                                         <span>
                                                 [[${dto.member_id}]]
@@ -83,11 +83,14 @@
                             </div>
                             <!-- 수정 / 삭제 / 목록 버튼 -->
                             <div class="btn_wrap">
-                                <a class="btn btn-dark btn_style" th:href="@{/onmom/review/modify(review_id = ${dto.review_id})}">
-                                    수정
-                                </a>
-                                <a class="btn btn-dark btn_style" th:href="@{/onmom/review/}">삭제</a>
-                                <a class="btn btn-dark btn_style" th:href=@{"/onmom/review/list"}>목록</a>
+                                <!-- 로그인을 해야 수정/삭제 버튼 보이게 처리 -->
+                                <th:block sec:authorize="isAuthenticated()">
+                                    <a class="btn btn-dark btn_style" th:href="@{/onmom/review/modify(review_id = ${dto.review_id})}">
+                                        수정
+                                    </a>
+                                    <a class="btn btn-dark btn_style" th:href="@{/onmom/review/}">삭제</a>
+                                </th:block>
+                                <a class="btn btn-dark btn_style" th:href="@{/onmom/review/list}">목록</a>
                             </div>
                         </article>
                         <hr />

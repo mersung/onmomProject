@@ -27,64 +27,64 @@
                 return true;
             }
 
-            $(".custom-file-input").on("change", function(){
-                var fileName = $(this).val().split("\\").pop();
+<!--            $(".custom-file-input").on("change", function(){-->
+<!--                var fileName = $(this).val().split("\\").pop();-->
 
-                // 해당 클래스(custom-file-input)의 형제 태그에 속한 것에 selected 클래스를 삽입 하고 fileName 을 html 상 출력(삽입)함
-                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+<!--                // 해당 클래스(custom-file-input)의 형제 태그에 속한 것에 selected 클래스를 삽입 하고 fileName 을 html 상 출력(삽입)함-->
+<!--                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);-->
 
-                // form 태그에 대응되는 js 객체
-                var formData = new FormData();
+<!--                // form 태그에 대응되는 js 객체-->
+<!--                var formData = new FormData();-->
 
-                var inputFile = $(this);
+<!--                var inputFile = $(this);-->
 
-                var files = inputFile[0].files;
+<!--                var files = inputFile[0].files;-->
 
-                var appended = false;
+<!--                var appended = false;-->
 
-                var select_value = document.getElementById('select_value');
-                var reviewNum = $(".reviewNum")
-                formData.append("area", select_value);
+<!--                var select_value = document.getElementById('select_value');-->
+<!--                var reviewNum = $(".reviewNum")-->
+<!--                formData.append("area", select_value);-->
 
-                for(var i = 0; i < files.length; i++){
-                    if(!checkExtension(files[i].name, files[i].size)){
-                        return false;
-                    }
+<!--                for(var i = 0; i < files.length; i++){-->
+<!--                    if(!checkExtension(files[i].name, files[i].size)){-->
+<!--                        return false;-->
+<!--                    }-->
 
-                    console.log(files[i]);
+<!--                    console.log(files[i]);-->
 
-                    formData.append("uploadFiles", files[i]);
-                    appended = true;
-                }
+<!--                    formData.append("uploadFiles", files[i]);-->
+<!--                    appended = true;-->
+<!--                }-->
 
-                // upload를 하지 않음
-                if(!appended){
-                    return;
-                }
+<!--                // upload를 하지 않음-->
+<!--                if(!appended){-->
+<!--                    return;-->
+<!--                }-->
 
-                for(var value of formData.values()){
-                    console.log(value);
-                }
+<!--                for(var value of formData.values()){-->
+<!--                    console.log(value);-->
+<!--                }-->
 
 
 
-                // 실제 업로드 부분
-                // upload ajax
-                $.ajax({
-                    url: '/uploadAjax',
-                    processData: false,
-                    contentType: false,
-                    data: formData,
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function(result){
-                        console.log(result);
-                        showResult(result);
-                    },
-                    error: function(jqXHR, textStatus, errorThrown){
-                        console.log(textStatus);
-                    }
-                }); // ajax 끝
+<!--                // 실제 업로드 부분-->
+<!--                // upload ajax-->
+<!--                $.ajax({-->
+<!--                    url: '/uploadAjax',-->
+<!--                    processData: false,-->
+<!--                    contentType: false,-->
+<!--                    data: formData,-->
+<!--                    type: 'POST',-->
+<!--                    dataType: 'json',-->
+<!--                    success: function(result){-->
+<!--                        console.log(result);-->
+<!--                        showResult(result);-->
+<!--                    },-->
+<!--                    error: function(jqXHR, textStatus, errorThrown){-->
+<!--                        console.log(textStatus);-->
+<!--                    }-->
+<!--                }); // ajax 끝-->
             }); // change 관련 event 끝
 
             // ajax가 가져온 결과 데이터를 호출하는 함수 선언
@@ -129,23 +129,23 @@
 
             // 전송
             $(".registerBtn").on("click", function(e) {
-            e.preventDefault();
 
-            var str = "";
 
-            $(".uploadResult li").each(function(i,obj){
-                var target = $(obj);
+<!--            var str = "";-->
 
-                str += "<input type='hidden' name='imageDTOList["+i+"].imgName' value='"+target.data('name') +"'>";
+<!--            $(".uploadResult li").each(function(i,obj){-->
+<!--                var target = $(obj);-->
 
-                str += "<input type='hidden' name='imageDTOList["+i+"].path' value='"+target.data('path')+"'>";
+<!--                str += "<input type='hidden' name='imageDTOList["+i+"].imgName' value='"+target.data('name') +"'>";-->
 
-                str += "<input type='hidden' name='imageDTOList["+i+"].uuid' value='"+target.data('uuid')+"'>";
+<!--                str += "<input type='hidden' name='imageDTOList["+i+"].path' value='"+target.data('path')+"'>";-->
 
-            });
+<!--                str += "<input type='hidden' name='imageDTOList["+i+"].uuid' value='"+target.data('uuid')+"'>";-->
 
-            //태그들이 추가된 것을 확인한 후에 comment를 제거
-            $(".box").html(str);
+<!--            });-->
+
+<!--            //태그들이 추가된 것을 확인한 후에 comment를 제거-->
+<!--            $(".box").html(str);-->
 
            $("form").submit();
 
@@ -163,7 +163,7 @@
                         <!-- Post content-->
                         <article>
                             <!-- form 태그 시작 -->
-                            <form id="form" th:action="@{/review/modify}" th:method="post" >
+                            <form id="form" th:action="@{/onmom/review/modify}" th:method="post" >
                                 <!-- 페이지 번호 -->
                                 <input type="hidden" name="page" th:value="${reviewPageRequestDTO.page}">
                                 <input type="hidden" name="type" th:value="${reviewPageRequestDTO.type}">
@@ -185,8 +185,9 @@
                                     <div class="text-muted mb-2 post_detail">
                                         <div class="post_no col-3">
                                             <p class="mb-0 fw-bold text-dark reviewNum">번호</p>
+                                            <input type="hidden" name="review_id" th:value="${dto.review_id}">
                                             <span>
-                                                -
+                                                [[${dto.review_id}]]
                                             </span>
                                         </div>
                                         <div class="post_area col-3">
@@ -267,7 +268,7 @@
                                 <!-- 등록 버튼 -->
                                 <div class="btn_wrap">
                                     <button type="submit" class="btn btn-dark btn_style registerBtn">등록</button>
-                                    <button type="button" class="btn btn-light btn_style">취소</button>
+                                    <a type="button" class="btn btn-light btn_style">취소</a>
                                 </div>
                             </form>
                             <!-- form 태그 끝 -->
