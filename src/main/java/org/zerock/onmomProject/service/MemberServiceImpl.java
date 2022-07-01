@@ -18,42 +18,43 @@ public class MemberServiceImpl implements MemberService {
     private MemberRepository memberRepository;
 
     @Override
-    public MemberDTO save(MemberDTO memberDTO) throws IOException {
-        String member_id = memberDTO.getMember_id();
-        memberDTO.setMember_id(member_id);
-
-        Member member = dtoToEntity(memberDTO);
-        Member validUser = memberRepository.save(member);
-        MemberDTO dto = entityToDto(validUser);
-        return dto;
-    }
-
-    @Override
     public MemberDTO selectMember(String member_id) {
         Optional<Member> member = memberRepository.findByEmail(member_id);
         return member.isPresent() ? entityToDto(member.get()) : null;
     }
 
-    @Override
-    public List<MemberDTO> getListOfMember(String member_id) {
-        Member member = Member.builder().member_id(member_id).build();
+//    @Override
+//    public MemberDTO save(MemberDTO memberDTO) throws IOException {
+//        String member_id = memberDTO.getMember_id();
+//        memberDTO.setMember_id(member_id);
+//
+//        Member member = dtoToEntity(memberDTO);
+//        Member validUser = memberRepository.save(member);
+//        MemberDTO dto = entityToDto(validUser);
+//        return dto;
+//    }
 
-        Optional<Member> result = memberRepository.findByEmail(member_id);
+//    @Override
+//    public List<MemberDTO> getListOfMember(String member_id) {
+//        Member member = Member.builder().member_id(member_id).build();
+//
+//        Optional<Member> result = memberRepository.findByEmail(member_id);
+//
+//        return result.stream().map(member1 -> entityToDto(member)).collect(Collectors.toList());
+//    }
 
-        return result.stream().map(member1 -> entityToDto(member)).collect(Collectors.toList());
-    }
-
-    @Override
-    public void modify(MemberDTO memberDTO) {
-
-        Optional<Member> result = memberRepository.findByEmail(memberDTO.getMember_id());
-
-        if (result.isPresent()){
-
-            Member member = result.get();
-            member.changeNickname(memberDTO.getNickname());
-
-            memberRepository.save(member);
-        }
-    }
+    // 수정
+//    @Override
+//    public void modify(MemberDTO memberDTO) {
+//
+//        Optional<Member> result = memberRepository.findByEmail(memberDTO.getMember_id());
+//
+//        if (result.isPresent()){
+//
+//            Member member = result.get();
+//            member.changeNickname(memberDTO.getNickname());
+//
+//            memberRepository.save(member);
+//        }
+//    }
 }

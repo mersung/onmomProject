@@ -14,6 +14,8 @@ public interface FreeBoardService {
 
     FreeBoardDTO get(Long free_id);
 
+    FreeBoardDTO getMyPost(String member_id); // 내가 쓴 글 불러오기
+
     void removeWithReplies(Long free_id);
 
     void modify(FreeBoardDTO freeBoardDTO);
@@ -31,7 +33,7 @@ public interface FreeBoardService {
                 .build();
         return freeBoard;
     }
-    default FreeBoardDTO entityToDTO(FreeBoard freeBoard, Member member,Long like_cnt) {
+    default FreeBoardDTO entityToDTO(FreeBoard freeBoard, Member member, Long like_cnt) {
 
         FreeBoardDTO freeBoardDTO = FreeBoardDTO.builder()
                 .free_id(freeBoard.getFree_id())

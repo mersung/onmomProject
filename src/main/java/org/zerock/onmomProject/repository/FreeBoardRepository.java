@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.zerock.onmomProject.entity.FreeBoard;
+import org.zerock.onmomProject.entity.Member;
 import org.zerock.onmomProject.repository.search.SearchFreeBoardRepository;
 
 import java.util.List;
@@ -31,4 +32,11 @@ public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long>, Sea
             " left outer join FreeBoardComment fbc on fbc.board = b"+
             " where b.free_id = :free_id")
     Object getFreeBoardByFree_id(@Param("free_id")Long free_id);
+
+    // 멤버 아이디로 마이페이지 구현
+    @Query("select m, b " +
+           "from Member m left join FreeBoard b on b. member = m " +
+            "where b.member.member_id = :member_id ")
+    Object getMyPostByMember_id(@Param("member_id")String member_id);
+
 }
