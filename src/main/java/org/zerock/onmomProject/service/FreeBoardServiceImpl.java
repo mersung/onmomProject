@@ -59,6 +59,13 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     }
 
     @Override
+    public FreeBoardDTO get(Long free_id) {
+        Object result = freeBoardRepository.getFreeBoardByFree_id(free_id);
+        Object[] arr = (Object[]) result;
+        return entityToDTO((FreeBoard) arr[0], (Member) arr[1], (Long) arr[2]);
+    }
+
+    @Override
     public FreePageResultDTO<FreeBoardDTO, Object[]> getMyPost(String member_id, FreePageRequestDTO freePageRequestDTO) {
         log.info(freePageRequestDTO);
 
@@ -66,19 +73,11 @@ public class FreeBoardServiceImpl implements FreeBoardService {
                 entityToDTO((FreeBoard) en[0], (Member) en[1], (Long) en[2]));
 
         Page<Object[]> result = freeBoardRepository.getMyPostByMember_id(member_id,
-                freePageRequestDTO.getPageable(Sort.by("member_id").descending()));
+                freePageRequestDTO.getPageable(Sort.by("member").descending()));
 
 
         return new FreePageResultDTO<>(result, fn);
     }
-
-    @Override
-    public FreeBoardDTO get(Long free_id) {
-        Object result = freeBoardRepository.getFreeBoardByFree_id(free_id);
-        Object[] arr = (Object[]) result;
-        return entityToDTO((FreeBoard) arr[0], (Member) arr[1], (Long) arr[2]);
-    }
-
 
     // 내가 쓴 글 불러오기
 //    @Override

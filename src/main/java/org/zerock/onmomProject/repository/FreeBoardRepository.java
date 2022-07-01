@@ -34,7 +34,7 @@ public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long>, Sea
     Object getFreeBoardByFree_id(@Param("free_id")Long free_id);
 
     // 멤버 아이디로 마이페이지 구현
-    @Query(value = "select m, fb, count(fbc) " +
+    @Query(value = "select fb, m_id, count(fbc) " +
             " from FreeBoard fb" +
             " left join fb.member m_id" +
             " left join FreeBoardComment fbc ON fbc.board = fb " +

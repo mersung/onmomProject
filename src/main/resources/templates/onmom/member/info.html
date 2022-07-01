@@ -81,30 +81,74 @@
 <!--                <td><input class="form-control input-sm" th:value="${memberInfo.member_id}"></td>-->
 <!--            </tr>-->
 
-            <!-- 테이블 선언 실시 -->
-            <table>
+<!--            &lt;!&ndash; 테이블 선언 실시 &ndash;&gt;-->
+<!--            <table>-->
 
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th>제목</th>-->
+<!--                    <th>추천</th>-->
+<!--                    <th>비추천</th>-->
+<!--                    <th>등록 날짜</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+
+<!--            <tbody>-->
+
+
+
+            <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th>제목</th>
-                    <th>추천</th>
-                    <th>비추천</th>
-                    <th>등록 날짜</th>
-                </tr>
+                    <tr>
+                        <th scope="col">제목</th>
+                        <th scope="col">추천</th>
+                        <th scope="col">비추천</th>
+                        <th scope="col">작성일</th>
+                    </tr>
                 </thead>
 
-            <tbody>
+                <tbody>
 
-            <tr th:each = "list : ${freeBoardDTO}">
-                <td><span th:text="${list.title}"></span></td>
-                <td><span th:text="${list.like_cnt}"></span></td>
-                <td><span th:text="${list.hate_cnt}"></span></td>
-                <td><span th:text="${#temporals.format(list.regDate, 'yyyy-MM-dd')}"></span></td>
-            </tr>
-            </tbody>
+                    <tr th:each = "list : ${freeBoardDTO.dtoList}">
+                        <td><span th:text="${list.title}"></span></td>
+
+                        <td><span th:text="${list.like_cnt}"></span></td>
+                        <td><span th:text="${list.hate_cnt}"></span></td>
+                        <td><span th:text="${#temporals.format(list.regDate, 'yyyy-MM-dd')}"></span></td>
+                    </tr>
+
+
+                </tbody>
 
             </table>
+
+            <ul class="pagination h-100 justify-content-center align-items-center">
+
+                <li class="page-item " th:if="${freeBoardDTO.prev}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.start -1,
+                    type=${freePageRequestDTO.type} ,
+                    keyword = ${freePageRequestDTO.keyword} )}}"
+                    >Previous</a>
+                </li>
+
+                <li th:class=" 'page-item ' + ${freeBoardDTO.page == page?'active':''} " th:each="page: ${freeBoardDTO.pageList}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page = ${page},
+                    type=${freePageRequestDTO.type} ,
+                    keyword = ${freePageRequestDTO.keyword} )}">
+                        [[${page}]]
+                    </a>
+                </li>
+
+                <li class="page-item" th:if="${freeBoardDTO.next}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.end + 1},
+                    type=${freePageRequestDTO.type} ,
+                    keyword = ${freePageRequestDTO.keyword} )}">Next</a>
+                </li>
+
+            </ul>
         </div>
+
+
 
 
         </div>
