@@ -48,7 +48,7 @@ public class FreeBoardController {
         return "redirect:/onmom/freeBoard/freeBoardList";
     }
 
-    @GetMapping({"/freeBoardRead", "/freeBoardModify" })
+    @GetMapping({"/freeBoardRead", "/freeBoardModify"})
     public void freeBoardRead(@ModelAttribute("requestDTO") FreePageRequestDTO freePageRequestDTO, Long free_id, Model model){
 
         log.info("bno: " + free_id);
