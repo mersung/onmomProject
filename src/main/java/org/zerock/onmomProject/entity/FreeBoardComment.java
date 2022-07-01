@@ -1,6 +1,7 @@
 package org.zerock.onmomProject.entity;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 
