@@ -59,6 +59,20 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     }
 
     @Override
+    public FreePageResultDTO<FreeBoardDTO, Object[]> getMyPost(String member_id, FreePageRequestDTO freePageRequestDTO) {
+        log.info(freePageRequestDTO);
+
+        Function<Object[], FreeBoardDTO> fn = (en ->
+                entityToDTO((FreeBoard) en[0], (Member) en[1], (Long) en[2]));
+
+        Page<Object[]> result = freeBoardRepository.getMyPostByMember_id(member_id,
+                freePageRequestDTO.getPageable(Sort.by("member_id").descending()));
+
+
+        return new FreePageResultDTO<>(result, fn);
+    }
+
+    @Override
     public FreeBoardDTO get(Long free_id) {
         Object result = freeBoardRepository.getFreeBoardByFree_id(free_id);
         Object[] arr = (Object[]) result;
@@ -66,23 +80,21 @@ public class FreeBoardServiceImpl implements FreeBoardService {
     }
 
 
-
-
     // 내가 쓴 글 불러오기
-    @Override
-    public FreeBoardDTO getMyPost(String member_id) {
-        log.info("===================================");
-        log.info(member_id);
-
-        Object result = freeBoardRepository.getMyPostByMember_id(member_id);
-        Object[] arr = (Object[])result;
-        FreeBoard entity = (FreeBoard)arr[1];
-        Member entity_2 = (Member)arr[0];
-
-        log.info(entity);
-        return entityToDTO(entity, entity_2, entity.getLike_cnt());
-
-    }
+//    @Override
+//    public FreeBoardDTO getMyPost(String member_id) {
+//        log.info("===================================");
+//        log.info(member_id);
+//
+//        Object result = freeBoardRepository.getMyPostByMember_id(member_id);
+//        Object[] arr = (Object[])result;
+//        FreeBoard entity = (FreeBoard)arr[1];
+//        Member entity_2 = (Member)arr[0];
+//
+//        log.info(entity);
+//        return entityToDTO(entity, entity_2, entity.getLike_cnt());
+//
+//    }
 
 
     @Transactional

@@ -14,7 +14,7 @@ public interface FreeBoardService {
 
     FreeBoardDTO get(Long free_id);
 
-    FreeBoardDTO getMyPost(String member_id); // 내가 쓴 글 불러오기
+    FreePageResultDTO<FreeBoardDTO, Object[]> getMyPost(String member_id, FreePageRequestDTO freePageRequestDTO); // 내가 쓴 글 불러오기
 
     void removeWithReplies(Long free_id);
 

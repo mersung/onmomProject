@@ -3,6 +3,7 @@ package org.zerock.onmomProject.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -35,7 +36,7 @@ public class MyPageController {
 
     @GetMapping("/info")
     public String memberInfo(Model model, Principal principal,
-                              HttpSession session){
+                             FreePageRequestDTO freePageRequestDTO, HttpSession session){
         String member_id = principal.getName();
 
         /////////////////////////////////////////////////////내가 쓴 글 수정중
@@ -48,9 +49,8 @@ public class MyPageController {
         model.addAttribute("memberInfo", memberInfo);
         ///////////////////////////////////////////////////////내가 쓴 글 수정중
 
-//        model.addAttribute( "result", freeBoardService.getList(freePageRequestDTO));
-        FreeBoardDTO freeBoardDTO = freeBoardService.getMyPost(member_id);
-        model.addAttribute("freeBoardDTO", freeBoardDTO);
+//       model.addAttribute( "result", freeBoardService.getList(freePageRequestDTO));
+        model.addAttribute("freeBoardDTO", freeBoardService.getMyPost(member_id, freePageRequestDTO));
 
 
         return "onmom/member/info";
