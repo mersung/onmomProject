@@ -167,7 +167,7 @@
 
     </script>
         <!-- Page Content-->
-        <section class="py-5 post_content">
+        <section class="py-5 post_content" sec:authorize="isAuthenticated()">
             <div class="container px-5 my-5 review_post">
                 <div class="row gx-5">
                     <div class="container-fluid">
@@ -282,5 +282,9 @@
                 </div>
             </div>
         </section>
+        <script sec:authorize="isAnonymous()">
+            alert("잘못된 접근입니다!");
+            location.href="/onmom/login";
+        </script>
     </th:block>
 </th:block>

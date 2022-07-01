@@ -20,7 +20,7 @@ public class FreeBoardCommentDTO {
 
     private String member_id;
 
-    private Long board_id;
+    private Long free_id;
 
     private String content;
 

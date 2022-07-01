@@ -40,7 +40,7 @@ public interface FreeBoardService {
                 .member_id(member.getMember_id())
                 .title(freeBoard.getTitle())
                 .content(freeBoard.getContent())
-                .like_cnt(freeBoard.getLike_cnt()) //int로 처리하도록
+                .like_cnt(freeBoard.getLike_cnt())
                 .hate_cnt(freeBoard.getHate_cnt())
                 .regDate(freeBoard.getRegDate())
                 .modDate(freeBoard.getModDate())
