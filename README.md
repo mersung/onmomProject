@@ -49,7 +49,7 @@
 #
 ## 일정계획서
 ***
-![](../../Users/user/Desktop/02_일정계획서_2022_06_20.jpg)
+![Onmom_Plan_2022_06_20](https://user-images.githubusercontent.com/86524081/176813061-1e41b298-d0df-479c-a78c-0f4ad3dc0825.jpg)
 #
 ## UI 설계서
 ***
