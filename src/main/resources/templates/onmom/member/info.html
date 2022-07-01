@@ -45,69 +45,110 @@
             </span>
 
             <!-- 내가쓴글 수정중 ------------------------------------------------------------->
-            <select id="getInfo" resultMap="memberInfo">
-                select member_id,
-                nickname,
-                f.free_id,
-                f.title,
-                f.content,
-                f.like_cnt,
-                f.hate_cnt,
-                f.regDate,
-                f.modDate,
-                from member m
-                left outer join freeBoard f
-                on m.member_id = f.member
-                where m.member_id = #{member_id}
-            </select>
+<!--            <select id="getInfo" resultMap="memberInfo">-->
+<!--                select member_id,-->
+<!--                nickname,-->
+<!--                f.free_id,-->
+<!--                f.title,-->
+<!--                f.content,-->
+<!--                f.like_cnt,-->
+<!--                f.hate_cnt,-->
+<!--                f.regDate,-->
+<!--                f.modDate,-->
+<!--                from member m-->
+<!--                left outer join freeBoard f-->
+<!--                on m.member_id = f.member-->
+<!--                where m.member_id = #{member_id}-->
+<!--            </select>-->
 
-            <resultMap type="MemberDTO" id="memberInfo">
-                <result property="member_id" column="MEMBER_ID"/>
-                <result property="nickname" column="NICKNAME"/>
-                <collection property="memberFreeBoardList" resultMape="freeBoardList"/>
-            </resultMap>
+<!--            <resultMap type="MemberDTO" id="memberInfo">-->
+<!--                <result property="member_id" column="MEMBER_ID"/>-->
+<!--                <result property="nickname" column="NICKNAME"/>-->
+<!--                <collection property="memberFreeBoardList" resultMape="freeBoardList"/>-->
+<!--            </resultMap>-->
 
-            <resultMap type="FreeBoardDTO" id="freeBoardList">
-                <result property="free_id" column="FREE_ID"/>
-                <result property="title" column="TITLE"/>
-                <result property="content" column="CONTENT"/>
-                <result property="like_cnt" column="LIKE_CNT"/>
-                <result property="hate_cnt" column="HATE_CNT"/>
-                <result property="regDate" column="REGDATE" />
-                <result property="modDate" column="MODDATE" />
-            </resultMap>
+<!--            <resultMap type="FreeBoardDTO" id="freeBoardList">-->
+<!--                <result property="free_id" column="FREE_ID"/>-->
+<!--                <result property="title" column="TITLE"/>-->
+<!--                <result property="content" column="CONTENT"/>-->
+<!--                <result property="like_cnt" column="LIKE_CNT"/>-->
+<!--                <result property="hate_cnt" column="HATE_CNT"/>-->
+<!--                <result property="regDate" column="REGDATE" />-->
+<!--                <result property="modDate" column="MODDATE" />-->
+<!--            </resultMap>-->
 
-            <tr>
-                <td class="m-title">ID</td>
-                <td><input class="form-control input-sm" th:value="${memberInfo.member_id}" readonly></td>
-            </tr>
+<!--            <tr>-->
+<!--                <td><input class="form-control input-sm" th:value="${memberInfo.member_id}"></td>-->
+<!--            </tr>-->
 
-            <!-- 테이블 선언 실시 -->
-            <table>
+<!--            &lt;!&ndash; 테이블 선언 실시 &ndash;&gt;-->
+<!--            <table>-->
 
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th>제목</th>-->
+<!--                    <th>추천</th>-->
+<!--                    <th>비추천</th>-->
+<!--                    <th>등록 날짜</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+
+<!--            <tbody>-->
+
+
+
+            <table class="table table-striped">
                 <thead>
-                <tr>
-                    <th>아이디</th>
-                    <th>제목</th>
-                    <th>추천</th>
-                    <th>비추천</th>
-                    <th>등록 날짜</th>
-                </tr>
+                    <tr>
+                        <th scope="col">제목</th>
+                        <th scope="col">추천</th>
+                        <th scope="col">비추천</th>
+                        <th scope="col">작성일</th>
+                    </tr>
                 </thead>
 
-            <tbody>
+                <tbody>
 
-            <tr th:each="list : ${memberFreeBoardList}">
-                <td><span th:text="${memberFreeBoardList.free_id}"></span></td>
-                <td><span th:text="${memberFreeBoardList.title}"></span></td>
-                <td><span th:text="${memberFreeBoardList.like_cnt}"></span></td>
-                <td><span th:text="${memberFreeBoardList.hate_cnt}"></span></td>
-                <td><span th:text="${memberFreeBoardList.regDate}"></span></td>
-            </tr>
-            </tbody>
+                    <tr th:each = "list : ${freeBoardDTO.dtoList}">
+                        <td><span th:text="${list.title}"></span></td>
+
+                        <td><span th:text="${list.like_cnt}"></span></td>
+                        <td><span th:text="${list.hate_cnt}"></span></td>
+                        <td><span th:text="${#temporals.format(list.regDate, 'yyyy-MM-dd')}"></span></td>
+                    </tr>
+
+
+                </tbody>
 
             </table>
+
+            <ul class="pagination h-100 justify-content-center align-items-center">
+
+                <li class="page-item " th:if="${freeBoardDTO.prev}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.start -1,
+                    type=${freePageRequestDTO.type} ,
+                    keyword = ${freePageRequestDTO.keyword} )}}"
+                    >Previous</a>
+                </li>
+
+                <li th:class=" 'page-item ' + ${freeBoardDTO.page == page?'active':''} " th:each="page: ${freeBoardDTO.pageList}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page = ${page},
+                    type=${freePageRequestDTO.type} ,
+                    keyword = ${freePageRequestDTO.keyword} )}">
+                        [[${page}]]
+                    </a>
+                </li>
+
+                <li class="page-item" th:if="${freeBoardDTO.next}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.end + 1},
+                    type=${freePageRequestDTO.type} ,
+                    keyword = ${freePageRequestDTO.keyword} )}">Next</a>
+                </li>
+
+            </ul>
         </div>
+
+
 
 
         </div>

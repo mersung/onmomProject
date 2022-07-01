@@ -107,6 +107,10 @@ li{list-style:none;}
 .img_sizing{width:inherit; height:inherit;}
 .galBox_sizing{height:inherit;}
 
+/* 댓글 툴박스 CSS */
+
+
+/* BOOTSTRAP 기본 CSS */
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
