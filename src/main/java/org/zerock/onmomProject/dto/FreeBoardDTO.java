@@ -25,6 +25,8 @@ public class FreeBoardDTO {
 
     private String content;
 
+    private int replyCount; //해당 게시글의 댓글 수
+
     private Long like_cnt;
 
     private Long hate_cnt;
