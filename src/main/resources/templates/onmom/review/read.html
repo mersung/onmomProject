@@ -58,8 +58,8 @@
                                     <!-- 이미지 영역, div 태그로 작성되어 자동 줄바꿈, thumnail 관련 코딩 기입 -->
                                     <div>
                                         <ul>
-                                            <li th:each="image: ${dto.imageDTOList}" th:data-file="${image.getThumbnailURL()}">
-                                                <img th:if="${image.path != null}" th:src="|/display?fileName=${image.getThumbnailURL()}|">
+                                            <li class="container-fluid" th:each="image: ${dto.imageDTOList}" th:data-file="${image.getThumbnailURL()}">
+                                                <img th:if="${image.path != null}" th:src="|/display?fileName=${image.getThumbnailURL()}|" style="max-width:100%;">
                                             </li>
                                         </ul>
                                     </div>
@@ -98,39 +98,7 @@
                         <section>
                             <div>
                                 <div class="card-body comment_area">
-                                    <!-- 댓글 리스트 -->
-<!--                                    <div class="d-flex mb-4">-->
-<!--                                        &lt;!&ndash; Parent comment&ndash;&gt;-->
-<!--                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>-->
-<!--                                        <div class="ms-3">-->
-<!--                                            <div class="fw-bold"></div>-->
-<!--                                            If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.-->
-<!--                                            &lt;!&ndash; Child comment 1&ndash;&gt;-->
-<!--                                            <div class="d-flex mt-4">-->
-<!--                                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>-->
-<!--                                                <div class="ms-3">-->
-<!--                                                    <div class="fw-bold">Commenter Name</div>-->
-<!--                                                    And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                            &lt;!&ndash; Child comment 2&ndash;&gt;-->
-<!--                                            <div class="d-flex mt-4">-->
-<!--                                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>-->
-<!--                                                <div class="ms-3">-->
-<!--                                                    <div class="fw-bold">Commenter Name</div>-->
-<!--                                                    When you put money directly to a problem, it makes a good headline.-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-                                    <!-- Single comment-->
-<!--                                    <div class="d-flex">-->
-<!--                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>-->
-<!--                                        <div class="ms-3">-->
-<!--                                            <div class="fw-bold">Commenter Name</div>-->
-<!--                                            When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.-->
-<!--                                        </div>-->
-<!--                                    </div>-->
+
                                 </div>
                                 <!-- 댓글 예시 끝 -->
                                 <!-- 댓글 입력 창 감싸는 div -->
@@ -317,23 +285,34 @@
                     }
                 })
 
-                // 삭제처리
+                // 댓글 삭제처리
                 $(".comment_area").on("click", ".tool_btn_remove", function(){
+                    var confirmResult = confirm("댓글을 삭제하시겠습니까?");
+
+                    if(confirmResult){ // 예
                     var reply_tool_box = $(".reply_tool_box");
                     var comment_id = replyIndex;
                     console.log(comment_id);
-                    $.ajax({
-                        url:'/reviews/'+review_id+"/"+comment_id,
-                        type:"DELETE",
-                        contentType:"application/json; charset=utf-8;",
-                        dataType:"text",
-                        success:function(result){
-                            console.log("result: "+result);
-                            self.location.reload();
-                            alert("해당 댓글이 삭제 되었습니다!");
-                        }
-                    }); // ajax 끝
-                    reply_tool_box.hide();
+                        $.ajax({
+                            url:'/reviews/'+review_id+"/"+comment_id,
+                            type:"DELETE",
+                            contentType:"application/json; charset=utf-8;",
+                            dataType:"text",
+                            success:function(result){
+                                console.log("result: "+result);
+                                self.location.reload();
+                                alert("해당 댓글이 삭제 되었습니다!");
+                            }
+                        }); // ajax 끝
+                        reply_tool_box.hide();
+                    }else{ // 아니오
+                        alert("취소되었습니다.");
+                    }
+                })
+
+                // 댓글 수정처리
+                $(".comment.area").on("click", ".tool_btn_modify", function(){
+
                 })
 
 
