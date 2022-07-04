@@ -146,10 +146,10 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
         log.info(reviewPageRequestDTO);
 
         Function<Object[], ReviewBoardDTO> fn = (en ->
-                entitiesToDTO((ReviewBoard) en[0], (List<Image>) en[1]));
+                entityToDTO((ReviewBoard) en[0], (Member) en[1], (Long) en[2]));
 
         Page<Object[]> result = reviewBoardRepository.getMyPostByMember_id(member_id,
-                reviewPageRequestDTO.getPageable(Sort.by("member").descending()));
+                reviewPageRequestDTO.getPageable(Sort.by("review_id").descending()));
 
         return new ReviewPageResultDTO<>(result, fn);
     }
