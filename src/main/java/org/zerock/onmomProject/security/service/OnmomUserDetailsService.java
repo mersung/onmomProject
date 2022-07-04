@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.zerock.onmomProject.dto.MemberDTO;
 import org.zerock.onmomProject.entity.Member;
 import org.zerock.onmomProject.repository.MemberRepository;
 import org.zerock.onmomProject.security.dto.OnmomAuthMemberDTO;
@@ -31,7 +33,6 @@ public class OnmomUserDetailsService implements UserDetailsService {
         log.info("OnmomUserDetailsService loadUserByUsername " + username);
 
         Optional<Member> result= memberRepository.findByEmail(username);
-//        Optional<Member> result= memberRepository.findById(username);
 
         Member member = result.get();
 
@@ -47,5 +48,7 @@ public class OnmomUserDetailsService implements UserDetailsService {
         );
 
         return onmomAuthMember;
+
+
     }
 }

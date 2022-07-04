@@ -93,7 +93,7 @@
                                 <a class="btn btn-dark btn_style" th:href="@{/onmom/review/list}">목록</a>
                             </div>
                         </article>
-                        <hr />
+                        <hr style="height:1.2px;" />
                         <!-- 댓글 section 영역-->
                         <section>
                             <div>
@@ -148,7 +148,7 @@
                                     <!-- 스프링 시큐리티 인증이 됐을 경우 댓글 작성 가능 -->
                                     <th:block sec:authorize="isAuthenticated()">
                                         <form class="mb-4 comment_input">
-                                            <textarea name="content" class="col-10 replyText" rows="3" placeholder="댓글을 입력해 주세요."></textarea>
+                                            <textarea name="content" class="col-10 replyText" placeholder="올바른 댓글 문화를 만듭시다!" rows="3" style="resize:none;"></textarea>
                                             <div class="submit_btn_wrap col-2">
                                                 <button type="button" class="btn-dark btn_style_sq replyBtn">등록</button>
                                             </div>
@@ -156,7 +156,7 @@
                                     </th:block>
                                     <th:block sec:authorize="isAnonymous()">
                                         <form class="mb-4 comment_input replyCant">
-                                            <textarea name="content" class="col-10 replyText" rows="3" placeholder="로그인이 필요한 서비스입니다!" readonly></textarea>
+                                            <textarea name="content" class="col-10 replyText" rows="3" placeholder="로그인이 필요한 서비스입니다!" style="resize:none;" readonly></textarea>
                                             <div class="submit_btn_wrap col-2">
                                                 <button type="button" class="btn-dark btn_style_sq">등록</button>
                                             </div>
@@ -168,6 +168,7 @@
                     </div>
                 </div>
             </div>
+
         </section>
         <!-- 스프링 시큐리티 인증 됐을 경우, 댓글 작성 불가 관련 form 태그는 출력되지 않게 처리함 -->
         <th:block sec:authorize="isAuthenticated()">
@@ -178,9 +179,10 @@
         <script>
             $(function(){
 
-                // 게시글 번호를 변수로 선언
+                // 게시글 번호 및 작성자를 변수로 선언
                 var review_id = [[${dto.review_id}]];
                 var member_id = $('input[name="member_id"]').val();
+                var check_id = "[[${#authentication.name}]]";
 
                 // 댓글 권한 알림창
                 $(".replyCant").click(function(){
@@ -204,6 +206,7 @@
                             member_id : member_id
                         }
 
+
                         console.log(reply);
 
                         $.ajax({
@@ -215,6 +218,7 @@
                             success : function(result){
                                 console.log("결과 : "+result);
                                 self.location.reload();
+
                         }
                         ,
                         error:function(request,status,error){
@@ -239,6 +243,7 @@
                         date.getMinutes();
                     }
 
+
                     $.getJSON("/reviews/"+ review_id +"/all", function(arr){
                         var str = "";
 
@@ -246,11 +251,29 @@
                         $.each(arr, function(idx, reply){
                          console.log(reply);
 
-                         str += '<div class="d-flex mb-3">';
-                         str += '<div class="ms-3">';
+                         str += '<div class="d-flex mb-4 reply_wrap" style="position:relative;">';
+                         str += '<div class="reply_tool" data-index="'+reply.comment_id+'" data-identify="'+reply.member_id+'" style="font-size:18px; position:absolute; right:10px; font-weight:700; letter-spacing:3px; color:#ccc; cursor:pointer">'
+                         str += '...</div>';
+                         str += '<div class="reply_tool_box" style="display:none; position:absolute; top:15px; right:15px; z-index:999; box-shadow:1px 1px 5px black;">';
+                         str += '<ul style="margin:0; padding:0;">';
+                         str += '<li>';
+                         str += '<button href="#" class="tool_btn tool_btn_modify" style="border: none; text-align:center; font-size:12px; color:#0d6efd; display:block; width:70px; padding:10px 20px; border-bottom:0.5px solid #ccc; background-color:#fff;">수정';
+                         str += '</button>';
+                         str += '</li>';
+                         str += '<li>';
+                         str += '<button href="#" class="tool_btn tool_btn_remove" style="border: none; text-align:center; font-size:12px; color:#0d6efd; display:block; width:70px; padding:10px 20px; solid #ccc; background-color:#fff;">삭제';
+                         str += '</button>';
+                         str += '</li>';
+                         str += '</ul>';
+                         str += '</div>';
+                         str += '<div class="ms-3 mb-2">';
                          str += '<div class="fw-bold">'+reply.member_id+'</div>';
                          str += reply.content+'</div>';
+                         str += '<span style="position:absolute; left:1rem; bottom:-15px; color:#ccc; font-size:12px; font-weight:400;">';
+                         str += '[[${dto.regDate}]]</span>';
                          str += '</div>';
+                         str += '<hr style="height:0.5px;" />';
+
                         });
 
                         $('.comment_area').html(str);
@@ -258,6 +281,60 @@
                     });
                 }
                 getReviewReplies();
+
+
+                //// 댓글 툴박스 관련
+                var replyIndex;
+                var replyIdChk;
+                $(".comment_area").on("click", ".reply_tool", function(){
+                    var reply_tool = $(this);
+                    var reply_tool_box = $(this).find(".reply_tool_box");
+
+                    replyIndex = reply_tool.data("index");
+                    replyIdChk = reply_tool.data("identify");
+                    console.log(replyIndex);
+                    console.log(replyIdChk);
+                    if(check_id == replyIdChk){
+                        $(this).siblings(".reply_tool_box").css("display", "block").parents(".reply_wrap").siblings().find(".reply_tool_box").css("display", "none");
+                    }else{
+                        alert("권한이 없습니다!");
+                    }
+                })
+
+                // 툴박스 호버 효과 처리
+                $(".comment_area").on("mouseenter", ".tool_btn", function(){
+                    $(this).css("background-color", "#000").css("color", "#fff");
+                })
+                $(".comment_area").on("mouseleave", ".tool_btn", function(){
+                    $(this).css("background-color", "#fff").css("color", "#0d6efd");
+                })
+
+                // 허공 클릭 시에 열려있는 댓글 툴박스 닫기 처리
+                $(document).mouseup(function(e){
+                    var reply_tool_box = $(".reply_tool_box");
+                    if(reply_tool_box.has(e.target).length == 0){
+                        reply_tool_box.css("display", "none");
+                    }
+                })
+
+                // 삭제처리
+                $(".comment_area").on("click", ".tool_btn_remove", function(){
+                    var reply_tool_box = $(".reply_tool_box");
+                    var comment_id = replyIndex;
+                    console.log(comment_id);
+                    $.ajax({
+                        url:'/reviews/'+review_id+"/"+comment_id,
+                        type:"DELETE",
+                        contentType:"application/json; charset=utf-8;",
+                        dataType:"text",
+                        success:function(result){
+                            console.log("result: "+result);
+                            self.location.reload();
+                            alert("해당 댓글이 삭제 되었습니다!");
+                        }
+                    }); // ajax 끝
+                    reply_tool_box.hide();
+                })
 
 
             }) // window 선 업로드 끝

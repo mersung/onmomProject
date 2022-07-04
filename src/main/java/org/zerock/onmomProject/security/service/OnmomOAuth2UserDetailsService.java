@@ -53,8 +53,6 @@ public class OnmomOAuth2UserDetailsService extends DefaultOAuth2UserService {
 
         log.info("MEMBER_ID: " + member_id);
 
-//        Member member = saveSocialMember(member_id);
-//        return oAuth2User;
 
         Member member = saveSocialMember(member_id);
 
@@ -76,7 +74,6 @@ public class OnmomOAuth2UserDetailsService extends DefaultOAuth2UserService {
     private Member saveSocialMember(String member_id) {
         //기존에 동일한 이메일로 가입한 회원이 있는 경우에는 그대로 조회만
         Optional<Member> result= repository.findByEmail(member_id);
-//        Optional<Member> result= repository.findById(member_id);
 
         if (result.isPresent()){
             return result.get();
