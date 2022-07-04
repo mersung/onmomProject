@@ -7,13 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.zerock.onmomProject.dto.ReviewBoardDTO;
-import org.zerock.onmomProject.dto.ReviewPageRequestDTO;
-import org.zerock.onmomProject.dto.ReviewPageResultDTO;
-import org.zerock.onmomProject.entity.Image;
-import org.zerock.onmomProject.entity.Member;
-import org.zerock.onmomProject.entity.ReviewBoard;
-import org.zerock.onmomProject.entity.ReviewBoardComment;
+import org.zerock.onmomProject.dto.*;
+import org.zerock.onmomProject.entity.*;
 import org.zerock.onmomProject.repository.ImageRepository;
 import org.zerock.onmomProject.repository.ReviewBoardRepository;
 import org.zerock.onmomProject.repository.ReviewCommentRepository;
@@ -145,4 +140,26 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
         reviewBoardRepository.save(reviewBoard);
 
     }
+
+    @Override
+    public ReviewPageResultDTO<ReviewBoardDTO, Object[]> getMyPost(String member_id, ReviewPageRequestDTO reviewPageRequestDTO) {
+        log.info(reviewPageRequestDTO);
+
+        Function<Object[], ReviewBoardDTO> fn = (en ->
+                entityToDTO((ReviewBoard) en[0], (Member) en[1], (Long) en[2]));
+
+        Page<Object[]> result = reviewBoardRepository.getMyPostByMember_id(member_id,
+                reviewPageRequestDTO.getPageable(Sort.by("review_id").descending()));
+
+        return new ReviewPageResultDTO<>(result, fn);
+    }
 }
+
+
+
+
+
+
+
+
+

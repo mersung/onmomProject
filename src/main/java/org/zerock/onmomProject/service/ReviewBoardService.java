@@ -30,7 +30,8 @@ public interface ReviewBoardService {
     // 특정 글 수정
     void modify(ReviewBoardDTO reviewBoardDTO);
 
-
+    // 내가 쓴 글 불러오기
+    ReviewPageResultDTO<ReviewBoardDTO, Object[]> getMyPost(String member_id, ReviewPageRequestDTO reviewPageRequestDTO);
 
 
     default Map<String, Object> dtoToEntity(ReviewBoardDTO reviewBoardDTO) {
@@ -70,21 +71,21 @@ public interface ReviewBoardService {
 
 
 
-//    default ReviewBoardDTO entityToDto(ReviewBoard reviewBoard, Member member, Long like_cnt){
-//
-//        ReviewBoardDTO reviewBoardDTO = ReviewBoardDTO.builder()
-//                .review_id(reviewBoard.getReview_id())
-//                .member_id(member.getMember_id())
-//                .title(reviewBoard.getTitle())
-//                .content(reviewBoard.getContent())
-//                .like_cnt(like_cnt.longValue())
-//                .hate_cnt(reviewBoard.getHate_cnt())
-//                .area(reviewBoard.getArea())
-//                .regDate(reviewBoard.getRegDate())
-//                .modDate(reviewBoard.getModDate())
-//                .build();
-//        return reviewBoardDTO;
-//    }
+    default ReviewBoardDTO entityToDTO(ReviewBoard reviewBoard, Member member, Long like_cnt){
+
+        ReviewBoardDTO reviewBoardDTO = ReviewBoardDTO.builder()
+                .review_id(reviewBoard.getReview_id())
+                .member_id(member.getMember_id())
+                .title(reviewBoard.getTitle())
+                .content(reviewBoard.getContent())
+                .like_cnt(like_cnt.longValue())
+                .hate_cnt(reviewBoard.getHate_cnt())
+                .area(reviewBoard.getArea())
+                .regDate(reviewBoard.getRegDate())
+                .modDate(reviewBoard.getModDate())
+                .build();
+        return reviewBoardDTO;
+    }
 
     // 이미지가 여러개일 경우 이거 사용, 테이블이 하나 더 생겼으므로
     default ReviewBoardDTO entitiesToDTO(ReviewBoard reviewBoard, List<Image> images){
