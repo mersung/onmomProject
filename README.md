@@ -107,7 +107,7 @@
 
 
 ### 공지사항
-![Onmom_notice](https://user-images.githubusercontent.com/86524081/177072924-05b294b2-8dab-4fde-9846-c7448b21fd42.gif)
+![Onmom_notice](https://user-images.githubusercontent.com/86524081/177073888-9c946497-d1b9-48a9-8cd4-315179d168fe.gif)
 
 ### 회원들과 채팅
 ![Onmom_chatBlue](https://user-images.githubusercontent.com/86524081/177072336-c10aa028-3fd6-446f-8dac-2c228807aee6.gif)
