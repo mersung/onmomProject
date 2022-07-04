@@ -17,6 +17,9 @@ import org.zerock.onmomProject.dto.ReviewBoardDTO;
 import org.zerock.onmomProject.dto.ReviewPageRequestDTO;
 import org.zerock.onmomProject.service.ReviewBoardService;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 @Log4j2
 @RequestMapping("/onmom/review")
@@ -103,6 +106,18 @@ public class ReviewBoardController {
         redirectAttributes.addAttribute("keyword",reviewPageRequestDTO.getKeyword());
 
         redirectAttributes.addAttribute("review_id",reviewBoardDTO.getReview_id());
+
+        return "redirect:/onmom/review/read";
+    }
+
+    @PostMapping("/{review_id}/like")
+    public String likeCookie(HttpServletResponse response, Long review_id){
+        // 쿠키 객체 생성
+        Cookie rememberIndex = new Cookie("review_id", String.valueOf(review_id));
+
+        rememberIndex.setPath("/");
+        rememberIndex.setMaxAge(60*60*24); // 하루
+        response.addCookie(rememberIndex);
 
         return "redirect:/onmom/review/read";
     }

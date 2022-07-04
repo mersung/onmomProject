@@ -50,4 +50,6 @@ public interface ReviewBoardRepository extends JpaRepository<ReviewBoard, Long>,
             " group by rb",
             countQuery = "select count(rb) from ReviewBoard rb where rb.member.member_id = :member_id")
     Page<Object[]> getMyPostByMember_id(@Param("member_id")String member_id, Pageable pageable);
+
+
 }

@@ -111,8 +111,8 @@ li{list-style:none;}
 .img_sizing{width:inherit; height:inherit;}
 .galBox_sizing{height:inherit;}
 
-/* 댓글 툴박스 CSS */
-
+/* cnt 버튼 CSS */
+.like_cnt, .hate_cnt{cursor:pointer;}
 
 /* BOOTSTRAP 기본 CSS */
 :root {

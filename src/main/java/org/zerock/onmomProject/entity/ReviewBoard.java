@@ -1,6 +1,7 @@
 package org.zerock.onmomProject.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -25,8 +26,10 @@ public class ReviewBoard extends BaseEntity{
     @Column(length = 1000, nullable = false)
     private String content;
 
+    @ColumnDefault("'0'")
     private Long like_cnt;
 
+    @ColumnDefault("'0'")
     private Long hate_cnt;
 
     @Column(length = 50, nullable = false)

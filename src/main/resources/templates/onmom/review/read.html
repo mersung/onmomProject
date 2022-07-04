@@ -72,15 +72,15 @@
                             <!-- 좋아요 싫어요 -->
                             <div class="like">
                                 <div class="like_inner">
-                                    <div>
+                                    <div class="like_btn">
                                         <img src="/img/like.png" alt="좋아요">
                                         <!-- like_cnt, default 값은 0으로 함 -->
-                                        <span>[[${dto.like_cnt}]]</span>
+                                        <span class="like_cnt">0</span>
                                     </div>
-                                    <div>
+                                    <div class="hate_btn">
                                         <img src="/img/dislike.png" alt="싫어요">
-                                        <!-- dislike_cnt, default 값은 0으로 함 -->
-                                        <span>[[${dto.hate_cnt}]]</span>
+                                        <!-- hate_cnt, default 값은 0으로 함 -->
+                                        <span class="hate_cnt">0</span>
                                     </div>
                                 </div>
                             </div>
@@ -162,8 +162,6 @@
                     tagCheck.replaceAll(contentTag[j], '');
                     $('.text_tag_check').html(tagCheck);
                 }
-
-
 
                 // 게시글 번호 및 작성자를 변수로 선언
                 var review_id = [[${dto.review_id}]];
@@ -387,7 +385,18 @@
                         getReviewReplies();
                     }) // 수정 취소 버튼 끝
 
+                }) // mod 버튼 클릭 이벤트 끝
 
+                //// 좋아요 싫어요 버튼 클릭 관련 이벤트
+                // 좋아요 버튼 관련
+                $(".like_btn").click(function(){
+                    // 좋아요 버튼 Counting
+                    var like_cnt = $(".like_cnt").text();
+                    console.log("like_cnt 이전 값: "+like_cnt);
+
+                    like_cnt++;
+                    console.log("like_cnt 증가한 값: "+like_cnt);
+                    $(".like_cnt").text(like_cnt);
                 })
 
 
