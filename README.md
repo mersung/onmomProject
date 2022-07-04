@@ -107,13 +107,13 @@
 
 
 ### 공지사항
-![20220704050933-631409e000 gif-2-mp4 com](https://user-images.githubusercontent.com/86524081/177069540-162ffa6e-ba76-42a8-b652-8e8a40c41ad4.gif)
+![Onmom_notice](https://user-images.githubusercontent.com/86524081/177072924-05b294b2-8dab-4fde-9846-c7448b21fd42.gif)
 
 ### 회원들과 채팅
-
+![Onmom_chatBlue](https://user-images.githubusercontent.com/86524081/177072336-c10aa028-3fd6-446f-8dac-2c228807aee6.gif)
 
 ### 상담원과 채팅
-
+![Onmom_chatGreen](https://user-images.githubusercontent.com/86524081/177070487-3637b153-1ed0-49d6-a9b1-52429f7c8e57.gif)
 
 
 #
