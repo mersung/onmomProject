@@ -16,9 +16,6 @@
             <span>
                 <h3>내 프로필</h3>
             </span>
-            <!-- <div sec:authorize="isAuthenticated()">
-                Only Authenticated user can see this Text
-            </div> -->
 
              <div class="form-floating" style="width: 30%; padding-bottom: 3px">
                 <input type="email" th:value="${#authentication.principal.username}" class="form-control" id="email"
@@ -44,82 +41,36 @@
                 <h3 class="mt-4">내가 쓴 글</h3>
             </span>
 
-            <!-- 내가쓴글 수정중 ------------------------------------------------------------->
-<!--            <select id="getInfo" resultMap="memberInfo">-->
-<!--                select member_id,-->
-<!--                nickname,-->
-<!--                f.free_id,-->
-<!--                f.title,-->
-<!--                f.content,-->
-<!--                f.like_cnt,-->
-<!--                f.hate_cnt,-->
-<!--                f.regDate,-->
-<!--                f.modDate,-->
-<!--                from member m-->
-<!--                left outer join freeBoard f-->
-<!--                on m.member_id = f.member-->
-<!--                where m.member_id = #{member_id}-->
-<!--            </select>-->
-
-<!--            <resultMap type="MemberDTO" id="memberInfo">-->
-<!--                <result property="member_id" column="MEMBER_ID"/>-->
-<!--                <result property="nickname" column="NICKNAME"/>-->
-<!--                <collection property="memberFreeBoardList" resultMape="freeBoardList"/>-->
-<!--            </resultMap>-->
-
-<!--            <resultMap type="FreeBoardDTO" id="freeBoardList">-->
-<!--                <result property="free_id" column="FREE_ID"/>-->
-<!--                <result property="title" column="TITLE"/>-->
-<!--                <result property="content" column="CONTENT"/>-->
-<!--                <result property="like_cnt" column="LIKE_CNT"/>-->
-<!--                <result property="hate_cnt" column="HATE_CNT"/>-->
-<!--                <result property="regDate" column="REGDATE" />-->
-<!--                <result property="modDate" column="MODDATE" />-->
-<!--            </resultMap>-->
-
-<!--            <tr>-->
-<!--                <td><input class="form-control input-sm" th:value="${memberInfo.member_id}"></td>-->
-<!--            </tr>-->
-
-<!--            &lt;!&ndash; 테이블 선언 실시 &ndash;&gt;-->
-<!--            <table>-->
-
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th>제목</th>-->
-<!--                    <th>추천</th>-->
-<!--                    <th>비추천</th>-->
-<!--                    <th>등록 날짜</th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-
-<!--            <tbody>-->
-
+            <h5>자유 게시판</h5>
 
 
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th scope="col">번호</th>
                         <th scope="col">제목</th>
                         <th scope="col">추천</th>
                         <th scope="col">비추천</th>
                         <th scope="col">작성일</th>
                     </tr>
                 </thead>
-
                 <tbody>
 
                     <tr th:each = "list : ${freeBoardDTO.dtoList}">
-                        <td><span th:text="${list.title}"></span></td>
-
+                        <td><span>[[${list.free_id}]]</span></td>
+                        <th scope="row">
+                            <a th:href="@{/onmom/freeBoard/freeBoardRead(free_id = ${list.free_id},
+                                page= ${freeBoardDTO.page},
+                                type=${freePageRequestDTO.type} ,
+                                keyword = ${freePageRequestDTO.keyword})}">
+                                [[${list.title}]]
+                            </a>
+                        </th>
                         <td><span th:text="${list.like_cnt}"></span></td>
                         <td><span th:text="${list.hate_cnt}"></span></td>
                         <td><span th:text="${#temporals.format(list.regDate, 'yyyy-MM-dd')}"></span></td>
                     </tr>
-
-
                 </tbody>
-
             </table>
 
             <ul class="pagination h-100 justify-content-center align-items-center">
@@ -127,8 +78,9 @@
                 <li class="page-item " th:if="${freeBoardDTO.prev}">
                     <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.start -1,
                     type=${freePageRequestDTO.type} ,
-                    keyword = ${freePageRequestDTO.keyword} )}}"
-                    >Previous</a>
+                    keyword = ${freePageRequestDTO.keyword} )}" tabindex="-1">
+                        Previous
+                    </a>
                 </li>
 
                 <li th:class=" 'page-item ' + ${freeBoardDTO.page == page?'active':''} " th:each="page: ${freeBoardDTO.pageList}">
@@ -142,14 +94,71 @@
                 <li class="page-item" th:if="${freeBoardDTO.next}">
                     <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.end + 1},
                     type=${freePageRequestDTO.type} ,
-                    keyword = ${freePageRequestDTO.keyword} )}">Next</a>
+                    keyword = ${freePageRequestDTO.keyword} )}">
+                        Next
+                    </a>
+                </li>
+
+            </ul>
+
+            <h5>추천 게시판</h5>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">추천</th>
+                    <th scope="col">비추천</th>
+                    <th scope="col">작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each = "list : ${reviewBoardDTO.dtoList}">
+                    <td><span>[[${list.review_id}]]</span></td>
+
+                    <th scope="row">
+                        <a th:href="@{/onmom/review/read(review_id = ${list.review_id},
+                                page= ${reviewBoardDTO.page} )}">
+                            [[${list.title}]]
+                        </a>
+                    </th>
+                    <td><span th:text="${list.like_cnt}"></span></td>
+                    <td><span th:text="${list.hate_cnt}"></span></td>
+                    <td><span th:text="${#temporals.format(list.regDate, 'yyyy-MM-dd')}"></span></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <ul class="pagination h-100 justify-content-center align-items-center">
+
+                <li class="page-item " th:if="${reviewBoardDTO.prev}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.start -1,
+                    type=${reviewPageRequestDTO.type} ,
+                    keyword = ${reviewPageRequestDTO.keyword} )}" tabindex="-1">
+                    Previous
+                    </a>
+                </li>
+
+                <li th:class=" 'page-item ' + ${reviewBoardDTO.page == page?'active':''} " th:each="page: ${reviewBoardDTO.pageList}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page = ${page},
+                    type=${reviewPageRequestDTO.type} ,
+                    keyword = ${reviewPageRequestDTO.keyword} )}">
+                        [[${page}]]
+                    </a>
+                </li>
+
+                <li class="page-item" th:if="${reviewBoardDTO.next}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.end + 1},
+                    type=${reviewPageRequestDTO.type} ,
+                    keyword = ${reviewPageRequestDTO.keyword} )}">
+                        Next
+                    </a>
                 </li>
 
             </ul>
         </div>
-
-
-
 
         </div>
     </th:block>

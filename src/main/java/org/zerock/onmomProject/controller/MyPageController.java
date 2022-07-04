@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.zerock.onmomProject.dto.FreeBoardDTO;
 import org.zerock.onmomProject.dto.FreePageRequestDTO;
 import org.zerock.onmomProject.dto.MemberDTO;
+import org.zerock.onmomProject.dto.ReviewPageRequestDTO;
 import org.zerock.onmomProject.entity.Member;
 import org.zerock.onmomProject.security.dto.OnmomAuthMemberDTO;
 import org.zerock.onmomProject.service.FreeBoardService;
 import org.zerock.onmomProject.service.MemberService;
+import org.zerock.onmomProject.service.ReviewBoardService;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
@@ -34,9 +36,12 @@ public class MyPageController {
 
     private final FreeBoardService freeBoardService;
 
+    private final ReviewBoardService reviewBoardService;
+
     @GetMapping("/info")
     public String memberInfo(Model model, Principal principal,
-                             FreePageRequestDTO freePageRequestDTO, HttpSession session){
+                             FreePageRequestDTO freePageRequestDTO,
+                             ReviewPageRequestDTO reviewPageRequestDTO, HttpSession session){
         String member_id = principal.getName();
 
         /////////////////////////////////////////////////////내가 쓴 글 수정중
@@ -52,6 +57,8 @@ public class MyPageController {
 //       model.addAttribute( "result", freeBoardService.getList(freePageRequestDTO));
         model.addAttribute("freeBoardDTO", freeBoardService.getMyPost(member_id, freePageRequestDTO));
 
+
+        model.addAttribute("reviewBoardDTO", reviewBoardService.getMyPost(member_id, reviewPageRequestDTO));
 
         return "onmom/member/info";
 
