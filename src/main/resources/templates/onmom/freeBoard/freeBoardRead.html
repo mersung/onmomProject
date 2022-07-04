@@ -4,6 +4,7 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
     <th:block th:fragment="content">
+
         <article>
             <header class="mb-4">
                 <!-- 게시판 기본 타이틀 -->
@@ -55,17 +56,26 @@
                 </p>
             </section>
             <!-- 좋아요 싫어요 -->
-            <div class="like">
-                <div class="like_inner">
-                    <div>
-                        <img src="/img/like.png" alt="좋아요">
-                        <!-- like_cnt, default 값은 0으로 함 -->
-                        <span>[[${dto.like_cnt}]]</span>
+            <div style="  display: flex; justify-content: center; align-items: center;height:auto;">
+                <div class="event_box">
+                    <div style="text-align:center; width:auto; height:auto; display:block; margin-right:10px; float:left">
+                        <div id="like_box" class="button disabled">
+                            <a href="">
+                                <img src="/img/like.png" alt="좋아요">
+                            </a>
+                            <!-- like_cnt, default 값은 0으로 함 -->
+                        </div>
+                        <p id="like_cnt">[[${dto.like_cnt}]]</p>
                     </div>
-                    <div>
-                        <img src="/img/dislike.png" alt="싫어요">
-                        <!-- dislike_cnt, default 값은 0으로 함 -->
-                        <span>[[${dto.hate_cnt}]]</span>
+
+                    <div style="text-align:center; width:auto; height:auto; display:block; float:left">
+                        <div id="hate_box" class="button disabled">
+                            <a href="">
+                                <img src="/img/dislike.png" alt="좋아요">
+                            </a>
+                            <!-- like_cnt, default 값은 0으로 함 -->
+                        </div>
+                        <p id="hate_cnt">[[${dto.hate_cnt}]]</p>
                     </div>
                 </div>
             </div>
@@ -74,16 +84,15 @@
                 <!-- 로그인을 해야 수정/삭제 버튼 보이게 처리 -->
                 <th:block sec:authorize="isAuthenticated()">
                     <a class="btn btn-dark btn_style" th:href="@{/onmom/freeBoard/freeBoardModify(free_id = ${dto.free_id})}">
-                        수정
+                        수정 및 삭제
                     </a>
-                    <a class="btn btn-dark btn_style" th:href="@{/onmom/freeBoard/freeBoardList}">삭제</a>
                 </th:block>
                 <a class="btn btn-dark btn_style" th:href="@{/onmom/freeBoard/freeBoardList}">목록</a>
+                <span class="btn btn-dark btn_style addReply">댓글 추가</span>
             </div>
 
             <div>
                 <div class="mt-4">
-                    <h5 ><span class="btn btn-dark btn_style addReply">댓글 추가</span> </h5>
                     <h5 ><span class="btn btn-dark btn_style replyCount"></span> </h5>
                 </div>
                 <div class="list-group replyList">
@@ -296,6 +305,76 @@
                         }
                     });
                 });
+
+
+<!--       좋아요         -->
+<!--                 $(".like_box").click(function() {-->
+<!--                    $.ajax({-->
+<!--                        url: 'ajax_onLoad.php',-->
+<!--                        type: "post",-->
+<!--                        datatype: "json",-->
+<!--                        data: {-->
+<!--                            "no": "20220629081845"-->
+<!--                        },-->
+<!--                        success: function(data, status) {-->
+<!--                            var data = $.parseJSON(data);-->
+
+<!--                            if(data.status == 'error'){-->
+<!--                                alert('Err');-->
+<!--                            }else if(data.status == 'error_db'){-->
+<!--                                alert('Err DB');-->
+<!--                            }else{-->
+<!--                                $("#totlike").text(data.totlike);-->
+<!--                                $("#totnotlike").text(data.totnotlike);-->
+
+<!--                                $("#totlikes").val(data.totlike);-->
+<!--                                $("#totnotlikes").val(data.totnotlike);-->
+
+<!--                                if(data.like == 'active'){-->
+<!--                                    $("#btnLike").removeClass("disabled");-->
+<!--                                    $("#btnNotLike").removeClass("disabled");-->
+<!--                                }-->
+<!--                                if(data.status == '-1'){-->
+<!--                                    $('#status').val('active');-->
+<!--                                }-->
+<!--                            }-->
+<!--                        },-->
+<!--                        complete: function(response, status, xhr) {}-->
+<!--                    });-->
+
+<!--                function doLike(pin){-->
+<!--                    if ($('#status').val() == 'active'){-->
+
+<!--                        if(pin == 'like'){-->
+<!--                            $("#totlike").text(Number($("#totlikes").val()) + 1);-->
+<!--                        }else{-->
+<!--                            $("#totnotlike").text(Number($("#totlikes").val()) + 1);-->
+<!--                        }-->
+<!--                        $("#btnLike").addClass("disabled");-->
+<!--                        $("#btnNotLike").addClass("disabled");-->
+
+<!--                        $.ajax({-->
+<!--                            url: 'ajax_onLike.php',-->
+<!--                            type: "post",-->
+<!--                            datatype: "json",-->
+<!--                            data: {-->
+<!--                                "status": pin,-->
+<!--                                "no": "20220629081845"-->
+<!--                            },-->
+<!--                            success: function(data, status) {-->
+<!--                                console.log(data);-->
+
+<!--                                if(data.status == 'error'){-->
+<!--                                    alert('Err');-->
+<!--                                }else if(data.status == 'error_db'){-->
+<!--                                    alert('Err DB');-->
+<!--                                }-->
+<!--                            },-->
+<!--                            complete: function(response, status, xhr) {}-->
+<!--                        });-->
+<!--                    }else{-->
+<!--                    }-->
+<!--                }-->
 
 
              });
