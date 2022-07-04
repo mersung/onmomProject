@@ -1,7 +1,9 @@
 
 ## 프로젝트명 
 ***
-    온몸 (Onmom)
+    온몸(Onmom)
+    온몸(Onmom)은 "온라인(online)"과 "몸"의 합성어로,
+    
 #
 ## 팀원소개
 ***
@@ -114,7 +116,11 @@
     "좋아요" 순으로 게시글이 정렬됩니다.
 #
 ### 헬스장 지도
+    서울시 헬스장 위치를 확인합니다.
+![Onmom_Map01](https://user-images.githubusercontent.com/86524081/177085479-82e14832-97b7-438e-b39a-fd4bf758fafe.gif)
 
+    검색을 통해 헬스장 위치를 확인합니다.
+![Onmom_Map02](https://user-images.githubusercontent.com/86524081/177085492-e8369942-c78e-4c31-84bc-7cda54d2c057.gif)
 #
 ### 공지사항
     추천게시판 및 자유게시판 이용수칙을 확인합니다.
