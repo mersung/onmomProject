@@ -73,7 +73,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
                 entityToDTO((FreeBoard) en[0], (Member) en[1], (Long) en[2]));
 
         Page<Object[]> result = freeBoardRepository.getMyPostByMember_id(member_id,
-                freePageRequestDTO.getPageable(Sort.by("member").descending()));
+                freePageRequestDTO.getPageable(Sort.by("free_id").descending()));
 
 
         return new FreePageResultDTO<>(result, fn);
