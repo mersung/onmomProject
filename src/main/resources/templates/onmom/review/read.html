@@ -219,7 +219,7 @@
                         $.each(arr, function(idx, reply){
                          console.log(reply);
 
-                         str += '<div class="d-flex mb-4 reply_wrap" style="position:relative;">';
+                         str += '<div class="mb-4 reply_wrap" style="position:relative;">';
                          str += '<div class="reply_tool" data-index="'+reply.comment_id+'" data-identify="'+reply.member_id+'" style="font-size:18px; position:absolute; right:10px; font-weight:700; letter-spacing:3px; color:#ccc; cursor:pointer">'
                          str += '...</div>';
                          str += '<div class="reply_tool_box" style="display:none; position:absolute; top:15px; right:15px; z-index:999; box-shadow:1px 1px 5px black;">';
@@ -236,7 +236,11 @@
                          str += '</div>';
                          str += '<div class="ms-3 mb-2">';
                          str += '<div class="fw-bold">'+reply.member_id+'</div>';
-                         str += reply.content+'</div>';
+                         str += '<textarea class="comment_text col-10" style="border:none; resize:none;" readonly>'+reply.content+'</textarea>';
+                         str += '<div class="modify_btn_wrap" style="display:none;">'
+                         str += '<button class="mod_register btn-dark">등록</button><button class="mod_cancel btn-light">취소</button>'
+                         str += '</div>'
+                         str += '</div>';
                          str += '<span style="position:absolute; left:1rem; bottom:-15px; color:#ccc; font-size:12px; font-weight:400;">';
                          str += '[[${dto.regDate}]]</span>';
                          str += '</div>';
@@ -311,7 +315,60 @@
                 })
 
                 // 댓글 수정처리
-                $(".comment.area").on("click", ".tool_btn_modify", function(){
+                $(".comment_area").on("click", ".tool_btn_modify", function(){
+                    // modify 기능 활성화 시에 변경되는 CSS들
+                    $(this).parents(".reply_wrap").find(".comment_text").css("border", "1px solid #ccc").css("border-radius", "0.5px").attr("readonly", false)
+                            .parents(".reply_wrap").siblings().find(".comment_text").css("border", "none").css("border-radius", "0.5px").attr("readonly", true);
+                    $(this).parents(".reply_wrap").find(".modify_btn_wrap").css("display", "block")
+                            .parents(".reply_wrap").siblings().find(".modify_btn_wrap").css("display", "none");
+
+                    // mod 버튼 눌렀을 때의 이벤트
+                    $(this).parents(".reply_wrap").find(".mod_register").click(function(){
+
+                        // 확인 창
+                        var modConResult = confirm("댓글을 수정 하시겠습니까?");
+                        if(modConResult){ // 예
+                            // comment_text 텍스트 값을 재지정해준다
+                            var comment_text = $(this).parents(".reply_wrap").find(".comment_text").val();
+                            // ajax 관련
+                            var data = {comment_id : replyIndex, review_id : review_id, content : comment_text, member_id : member_id };
+                            var comment_id = replyIndex;
+
+                            // data 값 checking
+                            console.log(data);
+
+                            $.ajax({
+                                url :'/reviews/'+review_id+'/'+comment_id,
+                                type : "PUT",
+                                data : JSON.stringify(data),
+                                contentType :"application/json; charset = utf-8",
+                                dataType : "text",
+                                success : function(result){
+                                    console.log("result: "+result);
+                                    // self.location.reload();
+                                    getReviewReplies();
+                                },
+                                error:function(request,status,error){
+                                    console.log("CODE: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+                                }
+                            }); // ajax 끝
+
+                            // 관련 css 되돌리기
+                            $(this).parents(".reply_wrap").find(".comment_text").css("border", "none").css("border-radius", "0.5px").attr("readonly", true);
+                            $(this).parents(".reply_wrap").find(".modify_btn_wrap").css("display", "none");
+
+                        }else{ // 아니오
+                        }
+                    }) // 수정 확인 버튼 끝
+
+                    // cancel 버튼 눌렀을 때 이벤트
+                    $(this).parents(".reply_wrap").find(".mod_cancel").click(function(){
+                        // 관련 css 되돌리기
+                        $(this).parents(".reply_wrap").find(".comment_text").css("border", "none").css("border-radius", "0.5px").attr("readonly", true);
+                        $(this).parents(".reply_wrap").find(".modify_btn_wrap").css("display", "none");
+                        getReviewReplies();
+                    }) // 수정 취소 버튼 끝
+
 
                 })
 
