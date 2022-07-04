@@ -57,7 +57,7 @@
                                         <div class="bg-white rounded shadow-sm">
                                             <!-- 이미지 썸네일 -->
                                             <img    th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
-                                                    th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" alt="" class="img-fluid card-img-top">
+                                                    th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" alt="" class="img-fluid card-img-top img_sizing_list">
                                             <div class="p-4" style="position:relative;">
                                                 <span class="text-muted" style="position:absolute; left:10px; top:10px; font-size:12px;">
                                                     [[${dto.area}]]
@@ -68,7 +68,7 @@
                                                     </a>
                                                 </h5>
                                                 <!-- 글 내용 일부 미리보기 -->
-                                                <p class="small text-muted mb-0" style="width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                                <p class="small text-muted mb-0" style="width:360px; overflow:hidden;  height:30px; font-size:12px; text-overflow:ellipsis; white-space:nowrap;">
                                                     <span class="tag_delete">[[${dto.content}]]</span>
                                                 </p>
                                                 <div class="d-flex align-items-center justify-content-between rounded-pill bg-light px-3 py-2 mt-4">
@@ -97,14 +97,18 @@
                             <!-- 게시판 페이징 및 검색 영역 -->
                             <div class="board_util">
                                 <!-- pagination 틀 -->
-                                <ul>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#" >이전</a>
+                                <ul class="pagination h-100 justify-content-center align-items-center">
+                                    <li class="page-item" th:if="${result.prev}">
+                                        <a class="page-link" th:href="@{/onmom/review/list(page=${result.start -1})}" tabindex="-1">이전</a>
                                     </li>
                                     <!-- 페이징 번호 관련 li 태그 -->
-                                    <li></li>
-                                    <li>
-                                        <a class="page-link" href="#">다음</a>
+                                    <li th:class=" 'page-item '+ ${result.page == page?'active':''}" th:each = "page : ${result.pageList}">
+                                        <a class="page-link" th:href="@{/onmom/review/list(page=${page})}" tabindex="-1">
+                                            [[${page}]]
+                                        </a>
+                                    </li>
+                                    <li class="page-item" th:if="${result.next}">
+                                        <a class="page-link" th:href="@{/onmom/review/list(page = ${result.end +1})}">다음</a>
                                     </li>
                                 </ul>
                                 <!-- 검색기능 틀 -->
@@ -114,12 +118,11 @@
                                             <input type="hidden" name="page" value="1">
                                             <span class="input-group-prepend" >
                                                 <select class="custom-select search_select" name="type">
-                                                    <option value="tcwa">전체</option>
+                                                    <option value="tcw">전체</option>
                                                     <option value="tc">제목 + 내용</option>
                                                     <option value="t">제목</option>
                                                     <option value="c">내용</option>
                                                     <option value="w">작성자</option>
-                                                    <option value="a">지역</option>
                                                 </select>
                                             </span>
                                         </span>
@@ -151,6 +154,28 @@
 
                 location.href = '/onmom/review/list?area='+area;
 
+            }
+
+            //// 글 미리보기 내에 태그 노출 제거
+            // 제거할 태그들을 배열 선언
+            var contentTag = new Array("<p>", "</p>", "<strong>", "</strong>", "<ol>", "</ol>", "<ul>", "</ul>", "<li>", "</li>",
+                                        "<s>", "</s>", "<em>", "</em>");
+
+            // html 문서 내의 tag_delete 클래스 소유 태그 갯수를 Counting
+            var spanCount = $('.tag_delete').length;
+            console.log("span Counting = "+spanCount);
+
+            // 텍스트 내용 저장하는 배열 변수 선언
+            var spanText = new Array();
+
+            // 이중 for문, 첫 for문은 각각의 tag_delete 소유 span의 text를 index 순으로 배열로서 받음
+            for(var i = 0; i < spanCount; i++){
+                spanText[i] = $('.tag_delete').eq(i).text();
+                // 두번째 for문, contentTag 길이만큼 반복 동작하여 태그 텍스트 선택하여 제거한 뒤에 각각의 index 순의 span에 이를 삽입
+                for(var j = 0; j < contentTag.length; j++){
+                    spanText[i].replaceAll(contentTag[j], '');
+                    $('.tag_delete').eq(i).html(spanText[i]);
+                }
             }
 
         </script>
