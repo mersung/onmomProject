@@ -30,7 +30,8 @@ public interface ReviewBoardService {
     // 특정 글 수정
     void modify(ReviewBoardDTO reviewBoardDTO);
 
-
+    // 내가 쓴 글 불러오기
+    ReviewPageResultDTO<ReviewBoardDTO, Object[]> getMyPost(String member_id, ReviewPageRequestDTO reviewPageRequestDTO);
 
 
     default Map<String, Object> dtoToEntity(ReviewBoardDTO reviewBoardDTO) {

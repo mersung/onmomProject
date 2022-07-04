@@ -40,4 +40,14 @@ public interface ReviewBoardRepository extends JpaRepository<ReviewBoard, Long>,
             " from ReviewBoard rb left join Image i on i.review = rb " +
             " where rb.review_id = :review_id")
     List<Object[]> getReviewBoardWithAll(@Param("review_id") Long review_id);
+
+    // 멤버 아이디로 마이페이지 구현
+    @Query(value = "select rb, m_id, count(rbc) " +
+            " from ReviewBoard rb" +
+            " left join rb.member m_id" +
+            " left join ReviewBoardComment rbc ON rbc.reviewBoard = rb " +
+            " where rb.member.member_id = :member_id " +
+            " group by rb",
+            countQuery = "select count(rb) from ReviewBoard rb where rb.member.member_id = :member_id")
+    Page<Object[]> getMyPostByMember_id(@Param("member_id")String member_id, Pageable pageable);
 }

@@ -99,6 +99,61 @@
                 </li>
 
             </ul>
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">추천</th>
+                    <th scope="col">비추천</th>
+                    <th scope="col">작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each = "list : ${reviewBoardDTO.dtoList}">
+                    <td><span>[[${list.review_id}-1]]</span></td>
+
+                    <th scope="row">
+                        <a th:href="@{/onmom/reviewBoard/reviewBoardRead(review_id = ${list.review_id},
+                                page= ${reviewBoardDTO.page},
+                                type=${reviewPageRequestDTO.type} ,
+                                keyword = ${reviewPageRequestDTO.keyword})}">
+                            [[${list.title}]]
+                        </a>
+                    </th>
+                    <td><span th:text="${list.like_cnt}"></span></td>
+                    <td><span th:text="${list.hate_cnt}"></span></td>
+                    <td><span th:text="${#temporals.format(list.regDate, 'yyyy-MM-dd')}"></span></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <ul class="pagination h-100 justify-content-center align-items-center">
+
+                <li class="page-item " th:if="${reviewBoardDTO.prev}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.start -1,
+                    type=${reviewPageRequestDTO.type} ,
+                    keyword = ${reviewPageRequestDTO.keyword} )}}"
+                    >Previous</a>
+                </li>
+
+                <li th:class=" 'page-item ' + ${reviewBoardDTO.page == page?'active':''} " th:each="page: ${reviewBoardDTO.pageList}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page = ${page},
+                    type=${reviewPageRequestDTO.type} ,
+                    keyword = ${reviewPageRequestDTO.keyword} )}">
+                        [[${page}]]
+                    </a>
+                </li>
+
+                <li class="page-item" th:if="${reviewBoardDTO.next}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.end + 1},
+                    type=${reviewPageRequestDTO.type} ,
+                    keyword = ${reviewPageRequestDTO.keyword} )}">Next</a>
+                </li>
+
+            </ul>
         </div>
 
 
