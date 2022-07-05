@@ -53,10 +53,12 @@
 #
 ## 일정계획서
 ***
+[02_chart_2022_06_20.xlsx](https://github.com/ShimDaeSung1/onmomProject/files/9042501/02_chart_2022_06_20.xlsx)
 ![Onmom_Plan_2022_06_20](https://user-images.githubusercontent.com/86524081/176813061-1e41b298-d0df-479c-a78c-0f4ad3dc0825.jpg)
 #
 ## UI 설계서
 ***
+[03_UI_2022_06_30.pptx](https://github.com/ShimDaeSung1/onmomProject/files/9042512/03_UI_2022_06_30.pptx)
 ![OnmomProject_UI_page-0001](https://user-images.githubusercontent.com/86524081/176625305-48865b34-c471-4d53-8203-7cb1b67bbdae.jpg)
 ![OnmomProject_UI_page-0002](https://user-images.githubusercontent.com/86524081/176625317-0ad8bf8d-25dc-430a-86b7-fe1b24cf4cde.jpg)
 ![OnmomProject_UI_page-0003](https://user-images.githubusercontent.com/86524081/176625319-986c2c67-f9b0-4d55-b92e-0401cff8688c.jpg)
@@ -67,6 +69,7 @@
 #
 ## 네이밍룰
 ***
+[05_naming_2022_06_30.xlsx](https://github.com/ShimDaeSung1/onmomProject/files/9042517/05_naming_2022_06_30.xlsx)
 ![OnmomProject_NamingRule_page-0001](https://user-images.githubusercontent.com/86524081/176625129-8e9c07fc-69ee-43a3-94d3-bd82d41f52ba.jpg)
 ![OnmomProject_NamingRule_page-0002](https://user-images.githubusercontent.com/86524081/176625133-b154089f-59e4-4488-bde1-f74863ac76ca.jpg)
 #
