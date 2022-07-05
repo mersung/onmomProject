@@ -109,33 +109,66 @@ public class ReviewBoardController {
         return "redirect:/onmom/review/read";
     }
 
-    @PostMapping("/{review_id}/like")
-    public void likeCookie(HttpServletResponse response, Long review_id, String check_id){
-        // 쿠키 객체 생성
+    // 쿠키 생성 관련
+//    @PostMapping("/{review_id}/like")
+//    public void likeCookie(HttpServletResponse response, Long review_id, String check_id){
+//
+//        // 쿠키 객체 생성
+//        Cookie rememberLike = new Cookie("review_id", String.valueOf(review_id));
+//        Cookie rememberId = new Cookie("check_id", check_id);
+//
+//        log.info("@@@@@ID CHECKING :"+check_id+" @@@@@review_id CHECKING :"+review_id);
+//
+//        rememberLike.setPath("/");
+//        rememberLike.setMaxAge(60*60*24); // 하루
+//        rememberId.setPath("/");
+//        rememberId.setMaxAge(60*60*24); // 하루
+//
+//        response.addCookie(rememberLike);
+//        response.addCookie(rememberId);
+//    }
+
+    // 좋아요 관련
+    @ResponseBody
+    @GetMapping("/reviewBoardLike")
+    public ResponseEntity<Long> reviewBoardLike(HttpServletResponse response, PrincipalDetail principal ,Long review_id){
+
+        //// id 와 review_id Checking
+        String check_id = principal.getUsername();
+        log.info("nullCheck :"+check_id);
+
+        // 쿠키 선언
         Cookie rememberLike = new Cookie("review_id", String.valueOf(review_id));
         Cookie rememberId = new Cookie("check_id", check_id);
+        log.info("ID CHECKING :"+rememberLike+" review_id CHECKING :"+rememberId);
 
+        // 쿠키 설정
         rememberLike.setPath("/");
         rememberLike.setMaxAge(60*60*24); // 하루
         rememberId.setPath("/");
         rememberId.setMaxAge(60*60*24); // 하루
 
+        // 쿠키 생성
         response.addCookie(rememberLike);
         response.addCookie(rememberId);
-    }
 
-    @ResponseBody
-    @GetMapping("/reviewBoardLike")
-    public ResponseEntity<Long> reviewBoardLike(Long review_id){
-        service.updateLike(review_id);
+        if(rememberId.getValue() != check_id ){
+            // QUERY
+            service.updateLike(review_id);
+
+            ReviewBoardDTO reviewBoardDTO = service.get(review_id);
+
+            log.info("reviewBoardLike Checking... :"+reviewBoardDTO.getLike_cnt()+reviewBoardDTO.getHate_cnt());
+
+            return new ResponseEntity<>(reviewBoardDTO.getLike_cnt(), HttpStatus.OK);
+
+        }
 
         ReviewBoardDTO reviewBoardDTO = service.get(review_id);
-
-        log.info("reviewBoardLike Checking... :"+reviewBoardDTO.getLike_cnt()+reviewBoardDTO.getHate_cnt());
-
         return new ResponseEntity<>(reviewBoardDTO.getLike_cnt(), HttpStatus.OK);
     }
 
+    // 싫어요 관련
     @ResponseBody
     @GetMapping("/reviewBoardHate")
     public ResponseEntity<Long> reviewBoardHate(Long review_id){

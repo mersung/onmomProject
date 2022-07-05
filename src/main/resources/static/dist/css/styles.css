@@ -55,6 +55,9 @@ a{text-decoration:none !important;}
 .btn_style_sq{width:100%; height:85px; border-radius: 0.25rem;}
 
 /* 22/06/23 기준 */
+#loc_review{margin-top:50px;}
+#loc_map{margin-top:100px;}
+
 li{list-style:none;}
 .board_util{margin:0 auto;}
 .search_wrap{}
