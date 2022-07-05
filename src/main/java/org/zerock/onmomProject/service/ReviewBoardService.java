@@ -83,7 +83,7 @@ public interface ReviewBoardService {
                 .member_id(member.getMember_id())
                 .title(reviewBoard.getTitle())
                 .content(reviewBoard.getContent())
-                .like_cnt(like_cnt.longValue())
+                .like_cnt(reviewBoard.getLike_cnt())
                 .hate_cnt(reviewBoard.getHate_cnt())
                 .area(reviewBoard.getArea())
                 .regDate(reviewBoard.getRegDate())

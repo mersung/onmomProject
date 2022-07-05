@@ -124,10 +124,11 @@
 
                 <tr th:each = "reviewList : ${reviewBoardDTO.dtoList}">
                     <td><span>[[${reviewList.review_id}]]</span></td>
-
                     <th scope="row">
                         <a th:href="@{/onmom/review/read(review_id = ${reviewList.review_id},
-                                page= ${reviewBoardDTO.page} )}">
+                                page= ${reviewBoardDTO.page},
+                                type=${reviewPageRequestDTO.type} ,
+                                keyword = ${reviewPageRequestDTO.keyword})}">
                             [[${reviewList.title}]]
                         </a>
                     </th>
