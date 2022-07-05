@@ -36,16 +36,11 @@ public class FreeBoardController {
     }
 
     @GetMapping("/freeBoardList")
-    public void freeBoard_list(FreePageRequestDTO freePageRequestDTO,FreeBoardDTO dto, Model model){
+    public void freeBoard_list(FreePageRequestDTO freePageRequestDTO,Model model){
 
         log.info("list............." + freePageRequestDTO);
-        Long free_id = dto.getFree_id();
-        log.info("list............." +dto);
-
-        Integer reply_count = freeBoardService.replyCount(free_id);
 
         model.addAttribute( "result", freeBoardService.getList(freePageRequestDTO));
-        model.addAttribute( "result1",reply_count);
     }
 
     @GetMapping("/freeBoardRegister")

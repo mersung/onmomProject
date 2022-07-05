@@ -312,16 +312,10 @@
                  $("#like_box").click(function() {
 
                             console.log("!12@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                        var like = {
 
-                            free_id: free_id,
-                            like_cnt: like_cnt
-
-                        }
                     $.ajax({
                         url: '/onmom/freeBoard/freeBoardLike?free_id='+free_id,
                         type: "get",
-<!--                       dataType: 'json',-->
                         success: function(data, status) {
                             console.log(data+"Success@@@@@#####$$$$$$$$!!!!");
 
@@ -334,32 +328,22 @@
 
 <!--                실어요              -->
 
-<!--                     $(".hate_box").click(function() {-->
+                     $("#hate_box").click(function() {
 
-<!--                     var hate= {-->
-<!--                        free_id = free_id,-->
-<!--                        hate_cnt = Number($("hates_cnt").val())+1-->
+                            console.log("!12@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
-<!--                     }-->
+                        $.ajax({
+                            url: '/onmom/freeBoard/freeBoardHate?free_id='+free_id,
+                            type: "get",
+                            success: function(data, status) {
+                                console.log(data+"Success@@@@@#####$$$$$$$$!!!!");
 
-<!--                    $.ajax({-->
-<!--                        url: 'ajax_onLoad.php',-->
-<!--                        type: "post",-->
-<!--                        datatype: JSON.stringify(hate),-->
-<!--                        data: {-->
-<!--                            "no": "20220629081845"-->
-<!--                        },-->
-<!--                        success: function(data, status) {-->
+                                $("#Hates_cnt").text(data);
+                                self.location.reload();
 
-<!--                                $("#hates_cnt").text(data.hates_cnt);-->
-
-<!--                                $("#hate_cnt").val(data.hates_cnt);-->
-
-<!--                                $("#hate_cnt").text(Number($("hates_cnt").val())+1);-->
-<!--                    });-->
-
-
-
+                            }
+                        });
+                     });
 
              });
         </script>
