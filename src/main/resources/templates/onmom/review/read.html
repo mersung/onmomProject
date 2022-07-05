@@ -390,33 +390,46 @@
                 //// 좋아요 싫어요 버튼 클릭 관련 이벤트
                 // 좋아요 버튼 관련
                 $(".like_btn").click(function(){
-                    // 좋아요 버튼 Counting
                     var like_cnt = $(".like_cnt").text();
-                    console.log("like_cnt 이전 값: "+like_cnt+"/ 추천인 :"+check_id);
-                    var data = {review_id : review_id, check_id : check_id};
+                    var likeData = {
+                        review_id : review_id,
+                        like_cnt : like_cnt
+                    }
 
-
-
+                    console.log(likeData);
 
                     $.ajax({
-                        url :'/review/'+review_id+'/like',
-                        type : "POST",
-                        data : JSON.stringify(data),
-                        contentType :"application/json; charset = utf-8",
-                        dataType : "text",
-                        success : function(result){
-                            console.log("result: "+result);
-                            like_cnt++;
-                            console.log("like_cnt 증가한 값: "+like_cnt);
-                            $(".like_cnt").text(like_cnt);
-
+                        url : '/onmom/review/reviewBoardLike?review_id='+review_id,
+                        type : "get",
+                        dataType : "json",
+                        success : function(data, status){
+                            $(".like_cnt").text(data);
+                            self.location.reload();
                         },
                         error:function(request,status,error){
                             console.log("CODE: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
                         }
-                    }); // ajax 끝
+                    });
+                })
+                // 싫어요 버튼 관련
+                $(".hate_btn").click(function(){
+                    var hate_cnt = $(".hate_cnt").text();
+                    var hateData = {
+                        review_id : review_id,
+                        hate_cnt : hate_cnt
+                    }
 
+                    console.log(hateData);
 
+                    $.ajax({
+                        url : '/onmom/review/reviewBoardHate?review_id='+review_id,
+                        type : 'get',
+                        dataType : 'json',
+                        success : function(data, status){
+                            $(".hate_cnt").text(data);
+                            self.location.reload();
+                        }
+                    })
                 })
 
 

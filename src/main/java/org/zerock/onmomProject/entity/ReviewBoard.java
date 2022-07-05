@@ -26,10 +26,10 @@ public class ReviewBoard extends BaseEntity{
     @Column(length = 1000, nullable = false)
     private String content;
 
-    @ColumnDefault("'0'")
+    @Column(length = 20)
     private Long like_cnt;
 
-    @ColumnDefault("'0'")
+    @Column(length = 20)
     private Long hate_cnt;
 
     @Column(length = 50, nullable = false)
@@ -42,5 +42,12 @@ public class ReviewBoard extends BaseEntity{
 
     public void changeContent(String content){
         this.content = content;
+    }
+
+    // 좋아요 싫어요 관련 DB 설정
+    @PrePersist
+    public void prePersist(){
+        this.like_cnt = this.like_cnt == null? 0:this.like_cnt;
+        this.hate_cnt = this.hate_cnt == null? 0:this.hate_cnt;
     }
 }
