@@ -111,15 +111,18 @@ public class ReviewBoardController {
     }
 
     @PostMapping("/{review_id}/like")
-    public String likeCookie(HttpServletResponse response, Long review_id){
+    public void likeCookie(HttpServletResponse response, Long review_id, String check_id){
         // 쿠키 객체 생성
-        Cookie rememberIndex = new Cookie("review_id", String.valueOf(review_id));
+        Cookie rememberLike = new Cookie("review_id", String.valueOf(review_id));
+        Cookie rememberId = new Cookie("check_id", check_id);
 
-        rememberIndex.setPath("/");
-        rememberIndex.setMaxAge(60*60*24); // 하루
-        response.addCookie(rememberIndex);
+        rememberLike.setPath("/");
+        rememberLike.setMaxAge(60*60*24); // 하루
+        rememberId.setPath("/");
+        rememberId.setMaxAge(60*60*24); // 하루
 
-        return "redirect:/onmom/review/read";
+        response.addCookie(rememberLike);
+        response.addCookie(rememberId);
     }
 
 

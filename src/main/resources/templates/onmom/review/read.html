@@ -75,12 +75,12 @@
                                     <div class="like_btn">
                                         <img src="/img/like.png" alt="좋아요">
                                         <!-- like_cnt, default 값은 0으로 함 -->
-                                        <span class="like_cnt">0</span>
+                                        <span class="like_cnt">[[${dto.like_cnt}]]</span>
                                     </div>
                                     <div class="hate_btn">
                                         <img src="/img/dislike.png" alt="싫어요">
                                         <!-- hate_cnt, default 값은 0으로 함 -->
-                                        <span class="hate_cnt">0</span>
+                                        <span class="hate_cnt">[[${dto.hate_cnt}]]</span>
                                     </div>
                                 </div>
                             </div>
@@ -392,11 +392,31 @@
                 $(".like_btn").click(function(){
                     // 좋아요 버튼 Counting
                     var like_cnt = $(".like_cnt").text();
-                    console.log("like_cnt 이전 값: "+like_cnt);
+                    console.log("like_cnt 이전 값: "+like_cnt+"/ 추천인 :"+check_id);
+                    var data = {review_id : review_id, check_id : check_id};
 
-                    like_cnt++;
-                    console.log("like_cnt 증가한 값: "+like_cnt);
-                    $(".like_cnt").text(like_cnt);
+
+
+
+                    $.ajax({
+                        url :'/review/'+review_id+'/like',
+                        type : "POST",
+                        data : JSON.stringify(data),
+                        contentType :"application/json; charset = utf-8",
+                        dataType : "text",
+                        success : function(result){
+                            console.log("result: "+result);
+                            like_cnt++;
+                            console.log("like_cnt 증가한 값: "+like_cnt);
+                            $(".like_cnt").text(like_cnt);
+
+                        },
+                        error:function(request,status,error){
+                            console.log("CODE: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+                        }
+                    }); // ajax 끝
+
+
                 })
 
 
