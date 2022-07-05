@@ -65,6 +65,9 @@ li{list-style:none;}
 
 .register_loc{position:absolute; right:0;}
 
+/* 추천게시판 목록 이미지 사이징 */
+.img_sizing_list{max-width:415px; max-height:275px;}
+
 /* review_register 이미지 업로드 관련 css */
 .uploadResult ul {
     display: flex;

@@ -63,7 +63,10 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    [[${dto.content}]]
+                                    <!-- 텍스트 데이터 -->
+                                    <div class="text_tag_check">
+                                        [[${dto.content}]]
+                                    </div>
                                 </p>
                             </section>
                             <!-- 좋아요 싫어요 -->
@@ -146,6 +149,21 @@
         </th:block>
         <script>
             $(function(){
+                //// 글 미리보기 내에 태그 노출 제거
+                // 제거할 태그들을 배열 선언
+                var contentTag = new Array("<p>", "</p>", "<strong>", "</strong>", "<ol>", "</ol>", "<ul>", "</ul>", "<li>", "</li>",
+                                            "<s>", "</s>", "<em>", "</em>");
+
+                // 이중 for문, 첫 for문은 각각의 tag_delete 소유 span의 text를 index 순으로 배열로서 받음
+
+                var tagCheck = $('.text_tag_check').text();
+                // 두번째 for문, contentTag 길이만큼 반복 동작하여 태그 텍스트 선택하여 제거한 뒤에 각각의 index 순의 span에 이를 삽입
+                for(var j = 0; j < contentTag.length; j++){
+                    tagCheck.replaceAll(contentTag[j], '');
+                    $('.text_tag_check').html(tagCheck);
+                }
+
+
 
                 // 게시글 번호 및 작성자를 변수로 선언
                 var review_id = [[${dto.review_id}]];
