@@ -153,6 +153,23 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 
         return new ReviewPageResultDTO<>(result, fn);
     }
+
+    @Override
+    public Long updateLike(Long review_id){
+        log.info(review_id);
+
+        reviewBoardRepository.getUpdateReviewLikeCntByReview_id(review_id);
+
+        return review_id;
+    }
+
+    @Override
+    public Long updateHate(Long review_id){
+        log.info(review_id);
+        reviewBoardRepository.getUpdateReviewHateCntByReview_id(review_id);
+
+        return review_id;
+    }
 }
 
 

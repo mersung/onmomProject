@@ -14,6 +14,7 @@ public interface FreeBoardService {
 
     FreeBoardDTO get(Long free_id);
 
+    Long updateLike(Long free_id);
     FreePageResultDTO<FreeBoardDTO, Object[]> getMyPost(String member_id, FreePageRequestDTO freePageRequestDTO);
 
     void removeWithReplies(Long free_id);
