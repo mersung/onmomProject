@@ -43,4 +43,7 @@ public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long>, Sea
             countQuery = "select count(fb) from FreeBoard fb where fb.member.member_id = :member_id")
     Page<Object[]> getMyPostByMember_id(@Param("member_id")String member_id, Pageable pageable);
 
+
+    @Query(value = "UPDATE free_board SET like_cnt = like_cnt+1 WHERE free_board.free_id = free_id",nativeQuery = true)
+    Long getUpdateFreeBoardLike_cntByFree_id (Long free_id);
 }

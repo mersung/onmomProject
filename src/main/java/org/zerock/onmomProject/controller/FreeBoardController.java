@@ -2,15 +2,15 @@ package org.zerock.onmomProject.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.onmomProject.dto.FreeBoardDTO;
 import org.zerock.onmomProject.dto.FreePageRequestDTO;
+import org.zerock.onmomProject.entity.FreeBoard;
 import org.zerock.onmomProject.service.FreeBoardService;
 
 @Controller
@@ -48,6 +48,20 @@ public class FreeBoardController {
         return "redirect:/onmom/freeBoard/freeBoardList";
     }
 
+    @ResponseBody
+    @GetMapping("/freeBoardLike")
+    public ResponseEntity<Long> freeBoardReadPost(Long free_id){
+        freeBoardService.updateLike(free_id);
+
+        FreeBoardDTO freeBoardDTO = freeBoardService.get(free_id);
+
+        log.info(freeBoardDTO.getLike_cnt()+freeBoardDTO.getHate_cnt()+"!@#!@#!@#!#!@#!@#!@#!@#");
+
+        log.info(freeBoardDTO );
+
+        return new ResponseEntity<>(freeBoardDTO.getLike_cnt(), HttpStatus.OK);
+    }
+
     @GetMapping({"/freeBoardRead", "/freeBoardModify"})
     public void freeBoardRead(@ModelAttribute("requestDTO") FreePageRequestDTO freePageRequestDTO, Long free_id, Model model){
 
@@ -60,7 +74,6 @@ public class FreeBoardController {
         model.addAttribute("dto", freeBoardDTO);
 
     }
-
 
     @PostMapping("/freeBoardRemove")
     public String freeBoardRemove(long free_id, RedirectAttributes redirectAttributes){
