@@ -12,12 +12,9 @@ import org.zerock.onmomProject.entity.FreeBoard;
 import org.zerock.onmomProject.entity.Member;
 import org.zerock.onmomProject.repository.FreeBoardCommentRepository;
 import org.zerock.onmomProject.repository.FreeBoardRepository;
-import org.zerock.onmomProject.repository.MemberRepository;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -64,6 +61,17 @@ public class FreeBoardServiceImpl implements FreeBoardService {
         Object[] arr = (Object[]) result;
         return entityToDTO((FreeBoard) arr[0], (Member) arr[1], (Long) arr[2]);
     }
+
+    @Override
+    public Long updateLike(Long free_id) {
+
+        log.info(free_id);
+
+        freeBoardRepository.getUpdateFreeBoardLike_cntByFree_id(free_id);
+
+        return free_id;
+    }
+
 
     @Override
     public FreePageResultDTO<FreeBoardDTO, Object[]> getMyPost(String member_id, FreePageRequestDTO freePageRequestDTO) {
