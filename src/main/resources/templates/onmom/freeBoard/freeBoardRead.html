@@ -5,6 +5,16 @@
 
     <th:block th:fragment="content">
 
+        <style>
+            #like_box:hover{
+                cursor:pointer;
+            }
+
+            #hate_box:hover{
+                cursor:pointer;
+            }
+
+        </style>
         <article>
             <header class="mb-4">
                 <!-- 게시판 기본 타이틀 -->
@@ -70,9 +80,7 @@
 
                     <div style="text-align:center; width:auto; height:auto; display:block; float:left">
                         <div id="hate_box" class="button disabled form-group">
-                            <a href="">
                                 <img src="/img/dislike.png" alt="좋아요">
-                            </a>
                             <!-- like_cnt, default 값은 0으로 함 -->
                         </div>
                         <input type="hidden" name="hate_cnt" id="hate_cnt" th:value="0"/>
@@ -311,7 +319,7 @@
 <!--       좋아요         -->
                  $("#like_box").click(function() {
 
-                            console.log("!12@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                            console.log(free_id+"!12@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                         var like = {
 
                             free_id: free_id,
@@ -321,42 +329,30 @@
                     $.ajax({
                         url: '/onmom/freeBoard/freeBoardLike?free_id='+free_id,
                         type: "get",
-<!--                       dataType: 'json',-->
                         success: function(data, status) {
                             console.log(data+"Success@@@@@#####$$$$$$$$!!!!");
 
-                            $("#Likes_cnt").text(data);
-                            self.location.reload;
+                            $("#likes_cnt").text(data);
+                            self.location.reload();
                         }
                         });
                      });
 
 <!--                실어요              -->
 
-<!--                     $(".hate_box").click(function() {-->
+                     $("#hate_box").click(function() {
+                             console.log("HATE!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        $.ajax({
+                            url: '/onmom/freeBoard/freeBoardHate?free_id='+free_id,
+                            type: "get",
+                            success: function(data, status) {
+                                console.log(data+"Success@@@@@#####$$$$$$$$!!!!");
 
-<!--                     var hate= {-->
-<!--                        free_id = free_id,-->
-<!--                        hate_cnt = Number($("hates_cnt").val())+1-->
-
-<!--                     }-->
-
-<!--                    $.ajax({-->
-<!--                        url: 'ajax_onLoad.php',-->
-<!--                        type: "post",-->
-<!--                        datatype: JSON.stringify(hate),-->
-<!--                        data: {-->
-<!--                            "no": "20220629081845"-->
-<!--                        },-->
-<!--                        success: function(data, status) {-->
-
-<!--                                $("#hates_cnt").text(data.hates_cnt);-->
-
-<!--                                $("#hate_cnt").val(data.hates_cnt);-->
-
-<!--                                $("#hate_cnt").text(Number($("hates_cnt").val())+1);-->
-<!--                    });-->
-
+                                $("#hates_cnt").text(data);
+                                self.location.reload();
+                             }
+                         });
+                    });
 
 
 

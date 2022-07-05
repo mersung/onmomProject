@@ -6,7 +6,6 @@ import org.zerock.onmomProject.dto.MemberDTO;
 import org.zerock.onmomProject.entity.FreeBoard;
 import org.zerock.onmomProject.entity.FreeBoardComment;
 import org.zerock.onmomProject.entity.Member;
-import org.zerock.onmomProject.entity.QMember;
 
 import java.util.List;
 

@@ -77,7 +77,7 @@ public class FreeBoardRepositoryTests {
     @Test
     public void testGetBoardWithReply() {
 
-        List<Object[]> result = freeBoardRepository.getFreeBoardWithFreeBoardComment(100L);
+        List<Object[]> result = freeBoardRepository.getFreeBoardWithFreeBoardComment(1L);
 
         for (Object[] arr : result) {
             System.out.println(Arrays.toString(arr));

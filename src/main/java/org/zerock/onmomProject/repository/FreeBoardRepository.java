@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.zerock.onmomProject.dto.FreeBoardDTO;
 import org.zerock.onmomProject.entity.FreeBoard;
 import org.zerock.onmomProject.entity.Member;
 import org.zerock.onmomProject.repository.search.SearchFreeBoardRepository;
@@ -44,6 +45,12 @@ public interface FreeBoardRepository extends JpaRepository<FreeBoard, Long>, Sea
     Page<Object[]> getMyPostByMember_id(@Param("member_id")String member_id, Pageable pageable);
 
 
-    @Query(value = "UPDATE free_board SET like_cnt = like_cnt+1 WHERE free_board.free_id = free_id",nativeQuery = true)
+    @Query(value = "UPDATE free_board SET like_cnt = like_cnt+1 WHERE free_board.free_id =:free_id",nativeQuery = true)
     Long getUpdateFreeBoardLike_cntByFree_id (Long free_id);
+
+    @Query(value = "UPDATE free_board SET hate_cnt = hate_cnt+1 WHERE free_board.free_id =:free_id",nativeQuery = true)
+    Long getUpdateFreeBoardHate_cntByFree_id (Long free_id);
+
+    @Query(value = "SELECT COUNT(free_board_comment.comment_id) FROM free_board LEFT JOIN free_board_comment ON free_board_comment.board_free_id = free_board.free_id WHERE free_board.free_id =:free_id", nativeQuery = true)
+    Integer getCountFreeBoardCommentByFree_id(Long free_id);
 }

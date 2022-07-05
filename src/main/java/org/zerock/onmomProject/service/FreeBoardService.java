@@ -7,6 +7,9 @@ import org.zerock.onmomProject.dto.FreePageResultDTO;
 import org.zerock.onmomProject.entity.FreeBoard;
 import org.zerock.onmomProject.entity.Member;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.List;
+
 public interface FreeBoardService {
     Long register(FreeBoardDTO dto);
 
@@ -15,6 +18,10 @@ public interface FreeBoardService {
     FreeBoardDTO get(Long free_id);
 
     Long updateLike(Long free_id);
+
+    Long updateHate(Long free_id);
+
+    Integer replyCount(Long free_id);
     FreePageResultDTO<FreeBoardDTO, Object[]> getMyPost(String member_id, FreePageRequestDTO freePageRequestDTO);
 
     void removeWithReplies(Long free_id);

@@ -14,6 +14,7 @@ import org.zerock.onmomProject.repository.FreeBoardCommentRepository;
 import org.zerock.onmomProject.repository.FreeBoardRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.function.Function;
 
 @Service
@@ -70,6 +71,24 @@ public class FreeBoardServiceImpl implements FreeBoardService {
         freeBoardRepository.getUpdateFreeBoardLike_cntByFree_id(free_id);
 
         return free_id;
+    }
+
+    @Override
+    public Long updateHate(Long free_id) {
+        log.info(free_id);
+
+        freeBoardRepository.getUpdateFreeBoardHate_cntByFree_id(free_id);
+
+        return free_id;
+    }
+
+    @Override
+    public Integer replyCount(Long free_id) {
+
+        log.info(free_id);
+
+        Integer reply_count = freeBoardRepository.getCountFreeBoardCommentByFree_id(free_id);
+        return reply_count;
     }
 
 

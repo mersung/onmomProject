@@ -21,12 +21,31 @@ public class FreeBoardController {
 
     private final FreeBoardService freeBoardService;
 
+    @ResponseBody
+    @GetMapping("/freeBoardCnt")
+    public ResponseEntity<Integer> replyCount (Long free_id){
+
+        log.info("list............." +free_id);
+
+        Integer reply_count = freeBoardService.replyCount(free_id);
+
+        log.info(reply_count+"!@#!@#!@#!#!@#!@#!@#!@#");
+
+
+        return new ResponseEntity<>(reply_count, HttpStatus.OK);
+    }
+
     @GetMapping("/freeBoardList")
-    public void freeBoard_list(FreePageRequestDTO freePageRequestDTO, Model model){
+    public void freeBoard_list(FreePageRequestDTO freePageRequestDTO,FreeBoardDTO dto, Model model){
 
         log.info("list............." + freePageRequestDTO);
+        Long free_id = dto.getFree_id();
+        log.info("list............." +dto);
+
+        Integer reply_count = freeBoardService.replyCount(free_id);
 
         model.addAttribute( "result", freeBoardService.getList(freePageRequestDTO));
+        model.addAttribute( "result1",reply_count);
     }
 
     @GetMapping("/freeBoardRegister")
@@ -50,7 +69,7 @@ public class FreeBoardController {
 
     @ResponseBody
     @GetMapping("/freeBoardLike")
-    public ResponseEntity<Long> freeBoardReadPost(Long free_id){
+    public ResponseEntity<Long> freeBoardReadLike(Long free_id){
         freeBoardService.updateLike(free_id);
 
         FreeBoardDTO freeBoardDTO = freeBoardService.get(free_id);
@@ -62,6 +81,19 @@ public class FreeBoardController {
         return new ResponseEntity<>(freeBoardDTO.getLike_cnt(), HttpStatus.OK);
     }
 
+    @ResponseBody
+    @GetMapping("/freeBoardHate")
+    public ResponseEntity<Long> freeBoardReadHate(Long free_id){
+        freeBoardService.updateHate(free_id);
+
+        FreeBoardDTO freeBoardDTO = freeBoardService.get(free_id);
+
+        log.info(freeBoardDTO.getLike_cnt()+freeBoardDTO.getHate_cnt()+"!@#!@#!@#!#!@#!@#!@#!@#");
+
+        log.info(freeBoardDTO );
+
+        return new ResponseEntity<>(freeBoardDTO.getHate_cnt(), HttpStatus.OK);
+    }
     @GetMapping({"/freeBoardRead", "/freeBoardModify"})
     public void freeBoardRead(@ModelAttribute("requestDTO") FreePageRequestDTO freePageRequestDTO, Long free_id, Model model){
 
