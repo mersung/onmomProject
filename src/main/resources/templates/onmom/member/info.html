@@ -24,7 +24,7 @@
             </div>
 
             <div class="form-floating" style="width: 30%; padding-bottom: 3px;">
-                <input type="text" th:value="${#authentication.principal.nickname}" class="form-control" id="nickname"
+                <input type="text" th:value="${#authentication.principal.nickname}" class="form-control " id="nickname"
                        required readonly>
                 <label for="nickname">닉네임</label>
             </div>
@@ -34,8 +34,41 @@
                        required readonly>
                 <label for="regDate">가입 날짜</label>
             </div>
-            <button type="button" class="btn btn-primary">닉네임 변경</button>
 
+            <button type="button" class="btn btn-primary nickChange">닉네임 변경</button>
+            <button type="button" class="btn btn-primary nickChangeSubmit" style="display:none;">변경 확인</button>
+
+
+            <script>
+                $(function(){
+                    $(".nickChange").click(function(){
+                        $("#nickname").attr("readonly", false);
+                        $(".nickChangeSubmit").show();
+                    })
+
+                    $(".nickChangeSubmit").click(function(){
+                        var nickname = $("#nickname").val();
+                        console.log(nickname);
+                    })
+                })
+
+                $.ajax({
+                        url :'/onmom/member/' + 'info/',
+                        type : "PUT",
+                        data : JSON.stringify(nickname),
+                        contentType : "application/json; charset = utf-8",
+                        dataType : "text",
+                        success : function(result){
+                            console.log("결과 : "+result);
+                            self.location.reload();
+
+                        },
+                        error:function(request,status,error){
+                             console.log("CODE: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+                        }
+                }); // ajax 끝
+
+            </script>
 
             <span>
                 <h3 class="mt-4">내가 쓴 글</h3>

@@ -7,10 +7,6 @@ public interface MemberService {
 
     MemberDTO selectMember(String member_id);
 
-//    MemberDTO save(MemberDTO memberDTO) throws IOException;
-//    List<MemberDTO>  getListOfMember(String member_id);
-//    void modify(MemberDTO memberDTO);
-
     default Member dtoToEntity(MemberDTO dto){
         Member member = Member.builder()
                 .member_id(dto.getMember_id())
@@ -27,6 +23,5 @@ public interface MemberService {
                 .build();
         return memberDTO;
     }
-
 
 }
