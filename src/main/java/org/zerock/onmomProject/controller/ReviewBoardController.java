@@ -4,18 +4,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.onmomProject.config.PrincipalDetail;
 import org.zerock.onmomProject.dto.ReviewBoardDTO;
 import org.zerock.onmomProject.dto.ReviewPageRequestDTO;
 import org.zerock.onmomProject.service.ReviewBoardService;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @Log4j2
@@ -105,6 +107,45 @@ public class ReviewBoardController {
         redirectAttributes.addAttribute("review_id",reviewBoardDTO.getReview_id());
 
         return "redirect:/onmom/review/read";
+    }
+
+    @PostMapping("/{review_id}/like")
+    public void likeCookie(HttpServletResponse response, Long review_id, String check_id){
+        // 쿠키 객체 생성
+        Cookie rememberLike = new Cookie("review_id", String.valueOf(review_id));
+        Cookie rememberId = new Cookie("check_id", check_id);
+
+        rememberLike.setPath("/");
+        rememberLike.setMaxAge(60*60*24); // 하루
+        rememberId.setPath("/");
+        rememberId.setMaxAge(60*60*24); // 하루
+
+        response.addCookie(rememberLike);
+        response.addCookie(rememberId);
+    }
+
+    @ResponseBody
+    @GetMapping("/reviewBoardLike")
+    public ResponseEntity<Long> reviewBoardLike(Long review_id){
+        service.updateLike(review_id);
+
+        ReviewBoardDTO reviewBoardDTO = service.get(review_id);
+
+        log.info("reviewBoardLike Checking... :"+reviewBoardDTO.getLike_cnt()+reviewBoardDTO.getHate_cnt());
+
+        return new ResponseEntity<>(reviewBoardDTO.getLike_cnt(), HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @GetMapping("/reviewBoardHate")
+    public ResponseEntity<Long> reviewBoardHate(Long review_id){
+        service.updateHate(review_id);
+
+        ReviewBoardDTO reviewBoardDTO = service.get(review_id);
+
+        log.info("reviewBoardHate Checking... :"+reviewBoardDTO.getHate_cnt()+reviewBoardDTO.getLike_cnt());
+
+        return new ResponseEntity<>(reviewBoardDTO.getHate_cnt(), HttpStatus.OK);
     }
 
 

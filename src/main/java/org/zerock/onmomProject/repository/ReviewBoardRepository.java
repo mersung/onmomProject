@@ -50,4 +50,13 @@ public interface ReviewBoardRepository extends JpaRepository<ReviewBoard, Long>,
             " group by rb",
             countQuery = "select count(rb) from ReviewBoard rb where rb.member.member_id = :member_id")
     Page<Object[]> getMyPostByMember_id(@Param("member_id")String member_id, Pageable pageable);
+
+    // 좋아요 싫어요 기능
+    @Query(value = "UPDATE review_board SET like_cnt = like_cnt+1 WHERE review_board.review_id = review_id", nativeQuery = true)
+    Long getUpdateReviewLikeCntByReview_id(Long review_id);
+
+    @Query(value = "UPDATE review_board SET hate_cnt = hate_cnt+1 WHERE review_board.review_id = review_id", nativeQuery = true)
+    Long getUpdateReviewHateCntByReview_id(Long review_id);
+
+
 }

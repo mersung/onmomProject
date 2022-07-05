@@ -33,6 +33,11 @@ public interface ReviewBoardService {
     // 내가 쓴 글 불러오기
     ReviewPageResultDTO<ReviewBoardDTO, Object[]> getMyPost(String member_id, ReviewPageRequestDTO reviewPageRequestDTO);
 
+    // 좋아요
+    Long updateLike(Long review_id);
+    // 싫어요
+    Long updateHate(Long review_id);
+
 
     default Map<String, Object> dtoToEntity(ReviewBoardDTO reviewBoardDTO) {
 
