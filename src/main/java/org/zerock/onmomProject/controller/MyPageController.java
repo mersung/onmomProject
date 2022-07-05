@@ -45,6 +45,7 @@ public class MyPageController {
         reviewPageRequestDTO.setSize(5);
         model.addAttribute("reviewBoardDTO", reviewBoardService.getMyPost(member_id, reviewPageRequestDTO));
 
+
         return "onmom/member/info";
     }
 
