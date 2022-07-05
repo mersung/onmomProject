@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.onmomProject.dto.FreeBoardDTO;
 import org.zerock.onmomProject.dto.FreePageRequestDTO;
+import org.zerock.onmomProject.entity.FreeBoard;
 import org.zerock.onmomProject.service.FreeBoardService;
 
 @Controller
@@ -47,6 +48,20 @@ public class FreeBoardController {
         return "redirect:/onmom/freeBoard/freeBoardList";
     }
 
+    @ResponseBody
+    @GetMapping("/freeBoardLike")
+    public ResponseEntity<Long> freeBoardReadPost(Long free_id){
+        freeBoardService.updateLike(free_id);
+
+        FreeBoardDTO freeBoardDTO = freeBoardService.get(free_id);
+
+        log.info(freeBoardDTO.getLike_cnt()+freeBoardDTO.getHate_cnt()+"!@#!@#!@#!#!@#!@#!@#!@#");
+
+        log.info(freeBoardDTO );
+
+        return new ResponseEntity<>(freeBoardDTO.getLike_cnt(), HttpStatus.OK);
+    }
+
     @GetMapping({"/freeBoardRead", "/freeBoardModify"})
     public void freeBoardRead(@ModelAttribute("requestDTO") FreePageRequestDTO freePageRequestDTO, Long free_id, Model model){
 
@@ -58,16 +73,6 @@ public class FreeBoardController {
 
         model.addAttribute("dto", freeBoardDTO);
 
-    }
-
-    @PostMapping({"/freeBoardRead"})
-    public ResponseEntity<Long> freeBoardReadPost(@RequestBody FreeBoardDTO freeBoardDTO){
-        log.info("$$$$$%%%%%%%%%%%%%%%%%%%%");
-        log.info(freeBoardDTO);
-
-        Long free_id = freeBoardService.register(freeBoardDTO);
-
-        return new ResponseEntity<>(free_id, HttpStatus.OK);
     }
 
     @PostMapping("/freeBoardRemove")
