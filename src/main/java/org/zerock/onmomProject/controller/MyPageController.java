@@ -26,6 +26,8 @@ public class MyPageController {
 
     private final ReviewBoardService reviewBoardService;
 
+//    private final MyPageService myPageService;
+
     @GetMapping("/info")
     public String memberInfo(Model model, Principal principal,
                              FreePageRequestDTO freePageRequestDTO,

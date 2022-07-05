@@ -19,7 +19,6 @@ public class MemberRepositoryTests {
     @Autowired
     private MemberService memberService;
 
-    //
 
     @Test
     public void insertMembers() {
@@ -59,6 +58,7 @@ public class MemberRepositoryTests {
             System.out.println(member);
         }
     }
+
     @Test
     public void testUpdate(){
 

@@ -22,6 +22,7 @@ public interface FreeBoardService {
     Long updateHate(Long free_id);
 
     Integer replyCount(Long free_id);
+
     FreePageResultDTO<FreeBoardDTO, Object[]> getMyPost(String member_id, FreePageRequestDTO freePageRequestDTO);
 
     void removeWithReplies(Long free_id);

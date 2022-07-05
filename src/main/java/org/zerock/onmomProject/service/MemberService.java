@@ -5,6 +5,7 @@ import org.zerock.onmomProject.entity.Member;
 
 public interface MemberService {
 
+
     MemberDTO selectMember(String member_id);
 
     default Member dtoToEntity(MemberDTO dto){
