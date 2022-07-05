@@ -75,7 +75,7 @@ public interface ReviewBoardService {
     }
 
 
-
+    // 마이페이지 구현을 위한 entityToDTO
     default ReviewBoardDTO entityToDTO(ReviewBoard reviewBoard, Member member, Long like_cnt){
 
         ReviewBoardDTO reviewBoardDTO = ReviewBoardDTO.builder()
