@@ -26,10 +26,11 @@ public class MyPageController {
 
     private final ReviewBoardService reviewBoardService;
 
-    @GetMapping("/info")
+//    private final MyPageService myPageService;
+
+    @GetMapping("/freeBoardInfo")
     public String memberInfo(Model model, Principal principal,
-                             FreePageRequestDTO freePageRequestDTO,
-                             ReviewPageRequestDTO reviewPageRequestDTO, HttpSession session) {
+                             FreePageRequestDTO freePageRequestDTO) {
 
         String member_id = principal.getName();
 
@@ -41,15 +42,27 @@ public class MyPageController {
         freePageRequestDTO.setSize(5);
         model.addAttribute("freeBoardDTO", freeBoardService.getMyPost(member_id, freePageRequestDTO));
 
+        return "onmom/member/freeBoardInfo";
+    }
+
+    @GetMapping("/reviewBoardInfo")
+    public String reviewBoardInfo(Model model, Principal principal,
+                                  ReviewPageRequestDTO reviewPageRequestDTO) {
+
+
+        String member_id = principal.getName();
+
+        // 회원 정보 불러오기
+        MemberDTO memberInfo = memberService.selectMember(member_id);
+        model.addAttribute("memberInfo", memberInfo);
+
         // 내가 쓴 글 추천게시판 게시물 불러오기
-        reviewPageRequestDTO.setSize(5);
+        reviewPageRequestDTO.setSize(10);
         model.addAttribute("reviewBoardDTO", reviewBoardService.getMyPost(member_id, reviewPageRequestDTO));
 
 
-        return "onmom/member/info";
+        return "onmom/member/reviewBoardInfo";
     }
-
-
 }
 
 

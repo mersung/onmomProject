@@ -87,8 +87,9 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
         log.info(free_id);
 
-        Integer reply_count = freeBoardRepository.getCountFreeBoardCommentByFree_id(free_id);
-        return reply_count;
+        Integer replyCount = freeBoardRepository.getCountFreeBoardCommentByFree_id(free_id);
+
+        return replyCount;
     }
 
 
@@ -105,22 +106,6 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
         return new FreePageResultDTO<>(result, fn);
     }
-
-    // 내가 쓴 글 불러오기
-//    @Override
-//    public FreeBoardDTO getMyPost(String member_id) {
-//        log.info("===================================");
-//        log.info(member_id);
-//
-//        Object result = freeBoardRepository.getMyPostByMember_id(member_id);
-//        Object[] arr = (Object[])result;
-//        FreeBoard entity = (FreeBoard)arr[1];
-//        Member entity_2 = (Member)arr[0];
-//
-//        log.info(entity);
-//        return entityToDTO(entity, entity_2, entity.getLike_cnt());
-//
-//    }
 
 
     @Transactional

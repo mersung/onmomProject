@@ -76,14 +76,13 @@
                                 page= ${result.page},
                                 type=${freePageRequestDTO.type} ,
                                 keyword = ${freePageRequestDTO.keyword})}">
-                            [[${dto.title}]] ---------------- [<b th:text="${result1}"></b>]
+                                <input type="hidden" name="free_id" th:value="${dto.free_id}" />
+                            [[${dto.title}]] ---------------- [<b th:text="${dto.replyCount}"></b>]
                             </a>
                         </td>
                         <td>[[${dto.member_id}]]</td>
                         <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
                     </tr>
-
-
 
                     </tbody>
                 </table>
@@ -134,15 +133,16 @@
             </div>
         </div>
         </section>
-            <script th:inline="javascript">
+
+            <script>
 
             var msg = [[${msg}]];
 
-<!--            console.log(msg);-->
+            console.log(msg);
 
-<!--            if(msg){-->
-<!--                $(".modal").modal();-->
-<!--            }-->
+            if(msg){
+                $(".modal").modal();
+            }
             var searchForm = $("#searchForm");
 
             $('.btn-search').click(function(e){
@@ -156,18 +156,7 @@
                 searchForm.empty().submit();
 
             });
-            $(document).ready(function(){
 
-                   $.ajax({
-                        url: '/onmom/freeBoard/freeBoardCnt?free_id='+free_id,
-                        type: "get",
-                        success: function(data, status) {
-                            console.log(data+"Success@@@@@#####$$$$$$$$!!!!");
-
-                            self.location.reload();
-                        }
-                   });
-            });
         </script>
 
 

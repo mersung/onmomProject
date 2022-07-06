@@ -22,6 +22,7 @@ public interface FreeBoardService {
     Long updateHate(Long free_id);
 
     Integer replyCount(Long free_id);
+
     FreePageResultDTO<FreeBoardDTO, Object[]> getMyPost(String member_id, FreePageRequestDTO freePageRequestDTO);
 
     void removeWithReplies(Long free_id);
@@ -41,13 +42,14 @@ public interface FreeBoardService {
                 .build();
         return freeBoard;
     }
-    default FreeBoardDTO entityToDTO(FreeBoard freeBoard, Member member, Long like_cnt) {
+    default FreeBoardDTO entityToDTO(FreeBoard freeBoard, Member member, Long replyCount) {
 
         FreeBoardDTO freeBoardDTO = FreeBoardDTO.builder()
                 .free_id(freeBoard.getFree_id())
                 .member_id(member.getMember_id())
                 .title(freeBoard.getTitle())
                 .content(freeBoard.getContent())
+                .replyCount(replyCount.intValue())
                 .like_cnt(freeBoard.getLike_cnt())
                 .hate_cnt(freeBoard.getHate_cnt())
                 .regDate(freeBoard.getRegDate())
