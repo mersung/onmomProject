@@ -4,12 +4,13 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <!-- 마이페이지 전체 wrap -->
-        <div class="container px-5 my-5 myPage_post">
+        <div class="container px-5 my-5 review_post">
             <!-- 마이페이지 타이틀 -->
             <h1 class="mt-4">
                 <div class="board_title">
                     <h1>마이 페이지</h1>
                 </div>
+
             </h1>
 
             <span>
@@ -45,6 +46,7 @@
 
             <h5>자유 게시판</h5>
 
+
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -61,7 +63,9 @@
                         <td><span>[[${freeList.free_id}]]</span></td>
                         <th scope="row">
                             <a th:href="@{/onmom/freeBoard/freeBoardRead(free_id = ${freeList.free_id},
-                                page= ${freeBoardDTO.page} )}">
+                                page= ${freeBoardDTO.page},
+                                type=${freePageRequestDTO.type} ,
+                                keyword = ${freePageRequestDTO.keyword})}">
                                 [[${freeList.title}]]
                             </a>
                         </th>
@@ -78,20 +82,26 @@
 
             <ul class="pagination h-100 justify-content-center align-items-center">
 
-                <li class="page-item" th:if="${freeBoardDTO.prev}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.start -1)}" tabindex="-1">
+                <li class="page-item " th:if="${freeBoardDTO.prev}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.start -1,
+                    type=${freePageRequestDTO.type} ,
+                    keyword = ${freePageRequestDTO.keyword} )}" tabindex="-1">
                         Previous
                     </a>
                 </li>
 
                 <li th:class=" 'page-item ' + ${freeBoardDTO.page == page?'active':''} " th:each="page: ${freeBoardDTO.pageList}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page = ${page})}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page = ${page},
+                    type=${freePageRequestDTO.type} ,
+                    keyword = ${freePageRequestDTO.keyword} )}">
                         [[${page}]]
                     </a>
                 </li>
 
                 <li class="page-item" th:if="${freeBoardDTO.next}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.end + 1})}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.end + 1},
+                    type=${freePageRequestDTO.type} ,
+                    keyword = ${freePageRequestDTO.keyword} )}">
                         Next
                     </a>
                 </li>
@@ -135,24 +145,31 @@
             <ul class="pagination h-100 justify-content-center align-items-center">
 
                 <li class="page-item " th:if="${reviewBoardDTO.prev}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.start -1)}" tabindex="-1">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.start -1,
+                    type=${reviewPageRequestDTO.type} ,
+                    keyword = ${reviewPageRequestDTO.keyword} )}" tabindex="-1">
                     Previous
                     </a>
                 </li>
 
                 <li th:class=" 'page-item ' + ${reviewBoardDTO.page == page?'active':''} " th:each="page: ${reviewBoardDTO.pageList}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page = ${page})}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page = ${page},
+                    type=${reviewPageRequestDTO.type} ,
+                    keyword = ${reviewPageRequestDTO.keyword} )}">
                         [[${page}]]
                     </a>
                 </li>
 
                 <li class="page-item" th:if="${reviewBoardDTO.next}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.end + 1})}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.end + 1},
+                    type=${reviewPageRequestDTO.type} ,
+                    keyword = ${reviewPageRequestDTO.keyword} )}">
                         Next
                     </a>
                 </li>
 
             </ul>
+        </div>
 
         </div>
     </th:block>
