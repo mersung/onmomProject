@@ -96,6 +96,7 @@
                                 <a class="btn btn-dark btn_style" th:href="@{/onmom/review/list}">목록</a>
                             </div>
                         </article>
+                        <p style="font-size:25px; font-weight:bold;">댓글</p>
                         <hr style="height:1.2px;" />
                         <!-- 댓글 section 영역-->
                         <section>
@@ -234,6 +235,7 @@
                         // reply 관련 태그 삽입
                         $.each(arr, function(idx, reply){
                          console.log(reply);
+
 
                          str += '<div class="mb-4 reply_wrap" style="position:relative;">';
                          str += '<div class="reply_tool" data-index="'+reply.comment_id+'" data-identify="'+reply.member_id+'" style="font-size:18px; position:absolute; right:10px; font-weight:700; letter-spacing:3px; color:#ccc; cursor:pointer">'
@@ -398,19 +400,22 @@
 
                     console.log(likeData);
 
+                    // 좋아요 버튼 cnt
                     $.ajax({
                         url : '/onmom/review/reviewBoardLike?review_id='+review_id,
-                        type : "get",
+                        type : "GET",
                         dataType : "json",
                         success : function(data, status){
                             $(".like_cnt").text(data);
-                            self.location.reload();
+                            //self.location.reload();
                         },
                         error:function(request,status,error){
                             console.log("CODE: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
                         }
                     });
+
                 })
+
                 // 싫어요 버튼 관련
                 $(".hate_btn").click(function(){
                     var hate_cnt = $(".hate_cnt").text();
@@ -421,6 +426,7 @@
 
                     console.log(hateData);
 
+                    // 싫어요 버튼 cnt
                     $.ajax({
                         url : '/onmom/review/reviewBoardHate?review_id='+review_id,
                         type : 'get',
