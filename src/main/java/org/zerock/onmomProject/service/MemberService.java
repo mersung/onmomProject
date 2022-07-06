@@ -5,11 +5,8 @@ import org.zerock.onmomProject.entity.Member;
 
 public interface MemberService {
 
-    MemberDTO selectMember(String member_id);
 
-//    MemberDTO save(MemberDTO memberDTO) throws IOException;
-//    List<MemberDTO>  getListOfMember(String member_id);
-//    void modify(MemberDTO memberDTO);
+    MemberDTO selectMember(String member_id);
 
     default Member dtoToEntity(MemberDTO dto){
         Member member = Member.builder()
@@ -27,6 +24,5 @@ public interface MemberService {
                 .build();
         return memberDTO;
     }
-
 
 }

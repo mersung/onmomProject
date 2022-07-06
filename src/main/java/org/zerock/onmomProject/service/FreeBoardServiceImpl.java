@@ -14,6 +14,7 @@ import org.zerock.onmomProject.repository.FreeBoardCommentRepository;
 import org.zerock.onmomProject.repository.FreeBoardRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.function.Function;
 
 @Service
@@ -72,6 +73,25 @@ public class FreeBoardServiceImpl implements FreeBoardService {
         return free_id;
     }
 
+    @Override
+    public Long updateHate(Long free_id) {
+        log.info(free_id);
+
+        freeBoardRepository.getUpdateFreeBoardHate_cntByFree_id(free_id);
+
+        return free_id;
+    }
+
+    @Override
+    public Integer replyCount(Long free_id) {
+
+        log.info(free_id);
+
+        Integer replyCount = freeBoardRepository.getCountFreeBoardCommentByFree_id(free_id);
+
+        return replyCount;
+    }
+
 
     @Override
     public FreePageResultDTO<FreeBoardDTO, Object[]> getMyPost(String member_id, FreePageRequestDTO freePageRequestDTO) {
@@ -86,22 +106,6 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
         return new FreePageResultDTO<>(result, fn);
     }
-
-    // 내가 쓴 글 불러오기
-//    @Override
-//    public FreeBoardDTO getMyPost(String member_id) {
-//        log.info("===================================");
-//        log.info(member_id);
-//
-//        Object result = freeBoardRepository.getMyPostByMember_id(member_id);
-//        Object[] arr = (Object[])result;
-//        FreeBoard entity = (FreeBoard)arr[1];
-//        Member entity_2 = (Member)arr[0];
-//
-//        log.info(entity);
-//        return entityToDTO(entity, entity_2, entity.getLike_cnt());
-//
-//    }
 
 
     @Transactional

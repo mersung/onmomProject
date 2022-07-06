@@ -21,20 +21,24 @@
                 <input type="email" th:value="${#authentication.principal.username}" class="form-control" id="email"
                        required readonly>
                 <label for="email">이메일</label>
-            </div>
+             </div>
 
-            <div class="form-floating" style="width: 30%; padding-bottom: 3px;">
-                <input type="text" th:value="${#authentication.principal.nickname}" class="form-control" id="nickname"
-                       required readonly>
-                <label for="nickname">닉네임</label>
-            </div>
+<!--            <div class="form-floating" style="width: 30%; padding-bottom: 3px;">-->
+<!--                <input type="text" th:value="${#authentication.principal.nickname}" class="form-control " id="nickname"-->
+<!--                       required readonly>-->
+<!--                <label for="nickname">닉네임</label>-->
+<!--            </div>-->
 
             <div class="form-floating" style="width: 30%; padding-bottom: 3px">
                 <input type="text" th:value="${#temporals.format(memberInfo.regDate, 'yyyy-MM-dd')}" class="form-control" id="regDate"
                        required readonly>
                 <label for="regDate">가입 날짜</label>
             </div>
-            <button type="button" class="btn btn-primary nickChange">닉네임 변경</button>
+
+<!--            <button type="button" class="btn btn-primary nickChange">닉네임 변경</button>-->
+<!--            <button type="button" class="btn btn-primary nickChangeSubmit" style="display:none;">변경 확인</button>-->
+
+
 
             <span>
                 <h3 class="mt-4">내가 쓴 글</h3>
@@ -55,19 +59,21 @@
                 </thead>
                 <tbody>
 
-                    <tr th:each = "list : ${freeBoardDTO.dtoList}">
-                        <td><span>[[${list.free_id}]]</span></td>
+                    <tr th:each = "freeList : ${freeBoardDTO.dtoList}">
+                        <td><span>[[${freeList.free_id}]]</span></td>
                         <th scope="row">
-                            <a th:href="@{/onmom/freeBoard/freeBoardRead(free_id = ${list.free_id},
-                                page= ${freeBoardDTO.page},
-                                type=${freePageRequestDTO.type} ,
-                                keyword = ${freePageRequestDTO.keyword})}">
-                                [[${list.title}]]
+                            <a th:href="@{/onmom/freeBoard/freeBoardRead(free_id = ${freeList.free_id},
+                                page= ${freeBoardDTO.page})}">
+                                [[${freeList.title}]]
                             </a>
                         </th>
-                        <td><span th:text="${list.like_cnt}"></span></td>
-                        <td><span th:text="${list.hate_cnt}"></span></td>
-                        <td><span th:text="${#temporals.format(list.regDate, 'yyyy-MM-dd')}"></span></td>
+                        <td><span>
+                        [[${freeList.like_cnt}]]
+                    </span></td>
+                        <td><span>
+                        [[${freeList.hate_cnt}]]
+                    </span></td>
+                        <td><span th:text="${#temporals.format(freeList.regDate, 'yyyy-MM-dd')}"></span></td>
                     </tr>
                 </tbody>
             </table>
@@ -75,25 +81,19 @@
             <ul class="pagination h-100 justify-content-center align-items-center">
 
                 <li class="page-item " th:if="${freeBoardDTO.prev}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.start -1,
-                    type=${freePageRequestDTO.type} ,
-                    keyword = ${freePageRequestDTO.keyword} )}" tabindex="-1">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.start -1)}" tabindex="-1">
                         Previous
                     </a>
                 </li>
 
                 <li th:class=" 'page-item ' + ${freeBoardDTO.page == page?'active':''} " th:each="page: ${freeBoardDTO.pageList}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page = ${page},
-                    type=${freePageRequestDTO.type} ,
-                    keyword = ${freePageRequestDTO.keyword} )}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page = ${page})}">
                         [[${page}]]
                     </a>
                 </li>
 
                 <li class="page-item" th:if="${freeBoardDTO.next}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.end + 1},
-                    type=${freePageRequestDTO.type} ,
-                    keyword = ${freePageRequestDTO.keyword} )}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.end + 1} )}">
                         Next
                     </a>
                 </li>
@@ -114,18 +114,22 @@
                 </thead>
                 <tbody>
 
-                <tr th:each = "list : ${reviewBoardDTO.dtoList}">
-                    <td><span>[[${list.review_id}]]</span></td>
+                <tr th:each = "reviewList : ${reviewBoardDTO.dtoList}">
+                    <td><span>[[${reviewList.review_id}]]</span></td>
 
                     <th scope="row">
-                        <a th:href="@{/onmom/review/read(review_id = ${list.review_id},
+                        <a th:href="@{/onmom/review/read(review_id = ${reviewList.review_id},
                                 page= ${reviewBoardDTO.page} )}">
-                            [[${list.title}]]
+                            [[${reviewList.title}]]
                         </a>
                     </th>
-                    <td><span th:text="${list.like_cnt}"></span></td>
-                    <td><span th:text="${list.hate_cnt}"></span></td>
-                    <td><span th:text="${#temporals.format(list.regDate, 'yyyy-MM-dd')}"></span></td>
+                    <td><span>
+                        [[${reviewList.like_cnt}]]
+                    </span></td>
+                    <td><span>
+                        [[${reviewList.hate_cnt}]]
+                    </span></td>
+                    <td><span th:text="${#temporals.format(reviewList.regDate, 'yyyy-MM-dd')}"></span></td>
                 </tr>
                 </tbody>
             </table>
@@ -133,25 +137,19 @@
             <ul class="pagination h-100 justify-content-center align-items-center">
 
                 <li class="page-item " th:if="${reviewBoardDTO.prev}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.start -1,
-                    type=${reviewPageRequestDTO.type} ,
-                    keyword = ${reviewPageRequestDTO.keyword} )}" tabindex="-1">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.start -1)}" tabindex="-1">
                     Previous
                     </a>
                 </li>
 
                 <li th:class=" 'page-item ' + ${reviewBoardDTO.page == page?'active':''} " th:each="page: ${reviewBoardDTO.pageList}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page = ${page},
-                    type=${reviewPageRequestDTO.type} ,
-                    keyword = ${reviewPageRequestDTO.keyword} )}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page = ${page} )}">
                         [[${page}]]
                     </a>
                 </li>
 
                 <li class="page-item" th:if="${reviewBoardDTO.next}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.end + 1},
-                    type=${reviewPageRequestDTO.type} ,
-                    keyword = ${reviewPageRequestDTO.keyword} )}">
+                    <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.end + 1})}">
                         Next
                     </a>
                 </li>

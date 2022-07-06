@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.zerock.onmomProject.entity.Member;
 import org.zerock.onmomProject.entity.MemberRole;
 
 import javax.persistence.Column;
@@ -27,12 +28,6 @@ public class MemberDTO {
     private MemberRole role;
 
     private LocalDateTime regDate;
-
-    /////////////////////////////////////////////////////내가 쓴 글 수정중
-    // N관계의 테이블을 list 형태로 선언
-    private List<FreeBoardDTO> memberFreeBoardList;
-    private List<ReviewBoardDTO> memberReviewBoardList;
-    /////////////////////////////////////////////////////내가 쓴 글 수정중
 
 
 

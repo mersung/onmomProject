@@ -22,9 +22,11 @@ public class FreeBoardController {
     private final FreeBoardService freeBoardService;
 
     @GetMapping("/freeBoardList")
-    public void freeBoard_list(FreePageRequestDTO freePageRequestDTO, Model model){
+    public void freeBoard_list(FreePageRequestDTO freePageRequestDTO,Long free_id,Model model){
 
         log.info("list............." + freePageRequestDTO);
+
+        Integer replyCount = freeBoardService.replyCount(free_id);
 
         model.addAttribute( "result", freeBoardService.getList(freePageRequestDTO));
     }
@@ -44,13 +46,12 @@ public class FreeBoardController {
         log.info("BNO: " + free_id);
 
         redirectAttributes.addFlashAttribute("msg", free_id);
-
         return "redirect:/onmom/freeBoard/freeBoardList";
     }
 
     @ResponseBody
     @GetMapping("/freeBoardLike")
-    public ResponseEntity<Long> freeBoardReadPost(Long free_id){
+    public ResponseEntity<Long> freeBoardReadLike(Long free_id){
         freeBoardService.updateLike(free_id);
 
         FreeBoardDTO freeBoardDTO = freeBoardService.get(free_id);
@@ -60,6 +61,20 @@ public class FreeBoardController {
         log.info(freeBoardDTO );
 
         return new ResponseEntity<>(freeBoardDTO.getLike_cnt(), HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @GetMapping("/freeBoardHate")
+    public ResponseEntity<Long> freeBoardReadHate(Long free_id){
+        freeBoardService.updateHate(free_id);
+
+        FreeBoardDTO freeBoardDTO = freeBoardService.get(free_id);
+
+        log.info(freeBoardDTO.getLike_cnt()+freeBoardDTO.getHate_cnt()+"!@#!@#!@#!#!@#!@#!@#!@#");
+
+        log.info(freeBoardDTO );
+
+        return new ResponseEntity<>(freeBoardDTO.getHate_cnt(), HttpStatus.OK);
     }
 
     @GetMapping({"/freeBoardRead", "/freeBoardModify"})
