@@ -18,6 +18,8 @@ import org.zerock.onmomProject.service.ReviewBoardService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
+import java.sql.Array;
 
 @Controller
 @Log4j2
@@ -131,15 +133,14 @@ public class ReviewBoardController {
     // 좋아요 관련
     @ResponseBody
     @GetMapping("/reviewBoardLike")
-    public ResponseEntity<Long> reviewBoardLike(HttpServletResponse response, PrincipalDetail principal ,Long review_id){
+    public ResponseEntity<Long> reviewBoardLike(HttpServletResponse response, Principal principal, Long review_id){
+        log.info(principal.getName());
 
-        //// id 와 review_id Checking
-        String check_id = principal.getUsername();
-        log.info("nullCheck :"+check_id);
 
-        // 쿠키 선언
+
+
         Cookie rememberLike = new Cookie("review_id", String.valueOf(review_id));
-        Cookie rememberId = new Cookie("check_id", check_id);
+        Cookie rememberId = new Cookie("check_id", principal.getName());
         log.info("ID CHECKING :"+rememberLike+" review_id CHECKING :"+rememberId);
 
         // 쿠키 설정
@@ -148,12 +149,16 @@ public class ReviewBoardController {
         rememberId.setPath("/");
         rememberId.setMaxAge(60*60*24); // 하루
 
-        // 쿠키 생성
-        response.addCookie(rememberLike);
-        response.addCookie(rememberId);
 
-        if(rememberId.getValue() != check_id ){
-            // QUERY
+
+        // rememberLike 쿠키의 값과 현재 review_id 값 & rememberId 쿠키의 값과 현재 로그인한 유저의 name 값이 같지 않을 때
+        // updateLike 가 실행된다
+        if(rememberId.getValue() != principal.getName() || rememberId.getValue() == null){
+            // 쿠키 생성
+            response.addCookie(rememberLike);
+            response.addCookie(rememberId);
+
+            // updateLike 관련 실행
             service.updateLike(review_id);
 
             ReviewBoardDTO reviewBoardDTO = service.get(review_id);
@@ -163,7 +168,7 @@ public class ReviewBoardController {
             return new ResponseEntity<>(reviewBoardDTO.getLike_cnt(), HttpStatus.OK);
 
         }
-
+        log.info("!!UPDATELIKE NOT ACTIVATE!!");
         ReviewBoardDTO reviewBoardDTO = service.get(review_id);
         return new ResponseEntity<>(reviewBoardDTO.getLike_cnt(), HttpStatus.OK);
     }
