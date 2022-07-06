@@ -87,8 +87,9 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
         log.info(free_id);
 
-        Integer reply_count = freeBoardRepository.getCountFreeBoardCommentByFree_id(free_id);
-        return reply_count;
+        Integer replyCount = freeBoardRepository.getCountFreeBoardCommentByFree_id(free_id);
+
+        return replyCount;
     }
 
 

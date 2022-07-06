@@ -21,24 +21,12 @@ public class FreeBoardController {
 
     private final FreeBoardService freeBoardService;
 
-    @ResponseBody
-    @GetMapping("/freeBoardCnt")
-    public ResponseEntity<Integer> replyCount (Long free_id){
-
-        log.info("list............." +free_id);
-
-        Integer reply_count = freeBoardService.replyCount(free_id);
-
-        log.info(reply_count+"!@#!@#!@#!#!@#!@#!@#!@#");
-
-
-        return new ResponseEntity<>(reply_count, HttpStatus.OK);
-    }
-
     @GetMapping("/freeBoardList")
-    public void freeBoard_list(FreePageRequestDTO freePageRequestDTO,Model model){
+    public void freeBoard_list(FreePageRequestDTO freePageRequestDTO,Long free_id,Model model){
 
         log.info("list............." + freePageRequestDTO);
+
+        Integer replyCount = freeBoardService.replyCount(free_id);
 
         model.addAttribute( "result", freeBoardService.getList(freePageRequestDTO));
     }
@@ -58,7 +46,6 @@ public class FreeBoardController {
         log.info("BNO: " + free_id);
 
         redirectAttributes.addFlashAttribute("msg", free_id);
-
         return "redirect:/onmom/freeBoard/freeBoardList";
     }
 
@@ -89,6 +76,7 @@ public class FreeBoardController {
 
         return new ResponseEntity<>(freeBoardDTO.getHate_cnt(), HttpStatus.OK);
     }
+
     @GetMapping({"/freeBoardRead", "/freeBoardModify"})
     public void freeBoardRead(@ModelAttribute("requestDTO") FreePageRequestDTO freePageRequestDTO, Long free_id, Model model){
 

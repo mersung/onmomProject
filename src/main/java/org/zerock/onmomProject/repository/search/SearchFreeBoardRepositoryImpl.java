@@ -69,7 +69,7 @@ public class SearchFreeBoardRepositoryImpl extends QuerydslRepositorySupport imp
         jpqlQuery.leftJoin(member).on(freeBoard.member.eq(member));
         jpqlQuery.leftJoin(freeBoardComment).on(freeBoardComment.board.eq(freeBoard));
 
-        JPQLQuery<Tuple> tuple = jpqlQuery.select(freeBoard, member, freeBoard.like_cnt);
+        JPQLQuery<Tuple> tuple = jpqlQuery.select(freeBoard, member, freeBoardComment.count());
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         BooleanExpression expression = freeBoard.free_id.gt(0L);
