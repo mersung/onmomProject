@@ -102,17 +102,17 @@
 #
 ## 주요기능
 ***
-### 로그인, 마이페이지
+### 로그인
     구글 로그인을 이용합니다.
     로그인 시 게시글 등록과 댓글 등록이 가능합니다.
-
 https://user-images.githubusercontent.com/86524081/177472500-6371d6ed-49b9-49ee-8b0a-9976bcecdea0.mp4
-
+#
+### 마이페이지
     마이페이지에서는 "내 프로필" 및 "내가 쓴 글"을 확인합니다.
 #
 ### 공지사항
     추천게시판 및 자유게시판 이용수칙을 확인합니다.
-![Onmom_notice](https://user-images.githubusercontent.com/86524081/177073888-9c946497-d1b9-48a9-8cd4-315179d168fe.gif)
+https://user-images.githubusercontent.com/86524081/177473820-dcfd3ee5-17d9-435a-a1d1-b64d4fa69704.mp4
 #
 ### 추천게시판
     회원들이 헬스장 후기를 작성하는 게시판입니다.
@@ -132,18 +132,19 @@ https://user-images.githubusercontent.com/86524081/177472500-6371d6ed-49b9-49ee-
 #
 ### 헬스장 지도
     서울시 헬스장 위치를 확인합니다.
-![Onmom_Map01](https://user-images.githubusercontent.com/86524081/177085479-82e14832-97b7-438e-b39a-fd4bf758fafe.gif)
-
+https://user-images.githubusercontent.com/86524081/177473897-1f147800-3d27-4498-8597-66e28e9aacb4.mp4
+    
     검색을 통해 헬스장 위치를 확인합니다.
-![Onmom_Map02](https://user-images.githubusercontent.com/86524081/177085492-e8369942-c78e-4c31-84bc-7cda54d2c057.gif)
+https://user-images.githubusercontent.com/86524081/177473949-868aaaa6-06f3-47bd-b287-d617e6178cf0.mp4
+
 #
 ### 회원들과 채팅
     사이트 접속자들과 자유롭게 채팅을 할 수 있습니다.
-![Onmom_chatBlue](https://user-images.githubusercontent.com/86524081/177072336-c10aa028-3fd6-446f-8dac-2c228807aee6.gif)
+https://user-images.githubusercontent.com/86524081/177474001-cbec45a7-52f7-447b-8fe7-10b4944f6819.mp4
 #
 ### 상담원과 채팅
     사이트 이용시 문의사항은 상담원과 채팅을 통해 문의합니다.
-![Onmom_chatGreen](https://user-images.githubusercontent.com/86524081/177070487-3637b153-1ed0-49d6-a9b1-52429f7c8e57.gif)
+https://user-images.githubusercontent.com/86524081/177474044-c9007a9c-8878-4bad-9569-ff91106e59be.mp4
 
 
 #
