@@ -13,7 +13,6 @@ import java.util.List;
 public interface FreeBoardCommentRepository extends JpaRepository<FreeBoardComment, Long> {
 
 
-
     @Modifying
     @Query("delete from FreeBoardComment fbc where fbc.board.free_id = :free_id")
     void deleteByFree_id(Long free_id);
