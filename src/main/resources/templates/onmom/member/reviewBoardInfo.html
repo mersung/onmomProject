@@ -10,24 +10,23 @@
                 <div class="board_title">
                     <h1>마이 페이지</h1>
                 </div>
-
             </h1>
 
             <span>
                 <h3>내 프로필</h3>
             </span>
 
-             <div class="form-floating" style="width: 30%; padding-bottom: 3px">
+            <div class="form-floating" style="width: 30%; padding-bottom: 3px">
                 <input type="email" th:value="${#authentication.principal.username}" class="form-control" id="email"
                        required readonly>
                 <label for="email">이메일</label>
-             </div>
+            </div>
 
-<!--            <div class="form-floating" style="width: 30%; padding-bottom: 3px;">-->
-<!--                <input type="text" th:value="${#authentication.principal.nickname}" class="form-control " id="nickname"-->
-<!--                       required readonly>-->
-<!--                <label for="nickname">닉네임</label>-->
-<!--            </div>-->
+            <!--            <div class="form-floating" style="width: 30%; padding-bottom: 3px;">-->
+            <!--                <input type="text" th:value="${#authentication.principal.nickname}" class="form-control " id="nickname"-->
+            <!--                       required readonly>-->
+            <!--                <label for="nickname">닉네임</label>-->
+            <!--            </div>-->
 
             <div class="form-floating" style="width: 30%; padding-bottom: 3px">
                 <input type="text" th:value="${#temporals.format(memberInfo.regDate, 'yyyy-MM-dd')}" class="form-control" id="regDate"
@@ -35,72 +34,23 @@
                 <label for="regDate">가입 날짜</label>
             </div>
 
-<!--            <button type="button" class="btn btn-primary nickChange">닉네임 변경</button>-->
-<!--            <button type="button" class="btn btn-primary nickChangeSubmit" style="display:none;">변경 확인</button>-->
-
-
+            <!--            <button type="button" class="btn btn-primary nickChange">닉네임 변경</button>-->
+            <!--            <button type="button" class="btn btn-primary nickChangeSubmit" style="display:none;">변경 확인</button>-->
 
             <span>
                 <h3 class="mt-4">내가 쓴 글</h3>
             </span>
 
-            <h5>자유 게시판</h5>
-
-
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">번호</th>
-                        <th scope="col">제목</th>
-                        <th scope="col">추천</th>
-                        <th scope="col">비추천</th>
-                        <th scope="col">작성일</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    <tr th:each = "freeList : ${freeBoardDTO.dtoList}">
-                        <td><span>[[${freeList.free_id}]]</span></td>
-                        <th scope="row">
-                            <a th:href="@{/onmom/freeBoard/freeBoardRead(free_id = ${freeList.free_id},
-                                page= ${freeBoardDTO.page})}">
-                                [[${freeList.title}]]
-                            </a>
-                        </th>
-                        <td><span>
-                        [[${freeList.like_cnt}]]
-                    </span></td>
-                        <td><span>
-                        [[${freeList.hate_cnt}]]
-                    </span></td>
-                        <td><span th:text="${#temporals.format(freeList.regDate, 'yyyy-MM-dd')}"></span></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <ul class="pagination h-100 justify-content-center align-items-center">
-
-                <li class="page-item " th:if="${freeBoardDTO.prev}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.start -1)}" tabindex="-1">
-                        Previous
-                    </a>
+            <ul class="nav nav-tabs">
+                <li>
+                    <a href="/onmom/member/freeBoardInfo">자유게시판</a>
+                    <a href="/onmom/member/reviewBoardInfo">추천게시판</a>
                 </li>
-
-                <li th:class=" 'page-item ' + ${freeBoardDTO.page == page?'active':''} " th:each="page: ${freeBoardDTO.pageList}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page = ${page})}">
-                        [[${page}]]
-                    </a>
-                </li>
-
-                <li class="page-item" th:if="${freeBoardDTO.next}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page= ${freeBoardDTO.end + 1} )}">
-                        Next
-                    </a>
-                </li>
-
             </ul>
 
-            <h5>추천 게시판</h5>
+            <br>
+
+            <h5>추천게시판</h5>
 
             <table class="table table-striped">
                 <thead>
@@ -116,7 +66,6 @@
 
                 <tr th:each = "reviewList : ${reviewBoardDTO.dtoList}">
                     <td><span>[[${reviewList.review_id}]]</span></td>
-
                     <th scope="row">
                         <a th:href="@{/onmom/review/read(review_id = ${reviewList.review_id},
                                 page= ${reviewBoardDTO.page} )}">
@@ -138,7 +87,7 @@
 
                 <li class="page-item " th:if="${reviewBoardDTO.prev}">
                     <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.start -1)}" tabindex="-1">
-                    Previous
+                        Previous
                     </a>
                 </li>
 
@@ -153,12 +102,8 @@
                         Next
                     </a>
                 </li>
-
             </ul>
-        </div>
-
         </div>
     </th:block>
 </th:block>
-
 </html>
