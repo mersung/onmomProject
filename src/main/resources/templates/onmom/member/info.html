@@ -23,18 +23,22 @@
                 <label for="email">이메일</label>
             </div>
 
-            <div class="form-floating" style="width: 30%; padding-bottom: 3px;">
-                <input type="text" th:value="${#authentication.principal.nickname}" class="form-control" id="nickname"
-                       required readonly>
-                <label for="nickname">닉네임</label>
-            </div>
+<!--            <div class="form-floating" style="width: 30%; padding-bottom: 3px;">-->
+<!--                <input type="text" th:value="${#authentication.principal.nickname}" class="form-control " id="nickname"-->
+<!--                       required readonly>-->
+<!--                <label for="nickname">닉네임</label>-->
+<!--            </div>-->
 
             <div class="form-floating" style="width: 30%; padding-bottom: 3px">
                 <input type="text" th:value="${#temporals.format(memberInfo.regDate, 'yyyy-MM-dd')}" class="form-control" id="regDate"
                        required readonly>
                 <label for="regDate">가입 날짜</label>
             </div>
-            <button type="button" class="btn btn-primary nickChange">닉네임 변경</button>
+
+<!--            <button type="button" class="btn btn-primary nickChange">닉네임 변경</button>-->
+<!--            <button type="button" class="btn btn-primary nickChangeSubmit" style="display:none;">변경 확인</button>-->
+
+
 
             <span>
                 <h3 class="mt-4">내가 쓴 글</h3>
@@ -55,19 +59,23 @@
                 </thead>
                 <tbody>
 
-                    <tr th:each = "list : ${freeBoardDTO.dtoList}">
-                        <td><span>[[${list.free_id}]]</span></td>
+                    <tr th:each = "freeList : ${freeBoardDTO.dtoList}">
+                        <td><span>[[${freeList.free_id}]]</span></td>
                         <th scope="row">
-                            <a th:href="@{/onmom/freeBoard/freeBoardRead(free_id = ${list.free_id},
+                            <a th:href="@{/onmom/freeBoard/freeBoardRead(free_id = ${freeList.free_id},
                                 page= ${freeBoardDTO.page},
                                 type=${freePageRequestDTO.type} ,
                                 keyword = ${freePageRequestDTO.keyword})}">
-                                [[${list.title}]]
+                                [[${freeList.title}]]
                             </a>
                         </th>
-                        <td><span th:text="${list.like_cnt}"></span></td>
-                        <td><span th:text="${list.hate_cnt}"></span></td>
-                        <td><span th:text="${#temporals.format(list.regDate, 'yyyy-MM-dd')}"></span></td>
+                        <td><span>
+                        [[${freeList.like_cnt}]]
+                    </span></td>
+                        <td><span>
+                        [[${freeList.hate_cnt}]]
+                    </span></td>
+                        <td><span th:text="${#temporals.format(freeList.regDate, 'yyyy-MM-dd')}"></span></td>
                     </tr>
                 </tbody>
             </table>
@@ -114,18 +122,23 @@
                 </thead>
                 <tbody>
 
-                <tr th:each = "list : ${reviewBoardDTO.dtoList}">
-                    <td><span>[[${list.review_id}]]</span></td>
-
+                <tr th:each = "reviewList : ${reviewBoardDTO.dtoList}">
+                    <td><span>[[${reviewList.review_id}]]</span></td>
                     <th scope="row">
-                        <a th:href="@{/onmom/review/read(review_id = ${list.review_id},
-                                page= ${reviewBoardDTO.page} )}">
-                            [[${list.title}]]
+                        <a th:href="@{/onmom/review/read(review_id = ${reviewList.review_id},
+                                page= ${reviewBoardDTO.page},
+                                type=${reviewPageRequestDTO.type} ,
+                                keyword = ${reviewPageRequestDTO.keyword})}">
+                            [[${reviewList.title}]]
                         </a>
                     </th>
-                    <td><span th:text="${list.like_cnt}"></span></td>
-                    <td><span th:text="${list.hate_cnt}"></span></td>
-                    <td><span th:text="${#temporals.format(list.regDate, 'yyyy-MM-dd')}"></span></td>
+                    <td><span>
+                        [[${reviewList.like_cnt}]]
+                    </span></td>
+                    <td><span>
+                        [[${reviewList.hate_cnt}]]
+                    </span></td>
+                    <td><span th:text="${#temporals.format(reviewList.regDate, 'yyyy-MM-dd')}"></span></td>
                 </tr>
                 </tbody>
             </table>
