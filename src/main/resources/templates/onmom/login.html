@@ -6,9 +6,43 @@
       <!-- 타임리프용 토큰 처리 -->
       <form class="form-signin" method="post" th:action="@{/login}">
       </form>
-      <h2 class="form-signin-heading">구글 계정으로 로그인</h2><table class="table table-striped">
-      <tr><td><a href="/oauth2/authorization/google">Google</a></td></tr>
-    </table>
+      <div>
+        <h1>온몸 로그인<span class="fw-light text-muted sub_title">구글 계정으로 로그인 가능합니다.</span></h1>
+      </div>
+
+      <div class="login">
+        <hr>
+        <h2 class="title">구글 로그인</h2>
+        <h5 class="sub-title">온몸을 위한 온몸</h5>
+        <br>
+        <div class="g-login">
+          <a href="/oauth2/authorization/google">
+            <img src="/img/btn_google.png"  width="300px">
+          </a>
+        </div>
+
+        <hr>
+      </div>
+
+
+      <style>
+        .login {
+            width: 500px;
+            margin: 100px auto auto auto;
+        }
+        .title{
+            text-align: center;
+        }
+        .sub-title{
+            text-align: center;
+        }
+        .g-login{
+            text-align: center;
+        }
+
+    </style>
+
+
     </div>
   </th:block>
 </th:block>
