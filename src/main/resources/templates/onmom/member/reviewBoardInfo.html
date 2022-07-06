@@ -22,11 +22,11 @@
                 <label for="email">이메일</label>
             </div>
 
-            <!--            <div class="form-floating" style="width: 30%; padding-bottom: 3px;">-->
-            <!--                <input type="text" th:value="${#authentication.principal.nickname}" class="form-control " id="nickname"-->
-            <!--                       required readonly>-->
-            <!--                <label for="nickname">닉네임</label>-->
-            <!--            </div>-->
+            <div class="form-floating" style="width: 30%; padding-bottom: 3px;">
+                <input type="text" th:value="${#authentication.principal.nickname}" class="form-control " id="nickname"
+                       required readonly>
+                <label for="nickname">닉네임</label>
+            </div>
 
             <div class="form-floating" style="width: 30%; padding-bottom: 3px">
                 <input type="text" th:value="${#temporals.format(memberInfo.regDate, 'yyyy-MM-dd')}" class="form-control" id="regDate"
@@ -34,8 +34,8 @@
                 <label for="regDate">가입 날짜</label>
             </div>
 
-            <!--            <button type="button" class="btn btn-primary nickChange">닉네임 변경</button>-->
-            <!--            <button type="button" class="btn btn-primary nickChangeSubmit" style="display:none;">변경 확인</button>-->
+            <button type="button" class="btn btn-primary nickChange">닉네임 변경</button>
+            <button type="button" class="btn btn-primary nickChangeSubmit" style="display:none;">변경 확인</button>
 
             <span>
                 <h3 class="mt-4">내가 쓴 글</h3>
@@ -86,19 +86,19 @@
             <ul class="pagination h-100 justify-content-center align-items-center">
 
                 <li class="page-item " th:if="${reviewBoardDTO.prev}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.start -1)}" tabindex="-1">
+                    <a class="page-link" th:href="@{/onmom/member/reviewBoardInfo(page= ${reviewBoardDTO.start -1)}" tabindex="-1">
                         Previous
                     </a>
                 </li>
 
                 <li th:class=" 'page-item ' + ${reviewBoardDTO.page == page?'active':''} " th:each="page: ${reviewBoardDTO.pageList}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page = ${page} )}">
+                    <a class="page-link" th:href="@{/onmom/member/reviewBoardInfo(page = ${page} )}">
                         [[${page}]]
                     </a>
                 </li>
 
                 <li class="page-item" th:if="${reviewBoardDTO.next}">
-                    <a class="page-link" th:href="@{/onmom/member/info(page= ${reviewBoardDTO.end + 1})}">
+                    <a class="page-link" th:href="@{/onmom/member/reviewBoardInfo(page= ${reviewBoardDTO.end + 1})}">
                         Next
                     </a>
                 </li>
