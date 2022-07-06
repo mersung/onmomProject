@@ -130,7 +130,7 @@ https://user-images.githubusercontent.com/86524081/177473820-dcfd3ee5-17d9-435a-
 
     "좋아요" 순으로 게시글이 정렬됩니다.
 #
-### 헬스장 지도
+### 헬스장 지도 (KAKAO Map API)
     서울시 헬스장 위치를 확인합니다.
 https://user-images.githubusercontent.com/86524081/177473897-1f147800-3d27-4498-8597-66e28e9aacb4.mp4
     
@@ -138,11 +138,11 @@ https://user-images.githubusercontent.com/86524081/177473897-1f147800-3d27-4498-
 https://user-images.githubusercontent.com/86524081/177473949-868aaaa6-06f3-47bd-b287-d617e6178cf0.mp4
 
 #
-### 회원들과 채팅
+### 회원들과 채팅 (동글채팅 API)
     사이트 접속자들과 자유롭게 채팅을 할 수 있습니다.
 https://user-images.githubusercontent.com/86524081/177474001-cbec45a7-52f7-447b-8fe7-10b4944f6819.mp4
 #
-### 상담원과 채팅
+### 상담원과 채팅 (tawk.to API)
     사이트 이용시 문의사항은 상담원과 채팅을 통해 문의합니다.
 https://user-images.githubusercontent.com/86524081/177474044-c9007a9c-8878-4bad-9569-ff91106e59be.mp4
 
