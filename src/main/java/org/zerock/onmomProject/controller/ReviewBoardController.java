@@ -17,6 +17,7 @@ import org.zerock.onmomProject.dto.ReviewPageRequestDTO;
 import org.zerock.onmomProject.service.ReviewBoardService;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.sql.Array;
@@ -133,44 +134,46 @@ public class ReviewBoardController {
     // 좋아요 관련
     @ResponseBody
     @GetMapping("/reviewBoardLike")
-    public ResponseEntity<Long> reviewBoardLike(HttpServletResponse response, Principal principal, Long review_id){
+    public ResponseEntity<Long> reviewBoardLike(HttpServletRequest request, HttpServletResponse response, Principal principal, Long review_id){
         log.info(principal.getName());
 
+        // 쿠키 배열 cookies 선언하여 cookie들 전부 수집
+        Cookie[] cookies = request.getCookies();
 
 
+        if(cookies != null){ // cookies 가 null 이 아닐 때
+            for(Cookie c: cookies){
+                String cookieName = c.getName(); // 쿠키 명, review_id 값
+                String cookieValue = c.getValue(); // 쿠키 값, principal.getName() 값
+                log.info("cookieName = "+cookieName+"// cookieValue = "+cookieValue+"// review_id = "+review_id);
 
-        Cookie rememberLike = new Cookie("review_id", String.valueOf(review_id));
-        Cookie rememberId = new Cookie("check_id", principal.getName());
-        log.info("ID CHECKING :"+rememberLike+" review_id CHECKING :"+rememberId);
+                if(c.getName().equals(principal.getName())){
 
-        // 쿠키 설정
-        rememberLike.setPath("/");
-        rememberLike.setMaxAge(60*60*24); // 하루
-        rememberId.setPath("/");
-        rememberId.setMaxAge(60*60*24); // 하루
+                }
 
-
-
-        // rememberLike 쿠키의 값과 현재 review_id 값 & rememberId 쿠키의 값과 현재 로그인한 유저의 name 값이 같지 않을 때
-        // updateLike 가 실행된다
-        if(rememberId.getValue() != principal.getName() || rememberId.getValue() == null){
-            // 쿠키 생성
-            response.addCookie(rememberLike);
-            response.addCookie(rememberId);
-
-            // updateLike 관련 실행
-            service.updateLike(review_id);
-
-            ReviewBoardDTO reviewBoardDTO = service.get(review_id);
-
-            log.info("reviewBoardLike Checking... :"+reviewBoardDTO.getLike_cnt()+reviewBoardDTO.getHate_cnt());
-
-            return new ResponseEntity<>(reviewBoardDTO.getLike_cnt(), HttpStatus.OK);
-
+            }
         }
-        log.info("!!UPDATELIKE NOT ACTIVATE!!");
+        log.info("!!!NEW COOKIE ADD!!! NO SAME REVIEW_ID");
+//        // 쿠키 선언
+//        Cookie rememberLike = new Cookie(String.valueOf(review_id), principal.getName());
+//
+//        log.info("review_id CHECKING :"+rememberLike.getValue());
+//        // 쿠키 설정
+//        rememberLike.setPath("/");
+//        rememberLike.setMaxAge(60*60*24); // 하루
+//
+//        // 쿠키 생성
+//        response.addCookie(rememberLike);
+//        // updateLike 관련 실행
+//        service.updateLike(review_id);
+
         ReviewBoardDTO reviewBoardDTO = service.get(review_id);
+
+        log.info("reviewBoardLike Checking... :"+reviewBoardDTO.getLike_cnt()+reviewBoardDTO.getHate_cnt());
+
         return new ResponseEntity<>(reviewBoardDTO.getLike_cnt(), HttpStatus.OK);
+
+
     }
 
     // 싫어요 관련
