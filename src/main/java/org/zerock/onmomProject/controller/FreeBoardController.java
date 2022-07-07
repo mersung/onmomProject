@@ -59,37 +59,42 @@ public class FreeBoardController {
     @GetMapping("/freeBoardLike")
     public ResponseEntity<Long> freeBoardReadLike(HttpServletRequest request, HttpServletResponse response, Principal principal, Long free_id){
 
-        log.info("LoginID=" + principal.getName());
-        String Id = principal.getName();
-
-        log.info("BOARD_NO." + free_id);
-        String Bno = String.valueOf(free_id);
-
-
-        freeBoardService.updateLike(free_id);
-        //쿠키생성
-        Cookie cookie = new Cookie(Bno,Id);
-        cookie.setPath("/");
-        cookie.setMaxAge(60*60*24*7);
-        log.info("NEW CookieCookie ="+cookie);
-
+        boolean Flg1 =true;
 
         Cookie[] cookies = request.getCookies();
-        boolean Flg1 = true;
 
-        if(cookies != null){
+            for (Cookie ck : cookies) {
+                String cookieName = ck.getName(); // 쿠키 명, free_id 값
+                String cookieValue = ck.getValue(); // 쿠키 값, principal.getName() 값
+                log.info("COOKIENAME = " +cookieName);
+                log.info("String.valueOf(free_id) = " +free_id);
+                log.info("principal.getName() = " +principal.getName());
+                log.info("COOkIEVALUE = " +cookieValue);
 
-            for (Cookie ck:cookies){
-                log.info("CookieName =" + ck.getName() + "CookieValue=" + ck.getValue());
-                ArrayList <String> cookieName = new ArrayList<String>();
-                cookieName.add(ck.getName());
-                ArrayList <String> cookieValue = new ArrayList<String>();
-                cookieValue.add(ck.getValue());
+                if (cookieValue.equals(principal.getName()) && cookieName.equals(String.valueOf(free_id))) { // 쿠키명 = 아이디명 && 쿠키번호 = 글번호
+                    log.info("SAMEBnoSAMEId");
+                    Flg1 = false;
+                    break;
+                }
             }
-            for (){
-                cookieName
+        log.info("FLAG (1) = "+Flg1);
+            if (Flg1 == true) {
+                freeBoardService.updateLike(free_id);
+                Flg1 = false;
             }
-        }
+
+            log.info("FLAG (2) = "+Flg1);
+
+            if (Flg1 ==false){
+                //쿠키생성
+                Cookie cookie = new Cookie(String.valueOf(free_id),principal.getName());
+                cookie.setPath("/");
+                cookie.setMaxAge(60*60*24*7);
+                response.addCookie(cookie);
+                log.info("NEW CookieCookie ="+cookie);
+
+                Flg1 = true;
+            }
 
         FreeBoardDTO freeBoardDTO = freeBoardService.get(free_id);
 
@@ -98,9 +103,45 @@ public class FreeBoardController {
 
     @ResponseBody
     @GetMapping("/freeBoardHate")
-    public ResponseEntity<Long> freeBoardReadHate(Long free_id){
+    public ResponseEntity<Long> freeBoardReadHate(HttpServletRequest request, HttpServletResponse response, Principal principal, Long free_id){
 
-        freeBoardService.updateHate(free_id);
+        boolean Flg1 =true;
+
+        Cookie[] cookies = request.getCookies();
+
+        for (Cookie ck : cookies) {
+            String cookieName = ck.getName(); // 쿠키 명, free_id 값
+            String cookieValue = ck.getValue(); // 쿠키 값, principal.getName() 값
+            log.info("COOKIENAME = " +cookieName);
+            log.info("String.valueOf(free_id) = " +free_id);
+            log.info("principal.getName() = " +principal.getName());
+            log.info("COOkIEVALUE = " +cookieValue);
+
+            if (cookieValue.equals(principal.getName()) && cookieName.equals(String.valueOf(free_id))) { // 쿠키명 = 아이디명 && 쿠키번호 = 글번호
+                log.info("SAMEBnoSAMEId");
+                Flg1 = false;
+                break;
+            }
+        }
+        log.info("FLAG (1) = "+Flg1);
+        if (Flg1 == true) {
+           Long up = freeBoardService.updateHate(free_id);
+           log.info("##########FreeBoardService :"+up);
+           Flg1 = false;
+        }
+
+        log.info("FLAG (2) = "+Flg1);
+
+        if (Flg1 ==false){
+            //쿠키생성
+            Cookie cookie = new Cookie(String.valueOf(free_id),principal.getName());
+            cookie.setPath("/");
+            cookie.setMaxAge(60*60*24*7);
+            response.addCookie(cookie);
+            log.info("NEW CookieCookie ="+cookie);
+
+            Flg1 = true;
+        }
 
         FreeBoardDTO freeBoardDTO = freeBoardService.get(free_id);
 
