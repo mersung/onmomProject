@@ -4,106 +4,106 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
         <!-- 마이페이지 전체 wrap -->
-        <div class="container px-5 my-5 review_post">
-            <!-- 마이페이지 타이틀 -->
-            <h1 class="mt-4">
-                <div class="board_title">
-                    <h1>마이 페이지</h1>
+        <section class="py-5">
+            <div class="container px-5 my-5 review_post">
+                <!-- 마이페이지 타이틀 -->
+                <h1 class="mt-4">
+                    <div class="board_title">
+                        <h1>마이 페이지</h1>
+                    </div>
+                </h1>
+
+                <span>
+                    <h3>내 프로필</h3>
+                </span>
+
+                <div class="form-floating" style="width: 30%; padding-bottom: 3px">
+                    <input type="email" th:value="${#authentication.principal.username}" class="form-control" id="email"
+                           required readonly>
+                    <label for="email">이메일</label>
                 </div>
-            </h1>
 
-            <span>
-                <h3>내 프로필</h3>
-            </span>
+                <div class="form-floating" style="width: 30%; padding-bottom: 3px;">
+                    <input type="text" th:value="${#authentication.principal.nickname}" class="form-control " id="nickname"
+                           required readonly>
+                    <label for="nickname">닉네임</label>
+                </div>
 
-            <div class="form-floating" style="width: 30%; padding-bottom: 3px">
-                <input type="email" th:value="${#authentication.principal.username}" class="form-control" id="email"
-                       required readonly>
-                <label for="email">이메일</label>
-            </div>
+                <div class="form-floating" style="width: 30%; padding-bottom: 3px">
+                    <input type="text" th:value="${#temporals.format(memberInfo.regDate, 'yyyy-MM-dd')}" class="form-control" id="regDate"
+                           required readonly>
+                    <label for="regDate">가입 날짜</label>
+                </div>
 
-            <div class="form-floating" style="width: 30%; padding-bottom: 3px;">
-                <input type="text" th:value="${#authentication.principal.nickname}" class="form-control " id="nickname"
-                       required readonly>
-                <label for="nickname">닉네임</label>
-            </div>
+                <button type="button" class="btn btn-primary nickChange">닉네임 변경</button>
+                <button type="button" class="btn btn-primary nickChangeSubmit" style="display:none;">변경 확인</button>
 
-            <div class="form-floating" style="width: 30%; padding-bottom: 3px">
-                <input type="text" th:value="${#temporals.format(memberInfo.regDate, 'yyyy-MM-dd')}" class="form-control" id="regDate"
-                       required readonly>
-                <label for="regDate">가입 날짜</label>
-            </div>
+                <span>
+                    <h3 class="mt-4">내가 쓴 글</h3>
+                </span>
 
-            <button type="button" class="btn btn-primary nickChange">닉네임 변경</button>
-            <button type="button" class="btn btn-primary nickChangeSubmit" style="display:none;">변경 확인</button>
+                <ul class="nav nav-tabs">
+                    <li>
+                        <a href="/onmom/member/freeBoardInfo">자유게시판</a>
+                        <a href="/onmom/member/reviewBoardInfo">추천게시판</a>
+                    </li>
+                </ul>
 
-            <span>
-                <h3 class="mt-4">내가 쓴 글</h3>
-            </span>
+                <h5 style="padding-top: 15px">추천게시판</h5>
 
-            <ul class="nav nav-tabs">
-                <li>
-                    <a href="/onmom/member/freeBoardInfo">자유게시판</a>
-                    <a href="/onmom/member/reviewBoardInfo">추천게시판</a>
-                </li>
-            </ul>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">번호</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">추천</th>
+                        <th scope="col">비추천</th>
+                        <th scope="col">작성일</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
-            <br>
+                    <tr th:each = "reviewList : ${reviewBoardDTO.dtoList}">
+                        <td><span>[[${reviewList.review_id}]]</span></td>
+                        <th scope="row">
+                            <a th:href="@{/onmom/review/read(review_id = ${reviewList.review_id},
+                                    page= ${reviewBoardDTO.page} )}">
+                                [[${reviewList.title}]]
+                            </a>
+                        </th>
+                        <td><span>
+                            [[${reviewList.like_cnt}]]
+                        </span></td>
+                        <td><span>
+                            [[${reviewList.hate_cnt}]]
+                        </span></td>
+                        <td><span th:text="${#temporals.format(reviewList.regDate, 'yyyy-MM-dd')}"></span></td>
+                    </tr>
+                    </tbody>
+                </table>
 
-            <h5>추천게시판</h5>
+                <ul class="pagination h-100 justify-content-center align-items-center">
 
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">번호</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">추천</th>
-                    <th scope="col">비추천</th>
-                    <th scope="col">작성일</th>
-                </tr>
-                </thead>
-                <tbody>
-
-                <tr th:each = "reviewList : ${reviewBoardDTO.dtoList}">
-                    <td><span>[[${reviewList.review_id}]]</span></td>
-                    <th scope="row">
-                        <a th:href="@{/onmom/review/read(review_id = ${reviewList.review_id},
-                                page= ${reviewBoardDTO.page} )}">
-                            [[${reviewList.title}]]
+                    <li class="page-item " th:if="${reviewBoardDTO.prev}">
+                        <a class="page-link" th:href="@{/onmom/member/reviewBoardInfo(page= ${reviewBoardDTO.start -1)}" tabindex="-1">
+                            Previous
                         </a>
-                    </th>
-                    <td><span>
-                        [[${reviewList.like_cnt}]]
-                    </span></td>
-                    <td><span>
-                        [[${reviewList.hate_cnt}]]
-                    </span></td>
-                    <td><span th:text="${#temporals.format(reviewList.regDate, 'yyyy-MM-dd')}"></span></td>
-                </tr>
-                </tbody>
-            </table>
+                    </li>
 
-            <ul class="pagination h-100 justify-content-center align-items-center">
+                    <li th:class=" 'page-item ' + ${reviewBoardDTO.page == page?'active':''} " th:each="page: ${reviewBoardDTO.pageList}">
+                        <a class="page-link" th:href="@{/onmom/member/reviewBoardInfo(page = ${page} )}">
+                            [[${page}]]
+                        </a>
+                    </li>
 
-                <li class="page-item " th:if="${reviewBoardDTO.prev}">
-                    <a class="page-link" th:href="@{/onmom/member/reviewBoardInfo(page= ${reviewBoardDTO.start -1)}" tabindex="-1">
-                        Previous
-                    </a>
-                </li>
-
-                <li th:class=" 'page-item ' + ${reviewBoardDTO.page == page?'active':''} " th:each="page: ${reviewBoardDTO.pageList}">
-                    <a class="page-link" th:href="@{/onmom/member/reviewBoardInfo(page = ${page} )}">
-                        [[${page}]]
-                    </a>
-                </li>
-
-                <li class="page-item" th:if="${reviewBoardDTO.next}">
-                    <a class="page-link" th:href="@{/onmom/member/reviewBoardInfo(page= ${reviewBoardDTO.end + 1})}">
-                        Next
-                    </a>
-                </li>
-            </ul>
-        </div>
+                    <li class="page-item" th:if="${reviewBoardDTO.next}">
+                        <a class="page-link" th:href="@{/onmom/member/reviewBoardInfo(page= ${reviewBoardDTO.end + 1})}">
+                            Next
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
     </th:block>
 </th:block>
 </html>
