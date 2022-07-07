@@ -140,20 +140,53 @@ public class ReviewBoardController {
         // 쿠키 배열 cookies 선언하여 cookie들 전부 수집
         Cookie[] cookies = request.getCookies();
 
+        for(Cookie c: cookies){
+            String cookieName = c.getName(); // 쿠키 명, review_id 값
+            String cookieValue = c.getValue(); // 쿠키 값, principal.getName() 값
+            log.info("cookieName = "+cookieName+"// cookieValue = "+cookieValue+"// review_id = "+review_id+"// principal.getName = "+principal.getName());
 
-        if(cookies != null){ // cookies 가 null 이 아닐 때
-            for(Cookie c: cookies){
-                String cookieName = c.getName(); // 쿠키 명, review_id 값
-                String cookieValue = c.getValue(); // 쿠키 값, principal.getName() 값
-                log.info("cookieName = "+cookieName+"// cookieValue = "+cookieValue+"// review_id = "+review_id);
+            if(!cookieValue.equals(principal.getName())){ // 쿠키에 있는 ID와 principal로 불러온 ID가 같지 않다면,
+                log.info("!!!WE NEED NEW COOKIE -- CASE 1 !!!");
+                // 쿠키 선언
+                Cookie rememberLike = new Cookie(String.valueOf(review_id), principal.getName());
 
-                if(c.getName().equals(principal.getName())){
+                // 쿠키 설정
+                rememberLike.setPath("/");
+                rememberLike.setMaxAge(60*60*24); // 하루
 
-                }
+                // 쿠키 생성
+                response.addCookie(rememberLike);
+                // updateLike 관련 실행
+                service.updateLike(review_id);
+
+                break;
+
+            }else if(cookieValue.equals(principal.getName()) && !cookieName.equals(String.valueOf(review_id))){
+                // 쿠키에 principal로 불러온 ID와 같은 값이 존재하며 review 아이디와 일치하는 쿠키는 없다면
+                log.info("!!!WE NEED NEW COOKIE -- CASE 2!!!");
+                // 쿠키 선언
+                Cookie rememberLike = new Cookie(String.valueOf(review_id), principal.getName());
+
+                // 쿠키 설정
+                rememberLike.setPath("/");
+                rememberLike.setMaxAge(60*60*24); // 하루
+
+                // 쿠키 생성
+                response.addCookie(rememberLike);
+                // updateLike 관련 실행
+                service.updateLike(review_id);
+
+                break;
 
             }
+
+            log.info("!!!WE DON'T NEED NEW COOKIE -- CASE 0!!!");
+            break;
+
         }
-        log.info("!!!NEW COOKIE ADD!!! NO SAME REVIEW_ID");
+
+
+//        log.info("!!!NEW COOKIE ADD!!! NO SAME REVIEW_ID");
 //        // 쿠키 선언
 //        Cookie rememberLike = new Cookie(String.valueOf(review_id), principal.getName());
 //
@@ -169,7 +202,7 @@ public class ReviewBoardController {
 
         ReviewBoardDTO reviewBoardDTO = service.get(review_id);
 
-        log.info("reviewBoardLike Checking... :"+reviewBoardDTO.getLike_cnt()+reviewBoardDTO.getHate_cnt());
+//        log.info("reviewBoardLike Checking... :"+reviewBoardDTO.getLike_cnt()+reviewBoardDTO.getHate_cnt());
 
         return new ResponseEntity<>(reviewBoardDTO.getLike_cnt(), HttpStatus.OK);
 
