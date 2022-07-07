@@ -92,60 +92,54 @@
                                 수정 / 삭제
                             </a>
                         </th:block>
-
-                        <th:block sec:authorize="isAnonymous()">
-                            <span class="btn btn-dark btn_style replyCant">댓글 추가</span>
-                        </th:block>
-
                         <a class="btn btn-dark btn_style" th:href="@{/onmom/freeBoard/freeBoardList}">목록</a>
-
-                        <th:block sec:authorize="isAuthenticated()">
-                            <span class="btn btn-dark btn_style addReply">댓글 추가</span>
-                        </th:block>
                     </div>
 
                     <div>
-                        <div class="mt-4">
-                            <h5><span class="btn btn-dark btn_style replyCount">댓글 보기</span></h5>
-                        </div>
                         <div class="list-group replyList">
                         </div>
                     </div>
                 </article>
+                <p style="font-size:25px; font-weight:bold;">댓글</p>
                 <hr style="height:1.2px;" />
+                <!-- 댓글 section 영역 -->
+                <section>
+                    <div>
+                        <div class="card-body comment_area">
 
-                <!-- 로그인을 해야 댓글 수정이 가능하도록 처리 -->
-                <th:block sec:authorize="isAuthenticated()">
-                <div class="modal" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">댓글 등록</h5>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <input type="hidden" name="member_id" th:value="${#authentication.name}"/>
-                                    <span class="checkId" name="member_id" sec:authentication="name"></span>
-                                    <input type="hidden" name="comment_id">
-                                </div>
-                                </br>
-                                <div class="form-group">
-                                    <input class="form-control" type="text" name="content" placeholder="내용을 입력하세요...">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger replyRemove">삭제</button>
-                                <button type="button" class="btn btn-warning replyModify">수정</button>
-                                <button type="button" class="btn btn-primary replySave">저장</button>
-                                <button type="button" data-dismiss="modal" class="btn btn-outline-secondary replyClose">
-                                    Close
-                                </button>
+                        </div>
+                        <!-- 댓글 입력 창 감싸는 div -->
+                        <div class="comment_write">
+                            <!-- 댓글 작성자 ID -->
+                            <div class="member_id_wrap">
+                                <b>
+                                    <input type="hidden" name="member_id" th:value="${#authentication.name}" />
+                                    <span class="checkId" name="member_id" sec:authentication="name">
+
+                                    </span>
+                                </b>
                             </div>
                         </div>
+                        <!-- 댓글 입력 창 -->
+                        <!-- 스프링 시큐리티 인증이 됐을 경우 댓글 작성 가능 -->
+                        <th:block sec:authorize="isAuthenticated()">
+                            <form class="mb-4 comment_input">
+                                <textarea name="content" class="col-10 replyText" placeholder="올바른 댓글 문화를 만듭시다!" rows="3" style="resize:none;"></textarea>
+                                <div class="submit_btn_wrap col-2">
+                                    <button type="button" class="btn-dark btn_style_sq replyBtn">등록</button>
+                                </div>
+                            </form>
+                        </th:block>
+                        <th:block sec:authorize="isAnonymous()">
+                            <form class="mb-4 comment_input replyCant">
+                                <textarea name="content" class="col-10 replyText" rows="3" placeholder="로그인이 필요한 서비스입니다!" style="resize:none;" readonly></textarea>
+                                <div class="submit_btn_wrap col-2">
+                                    <button type="button" class="btn-dark btn_style_sq">등록</button>
+                                </div>
+                            </form>
+                        </th:block>
                     </div>
-                </div>
-                </th:block>
-
+                </section>
             </div>
         </section>
 
@@ -153,181 +147,238 @@
         <th:block sec:authorize="isAuthenticated()">
             <style>
                 .replyCant{display:none;}
-
-
-
             </style>
         </th:block>
         <script>
              $(document).ready(function() {
 
-                var free_id = [[${dto.free_id}]];
-
-                var member_id = $('input[name="member_id"]').val();
 
                 var listGroup = $(".replyList");
 
-                $(".replyCount").click(function(){
+                // 게시글 번호 및 작성자를 변수로 선언
+                var free_id = [[${dto.free_id}]];
+                var member_id = $('input[name="member_id"]').val();
+                var check_id = "[[${#authentication.name}]]";
 
-                    $.getJSON('/replies/freeBoard/'+free_id, function(arr){
+                // 댓글 권한 알림창
+                $(".replyCant").click(function(){
+                    alert("로그인이 필요한 서비스입니다!");
+                    location.href="/onmom/login";
+                });
 
-                        console.log(arr);
+                // 댓글 등록
+                $(".replyBtn").click(function(){
+                    // 댓글 빈칸 checking
+                    var checkContent = $(".replyText").val();
 
-                    })//end getJSON
+                    if(checkContent == ""){
+                        alert("댓글 내용을 입력해 주세요!");
+                        $(".replyText").focus();
+                        return false;
+                    }else{ // 댓글 내용 존재할 때 DBfh ajax 통해 전송
+                        var reply = {
+                            free_id : free_id,
+                            content : $(".replyText").val(),
+                            member_id : member_id
+                        }
 
-                })//end click
+                        console.log(reply);
 
+                        $.ajax({
+                            url : '/replies/',
+                            type : 'POST',
+                            data : JSON.stringify(reply),
+                            contentType : 'application/json; charset = utf-8',
+                            dataType : 'text',
+                            success : function(result){
+                                console.log('결과 : '+result);
+                                self.location.reload();
+                            },
+                            error:function(request,status,error){
+                                console.log("CODE : "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+                            }
+                        })
+                    }
+                }); // 댓글 등록 끝
 
-                //댓글이 추가될 영역
-                var listGroup  = $(".replyList");
-
-
-                    //날짜 처리를 위한 함수
+                function getReviewReplies(){
+                    // 시간 checking
                     function formatTime(str){
                         var date = new Date(str);
 
                         return date.getFullYear() + '/' +
-                            (date.getMonth() + 1) + '/' +
-                            date.getDate() + ' ' +
-                            date.getHours() + ':' +
-                            date.getMinutes();
+                        (date.getMonth() + 1) + '/' +
+                        date.getDate() + ' ' +
+                        date.getHours() + ':' +
+                        date.getMinutes();
                     }
 
+                    $.getJSON('/replies/freeBoard/'+free_id, function(arr){
+                        console.log(arr);
+                        var str ="";
 
-                    //특정한 게시글의 댓글을 처리하는 함수
-                    function loadJSONData() {
-                        $.getJSON('/replies/freeBoard/'+free_id, function(arr){
+                        // reply 관련 태그 삽입
+                        $.each(arr, function(idx, reply){
+                         console.log(reply);
 
-                            console.log(arr);
-
-                            var str ="";
-
-                            $('.replyCount').html(" 댓글 갯수  " + arr.length);
-
-                            $.each(arr, function(idx, reply){
-                                console.log(reply);
-                                str += '    <div class="card-body"data-comment_id="'+reply.comment_id+'">';
-                                str += '    <h5 class="card-title">'+reply.content+'</h5>';
-                                str += '    <h6 class="card-subtitle mb-2 text-muted">'+reply.member_id+'</h6>';
-                                str += '    <p class="card-text">'+ formatTime(reply.regDate) +'</p>';
-                                str += '    </div>';
-                            })
-
-                            listGroup.html(str);
+                         str += '<div class="mb-4 reply_wrap" style="position:relative;">';
+                         str += '<div class="reply_tool" data-index="'+reply.comment_id+'" data-identify="'+reply.member_id+'" style="font-size:18px; position:absolute; right:10px; font-weight:700; letter-spacing:3px; color:#ccc; cursor:pointer">'
+                         str += '...</div>';
+                         str += '<div class="reply_tool_box" style="display:none; position:absolute; top:15px; right:15px; z-index:999; box-shadow:1px 1px 5px black;">';
+                         str += '<ul style="margin:0; padding:0;">';
+                         str += '<li>';
+                         str += '<button href="#" class="tool_btn tool_btn_modify" style="border: none; text-align:center; font-size:12px; color:#0d6efd; display:block; width:70px; padding:10px 20px; border-bottom:0.5px solid #ccc; background-color:#fff;">수정';
+                         str += '</button>';
+                         str += '</li>';
+                         str += '<li>';
+                         str += '<button href="#" class="tool_btn tool_btn_remove" style="border: none; text-align:center; font-size:12px; color:#0d6efd; display:block; width:70px; padding:10px 20px; solid #ccc; background-color:#fff;">삭제';
+                         str += '</button>';
+                         str += '</li>';
+                         str += '</ul>';
+                         str += '</div>';
+                         str += '<div class="ms-3 mb-2">';
+                         str += '<div class="fw-bold">'+reply.member_id+'</div>';
+                         str += '<textarea class="comment_text col-10" style="border:none; resize:none;" readonly>'+reply.content+'</textarea>';
+                         str += '<div class="modify_btn_wrap" style="display:none;">'
+                         str += '<button class="mod_register btn-dark">등록</button><button class="mod_cancel btn-light">취소</button>'
+                         str += '</div>'
+                         str += '</div>';
+                         str += '<span style="position:absolute; left:1rem; bottom:-15px; color:#ccc; font-size:12px; font-weight:400;">';
+                         str += '[[${dto.regDate}]]</span>';
+                         str += '</div>';
+                         str += '<hr style="height:0.5px;" />';
 
                         });
+
+                        $('.comment_area').html(str);
+                });
+                }
+
+                getReviewReplies();
+
+                // 댓글 툴박스 관련
+                var replyIndex;
+                var replyIdChk;
+                $(".comment_area").on("click", ".reply_tool", function(){
+                    var reply_tool = $(this);
+                    var reply_tool_box = $(this).find(".reply_tool_box");
+
+                    replyIndex = reply_tool.data("index");
+                    replyIdChk = reply_tool.data("identify");
+                    console.log(replyIndex);
+                    console.log(replyIdChk);
+                    if(check_id == replyIdChk){
+                        $(this).siblings(".reply_tool_box").css("display", "block").parents(".reply_wrap").siblings().find(".reply_tool_box").css("display", "none");
+                    }else{
+                        alert("권한이 없습니다!");
                     }
+                })
 
-                    $(".replyCount").click(function(){
+                // 툴박스 호버 효과 처리
+                $(".comment_area").on("mouseenter", ".tool_btn", function(){
+                    $(this).css("background-color", "#000").css("color", "#fff");
+                })
+                $(".comment_area").on("mouseleave", ".tool_btn", function(){
+                    $(this).css("background-color", "#fff").css("color", "#0d6efd");
+                })
 
-                        loadJSONData();
-                    })//end click
+                // 허공 클릭 시에 열려있는 댓글 툴박스 닫기 처리
+                $(document).mouseup(function(e){
+                    var reply_tool_box = $(".reply_tool_box");
+                    if(reply_tool_box.has(e.target).length == 0){
+                        reply_tool_box.css("display", "none");
+                    }
+                })
 
-                    //모달 창
-                    var modal = $('.modal');
+                // 댓글 삭제처리
+                $(".comment_area").on("click", ".tool_btn_remove", function(){
+                    var confirmResult = confirm("댓글을 삭제하시겠습니까?");
 
-                    $(".addReply").click(function () {
-
-                        modal.modal('show');
-
-                        //댓글 입력하는 부분 초기화 시키기
-                        $('input[name="replyText"]').val('');
-                        $('input[name="member_id"]').val('');
-
-
-                        $(".modal-footer .btn").hide(); //모달 내의 모든 버튼을 안 보이도록
-                        $(".replySave, .replyClose").show(); //필요한 버튼들만 보이도록
-
-                    });
-
-                    $(".replySave").click(function() {
-
-                        var reply = {
-                            free_id: free_id,
-                            content: $('input[name="content"]').val(),
-                            member_id: member_id
-                        }
-                        console.log(reply);
+                    if(confirmResult){ // 예
+                        var reply_tool_box = $(".reply_tool_box");
+                        var comment_id = replyIndex;
+                        console.log(comment_id);
                         $.ajax({
-                            url: '/replies/',
-                            type: 'post',
-                            data:  JSON.stringify(reply),
-                            contentType: 'application/json; charset=utf-8',
-                            dataType: 'json',
-                            success: function(data){
-                                console.log(data);
-
-                                var newComment_id = parseInt(data);
-
-                                alert("새로운 댓글이 등록되었습니다.")
-                                modal.modal('hide');
-                                loadJSONData();
-                        }
-                    })
-                });
-
-                   $('.replyList').on("click", ".card-body", function(){
-
-                    var comment_id = $(this).data("comment_id");
-
-                    $("input[name='content']").val( $(this).find('.card-title').html());
-                    $("input[name='member_id']").val( $(this).find('.card-subtitle').html());
-                    $("input[name='comment_id']").val(comment_id);
-
-                    $(".modal-footer .btn").hide();
-                    $(".replyRemove, .replyModify, .replyClose").show();
-
-                    modal.modal('show');
-
-                });
-
-                $(".replyRemove").on("click", function(){
-
-                    var comment_id = $("input[name='comment_id']").val(); //모달 창에 보이는 댓글 번호 hidden처리되어 있음
-
-                    $.ajax({
-                        url: '/replies/' + comment_id,
-                        method: 'delete',
-
-                        success: function(result){
-                            console.log("result: " + result);
-                            if(result ==='success'){
-                                alert("댓글이 삭제되었습니다");
-                                modal.modal('hide');
-                                loadJSONData();
+                            url : '/replies/' + comment_id,
+                            type : 'DELETE',
+                            contentType : 'application/json; charset = utf-8;',
+                            dataType : 'text',
+                            success : function(result){
+                                console.log("result : "+result);
+                                self.location.reload();
+                                alert("해당 댓글이 삭제 되었습니다!");
                             }
-                        }
-                    })
-                });
-
-                  $(".replyModify").click(function() {
-
-                    var comment_id = $("input[name='comment_id']").val();
-
-                    var reply = {
-                        comment_id: comment_id,
-                        free_id: free_id,
-                        content: $('input[name="content"]').val(),
-                        member_id: $('input[name="member_id"]').val()
+                        }); // ajax 끝
+                        reply_tool_box.hide();
+                    }else{ // 아니오
+                        alert("취소되었습니다.");
                     }
+                })
 
-                    console.log(reply);
-                    $.ajax({
-                        url: '/replies/' + comment_id,
-                        method: 'put',
-                        data:  JSON.stringify(reply),
-                        contentType: 'application/json; charset=utf-8',
-                        success: function(result){
+                // 댓글 수정처리
+                $(".comment_area").on("click", ".tool_btn_modify", function(){
+                    // modify 기능 활성화 시에 변경되는 CSS 들
+                    $(this).parents(".reply_wrap").find(".comment_text").css("border", "1px solid #ccc").css("border-radius", "0.5px").attr("readonly", false)
+                            .parents(".reply_wrap").siblings().find(".comment_text").css("border", "none").css("border-radius", "0.5px").attr("readonly", true);
+                    $(this).parents(".reply_wrap").find(".modify_btn_wrap").css("display", "block")
+                            .parents(".reply_wrap").siblings().find(".modify_btn_wrap").css("display", "none");
 
-                            console.log("RESULT: " + result);
-
-                            if(result ==='success'){
-                                alert("댓글이 수정되었습니다");
-                                modal.modal('hide');
-                                loadJSONData();
+                    // mod 버튼 눌렀을 때의 이벤트
+                    $(this).parents(".reply_wrap").find(".mod_register").click(function(){
+                        // 확인 창
+                        var modConResult = confirm("댓글을 수정하시겠습니까?");
+                        if(modConResult){ // 예
+                            // comment_text 값을 재지정해 준다
+                            var comment_text = $(this).parents(".reply_wrap").find(".comment_text").val();
+                            //ajax 관련
+                            var data = {
+                                comment_id : replyIndex,
+                                free_id : free_id,
+                                content: comment_text,
+                                member_id : member_id
                             }
+                            var comment_id = replyIndex;
+
+                            // data 값 checking
+                            console.log(data);
+
+                            $.ajax({
+                                url : '/replies/' + comment_id,
+                                type : 'PUT',
+                                data : JSON.stringify(data),
+                                contentType : 'application/json; charset = utf-8;',
+                                dataType : 'text',
+                                success : function(result){
+                                    console.log("result : "+result);
+                                    getReviewReplies();
+                                },
+                                error:function(request,status,error){
+                                    console.log("CODE: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+                                }
+                            }); // ajax 끝
+
+                            // 관련 css 되돌리기
+                            $(this).parents(".reply_wrap").find(".comment_text").css("border", "none").css("border-radius", "0.5px").attr("readonly", true);
+                            $(this).parents(".reply_wrap").find(".modify_btn_wrap").css("display", "none");
+
+                        }else{ // 아니오
                         }
-                    });
+                    })// 수정 확인 버튼 끝
+
+                    // cancel 버튼 눌렀을 때의 이벤트
+                    $(this).parents(".reply_wrap").find(".mod_cancel").click(function(){
+                        // 관련 css 되돌리기
+                        $(this).parents(".reply_wrap").find(".comment_text").css("border", "none").css("border-radius", "0.5px").attr("readonly", true);
+                        $(this).parents(".reply_wrap").find(".modify_btn_wrap").css("display", "none");
+                        getReviewReplies();
+                    }) // 수정 취소 버튼 끝
+
+                }) // mod 버튼 클릭 이벤트 끝
+
+
+
+
+
                 });
 
 
@@ -365,29 +416,8 @@
                                 self.location.reload();
 
                             }
-                        });
-                     });
-
-                    // 댓글 권한 알림창
-                    $(".replyCant").click(function(){
-                    alert("로그인이 필요한 서비스입니다!");
-                    location.href="/onmom/login";
-                    });
-
-
-                    $(".replyClose").click(function () {
-                        console.log("모달 감추기");
-                        $('.modal').modal('hide');
-
-                    });
-
-
-             });
-
-
-
-
-
+                        })
+                     })
 
         </script>
 
