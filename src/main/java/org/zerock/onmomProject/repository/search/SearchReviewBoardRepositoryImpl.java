@@ -44,7 +44,7 @@ public class SearchReviewBoardRepositoryImpl extends QuerydslRepositorySupport i
 
         JPQLQuery<ReviewBoard> jpqlQuery = from(reviewBoard);
         jpqlQuery.leftJoin(image).on(image.review.eq(reviewBoard));
-//        jpqlQuery.leftJoin(member).on(reviewBoard.member.eq(member));
+        jpqlQuery.leftJoin(member).on(reviewBoard.member.eq(member));
 //        jpqlQuery.leftJoin(reviewBoardComment).on(reviewBoardComment.reviewBoard.eq(reviewBoard));
 
 //        JPQLQuery<Tuple> tuple = jpqlQuery.select(reviewBoard, member.member_id, reviewBoardComment.reviewBoard
