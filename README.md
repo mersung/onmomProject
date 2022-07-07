@@ -124,17 +124,18 @@ https://user-images.githubusercontent.com/86524081/177473820-dcfd3ee5-17d9-435a-
     드롭다운으로 지역을 선택합니다.
 
     MORE 클릭시 추천게시판 페이지로 이동합니다.
-https://user-images.githubusercontent.com/86524081/177734190-36156e7e-850a-42d7-bebf-7e0a711d2e4b.mp4
+https://user-images.githubusercontent.com/86524081/177734202-9fe99610-fe3d-4a37-85a2-47a360b92614.mp4
 
     로그인을 한 회원에 한해서만 글쓰기 버튼이 노출됩니다.
 
     게시글 등록, 수정, 삭제가 가능합니다.
-https://user-images.githubusercontent.com/86524081/177734199-e17b971c-863f-4822-bb1e-200f75fb66b4.mp4
+https://user-images.githubusercontent.com/86524081/177734190-36156e7e-850a-42d7-bebf-7e0a711d2e4b.mp4
 
     비회원이 댓글 등록을 시도할 경우에 로그인 페이지로 이동합니다.
 
     로그인 후 댓글 등록, 수정, 삭제가 가능합니다.
-https://user-images.githubusercontent.com/86524081/177734202-9fe99610-fe3d-4a37-85a2-47a360b92614.mp4
+https://user-images.githubusercontent.com/86524081/177734199-e17b971c-863f-4822-bb1e-200f75fb66b4.mp4
+
 
 #
 ### 자유게시판
