@@ -125,9 +125,8 @@ public class FreeBoardController {
         }
         log.info("FLAG (1) = "+Flg1);
         if (Flg1 == true) {
-           Long up = freeBoardService.updateHate(free_id);
-           log.info("##########FreeBoardService :"+up);
-           Flg1 = false;
+            freeBoardService.updateHate(free_id);
+            Flg1 = false;
         }
 
         log.info("FLAG (2) = "+Flg1);
