@@ -58,44 +58,34 @@ public class FreeBoardController {
     @GetMapping("/freeBoardLike")
     public ResponseEntity<Long> freeBoardReadLike(HttpServletRequest request, HttpServletResponse response, Principal principal, Long free_id){
 
-        log.info("로그인 아이디 =" + principal.getName());
+        log.info("LoginID=" + principal.getName());
         String Id = principal.getName();
 
-        log.info("게시판 번호 =" + free_id);
+        log.info("BOARD_NO." + free_id);
         String Bno = String.valueOf(free_id);
 
         //쿠키생성
         Cookie cookie = new Cookie(Bno,Id);
         cookie.setPath("/");
         cookie.setMaxAge(60*60*24*7);
-        log.info("NEW 쿠키쿠키 ="+cookie);
+        log.info("NEW CookieCookie ="+cookie);
 
-        response.addCookie(cookie);
+        freeBoardService.updateLike(free_id);
+
         Cookie[] cookies = request.getCookies();
 
-        for (Cookie ck:cookies){
-            log.info("쿠키 명 =" + ck.getName());
-            log.info("쿠키 값 =" + ck.getValue());
-            String cookieName = ck.getName();
-            String cookieValue = ck.getValue();
+        if (cookies != null){
 
-            if (Bno.equals(cookieName)) {
-                if (cookieValue != Id) {
-                    freeBoardService.updateLike(free_id);
-                } else if (cookieValue.equals(Id) && Bno.equals(cookieName)) {
+            for (Cookie ck:cookies){
+                log.info("CookieName =" + ck.getName());
+                log.info("CookieValue=" + ck.getValue());
+                String cookieName = ck.getName();
+                String cookieValue = ck.getValue();
 
-                    log.info("중복된 아이디입니다.");
-
-                    break;
-                }
             }
         }
 
         FreeBoardDTO freeBoardDTO = freeBoardService.get(free_id);
-
-        log.info(freeBoardDTO.getLike_cnt()+freeBoardDTO.getHate_cnt()+"!@#!@#!@#!#!@#!@#!@#!@#");
-
-        log.info(freeBoardDTO );
 
         return new ResponseEntity<>(freeBoardDTO.getLike_cnt(), HttpStatus.OK);
     }
