@@ -13,6 +13,11 @@ import org.zerock.onmomProject.dto.FreePageRequestDTO;
 import org.zerock.onmomProject.entity.FreeBoard;
 import org.zerock.onmomProject.service.FreeBoardService;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/onmom/freeBoard")
 @Log4j2
@@ -51,8 +56,40 @@ public class FreeBoardController {
 
     @ResponseBody
     @GetMapping("/freeBoardLike")
-    public ResponseEntity<Long> freeBoardReadLike(Long free_id){
-        freeBoardService.updateLike(free_id);
+    public ResponseEntity<Long> freeBoardReadLike(HttpServletRequest request, HttpServletResponse response, Principal principal, Long free_id){
+
+        log.info("로그인 아이디 =" + principal.getName());
+        String Id = principal.getName();
+
+        log.info("게시판 번호 =" + free_id);
+        String Bno = String.valueOf(free_id);
+
+        //쿠키생성
+        Cookie cookie = new Cookie(Bno,Id);
+        cookie.setPath("/");
+        cookie.setMaxAge(60*60*24*7);
+        log.info("NEW 쿠키쿠키 ="+cookie);
+
+        response.addCookie(cookie);
+        Cookie[] cookies = request.getCookies();
+
+        for (Cookie ck:cookies){
+            log.info("쿠키 명 =" + ck.getName());
+            log.info("쿠키 값 =" + ck.getValue());
+            String cookieName = ck.getName();
+            String cookieValue = ck.getValue();
+
+            if (Bno.equals(cookieName)) {
+                if (cookieValue != Id) {
+                    freeBoardService.updateLike(free_id);
+                } else if (cookieValue.equals(Id) && Bno.equals(cookieName)) {
+
+                    log.info("중복된 아이디입니다.");
+
+                    break;
+                }
+            }
+        }
 
         FreeBoardDTO freeBoardDTO = freeBoardService.get(free_id);
 

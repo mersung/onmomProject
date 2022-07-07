@@ -141,8 +141,7 @@ public class ReviewBoardController {
 
 
         String remId = null;
-
-        if(remId != principal.getName() || remId == null ){
+        if(remId != principal.getName() || principal.getName() == null ){
             service.updateLike(review_id);
         }
 
