@@ -17,6 +17,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("/onmom/freeBoard")
@@ -64,24 +65,29 @@ public class FreeBoardController {
         log.info("BOARD_NO." + free_id);
         String Bno = String.valueOf(free_id);
 
+
+        freeBoardService.updateLike(free_id);
         //쿠키생성
         Cookie cookie = new Cookie(Bno,Id);
         cookie.setPath("/");
         cookie.setMaxAge(60*60*24*7);
         log.info("NEW CookieCookie ="+cookie);
 
-        freeBoardService.updateLike(free_id);
 
         Cookie[] cookies = request.getCookies();
+        boolean Flg1 = true;
 
-        if (cookies != null){
+        if(cookies != null){
 
             for (Cookie ck:cookies){
-                log.info("CookieName =" + ck.getName());
-                log.info("CookieValue=" + ck.getValue());
-                String cookieName = ck.getName();
-                String cookieValue = ck.getValue();
-
+                log.info("CookieName =" + ck.getName() + "CookieValue=" + ck.getValue());
+                ArrayList <String> cookieName = new ArrayList<String>();
+                cookieName.add(ck.getName());
+                ArrayList <String> cookieValue = new ArrayList<String>();
+                cookieValue.add(ck.getValue());
+            }
+            for (){
+                cookieName
             }
         }
 
@@ -93,6 +99,7 @@ public class FreeBoardController {
     @ResponseBody
     @GetMapping("/freeBoardHate")
     public ResponseEntity<Long> freeBoardReadHate(Long free_id){
+
         freeBoardService.updateHate(free_id);
 
         FreeBoardDTO freeBoardDTO = freeBoardService.get(free_id);
