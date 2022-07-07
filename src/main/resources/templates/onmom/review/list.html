@@ -67,6 +67,9 @@
                                                         [[${dto.title}]]
                                                     </a>
                                                 </h5>
+                                                <span class="text-muted" style="position:absolute; right:10px; top:10px;">
+                                                    <p style="font-size:12px;">[[${dto.member_id}]]</p>
+                                                </span>
                                                 <!-- 글 내용 일부 미리보기 -->
                                                 <p class="small text-muted mb-0" style="width:360px; overflow:hidden;  height:30px; font-size:12px; text-overflow:ellipsis; white-space:nowrap;">
                                                     <span class="tag_delete">[[${dto.content}]]</span>
@@ -112,25 +115,25 @@
                                     </li>
                                 </ul>
                                 <!-- 검색기능 틀 -->
-                                <form method="get">
+                                <form action="/onmom/review/list" method="get" id="searchFormReview">
                                     <div class="search_wrap">
                                         <span>
                                             <input type="hidden" name="page" value="1">
                                             <span class="input-group-prepend" >
                                                 <select class="custom-select search_select" name="type">
-                                                    <option value="tcw">전체</option>
-                                                    <option value="tc">제목 + 내용</option>
-                                                    <option value="t">제목</option>
-                                                    <option value="c">내용</option>
-                                                    <option value="w">작성자</option>
+                                                    <option value="tcw" th:selected="${reviewPageRequestDTO.type == 'tcw'}">전체</option>
+                                                    <option value="tc" th:selected="${reviewPageRequestDTO.type == 'tc'}">제목 + 내용</option>
+                                                    <option value="t" th:selected="${reviewPageRequestDTO.type =='t'}">제목</option>
+                                                    <option value="c" th:selected="${reviewPageRequestDTO.type == 'c'}">내용</option>
+                                                    <option value="w" th:selected="${reviewPageRequestDTO.type == 'w'}">작성자</option>
                                                 </select>
                                             </span>
                                         </span>
                                         <span class="container-fluid" style="padding-left:0.1rem; padding-right:0.1rem;">
-                                            <input name="keyword" style="max-width:250px; width:100%;">
+                                            <input name="keyword" th:value="${reviewPageRequestDTO.keyword}" style="max-width:250px; width:100%;">
                                         </span>
                                         <span class="input-group-append search_btn_wrap">
-                                            <button type="button" class="btn btn-dark">검색</button>
+                                            <button type="button" class="btn btn-dark btn-search">검색</button>
                                             <button type="button" class="btn btn-clear">초기화</button>
                                         </span>
                                     </div>
@@ -177,6 +180,13 @@
                     $('.tag_delete').eq(i).html(spanText[i]);
                 }
             }
+
+            var searchForm = $('#searchFormReview');
+            $('.btn-search').click(function(e){
+
+                searchForm.submit();
+
+            });
 
         </script>
     </th:block>

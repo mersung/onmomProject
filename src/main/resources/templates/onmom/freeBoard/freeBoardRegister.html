@@ -4,29 +4,94 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
     <th:block th:fragment="content">
-        <!-- 자유게시판 전체 wrap -->
-        <section class="py-5">
+        <!-- Page Content-->
+        <section class="py-5 post_content">
             <div class="container px-5 my-5 review_post">
-        <h1 class="mt-4">게시글 등록</h1>
+                <div class="row gx-5">
+                    <div class="container-fluid">
+                        <!-- Post content-->
+                        <article>
+                            <!-- form 태그 시작 -->
+                            <form id="form" th:action="@{/onmom/freeBoard/freeBoardRegister}" th:method="post">
 
-        <form th:action="@{/onmom/freeBoard/freeBoardRegister}" th:method="post">
-            <div class="form-group">
-                <label >제목</label>
-                <input type="text" class="form-control" name="title" placeholder="제목을 입력하세요...">
-            </div>
-            <div class="form-group">
-                <label >내용</label>
-                <textarea class="form-control" rows="5" name="content" placeholder="내용을 입력하세요..."></textarea>
-            </div>
-            <div class="form-group">
-                <label >글쓴이</label>
-                <input type="email" class="form-control" name="member_id" th:value="${#authentication.name}" placeholder="글쓴이" readonly>
-            </div>
+                                <!-- Post header-->
+                                <header class="mb-4">
+                                    <!-- 게시판 기본 타이틀 -->
+                                    <div class="board_title">
+                                        <h1>자유 게시판<span class="fw-light text-muted sub_title">글 등록</span></h1>
+                                    </div>
+                                </header>
 
-            <button type="submit" class="btn btn-primary">등록</button>
-        </form>
+                                <!-- 글쓴이-->
+                                <hr/>
+                                <div class="text-muted mb-2 post_detail">
+                                    <div class="post_write col-3">
+                                        <p class="mb-0 fw-bold text-dark">글쓴이</p>
+                                            <input type="hidden" class="form-control" name="member_id"
+                                                   th:value="${#authentication.name}">
+                                        <span>[[${#authentication.name}]]</span>
+                                    </div>
+                                </div>
+                                <hr/>
+
+                                <!-- input hidden 타입이 삽입 -->
+                                <div class="box"></div>
+
+                                <!-- 글 제목-->
+                                <section class="mb-3">
+                                    <!-- 글 작성 textarea -->
+                                    <p class="fs-5 mb-4">
+                                        <input type="text" class="form-control" name="title" placeholder="제목을 입력하세요...">
+                                    </p>
+                                </section>
+
+                                <!-- 글 내용-->
+                                <section class="mb-3">
+                                    <!-- 글 작성 textarea -->
+                                    <p class="fs-5 mb-4">
+                                        <textarea class="form-control" rows="25" name="content"
+                                                  placeholder="내용을 입력하세요..."></textarea>
+                                    </p>
+                                </section>
+
+                                <!-- 등록 버튼 -->
+                                <div class="btn_wrap">
+                                    <button type="submit" class="btn btn-primary">등록</button>
+                                </div>
+
+                            </form>
+                            <!-- form 태그 끝 -->
+                        </article>
+                    </div>
+                </div>
             </div>
         </section>
+
+        </div>
+        </section>
+
+        <!--                <section class="py-5">-->
+        <!--                    <div class="container px-5 my-5 review_post">-->
+        <!--                <h1 class="mt-4">게시글 등록</h1>-->
+
+        <!--                <form th:action="@{/onmom/freeBoard/freeBoardRegister}" th:method="post">-->
+        <!--                    <div class="form-group">-->
+        <!--                        <label >제목</label>-->
+        <!--                        <input type="text" class="form-control" name="title" placeholder="제목을 입력하세요...">-->
+        <!--                    </div>-->
+        <!--                    <div class="form-group">-->
+        <!--                        <label >내용</label>-->
+        <!--                        <textarea class="form-control" rows="5" name="content" placeholder="내용을 입력하세요..."></textarea>-->
+        <!--                    </div>-->
+        <!--                    <div class="form-group">-->
+        <!--                        <label >글쓴이</label>-->
+        <!--                        <input type="email" class="form-control" name="member_id" th:value="${#authentication.name}" placeholder="글쓴이" readonly>-->
+        <!--                    </div>-->
+
+        <!--                    <button type="submit" class="btn btn-primary">등록</button>-->
+        <!--                </form>-->
+        <!--                    </div>-->
+        <!--                </section>-->
 
     </th:block>
 
