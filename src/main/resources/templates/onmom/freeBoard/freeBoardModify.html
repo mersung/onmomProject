@@ -4,50 +4,139 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
     <th:block th:fragment="content">
+        <!-- Page Content-->
+        <section class="py-5 post_content" th:if="${#authentication.name.equals(dto.member_id)}">
+            <div class="container px-5 my-5 review_post">
+                <div class="row gx-5">
+                    <div class="container-fluid">
+                        <!-- Post content-->
+                        <article>
+                            <!-- form 태그 시작 -->
+                            <form id="form" th:action="@{/onmom/freeBoard/freeBoardModify}" th:method="post">
+                                <!--페이지 번호  -->
+                                <input type="hidden" name="page" th:value="${requestDTO.page}">
+                                <input type="hidden" name="type" th:value="${requestDTO.type}">
+                                <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
 
-        <h1 class="mt-4">Board Modify Page</h1>
+                                <!-- Post header-->
+                                <header class="mb-4">
+                                    <!-- 게시판 기본 타이틀 -->
+                                    <div class="board_title">
+                                        <h1>자유 게시판<span class="fw-light text-muted sub_title">글 수정</span></h1>
+                                    </div>
+                                </header>
 
-        <form action="/onmom/freeBoard/freeBoardModify" method="post">
+                                <label class="fw-bold"><h2>글 제목</h2></label>
 
-            <!--페이지 번호  -->
-            <input type="hidden" name="page" th:value="${requestDTO.page}">
-            <input type="hidden" name="type" th:value="${requestDTO.type}" >
-            <input type="hidden" name="keyword" th:value="${requestDTO.keyword}" >
+                                <!-- 글 제목-->
+                                <section class="mb-3">
+                                    <!-- 글 작성 textarea -->
+                                    <p class="fs-5 mb-4">
+                                        <input type="text" class="form-control" name="title" th:value="${dto.title}">
+                                    </p>
+                                </section>
+                                <hr />
+                                <!-- 작성 정보-->
+                                <div class="post_info mb-4">
+                                    <div class="text-muted mb-2 post_detail">
+                                        <div class="post_no col-3">
+                                            <p class="mb-0 fw-bold text-dark">번호</p>
+                                            <input type="hidden" th:value="${dto.free_id}" name="free_id">
+                                            <span>
+                                            [[${dto.free_id}]]
+                                        </span>
+                                        </div>
+                                        <div class="post_write col-3">
+                                            <p class="mb-0 fw-bold text-dark">작성자</p>
+                                            <input type="hidden" th:value="${dto.member_id}" name="member_id">
+                                            <span>
+                                                [[${dto.member_id}]]
+                                        </span>
+                                        </div>
+                                        <div class="post_date col-3">
+                                            <p class="mb-0 fw-bold text-dark">작성일</p>
+                                            <span th:text="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}">
+                                        </span>
+                                        </div>
+                                        <div class="post_date col-3">
+                                            <p class="mb-0 fw-bold text-dark">수정일</p>
+                                            <span th:text="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}">>
+                                        </span>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                </div>
 
-            <div class="form-group">
-                <label >free_id</label>
-                <input type="text" class="form-control" name="free_id"th:value="${dto.free_id}" readonly >
+                                <!-- input hidden 타입이 삽입 -->
+                                <div class="box"></div>
+
+                                <!-- 글 내용-->
+                                <section class="mb-3">
+                                    <!-- 글 작성 textarea -->
+                                    <p class="fs-5 mb-4">
+                                    <textarea id="text_area" class="form-control" rows="25" name="content">
+                                            [[${dto.content}]]
+                                    </textarea>
+                                    </p>
+                                </section>
+
+                                <!-- 등록 버튼 -->
+                                <div class="btn_wrap">
+                                    <button type="button" class="btn btn-primary modifyBtn">수정</button>
+                                    <button type="button" class="btn btn-info listBtn">목록</button>
+                                    <button type="button" class="btn btn-danger removeBtn">삭제</button>
+                                </div>
+
+                                <!--                    &lt;!&ndash;페이지 번호  &ndash;&gt;-->
+                                <!--                    <input type="hidden" name="page" th:value="${requestDTO.page}">-->
+                                <!--                    <input type="hidden" name="type" th:value="${requestDTO.type}">-->
+                                <!--                    <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">-->
+
+                                <!--                    <div class="form-group">-->
+                                <!--                        <label>번호</label>-->
+                                <!--                        <input type="text" class="form-control" name="free_id" th:value="${dto.free_id}" readonly>-->
+                                <!--                    </div>-->
+
+                                <!--                    <div class="form-group">-->
+                                <!--                        <label>제목</label>-->
+                                <!--                        <input type="text" class="form-control" name="title" th:value="${dto.title}">-->
+                                <!--                    </div>-->
+                                <!--                    <div class="form-group">-->
+                                <!--                        <label>내용</label>-->
+                                <!--                        <textarea class="form-control" rows="5" name="content">[[${dto.content}]]</textarea>-->
+                                <!--                    </div>-->
+                                <!--                    <div class="form-group">-->
+                                <!--                        <label>작성자</label>-->
+                                <!--                        <input type="text" class="form-control" name="nickname" th:value="${dto.nickname}" readonly>-->
+                                <!--                    </div>-->
+                                <!--                    <div class="form-group">-->
+                                <!--                        <label>작성일</label>-->
+                                <!--                        <input type="text" class="form-control"-->
+                                <!--                               th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>-->
+                                <!--                    </div>-->
+                                <!--                    <div class="form-group">-->
+                                <!--                        <label>수정일</label>-->
+                                <!--                        <input type="text" class="form-control"-->
+                                <!--                               th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>-->
+                                <!--                    </div>-->
+
+                            </form>
+                            <!-- form 태그 끝 -->
+                        </article>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div class="form-group">
-                <label>Title</label>
-                <input type="text" class="form-control" name="title" th:value="${dto.title}"  >
-            </div>
-            <div class="form-group">
-                <label >Content</label>
-                <textarea class="form-control" rows="5" name="content">[[${dto.content}]]</textarea>
-            </div>
-            <div class="form-group">
-                <label >작성자</label>
-                <input type="text" class="form-control" name="nickname" th:value="${dto.nickname}" readonly >
-            </div>
-            <div class="form-group">
-                <label >RegDate</label>
-                <input type="text" class="form-control"th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly >
-            </div>
-            <div class="form-group">
-                <label >ModDate</label>
-                <input type="text" class="form-control"th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly >
-            </div>
+        </br>
+<!--        <button type="button" class="btn btn-primary modifyBtn">수정</button>-->
 
-        </form>
+<!--        <button type="button" class="btn btn-info listBtn">목록</button>-->
 
-        <button type="button" class="btn btn-primary modifyBtn">Modify</button>
+<!--        <button type="button" class="btn btn-danger removeBtn">삭제</button>-->
 
-        <button type="button" class="btn btn-info listBtn">List</button>
-
-        <button type="button" class="btn btn-danger removeBtn">Remove</button>
-
+        </div>
+        </section>
 
         <script th:inline="javascript">
 
@@ -96,9 +185,7 @@
                 actionForm.submit();
 
             })
-
         </script>
-
 
 
     </th:block>
