@@ -20,7 +20,7 @@ public class ReviewBoard extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 20, nullable = false)
     private String title;
 
     @Column(length = 1000, nullable = false)
