@@ -185,7 +185,7 @@
                                 <div class="post_info mb-4">
                                     <!-- 게시글 제목-->
                                     <label class="fw-bold"><h2>글 제목</h2></label>
-                                    <input type="text" name="title" class="post_title" placeholder="글 제목을 입력해 주세요" style="width:100%; margin-top:20px;">
+                                    <input type="text" name="title" class="post_title" placeholder="제목 반드시 20자 이내로 입력해주세요." style="width:100%; margin-top:20px;">
                                     <hr />
                                     <!-- 작성 정보-->
                                     <div class="text-muted mb-2 post_detail">
@@ -199,7 +199,7 @@
                                             <p class="mb-0 fw-bold text-dark">지역</p>
                                             <span>
                                                 <select id="select_value" name="area">
-                                                    <option value="전체">전체</option>
+<!--                                                    <option value="전체">전체</option>-->
                                                     <option value="도봉구">도봉구</option>
                                                     <option value="노원구">노원구</option>
                                                     <option value="강북구">강북구</option>
@@ -237,7 +237,7 @@
                                         </div>
                                         <div class="post_date col-3">
                                             <p class="mb-0 fw-bold text-dark">작성일</p>
-                                            <span th:text="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}">
+                                            <span th:text="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd HH:mm:ss')}">
 
                                             </span>
                                         </div>
@@ -252,6 +252,9 @@
                                 <section class="mb-3">
                                     <!-- 글 작성 textarea -->
                                     <p class="fs-5 mb-4">
+                                        <textarea class="form-control content" rows="25" name="content"
+                                                  placeholder="추천 헬스장은 헬스장 후기 관련 정보 한정으로 게시물 등록 가능합니다.
+내용은 사진 첨부와 함께 반드시 1000자 이내로 입력해주세요."></textarea>
                                         <!-- 이미지 영역, div 태그로 작성되어 자동 줄바꿈, thumnail 관련 코딩 기입 -->
                                         <div class="uploadResult">
                                             <ul>

@@ -41,7 +41,7 @@
                                         <div class="modal-body">
                                             각 게시판에 해당하는 내용을 올려주시기를 부탁드립니다.</br></br>
                                             [헬스장 후기 관련]</br>
-                                            '추천게시판'은 헬스장 후기 관련 정보 한정으로</br>
+                                            '추천 헬스장'은 헬스장 후기 관련 정보 한정으로</br>
                                             등록 가능합니다.</br></br>
                                             그 외 다른 내용들은 '자유게시판'을 이용해주세요.
                                         </div>
@@ -121,7 +121,7 @@
                             <span class="text-muted" style="position:absolute; left:10px; top:10px; font-size:12px;">
                                 [[${dto.area}]]
                             </span>
-                            <h5 style="padding-top:15px; padding-left:15px; width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                            <h5 style="padding-top:15px; padding-left:15px; width:250px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                                 <a th:href="@{/onmom/review/read(review_id = ${dto.review_id}, page = ${result.page})}" class="text-dark">
                                     [[${dto.title}]]
                                 </a>
