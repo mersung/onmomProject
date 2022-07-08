@@ -343,14 +343,16 @@ sup {
   top: -0.5em;
 }
  #like_box{
-               cursor: pointer;
+  cursor: pointer;
             }
-            #hate_box{
-               cursor: pointer;
+#hate_box{
+   cursor: pointer;
             }
-            a:visited{
-                color:white;
+
+a:visited{
+  color:block;
             }
+
 a {
   text-decoration: underline;
 }
@@ -3153,6 +3155,9 @@ textarea.form-control-lg {
   .btn {
     transition: none;
   }
+}
+#button1:hover{
+     color: #212529;
 }
 .btn:hover {
   color: #212529;
