@@ -147,8 +147,14 @@
                 .replyCant{display:none;}
             </style>
         </th:block>
-        <script>
+        <script type="application/javascript" th:inline="javascript" th:fragment="ajax-csrf-header">
             $(function(){
+                var csrfToken = /*[[${_csrf.token}]]*/ null;
+                var csrfHeader = /*[[${_csrf.headerName}]]*/ null;
+                $(document).ajaxSend(function (e, xhr, options) {
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+                });
+
                 //// 글 미리보기 내에 태그 노출 제거
                 // 제거할 태그들을 배열 선언
                 var contentTag = new Array("<p>", "</p>", "<strong>", "</strong>", "<ol>", "</ol>", "<ul>", "</ul>", "<li>", "</li>",
