@@ -8,9 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.onmomProject.dto.FreeBoardCommentDTO;
+import org.zerock.onmomProject.dto.FreeBoardCommentPageRequestDTO;
 import org.zerock.onmomProject.dto.FreeBoardDTO;
 import org.zerock.onmomProject.dto.FreePageRequestDTO;
 import org.zerock.onmomProject.entity.FreeBoard;
+import org.zerock.onmomProject.service.FreeBoardCommentService;
 import org.zerock.onmomProject.service.FreeBoardService;
 
 import javax.servlet.http.Cookie;
@@ -27,12 +30,12 @@ public class FreeBoardController {
 
     private final FreeBoardService freeBoardService;
 
+    private final FreeBoardCommentService freeBoardCommentService;
+
     @GetMapping("/freeBoardList")
-    public void freeBoard_list(FreePageRequestDTO freePageRequestDTO,Long free_id,Model model){
+    public void freeBoard_list(FreePageRequestDTO freePageRequestDTO,Model model){
 
         log.info("list............." + freePageRequestDTO);
-
-        Integer replyCount = freeBoardService.replyCount(free_id);
 
         model.addAttribute( "result", freeBoardService.getList(freePageRequestDTO));
     }
@@ -152,16 +155,16 @@ public class FreeBoardController {
     }
 
     @GetMapping({"/freeBoardRead", "/freeBoardModify"})
-    public void freeBoardRead(@ModelAttribute("requestDTO") FreePageRequestDTO freePageRequestDTO, Long free_id, Model model){
+    public void freeBoardRead(@ModelAttribute("requestDTO") FreePageRequestDTO freePageRequestDTO, FreeBoardCommentPageRequestDTO freeBoardCommentPageRequestDTO, Long free_id, Model model){
 
         log.info("bno: " + free_id);
 
         FreeBoardDTO freeBoardDTO = freeBoardService.get(free_id);
 
+        log.info("list............." + freeBoardCommentPageRequestDTO);
         log.info(freeBoardDTO);
 
         model.addAttribute("dto", freeBoardDTO);
-
     }
 
     @PostMapping("/freeBoardRemove")

@@ -4,8 +4,6 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
     <th:block th:fragment="content">
-        <script src="/js/ckeditor/ckeditor.js"></script>
-
         <!-- Page Content-->
         <section class="py-5 post_content" th:if="${#authentication.name.equals(dto.member_id)}">
             <div class="container px-5 my-5 review_post">
@@ -75,15 +73,14 @@
                                 <!-- 글 내용-->
                                 <section class="mb-3">
                                     <!-- 글 작성 textarea -->
-                                    <p class="fs-5 mb-4">
-                                    <textarea id="text_area" class="col-12 ckeditor" rows="25" name="content">
+                                    <textarea id="text_area" class="form-control content" rows="25" name="content">
                                             [[${dto.content}]]
                                     </textarea>
-                                    </p>
                                 </section>
 
                                 <!-- 등록 버튼 -->
                                 <div class="btn_wrap">
+                                    <div id="content_cnt">(0 / 1000)</div>
                                     <button type="button" class="btn btn-primary modifyBtn">수정</button>
                                     <button type="button" class="btn btn-info listBtn">목록</button>
                                     <button type="button" class="btn btn-danger removeBtn">삭제</button>
@@ -139,18 +136,10 @@
 
         </div>
         </section>
-        <script src="/js/ckeditor/ckeditor.js"></script>
 
-        <script type="application/javascript" th:inline="javascript" th:fragment="ajax-csrf-header">
+        <script th:inline="javascript">
 
             var actionForm = $("form"); //form 태그 객체
-
-            // csrf 토큰 처리
-            var csrfToken = /*[[${_csrf.token}]]*/ null;
-                var csrfHeader = /*[[${_csrf.headerName}]]*/ null;
-                $(document).ajaxSend(function (e, xhr, options) {
-                xhr.setRequestHeader(csrfHeader, csrfToken);
-                });
 
             $(".removeBtn").click(function(){
 
@@ -195,6 +184,15 @@
                 actionForm.submit();
 
             })
+
+              $('.content').on('keyup', function() {
+                $('#content_cnt').html("("+$(this).val().length+" / 1000)");
+
+                 if($(this).val().length > 1000) {
+                     $(this).val($(this).val().substring(0, 1000));
+                     $('#test_cnt').html("(1000 / 1000)");
+                 }
+              });
         </script>
 
 
