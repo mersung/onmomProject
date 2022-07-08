@@ -218,15 +218,21 @@
                 function getReviewReplies(){
                     // 시간 checking
                     function formatTime(str){
-                        var date =new Date(str);
+                        let date =new Date(str);
 
-                        return date.getFullYear() +'/'+
-                        (date.getMonth() + 1) +'/'+
-                        date.getDate() +' '+
-                        date.getHours() +':'+
-                        date.getMinutes();
+                        let year = date.getFullYear();
+                        let month = (date.getMonth() + 1);
+                        let day = date.getDate();
+                        let hours = date.getHours();
+                        let min = date.getMinutes();
+                        let sec = date.getSeconds();
+
+                        hours = hours > 10 ? hours : '0' + hours;
+                        min = min > 10 ? min : '0' + min;
+                        sec = sec > 10 ? sec : '0' + sec;
+
+                        return [year+'/'+month+'/'+day+' '+hours+':'+min+':'+sec];
                     }
-                    console.log("이게 뭐지?? "+formatTime(str));
 
                     $.getJSON("/reviews/"+ review_id +"/all", function(arr){
                         var str = "";

@@ -1,10 +1,9 @@
 package org.zerock.onmomProject.service;
 
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
-import org.zerock.onmomProject.dto.FreeBoardDTO;
-import org.zerock.onmomProject.dto.FreePageRequestDTO;
-import org.zerock.onmomProject.dto.FreePageResultDTO;
+import org.zerock.onmomProject.dto.*;
 import org.zerock.onmomProject.entity.FreeBoard;
+import org.zerock.onmomProject.entity.FreeBoardComment;
 import org.zerock.onmomProject.entity.Member;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -59,4 +58,5 @@ public interface FreeBoardService {
         return freeBoardDTO;
 
     }
+
 }
