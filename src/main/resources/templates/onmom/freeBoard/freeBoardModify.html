@@ -74,7 +74,7 @@
                                 <section class="mb-3">
                                     <!-- 글 작성 textarea -->
                                     <p class="fs-5 mb-4">
-                                    <textarea id="text_area" class="form-control" rows="25" name="content">
+                                    <textarea id="text_area" class="col-12 ckeditor" rows="25" name="content">
                                             [[${dto.content}]]
                                     </textarea>
                                     </p>
@@ -137,6 +137,7 @@
 
         </div>
         </section>
+        <script src="/js/ckeditor/ckeditor.js"></script>
 
         <script th:inline="javascript">
 
