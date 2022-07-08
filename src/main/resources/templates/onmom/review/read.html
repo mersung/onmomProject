@@ -44,7 +44,7 @@
                                     <div class="post_date col-3">
                                         <p class="mb-0 fw-bold text-dark">작성일</p>
                                         <span>
-                                            [[${dto.regDate}]]
+                                            [[${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}]]
                                         </span>
                                     </div>
                                 </div>

@@ -41,7 +41,7 @@
                                         <div class="modal-body">
                                             각 게시판에 해당하는 내용을 올려주시기를 부탁드립니다.</br></br>
                                             [헬스장 후기 관련]</br>
-                                            '추천게시판'은 헬스장 후기 관련 정보 한정으로</br>
+                                            '추천 헬스장'은 헬스장 후기 관련 정보 한정으로</br>
                                             등록 가능합니다.</br></br>
                                             그 외 다른 내용들은 '자유게시판'을 이용해주세요.
                                         </div>
@@ -56,7 +56,7 @@
                             </div>
 
                             <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#loc_review">추천 헬스장</a>
-                            <a class="btn btn-light btn-lg px-4" href="#loc_map">서울시 헬스장</a>
+                            <a class="btn btn-success btn-lg px-4" href="#loc_map">서울시 헬스장</a>
                         </div>
 
                     </div>
@@ -121,7 +121,7 @@
                             <span class="text-muted" style="position:absolute; left:10px; top:10px; font-size:12px;">
                                 [[${dto.area}]]
                             </span>
-                            <h5 style="padding-top:15px; padding-left:15px; width:360px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                            <h5 style="padding-top:15px; padding-left:15px; width:250px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                                 <a th:href="@{/onmom/review/read(review_id = ${dto.review_id}, page = ${result.page})}" class="text-dark">
                                     [[${dto.title}]]
                                 </a>
@@ -367,20 +367,20 @@
                         </div>
                         <div class="ms-xl-4">
                             <div class="input-group mb-2">
-                                <button class="btn btn-outline-light text-white" type="button" data-toggle="collapse" data-target="#chatting" id="button1">채팅방 참여하기</button>
+                                <button class="btn btn-outline-light " type="button" data-toggle="collapse" data-target="#chatting" id="button1">채팅방 참여하기</button>
 
                                 <!-- '채팅방 참여하기' 클릭 시 '채팅방 닫기'로 변경-->
                                 <script src="//code.jquery.com/jquery.min.js"></script>
                                 <script>
                                 $(function() {
-                                $('#button1').click( function() {
-                                if( $(this).html() == '채팅방 참여하기' ) {
-                                $(this).html('채팅방 닫기');
-                                }
-                                else {
-                                $(this).html('채팅방 참여하기');
-                                }
-                                });
+                                    $('#button1').click( function() {
+                                        if( $(this).html() == '채팅방 참여하기' ) {
+                                        $(this).html('채팅방 닫기');
+                                        }
+                                         else {
+                                         $(this).html('채팅방 참여하기');
+                                          }
+                                    });
                                 });
                                 </script>
 
