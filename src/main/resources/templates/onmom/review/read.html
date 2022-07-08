@@ -168,6 +168,7 @@
                 var member_id = $('input[name="member_id"]').val();
                 var check_id = "[[${#authentication.name}]]";
 
+
                 // 댓글 권한 알림창
                 $(".replyCant").click(function(){
                     alert("로그인이 필요한 서비스입니다!");
@@ -218,15 +219,24 @@
                 function getReviewReplies(){
                     // 시간 checking
                     function formatTime(str){
-                        var date =new Date(str);
+                        let date =new Date(str);
 
-                        return date.getFullYear() +'/'+
-                        (date.getMonth() + 1) +'/'+
-                        date.getDate() +' '+
-                        date.getHours() +':'+
-                        date.getMinutes();
+                        let year = date.getFullYear();
+                        let month = (date.getMonth() + 1);
+                        let day = date.getDate();
+                        let hours = date.getHours();
+                        let min = date.getMinutes();
+                        let sec = date.getSeconds();
+
+                        hours = hours > 10 ? hours : '0' + hours;
+                        min = min > 10 ? min : '0' + min;
+                        sec = sec > 10 ? sec : '0' + sec;
+
+                        return [year+'/'+month+'/'+day+' '+hours+':'+min+':'+sec];
+
+
                     }
-                    console.log("이게 뭐지?? "+formatTime(str));
+
 
                     $.getJSON("/reviews/"+ review_id +"/all", function(arr){
                         var str = "";
@@ -259,7 +269,7 @@
                          str += '</div>'
                          str += '</div>';
                          str += '<span style="position:absolute; left:1rem; bottom:-15px; color:#ccc; font-size:12px; font-weight:400;">';
-                         str += '[[${dto.regDate}]]</span>';
+                         str += formatTime(reply.regDate)+'</span>';
                          str += '</div>';
                          str += '<hr style="height:0.5px;" />';
 
