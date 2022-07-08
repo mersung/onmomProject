@@ -226,7 +226,7 @@
                         date.getHours() +':'+
                         date.getMinutes();
                     }
-
+                    console.log("이게 뭐지?? "+formatTime(str));
 
                     $.getJSON("/reviews/"+ review_id +"/all", function(arr){
                         var str = "";
