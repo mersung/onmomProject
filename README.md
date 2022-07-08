@@ -114,7 +114,7 @@ https://user-images.githubusercontent.com/86524081/177472500-6371d6ed-49b9-49ee-
 
     <내가 쓴 글>에서 게시글 클릭 시,
     해당 게시글 상세보기 페이지로 이동합니다.
-https://user-images.githubusercontent.com/86524081/177738925-124a42f4-03ae-4118-8fe4-da20e102c952.mp4
+https://user-images.githubusercontent.com/86524081/177921782-97cfdbfa-c338-4d82-bd28-cfc465fcfbc7.mp4
 #
 ### 공지사항
     추천게시판 및 자유게시판 이용수칙을 확인합니다.
@@ -131,7 +131,7 @@ https://user-images.githubusercontent.com/86524081/177734202-9fe99610-fe3d-4a37-
 
     로그인을 한 회원에 한해서만 글쓰기 버튼이 노출됩니다.
     게시글 등록, 수정, 삭제가 가능합니다.
-https://user-images.githubusercontent.com/86524081/177734190-36156e7e-850a-42d7-bebf-7e0a711d2e4b.mp4
+https://user-images.githubusercontent.com/86524081/177921375-b348b8c1-839d-42d7-be41-2e35aba39dad.mp4
 
     비회원이 댓글 등록을 시도할 경우에 로그인 페이지로 이동합니다.
     로그인 후 댓글 등록, 수정, 삭제가 가능합니다.
