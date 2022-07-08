@@ -342,9 +342,16 @@ sub {
 sup {
   top: -0.5em;
 }
-
+ #like_box{
+               cursor: pointer;
+            }
+            #hate_box{
+               cursor: pointer;
+            }
+            a:visited{
+                color:white;
+            }
 a {
-  color: #0d6efd;
   text-decoration: underline;
 }
 a:hover {
