@@ -30,7 +30,6 @@ import java.io.IOException;
 
 @Configuration
 @Log4j2
-@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //    @Autowired
@@ -53,7 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin().loginPage("/onmom/login").loginProcessingUrl("/login");
 
 //        http.csrf().disable();
-        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 
         http.oauth2Login().successHandler(successHandler());
 //        http.rememberMe().tokenValiditySeconds(60 * 60 * 7).userDetailsService(userDetailsService);  //7days

@@ -95,8 +95,15 @@
         <!--                </form>-->
         <!--                    </div>-->
         <!--                </section>-->
-        <script>
+        <script type="application/javascript" th:inline="javascript" th:fragment="ajax-csrf-header">
         $(document).ready(function() {
+                /* csrf 토큰 처리 */
+                var csrfToken = /*[[${_csrf.token}]]*/ null;
+                var csrfHeader = /*[[${_csrf.headerName}]]*/ null;
+                $(document).ajaxSend(function (e, xhr, options) {
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+                });
+
               $('.content').on('keyup', function() {
                 $('#content_cnt').html("("+$(this).val().length+" / 1000)");
 

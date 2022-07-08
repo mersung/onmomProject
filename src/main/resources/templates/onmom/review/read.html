@@ -149,6 +149,7 @@
         </th:block>
         <script type="application/javascript" th:inline="javascript" th:fragment="ajax-csrf-header">
             $(function(){
+                // csrf 토큰 처리
                 var csrfToken = /*[[${_csrf.token}]]*/ null;
                 var csrfHeader = /*[[${_csrf.headerName}]]*/ null;
                 $(document).ajaxSend(function (e, xhr, options) {
@@ -172,7 +173,7 @@
                 // 게시글 번호 및 작성자를 변수로 선언
                 var review_id = [[${dto.review_id}]];
                 var member_id = $('input[name="member_id"]').val();
-                var check_id = "[[${#authentication.name}]]";
+                var check_id = [[${#authentication.name}]];
 
 
                 // 댓글 권한 알림창

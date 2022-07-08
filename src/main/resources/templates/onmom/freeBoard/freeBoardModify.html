@@ -138,9 +138,16 @@
         </div>
         </section>
 
-        <script th:inline="javascript">
+        <script type="application/javascript" th:inline="javascript" th:fragment="ajax-csrf-header">
 
             var actionForm = $("form"); //form 태그 객체
+
+            // csrf 토큰 처리
+            var csrfToken = /*[[${_csrf.token}]]*/ null;
+                var csrfHeader = /*[[${_csrf.headerName}]]*/ null;
+                $(document).ajaxSend(function (e, xhr, options) {
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+                });
 
             $(".removeBtn").click(function(){
 

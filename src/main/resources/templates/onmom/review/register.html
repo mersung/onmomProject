@@ -4,9 +4,16 @@
     <th:block th:fragment="content">
         <!-- CKEditor 관련 jQuery  -->
         <script src="/js/ckeditor/ckeditor.js"></script>
-        <script>
+        <script type="application/javascript" th:inline="javascript" th:fragment="ajax-csrf-header">
         /* jQuery, window 먼저 load함 */
         $(function(){
+            /* csrf 토큰 처리 */
+            var csrfToken = /*[[${_csrf.token}]]*/ null;
+                var csrfHeader = /*[[${_csrf.headerName}]]*/ null;
+                $(document).ajaxSend(function (e, xhr, options) {
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+                });
+
             /* CKEditor 구현 */
             CKEDITOR.replace('text_area',{
                 font_names : "맑은 고딕/Malgun Gothic;굴림/Gulim;돋움/Dotum;바탕/Batang;궁서/Gungsuh;Arial/Arial;Comic Sans MS/Comic Sans MS;Courier New/Courier New;Georgia/Georgia;Lucida Sans Unicode/Lucida Sans Unicode;Tahoma/Tahoma;Times New Roman/Times New Roman;MS Mincho/MS Mincho;Trebuchet MS/Trebuchet MS;Verdana/Verdana",
