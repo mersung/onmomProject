@@ -25,7 +25,7 @@ public class FreeBoard extends BaseEntity{
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 22, nullable = false)
     private String title;
 
     @Column(length = 1000, nullable = false)
