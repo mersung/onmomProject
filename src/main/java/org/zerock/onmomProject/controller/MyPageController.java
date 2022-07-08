@@ -11,7 +11,6 @@ import org.zerock.onmomProject.service.FreeBoardService;
 import org.zerock.onmomProject.service.MemberService;
 import org.zerock.onmomProject.service.ReviewBoardService;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
@@ -25,8 +24,6 @@ public class MyPageController {
     private final FreeBoardService freeBoardService;
 
     private final ReviewBoardService reviewBoardService;
-
-//    private final MyPageService myPageService;
 
     @GetMapping("/freeBoardInfo")
     public String memberInfo(Model model, Principal principal,
