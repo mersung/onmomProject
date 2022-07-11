@@ -71,8 +71,8 @@
 #
 ## ERD
 ***
-[dbdocs.zip](https://github.com/ShimDaeSung1/onmomProject/files/9042534/dbdocs.zip)
-![ERD_2022_06_30](https://user-images.githubusercontent.com/86524081/176608037-daf77596-b035-49d8-8cc6-5d75cbcfd5be.png)
+[dbdocs.zip](https://github.com/ShimDaeSung1/onmomProject/files/9080945/dbdocs.zip)
+![ERD_2022_07_11](https://user-images.githubusercontent.com/86524081/178190173-9e19d273-4035-4490-8e7b-6acf8e3941d8.png)
 #
 ## 기술스택
 ***
