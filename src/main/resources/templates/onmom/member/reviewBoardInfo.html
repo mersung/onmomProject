@@ -61,7 +61,12 @@
                     <tbody>
 
                     <tr th:each = "reviewList : ${reviewBoardDTO.dtoList}">
-                        <td><span>[[${reviewList.review_id}]]</span></td>
+                        <th scope="row">
+                            <a th:href="@{/onmom/review/read(review_id = ${reviewList.review_id},
+                                    page= ${reviewBoardDTO.page} )}">
+                                [[${reviewList.review_id}]]
+                            </a>
+                        </th>
                         <th scope="row">
                             <a th:href="@{/onmom/review/read(review_id = ${reviewList.review_id},
                                     page= ${reviewBoardDTO.page} )}">

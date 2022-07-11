@@ -5,19 +5,6 @@
 
     <th:block th:fragment="content">
         <script src="/js/ckeditor/ckeditor.js"></script>
-        <script>
-        <!--        /* jQuery, window 먼저 load함 */-->
-        <!--        $(function(){-->
-        <!--            /* CKEditor 구현 */-->
-        <!--            CKEDITOR.replace('text_area',{-->
-        <!--                font_names : "맑은 고딕/Malgun Gothic;굴림/Gulim;돋움/Dotum;바탕/Batang;궁서/Gungsuh;Arial/Arial;Comic Sans MS/Comic Sans MS;Courier New/Courier New;Georgia/Georgia;Lucida Sans Unicode/Lucida Sans Unicode;Tahoma/Tahoma;Times New Roman/Times New Roman;MS Mincho/MS Mincho;Trebuchet MS/Trebuchet MS;Verdana/Verdana",-->
-        <!--                font_defaultLabel : "맑은 고딕/Malgun Gothic",-->
-        <!--                fontSize_defaultLabel : "12",-->
-        <!--                skin : "office2013",-->
-        <!--                language : "ko"-->
-        <!--            });-->
-        <!--        });-->
-        </script>
 
         <!-- Page Content-->
         <section class="py-5 post_content">
@@ -33,7 +20,7 @@
                                 <header class="mb-4">
                                     <!-- 게시판 기본 타이틀 -->
                                     <div class="board_title">
-                                        <h1>자유 게시판<span class="fw-light text-muted sub_title">글 등록</span></h1>
+                                        <h1>자유 게시판<span class="fw-light text-muted sub_title">자유 게시글 작성</span></h1>
                                     </div>
                                 </header>
 
@@ -42,8 +29,8 @@
                                 <div class="text-muted mb-2 post_detail">
                                     <div class="post_write col-3">
                                         <p class="mb-0 fw-bold text-dark">글쓴이</p>
-                                            <input type="hidden" class="form-control" name="member_id"
-                                                   th:value="${#authentication.name}">
+                                        <input type="hidden" class="form-control" name="member_id"
+                                               th:value="${#authentication.name}">
                                         <span>[[${#authentication.name}]]</span>
                                     </div>
                                 </div>
@@ -56,7 +43,7 @@
                                 <section class="mb-3">
                                     <!-- 글 작성 textarea -->
                                     <p class="fs-5 mb-4">
-                                        <input type="text" class="form-control title" name="title" placeholder="제목은 반드시 20자 이내로 입력해주세요.">
+                                        <input type="text" class="form-control title" name="title" placeholder="제목은 20자 이내로 입력해주세요.">
                                     </p>
                                 </section>
 
@@ -64,10 +51,8 @@
                                 <section class="mb-3">
                                     <!-- 글 작성 textarea -->
                                     <p class="fs-5 mb-4">
-                                        <textarea class="form-control content" rows="25" name="content"
-                                                  placeholder="자유게시판은 다양한 주제로 회원들끼리 자유롭게 소통할 수 있는 게시판입니다.
+                                        <textarea class="form-control content" rows="25" name="content" placeholder="자유게시판은 헬스장 정보 이외에도 다양한 주제로 회원들과의 소통이 가능합니다.
 내용은 반드시 1000자 이내로 입력해주세요."></textarea>
-
                                     </p>
                                 </section>
 
@@ -123,8 +108,8 @@
 
               $('.title').on('keyup', function() {
 
-                if($(this).val().length > 22) {
-                    $(this).val($(this).val().substring(0, 22));
+                if($(this).val().length > 20) {
+                    $(this).val($(this).val().substring(0, 20));
 
                 }
             });
