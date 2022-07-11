@@ -74,6 +74,9 @@
 [dbdocs.zip](https://github.com/ShimDaeSung1/onmomProject/files/9081310/dbdocs.zip)
 ![ERD_2022_07_11](https://user-images.githubusercontent.com/86524081/178200316-19acbeab-7f37-4d85-99ba-9c93fda58883.png)
 #
+## Class Diagram
+![cld](https://user-images.githubusercontent.com/86524081/178201458-1b3abec4-a47b-4f8a-a426-547feb3a223d.jpg)
+#
 ## 기술스택
 ***
 **Frontend**
