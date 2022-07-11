@@ -2,8 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+
     <th:block th:fragment="content">
-        <!-- CKEditor 관련 jQuery  -->
         <script src="/js/ckeditor/ckeditor.js"></script>
 
         <!-- Page Content-->
@@ -29,8 +29,8 @@
                                 <div class="text-muted mb-2 post_detail">
                                     <div class="post_write col-3">
                                         <p class="mb-0 fw-bold text-dark">글쓴이</p>
-                                            <input type="hidden" class="form-control" name="member_id"
-                                                   th:value="${#authentication.name}">
+                                        <input type="hidden" class="form-control" name="member_id"
+                                               th:value="${#authentication.name}">
                                         <span>[[${#authentication.name}]]</span>
                                     </div>
                                 </div>
@@ -51,10 +51,8 @@
                                 <section class="mb-3">
                                     <!-- 글 작성 textarea -->
                                     <p class="fs-5 mb-4">
-                                    <textarea placeholder="추천 헬스장은 헬스장 후기 관련 정보 한정으로 게시물 등록 가능합니다.
-내용은 사진 첨부와 함께 반드시 1000자 이내로 입력해주세요." id="free_text_area" rows="25" name="content" >
-
-                                        </textarea>
+                                        <textarea class="form-control content" rows="25" name="content" placeholder="자유게시판은 헬스장 정보 이외에도 다양한 주제로 회원들과의 소통이 가능합니다.
+내용은 반드시 1000자 이내로 입력해주세요."></textarea>
                                     </p>
                                 </section>
 

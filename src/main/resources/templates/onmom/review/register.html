@@ -72,6 +72,9 @@
 
                 // 실제 업로드 부분
                 // upload ajax
+                var header = $("meta[name='_csrf_header']").attr('content');
+                var token = $("meta[name='_csrf']").attr('content');
+
                 $.ajax({
                     url: '/uploadAjax',
                     processData: false,
@@ -79,6 +82,9 @@
                     data: formData,
                     type: 'POST',
                     dataType: 'json',
+                    beforeSend: function(xhr){
+                        xhr.setRequestHeader(header, token);
+                    },
                     success: function(result){
                         console.log(result);
                         showResult(result);
@@ -249,7 +255,7 @@
                                             </ul>
                                         </div>
                                         <textarea placeholder="추천 헬스장은 헬스장 후기 관련 정보 한정으로 게시물 등록 가능합니다.
-내용은 사진 첨부와 함께 반드시 1000자 이내로 입력해주세요." id="text_area" rows="25" name="content" >
+내용은 사진 첨부와 함께 반드시 1000자 이내로 입력해주세요." id="text_area" class="col-12 ckeditor" rows="25" name="content" >
 
                                         </textarea>
                                     </p>
