@@ -115,7 +115,9 @@
                                 <!-- 등록 버튼 -->
                                 <div class="btn_wrap">
                                     <button type="submit" class="btn btn-dark btn_style registerBtn">등록</button>
-                                    <a type="button" class="btn btn-light btn_style">취소</a>
+                                    <a th:href="@{/onmom/review/read(review_id = ${dto.review_id})}" type="button" class="btn btn-light btn_style">취소</a>
+
+
                                 </div>
                             </form>
                             <!-- form 태그 끝 -->

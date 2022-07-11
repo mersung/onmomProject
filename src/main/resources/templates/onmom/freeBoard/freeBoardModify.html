@@ -34,7 +34,7 @@
                                 <section class="mb-3">
                                     <!-- 글 작성 textarea -->
                                     <p class="fs-5 mb-4">
-                                        <input type="text" class="form-control" name="title" th:value="${dto.title}">
+                                        <input type="text" class="form-control title" name="title" th:value="${dto.title}">
                                     </p>
                                 </section>
                                 <hr />
@@ -82,6 +82,7 @@
 
                                 <!-- 등록 버튼 -->
                                 <div class="btn_wrap">
+                                    <div id="content_cnt">(0 / 1000)</div>
                                     <button type="button" class="btn btn-primary modifyBtn">수정</button>
                                     <button type="button" class="btn btn-info listBtn">목록</button>
                                     <button type="button" class="btn btn-danger removeBtn">삭제</button>
@@ -193,6 +194,28 @@
                 actionForm.submit();
 
             })
+
+        </script>
+        <script>
+
+            $(document).ready(function() {
+              $('#text_area').on('keyup', function() {
+                $('#content_cnt').html("("+$(this).val().length+" / 1000)");
+
+                 if($(this).val().length > 1000) {
+                     $(this).val($(this).val().substring(0, 1000));
+                     $('#test_cnt').html("(1000 / 1000)");
+                 }
+              });
+
+              $('.title').on('keyup', function() {
+
+                if($(this).val().length > 20) {
+                    $(this).val($(this).val().substring(0, 20));
+
+                }
+            });
+        });
         </script>
 
 
