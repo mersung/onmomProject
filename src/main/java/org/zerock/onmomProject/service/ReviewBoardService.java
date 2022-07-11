@@ -30,7 +30,7 @@ public interface ReviewBoardService {
     // 특정 글 수정
     void modify(ReviewBoardDTO reviewBoardDTO);
 
-
+    // 내가 쓴 글 페이징 처리
     ReviewPageResultDTO<ReviewBoardDTO, Object[]> getMyPost(String member_id, ReviewPageRequestDTO reviewPageRequestDTO);
 
     // 좋아요

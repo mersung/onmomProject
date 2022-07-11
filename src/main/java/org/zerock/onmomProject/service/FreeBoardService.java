@@ -21,7 +21,7 @@ public interface FreeBoardService {
     Long updateHate(Long free_id);
 
     Integer replyCount(Long free_id);
-
+    // 내가 쓴 글 페이징 처리
     FreePageResultDTO<FreeBoardDTO, Object[]> getMyPost(String member_id, FreePageRequestDTO freePageRequestDTO);
 
     void removeWithReplies(Long free_id);

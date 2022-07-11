@@ -25,6 +25,7 @@ public class MyPageController {
 
     private final ReviewBoardService reviewBoardService;
 
+    // 마이페이지 (자유게시판 내가 쓴 글 포함)
     @GetMapping("/freeBoardInfo")
     public String memberInfo(Model model, Principal principal,
                              FreePageRequestDTO freePageRequestDTO) {
@@ -42,6 +43,7 @@ public class MyPageController {
         return "onmom/member/freeBoardInfo";
     }
 
+    // 마이페이지 (추천게시판 내가 쓴 글 포함)
     @GetMapping("/reviewBoardInfo")
     public String reviewBoardInfo(Model model, Principal principal,
                                   ReviewPageRequestDTO reviewPageRequestDTO) {
@@ -54,7 +56,7 @@ public class MyPageController {
         model.addAttribute("memberInfo", memberInfo);
 
         // 내가 쓴 글 추천게시판 게시물 불러오기
-        reviewPageRequestDTO.setSize(10);
+        reviewPageRequestDTO.setSize(5);
         model.addAttribute("reviewBoardDTO", reviewBoardService.getMyPost(member_id, reviewPageRequestDTO));
 
 

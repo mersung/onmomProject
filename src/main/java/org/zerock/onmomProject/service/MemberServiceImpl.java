@@ -14,6 +14,7 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberRepository memberRepository;
 
+    //회원 정보 불러오기
     @Override
     public MemberDTO selectMember(String member_id) {
         Optional<Member> member = memberRepository.findByEmail(member_id);

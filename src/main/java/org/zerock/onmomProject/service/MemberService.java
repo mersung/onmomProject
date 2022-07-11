@@ -6,6 +6,7 @@ import org.zerock.onmomProject.entity.Member;
 public interface MemberService {
 
 
+    //회원 정보 불러오기
     MemberDTO selectMember(String member_id);
 
     default Member dtoToEntity(MemberDTO dto){

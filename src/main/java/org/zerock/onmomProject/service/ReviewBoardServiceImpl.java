@@ -140,7 +140,7 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
         reviewBoardRepository.save(reviewBoard);
 
     }
-
+    //리뷰게시판 내가 쓴 글 페이징처리
     @Override
     public ReviewPageResultDTO<ReviewBoardDTO, Object[]> getMyPost(String member_id, ReviewPageRequestDTO reviewPageRequestDTO) {
         log.info(reviewPageRequestDTO);

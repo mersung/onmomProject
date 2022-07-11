@@ -93,7 +93,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
         return replyCount;
     }
 
-
+    //자유게시판 내가 쓴 글 페이징 처리
     @Override
     public FreePageResultDTO<FreeBoardDTO, Object[]> getMyPost(String member_id, FreePageRequestDTO freePageRequestDTO) {
         log.info(freePageRequestDTO);
@@ -103,7 +103,6 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
         Page<Object[]> result = freeBoardRepository.getMyPostByMember_id(member_id,
                 freePageRequestDTO.getPageable(Sort.by("free_id").descending()));
-
 
         return new FreePageResultDTO<>(result, fn);
     }
