@@ -3,9 +3,9 @@
 ***
     온몸(Onmom)
 ####
-    : "온라인(Online)"과 "몸(Body)"의 합성어.
-       몸을 가꾸기 위해 이용하는 헬스장에 대한
-       정보를 공유하는 온라인 커뮤니티입니다.
+    "온라인(Online)"과 "몸(Body)"의 합성어.
+    몸을 가꾸기 위해 이용하는 헬스장에 대한
+    정보를 공유하는 온라인 커뮤니티입니다.
 #
 ## 팀원소개
 ***
@@ -71,8 +71,8 @@
 #
 ## ERD
 ***
-[dbdocs.zip](https://github.com/ShimDaeSung1/onmomProject/files/9080945/dbdocs.zip)
-![ERD_2022_07_11](https://user-images.githubusercontent.com/86524081/178190173-9e19d273-4035-4490-8e7b-6acf8e3941d8.png)
+[dbdocs.zip](https://github.com/ShimDaeSung1/onmomProject/files/9081310/dbdocs.zip)
+![ERD_2022_07_11](https://user-images.githubusercontent.com/86524081/178200316-19acbeab-7f37-4d85-99ba-9c93fda58883.png)
 #
 ## 기술스택
 ***
@@ -169,9 +169,35 @@ https://user-images.githubusercontent.com/86524081/178182173-0556847f-243a-4b75-
 #
 ## 최종 산출물
 ***
-    최종발표 UCC (유튜브에 영상 업로드한 링크 첨부)
-####
-    최종발표 PPT (첨부)
+### 최종발표 PPT
+[07_Onmom_2022_07_11.pptx](https://github.com/ShimDaeSung1/onmomProject/files/9081324/07_Onmom_2022_07_11.pptx)
+![슬라이드1](https://user-images.githubusercontent.com/86524081/178201168-5697e8d8-251f-4931-bae8-22d0958cb9a2.PNG)
+![슬라이드2](https://user-images.githubusercontent.com/86524081/178201171-5423216d-12d8-4cc9-8584-af56104449f7.PNG)
+![슬라이드3](https://user-images.githubusercontent.com/86524081/178201176-d03928f3-3243-4493-8806-a8acb2391130.PNG)
+![슬라이드4](https://user-images.githubusercontent.com/86524081/178201178-a6898df2-290d-4d80-a24c-bd0faf5036eb.PNG)
+![슬라이드5](https://user-images.githubusercontent.com/86524081/178201181-924ae73e-fff6-4b58-806e-9cf53416d03d.PNG)
+![슬라이드6](https://user-images.githubusercontent.com/86524081/178201184-5061cdbe-a3bf-4b54-b11b-6cacb3163d6a.PNG)
+![슬라이드7](https://user-images.githubusercontent.com/86524081/178201185-883a4b22-782f-446f-abc3-7eaf5fc5a8de.PNG)
+![슬라이드8](https://user-images.githubusercontent.com/86524081/178201186-1e6d9148-53a4-4eb1-a22d-9d0ce5db0303.PNG)
+![슬라이드9](https://user-images.githubusercontent.com/86524081/178201188-f34e604a-df65-41de-aeff-714c0829ced3.PNG)
+![슬라이드10](https://user-images.githubusercontent.com/86524081/178201191-fddf6af4-7379-4d4d-b91e-15c65f8b9950.PNG)
+![슬라이드11](https://user-images.githubusercontent.com/86524081/178201196-fb21459e-9b22-4baa-a097-7691b9d35b6c.PNG)
+![슬라이드12](https://user-images.githubusercontent.com/86524081/178201198-db07a11f-0ae2-4beb-a9c2-6daa0638cec3.PNG)
+![슬라이드13](https://user-images.githubusercontent.com/86524081/178201201-5d81c049-ff99-4442-9faa-887f3919172d.PNG)
+![슬라이드14](https://user-images.githubusercontent.com/86524081/178201204-25c4db5f-2bcf-4124-944f-baa3e680d450.PNG)
+![슬라이드15](https://user-images.githubusercontent.com/86524081/178201207-e45d05e2-48f4-473d-8b24-ecf7520c5bc9.PNG)
+![슬라이드16](https://user-images.githubusercontent.com/86524081/178201211-8264f97c-7f32-443c-8c32-71573afeba82.PNG)
+![슬라이드17](https://user-images.githubusercontent.com/86524081/178201213-812a6e4c-54d9-430f-baa5-da76dd7e404a.PNG)
+![슬라이드18](https://user-images.githubusercontent.com/86524081/178201147-87b15403-77f5-41a6-b182-a9b430330a4f.PNG)
+![슬라이드19](https://user-images.githubusercontent.com/86524081/178201152-8d83c48c-ee85-43aa-850d-d7fe78f91ef8.PNG)
+![슬라이드20](https://user-images.githubusercontent.com/86524081/178201154-80bbd439-85ce-434e-9c2d-34927779b68f.PNG)
+![슬라이드21](https://user-images.githubusercontent.com/86524081/178201156-3bedb9ba-c044-434a-bc0b-052b5079e50e.PNG)
+![슬라이드22](https://user-images.githubusercontent.com/86524081/178201159-90ba4067-b5b0-4752-966b-3b07432c112a.PNG)
+![슬라이드23](https://user-images.githubusercontent.com/86524081/178201163-363ee2fb-bb81-4146-b7ca-1e1551ea9c96.PNG)
+![슬라이드24](https://user-images.githubusercontent.com/86524081/178201165-fa99dd2f-4cd6-4cf5-9cea-8e5d0793a1b3.PNG)
+### 최종발표 UCC
+https://www.youtube.com/watch?v=pEG5BOj7EKk
+
 
 
 
