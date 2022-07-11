@@ -36,6 +36,9 @@ CKEDITOR.editorConfig = function( config ) {
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 
+	// placeholder 관련 plugin
+	config.extraPlugins = 'confighelper';
+
 //    // 이미지 업로드
 //    config.filebrowserUploadUrl = '/upload.do?type=Files',
 //    config.filebrowserImageUploadUrl = 'upload.do?type=Images',
