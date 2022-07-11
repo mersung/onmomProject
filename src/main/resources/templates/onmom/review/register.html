@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
     <th:block th:fragment="content">
-        <meta name="_csrf_header" th:content="${_csrf.headerName}">
-        <meta name="_csrf" th:content="${_csrf.token}">
+
         <!-- CKEditor 관련 jQuery  -->
         <script src="/js/ckeditor/ckeditor.js"></script>
         <script>
