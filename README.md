@@ -90,6 +90,10 @@
 **DB**
 
     Maria db
+
+**WAS**
+
+    Apache Tomcat
 #
 ## 주요기능
 ***
