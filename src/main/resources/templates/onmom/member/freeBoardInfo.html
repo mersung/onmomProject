@@ -63,7 +63,12 @@
                     <tbody>
 
                     <tr th:each = "freeList : ${freeBoardDTO.dtoList}">
-                        <td><span>[[${freeList.free_id}]]</span></td>
+                        <th scope="row">
+                            <a th:href="@{/onmom/freeBoard/freeBoardRead(free_id = ${freeList.free_id},
+                                page= ${freeBoardDTO.page})}">
+                                [[${freeList.free_id}]]
+                            </a>
+                        </th>
                         <th scope="row">
                             <a th:href="@{/onmom/freeBoard/freeBoardRead(free_id = ${freeList.free_id},
                                 page= ${freeBoardDTO.page})}">
