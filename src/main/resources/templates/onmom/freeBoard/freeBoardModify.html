@@ -4,6 +4,8 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
     <th:block th:fragment="content">
+        <script src="/js/ckeditor/ckeditor.js"></script>
+
         <!-- Page Content-->
         <section class="py-5 post_content" th:if="${#authentication.name.equals(dto.member_id)}">
             <div class="container px-5 my-5 review_post">
