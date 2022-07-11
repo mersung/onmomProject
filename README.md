@@ -99,18 +99,18 @@
 
     로그인 후 <마이페이지, 로그아웃> 으로 변경됩니다.
     로그인 시 게시글 등록과 댓글 등록이 가능합니다.
-https://user-images.githubusercontent.com/86524081/177472500-6371d6ed-49b9-49ee-8b0a-9976bcecdea0.mp4
+https://user-images.githubusercontent.com/86524081/178181811-e41e4eef-0958-4b91-b42a-62840ca97487.mp4
 #
 ### 마이페이지
     마이페이지에서는 <내 프로필> 및 <내가 쓴 글>을 확인합니다.
 
     <내가 쓴 글>에서 게시글 클릭 시,
     해당 게시글 상세보기 페이지로 이동합니다.
-https://user-images.githubusercontent.com/86524081/177921782-97cfdbfa-c338-4d82-bd28-cfc465fcfbc7.mp4
+https://user-images.githubusercontent.com/86524081/178181838-cda25d38-aa54-446f-bde7-9197e6c20b6b.mp4
 #
 ### 공지사항
     추천게시판 및 자유게시판 이용수칙을 확인합니다.
-https://user-images.githubusercontent.com/86524081/177473820-dcfd3ee5-17d9-435a-a1d1-b64d4fa69704.mp4
+https://user-images.githubusercontent.com/86524081/178181858-d436fee5-0f41-4fbb-8b14-bd2495177860.mp4
 #
 ### 추천게시판
     회원들이 헬스장 후기를 작성하는 게시판입니다.
@@ -119,25 +119,26 @@ https://user-images.githubusercontent.com/86524081/177473820-dcfd3ee5-17d9-435a-
     (좋아요 순)
     드롭다운으로 지역을 선택합니다.
     MORE 클릭시 추천게시판 페이지로 이동합니다.
-https://user-images.githubusercontent.com/86524081/177734202-9fe99610-fe3d-4a37-85a2-47a360b92614.mp4
+https://user-images.githubusercontent.com/86524081/178181883-6635e1ec-6f09-434e-88bd-eaa40a17940e.mp4
 ####
     로그인을 한 회원에 한해서만 글쓰기 버튼이 노출됩니다.
     게시글 등록, 수정, 삭제가 가능합니다.
-https://user-images.githubusercontent.com/86524081/177921375-b348b8c1-839d-42d7-be41-2e35aba39dad.mp4
+https://user-images.githubusercontent.com/86524081/178181908-4545c411-6cc0-421f-a98b-f8a88ccbdcd7.mp4
 ####
     비회원이 댓글 등록을 시도할 경우에 로그인 페이지로 이동합니다.
     로그인 후 댓글 등록, 수정, 삭제가 가능합니다.
-https://user-images.githubusercontent.com/86524081/177734199-e17b971c-863f-4822-bb1e-200f75fb66b4.mp4
+https://user-images.githubusercontent.com/86524081/178181924-258228e4-b596-45a8-8e76-a6116579be94.mp4
 #
 ### 자유게시판
     헬스장 후기를 제외한 게시글을 회원들이 자유롭게 작성합니다.
 
     로그인을 한 회원에게만 글쓰기 버튼이 노출됩니다.
     로그인 후 게시글 등록, 수정, 삭제가 가능합니다.
-
-    --------
-
+https://user-images.githubusercontent.com/86524081/178182039-5cb5e8a5-973c-4837-bbec-fe713160ff74.mp4
+####
     비회원이 댓글 등록을 시도할 경우, 로그인 페이지로 이동합니다.
+    로그인 후 댓글 등록, 수정, 삭제가 가능합니다.
+https://user-images.githubusercontent.com/86524081/178182061-23c27705-d5c3-4b76-85e4-5363b89b3722.mp4
 #
 ### 헬스장 지도 (KAKAO Map API)
     헬스장 위치 정보를 제공합니다.
@@ -146,27 +147,25 @@ https://user-images.githubusercontent.com/86524081/177734199-e17b971c-863f-4822-
 
     1. 메인페이지에서 서울시 헬스장 버튼을 클릭하면
        서울시 헬스장 영역으로 이동합니다.
-https://user-images.githubusercontent.com/86524081/177473897-1f147800-3d27-4498-8597-66e28e9aacb4.mp4
+https://user-images.githubusercontent.com/86524081/178182092-f9b1fef0-9192-492a-aaa7-df918cb95d02.mp4
 ####
     2. 네비게이션 바에서 지도 아이콘을 클릭하면
        헬스장 검색 페이지로 이동합니다.
-https://user-images.githubusercontent.com/86524081/177473949-868aaaa6-06f3-47bd-b287-d617e6178cf0.mp4
+https://user-images.githubusercontent.com/86524081/178182123-29a6cd33-9345-4d3f-be19-bb22697b3455.mp4
 #
 ### 회원들과 채팅 (동글채팅 API)
     사이트 접속자들과 자유롭게 채팅을 할 수 있습니다.
 
     메인페이지 하단의 <채팅방 참여하기> 버튼 클릭 시
     <채팅방 닫기> 로 변경되고 채팅창이 열립니다.
-https://user-images.githubusercontent.com/86524081/177474001-cbec45a7-52f7-447b-8fe7-10b4944f6819.mp4
+https://user-images.githubusercontent.com/86524081/178182144-649f335c-afc4-41a9-9dc0-9ebbb636fc9e.mp4
 #
 ### 상담원과 채팅 (tawk.to API)
     사이트 이용시 문의사항은 상담원과 채팅을 통해 문의합니다.
 
     오른쪽 하단 아이콘을 클릭 후, 문의사항을 입력합니다.
     상단에서 예상되는 대기시간을 확인하고 답변을 기다립니다.
-https://user-images.githubusercontent.com/86524081/177474044-c9007a9c-8878-4bad-9569-ff91106e59be.mp4
-
-
+https://user-images.githubusercontent.com/86524081/178182173-0556847f-243a-4b75-832c-eb829d571880.mp4
 #
 ## 최종 산출물
 ***
