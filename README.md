@@ -2,10 +2,10 @@
 ## 프로젝트명 
 ***
     온몸(Onmom)
-
-    : "온라인(Online)"과 "몸(Body)"의 합성어.
-      몸을 가꾸기 위해 이용하는 헬스장에 대한
-      정보를 공유하는 온라인 커뮤니티입니다.
+####
+    "온라인(Online)"과 "몸(Body)"의 합성어.
+    몸을 가꾸기 위해 이용하는 헬스장에 대한
+    정보를 공유하는 온라인 커뮤니티입니다.
 #
 ## 팀원소개
 ***
@@ -22,15 +22,11 @@
 ## 프로젝트 설명
 ***
     헬스장을 선택할 때 회원권금액, PT금액과 같은 정보를 얻으려면
-
     대부분 직접방문 또는 전화문의를 해야해서 번거롭다.
 
     이러한 불편을 해소하기 위하여
-
     서울 지역별 헬스장에 대한 회원들의 솔직한 후기공유를 통해
-
     다양한 정보를 얻을 수 있는 사이트를 제작하려고 한다.
-
 ####
 
     1) 로그인한 회원만 게시판에 글쓰기 가능. 비회원은 읽기만 가능
@@ -75,8 +71,11 @@
 #
 ## ERD
 ***
-[dbdocs.zip](https://github.com/ShimDaeSung1/onmomProject/files/9042534/dbdocs.zip)
-![ERD_2022_06_30](https://user-images.githubusercontent.com/86524081/176608037-daf77596-b035-49d8-8cc6-5d75cbcfd5be.png)
+[dbdocs.zip](https://github.com/ShimDaeSung1/onmomProject/files/9081310/dbdocs.zip)
+![ERD_2022_07_11](https://user-images.githubusercontent.com/86524081/178200316-19acbeab-7f37-4d85-99ba-9c93fda58883.png)
+#
+## Class Diagram
+![cld](https://user-images.githubusercontent.com/86524081/178201458-1b3abec4-a47b-4f8a-a426-547feb3a223d.jpg)
 #
 ## 기술스택
 ***
@@ -91,14 +90,6 @@
 **DB**
 
     Maria db
-
-**WAS**
-    
-    Apache Tomcat
-
-**배포**
-
-    AWS EC2 (Amazon Linux)
 #
 ## 주요기능
 ***
@@ -107,18 +98,18 @@
 
     로그인 후 <마이페이지, 로그아웃> 으로 변경됩니다.
     로그인 시 게시글 등록과 댓글 등록이 가능합니다.
-https://user-images.githubusercontent.com/86524081/177472500-6371d6ed-49b9-49ee-8b0a-9976bcecdea0.mp4
+https://user-images.githubusercontent.com/86524081/178181811-e41e4eef-0958-4b91-b42a-62840ca97487.mp4
 #
 ### 마이페이지
     마이페이지에서는 <내 프로필> 및 <내가 쓴 글>을 확인합니다.
 
     <내가 쓴 글>에서 게시글 클릭 시,
     해당 게시글 상세보기 페이지로 이동합니다.
-https://user-images.githubusercontent.com/86524081/177738925-124a42f4-03ae-4118-8fe4-da20e102c952.mp4
+https://user-images.githubusercontent.com/86524081/178181838-cda25d38-aa54-446f-bde7-9197e6c20b6b.mp4
 #
 ### 공지사항
     추천게시판 및 자유게시판 이용수칙을 확인합니다.
-https://user-images.githubusercontent.com/86524081/177473820-dcfd3ee5-17d9-435a-a1d1-b64d4fa69704.mp4
+https://user-images.githubusercontent.com/86524081/178181858-d436fee5-0f41-4fbb-8b14-bd2495177860.mp4
 #
 ### 추천게시판
     회원들이 헬스장 후기를 작성하는 게시판입니다.
@@ -127,25 +118,30 @@ https://user-images.githubusercontent.com/86524081/177473820-dcfd3ee5-17d9-435a-
     (좋아요 순)
     드롭다운으로 지역을 선택합니다.
     MORE 클릭시 추천게시판 페이지로 이동합니다.
-https://user-images.githubusercontent.com/86524081/177734202-9fe99610-fe3d-4a37-85a2-47a360b92614.mp4
-
+https://user-images.githubusercontent.com/86524081/178181883-6635e1ec-6f09-434e-88bd-eaa40a17940e.mp4
+####
     로그인을 한 회원에 한해서만 글쓰기 버튼이 노출됩니다.
     게시글 등록, 수정, 삭제가 가능합니다.
-https://user-images.githubusercontent.com/86524081/177734190-36156e7e-850a-42d7-bebf-7e0a711d2e4b.mp4
-
+https://user-images.githubusercontent.com/86524081/178181908-4545c411-6cc0-421f-a98b-f8a88ccbdcd7.mp4
+####
     비회원이 댓글 등록을 시도할 경우에 로그인 페이지로 이동합니다.
     로그인 후 댓글 등록, 수정, 삭제가 가능합니다.
-https://user-images.githubusercontent.com/86524081/177734199-e17b971c-863f-4822-bb1e-200f75fb66b4.mp4
+https://user-images.githubusercontent.com/86524081/178181924-258228e4-b596-45a8-8e76-a6116579be94.mp4
+####
+    게시글 등록 시에 내용 또는 이미지가 없거나, 
+    글자수를 초과하는 경우 에러페이지로 이동합니다.
+https://user-images.githubusercontent.com/86524081/178188837-d2b45edd-4bc0-421c-9244-2744259a1c74.mp4
 #
 ### 자유게시판
     헬스장 후기를 제외한 게시글을 회원들이 자유롭게 작성합니다.
 
     로그인을 한 회원에게만 글쓰기 버튼이 노출됩니다.
     로그인 후 게시글 등록, 수정, 삭제가 가능합니다.
-
-    --------
-
+https://user-images.githubusercontent.com/86524081/178182039-5cb5e8a5-973c-4837-bbec-fe713160ff74.mp4
+####
     비회원이 댓글 등록을 시도할 경우, 로그인 페이지로 이동합니다.
+    로그인 후 댓글 등록, 수정, 삭제가 가능합니다.
+https://user-images.githubusercontent.com/86524081/178182061-23c27705-d5c3-4b76-85e4-5363b89b3722.mp4
 #
 ### 헬스장 지도 (KAKAO Map API)
     헬스장 위치 정보를 제공합니다.
@@ -154,35 +150,57 @@ https://user-images.githubusercontent.com/86524081/177734199-e17b971c-863f-4822-
 
     1. 메인페이지에서 서울시 헬스장 버튼을 클릭하면
        서울시 헬스장 영역으로 이동합니다.
-https://user-images.githubusercontent.com/86524081/177473897-1f147800-3d27-4498-8597-66e28e9aacb4.mp4
-    
+https://user-images.githubusercontent.com/86524081/178182092-f9b1fef0-9192-492a-aaa7-df918cb95d02.mp4
+####
     2. 네비게이션 바에서 지도 아이콘을 클릭하면
        헬스장 검색 페이지로 이동합니다.
-https://user-images.githubusercontent.com/86524081/177473949-868aaaa6-06f3-47bd-b287-d617e6178cf0.mp4
+https://user-images.githubusercontent.com/86524081/178182123-29a6cd33-9345-4d3f-be19-bb22697b3455.mp4
 #
 ### 회원들과 채팅 (동글채팅 API)
     사이트 접속자들과 자유롭게 채팅을 할 수 있습니다.
 
     메인페이지 하단의 <채팅방 참여하기> 버튼 클릭 시
     <채팅방 닫기> 로 변경되고 채팅창이 열립니다.
-https://user-images.githubusercontent.com/86524081/177474001-cbec45a7-52f7-447b-8fe7-10b4944f6819.mp4
+https://user-images.githubusercontent.com/86524081/178182144-649f335c-afc4-41a9-9dc0-9ebbb636fc9e.mp4
 #
 ### 상담원과 채팅 (tawk.to API)
     사이트 이용시 문의사항은 상담원과 채팅을 통해 문의합니다.
 
     오른쪽 하단 아이콘을 클릭 후, 문의사항을 입력합니다.
     상단에서 예상되는 대기시간을 확인하고 답변을 기다립니다.
-https://user-images.githubusercontent.com/86524081/177474044-c9007a9c-8878-4bad-9569-ff91106e59be.mp4
-
-
+https://user-images.githubusercontent.com/86524081/178182173-0556847f-243a-4b75-832c-eb829d571880.mp4
 #
 ## 최종 산출물
 ***
-    최종발표 UCC (유튜브에 영상 업로드한 링크 첨부할 예정)
-####
-    최종발표 PPT (이미지로 변환하여 첨부하기)
-####
-    온몸 웹사이트 (AWS 배포 후 링크 첨부할 예정)
+### 최종발표 PPT
+[07_Onmom_2022_07_11.pptx](https://github.com/ShimDaeSung1/onmomProject/files/9081324/07_Onmom_2022_07_11.pptx)
+![슬라이드1](https://user-images.githubusercontent.com/86524081/178201168-5697e8d8-251f-4931-bae8-22d0958cb9a2.PNG)
+![슬라이드2](https://user-images.githubusercontent.com/86524081/178201171-5423216d-12d8-4cc9-8584-af56104449f7.PNG)
+![슬라이드3](https://user-images.githubusercontent.com/86524081/178201176-d03928f3-3243-4493-8806-a8acb2391130.PNG)
+![슬라이드4](https://user-images.githubusercontent.com/86524081/178201178-a6898df2-290d-4d80-a24c-bd0faf5036eb.PNG)
+![슬라이드5](https://user-images.githubusercontent.com/86524081/178201181-924ae73e-fff6-4b58-806e-9cf53416d03d.PNG)
+![슬라이드6](https://user-images.githubusercontent.com/86524081/178201184-5061cdbe-a3bf-4b54-b11b-6cacb3163d6a.PNG)
+![슬라이드7](https://user-images.githubusercontent.com/86524081/178201185-883a4b22-782f-446f-abc3-7eaf5fc5a8de.PNG)
+![슬라이드8](https://user-images.githubusercontent.com/86524081/178201186-1e6d9148-53a4-4eb1-a22d-9d0ce5db0303.PNG)
+![슬라이드9](https://user-images.githubusercontent.com/86524081/178201188-f34e604a-df65-41de-aeff-714c0829ced3.PNG)
+![슬라이드10](https://user-images.githubusercontent.com/86524081/178201191-fddf6af4-7379-4d4d-b91e-15c65f8b9950.PNG)
+![슬라이드11](https://user-images.githubusercontent.com/86524081/178201196-fb21459e-9b22-4baa-a097-7691b9d35b6c.PNG)
+![슬라이드12](https://user-images.githubusercontent.com/86524081/178201198-db07a11f-0ae2-4beb-a9c2-6daa0638cec3.PNG)
+![슬라이드13](https://user-images.githubusercontent.com/86524081/178201201-5d81c049-ff99-4442-9faa-887f3919172d.PNG)
+![슬라이드14](https://user-images.githubusercontent.com/86524081/178201204-25c4db5f-2bcf-4124-944f-baa3e680d450.PNG)
+![슬라이드15](https://user-images.githubusercontent.com/86524081/178201207-e45d05e2-48f4-473d-8b24-ecf7520c5bc9.PNG)
+![슬라이드16](https://user-images.githubusercontent.com/86524081/178201211-8264f97c-7f32-443c-8c32-71573afeba82.PNG)
+![슬라이드17](https://user-images.githubusercontent.com/86524081/178201213-812a6e4c-54d9-430f-baa5-da76dd7e404a.PNG)
+![슬라이드18](https://user-images.githubusercontent.com/86524081/178201147-87b15403-77f5-41a6-b182-a9b430330a4f.PNG)
+![슬라이드19](https://user-images.githubusercontent.com/86524081/178201152-8d83c48c-ee85-43aa-850d-d7fe78f91ef8.PNG)
+![슬라이드20](https://user-images.githubusercontent.com/86524081/178201154-80bbd439-85ce-434e-9c2d-34927779b68f.PNG)
+![슬라이드21](https://user-images.githubusercontent.com/86524081/178201156-3bedb9ba-c044-434a-bc0b-052b5079e50e.PNG)
+![슬라이드22](https://user-images.githubusercontent.com/86524081/178201159-90ba4067-b5b0-4752-966b-3b07432c112a.PNG)
+![슬라이드23](https://user-images.githubusercontent.com/86524081/178201163-363ee2fb-bb81-4146-b7ca-1e1551ea9c96.PNG)
+![슬라이드24](https://user-images.githubusercontent.com/86524081/178201165-fa99dd2f-4cd6-4cf5-9cea-8e5d0793a1b3.PNG)
+### 최종발표 UCC
+https://www.youtube.com/watch?v=pEG5BOj7EKk
+
 
 
 
