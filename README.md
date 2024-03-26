@@ -178,10 +178,10 @@ https://user-images.githubusercontent.com/86524081/178182173-0556847f-243a-4b75-
 ***
 ### 최종발표 PPT
 
-![슬라이드1](https://user-images.githubusercontent.com/86524081/178201168-5697e8d8-251f-4931-bae8-22d0958cb9a2.PNG)
+
 ![슬라이드2](https://user-images.githubusercontent.com/86524081/178201171-5423216d-12d8-4cc9-8584-af56104449f7.PNG)
 
-![슬라이드4](https://user-images.githubusercontent.com/86524081/178201178-a6898df2-290d-4d80-a24c-bd0faf5036eb.PNG)
+
 ![슬라이드5](https://user-images.githubusercontent.com/86524081/178201181-924ae73e-fff6-4b58-806e-9cf53416d03d.PNG)
 ![슬라이드6](https://user-images.githubusercontent.com/86524081/178201184-5061cdbe-a3bf-4b54-b11b-6cacb3163d6a.PNG)
 ![슬라이드7](https://user-images.githubusercontent.com/86524081/178201185-883a4b22-782f-446f-abc3-7eaf5fc5a8de.PNG)
