@@ -177,10 +177,10 @@ https://user-images.githubusercontent.com/86524081/178182173-0556847f-243a-4b75-
 ## 최종 산출물
 ***
 ### 최종발표 PPT
-[07_Onmom_2022_07_11.pptx](https://github.com/ShimDaeSung1/onmomProject/files/9081324/07_Onmom_2022_07_11.pptx)
+
 ![슬라이드1](https://user-images.githubusercontent.com/86524081/178201168-5697e8d8-251f-4931-bae8-22d0958cb9a2.PNG)
 ![슬라이드2](https://user-images.githubusercontent.com/86524081/178201171-5423216d-12d8-4cc9-8584-af56104449f7.PNG)
-![슬라이드3](https://user-images.githubusercontent.com/86524081/178201176-d03928f3-3243-4493-8806-a8acb2391130.PNG)
+
 ![슬라이드4](https://user-images.githubusercontent.com/86524081/178201178-a6898df2-290d-4d80-a24c-bd0faf5036eb.PNG)
 ![슬라이드5](https://user-images.githubusercontent.com/86524081/178201181-924ae73e-fff6-4b58-806e-9cf53416d03d.PNG)
 ![슬라이드6](https://user-images.githubusercontent.com/86524081/178201184-5061cdbe-a3bf-4b54-b11b-6cacb3163d6a.PNG)
@@ -203,8 +203,7 @@ https://user-images.githubusercontent.com/86524081/178182173-0556847f-243a-4b75-
 ![슬라이드23](https://user-images.githubusercontent.com/86524081/178201163-363ee2fb-bb81-4146-b7ca-1e1551ea9c96.PNG)
 ![슬라이드24](https://user-images.githubusercontent.com/86524081/178201165-fa99dd2f-4cd6-4cf5-9cea-8e5d0793a1b3.PNG)
 #
-### 최종발표 UCC
-https://www.youtube.com/watch?v=pEG5BOj7EKk
+
 
 
 
