@@ -54,8 +54,8 @@
 #
 ## UI 설계서
 ***
-[03_UI_2022_06_30.pptx](https://github.com/ShimDaeSung1/onmomProject/files/9042512/03_UI_2022_06_30.pptx)
-![OnmomProject_UI_page-0001](https://user-images.githubusercontent.com/86524081/176625305-48865b34-c471-4d53-8203-7cb1b67bbdae.jpg)
+
+
 ![OnmomProject_UI_page-0002](https://user-images.githubusercontent.com/86524081/176625317-0ad8bf8d-25dc-430a-86b7-fe1b24cf4cde.jpg)
 ![OnmomProject_UI_page-0003](https://user-images.githubusercontent.com/86524081/176625319-986c2c67-f9b0-4d55-b92e-0401cff8688c.jpg)
 ![OnmomProject_UI_page-0004](https://user-images.githubusercontent.com/86524081/176625322-10142ab4-6afa-4307-a647-73df8a139c9c.jpg)
